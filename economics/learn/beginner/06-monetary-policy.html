@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monetary Policy - Lesson 6 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .central-bank-card {
+            background: #312e81;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+        .central-bank-card h4 {
+            color: #fbbf24;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+        .timeline-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            margin: 15px 0;
+            border-left: 4px solid #312e81;
+        }
+        .timeline-year {
+            font-weight: bold;
+            color: #312e81;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/beginner">Beginner</a> › 
+                Lesson 6: Monetary Policy
+            </div>
+            <div class="title-section">
+                <h1>Monetary Policy</h1>
+                <span class="badge">Beginner • 40 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 12 Quiz Questions</span>
+                <span><i class="fas fa-university"></i> Central Banking</span>
+                <span><i class="fas fa-mosque"></i> Islamic Monetary System</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ</div>
+            <div class="translation">"O you who have believed, do not consume one another's wealth unjustly, but only [in lawful] business by mutual consent."</div>
+            <div class="reference">— Quran 4:29</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Monetary policy affects the value of money itself. Just transactions require stable and just monetary systems.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-university"></i>
+                What is Monetary Policy?
+            </div>
+            <p style="font-size: 18px;">Monetary policy is the process by which a central bank controls the money supply, interest rates, and credit conditions to achieve economic goals like price stability, full employment, and economic growth.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 Simple Definition:</strong> Monetary policy is how central banks manage the economy by controlling how much money is available and how much it costs to borrow.</p>
+            </div>
+
+            <div class="central-bank-card">
+                <h4><i class="fas fa-building"></i> Major Central Banks</h4>
+                <ul style="margin-left: 20px; color: white;">
+                    <li><strong>Federal Reserve (Fed):</strong> United States</li>
+                    <li><strong>European Central Bank (ECB):</strong> Eurozone</li>
+                    <li><strong>Bank of England (BoE):</strong> United Kingdom</li>
+                    <li><strong>Bank of Japan (BoJ):</strong> Japan</li>
+                    <li><strong>People's Bank of China (PBoC):</strong> China</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Goals of Monetary Policy -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-bullseye"></i>
+                Goals of Monetary Policy
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h3>🎯 Primary Goals</h3>
+                    <ul>
+                        <li><strong>Price Stability:</strong> Control inflation (typically 2% target)</li>
+                        <li><strong>Maximum Employment:</strong> Help create jobs</li>
+                        <li><strong>Moderate Interest Rates:</strong> Stable borrowing costs</li>
+                        <li><strong>Financial Stability:</strong> Prevent banking crises</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h3>📊 Fed's Dual Mandate</h3>
+                    <ul>
+                        <li><strong>1. Maximum Employment</strong></li>
+                        <li><strong>2. Price Stability</strong></li>
+                    </ul>
+                    <p style="margin-top: 10px;">The ECB has a single mandate: price stability.</p>
+                </div>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Milton Friedman • Nobel Prize 1976</h4>
+                <p>"Inflation is always and everywhere a monetary phenomenon." Friedman showed that controlling the money supply is key to controlling inflation.</p>
+            </div>
+        </div>
+
+        <!-- Tools of Monetary Policy -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-tools"></i>
+                The Three Main Tools
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h3>1. Interest Rates</h3>
+                    <p><strong>Federal Funds Rate</strong> - rate banks charge each other overnight</p>
+                    <ul>
+                        <li><strong>Raise rates ↓:</strong> Borrowing costly → spending ↓ → inflation ↓</li>
+                        <li><strong>Lower rates ↑:</strong> Borrowing cheap → spending ↑ → growth ↑</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h3>2. Reserve Requirements</h3>
+                    <p>Money banks must hold, not lend</p>
+                    <ul>
+                        <li><strong>Increase:</strong> Less money to lend → slows economy</li>
+                        <li><strong>Decrease:</strong> More money to lend → stimulates economy</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="column-card" style="margin-top: 15px;">
+                <h3>3. Open Market Operations</h3>
+                <p>Buying and selling government bonds</p>
+                <ul>
+                    <li><strong>Buy bonds:</strong> Inject money into economy → stimulates growth</li>
+                    <li><strong>Sell bonds:</strong> Remove money from economy → fights inflation</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> How It Works: Interest Rate Example</h4>
+                <p><strong>Inflation high (6%):</strong> Fed raises rates from 2% to 5% → Mortgages expensive, business loans costly → People spend less, businesses hire less → Demand falls → Prices stop rising → Inflation drops to 2%</p>
+                <p><strong>Recession:</strong> Fed lowers rates to 0% → Mortgages cheap, business loans affordable → People buy homes, businesses expand → Economy grows, jobs created</p>
+            </div>
+        </div>
+
+        <!-- Expansionary vs Contractionary -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-arrows-alt"></i>
+                Expansionary vs Contractionary
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background: #d1fae5;">
+                    <h3 style="color: #065f46;">📈 Expansionary (Easy Money)</h3>
+                    <p><strong>When:</strong> Recession, high unemployment</p>
+                    <p><strong>Actions:</strong> Lower rates, buy bonds, lower reserves</p>
+                    <p><strong>Effects:</strong> More money, cheaper loans, growth ↑, inflation ↑</p>
+                </div>
+                <div class="column-card" style="background: #fee2e2;">
+                    <h3 style="color: #991b1b;">📉 Contractionary (Tight Money)</h3>
+                    <p><strong>When:</strong> High inflation</p>
+                    <p><strong>Actions:</strong> Raise rates, sell bonds, raise reserves</p>
+                    <p><strong>Effects:</strong> Less money, expensive loans, growth ↓, inflation ↓</p>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> The Psychology</h4>
+                <p>Monetary policy works partly through expectations. If people believe the central bank will control inflation, they won't demand huge wage increases, and businesses won't raise prices preemptively. This is why central bank communication is so important.</p>
+            </div>
+        </div>
+
+        <!-- Transmission Mechanism -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-sitemap"></i>
+                How Policy Affects You: The Transmission Mechanism
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">Step 1: Central Bank Acts</div>
+                    <p>Fed lowers interest rates by 0.5%</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Step 2: Banks Respond</div>
+                    <p>Banks lower their prime lending rates, mortgage rates, and credit card rates</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Step 3: Businesses & Consumers React</div>
+                    <p>Companies borrow to expand, families buy homes, people spend more</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Step 4: Asset Prices Rise</div>
+                    <p>Stock market goes up, home values increase (wealth effect)</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Step 5: Exchange Rate Changes</div>
+                    <p>Lower rates → currency weakens → exports increase</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Step 6: Economy Grows</div>
+                    <p>More spending, more jobs, higher GDP</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-home"></i> Real-World: 2008 Financial Crisis</h4>
+                <p>Fed lowered rates to nearly 0% and bought trillions in bonds (Quantitative Easing). This helped stabilize the economy but also contributed to asset price inflation (stocks, real estate).</p>
+            </div>
+        </div>
+
+        <!-- Quantitative Easing -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-print"></i>
+                Unconventional Policy: Quantitative Easing (QE)
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ What is QE?</h4>
+                <p>When interest rates are already at zero, central banks can't lower them further. So they create new money electronically and use it to buy government bonds and other assets. This increases money supply and lowers long-term interest rates.</p>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>✅ Pros</h4>
+                    <ul>
+                        <li>Prevents deflation</li>
+                        <li>Supports economy in crisis</li>
+                        <li>Lowers borrowing costs</li>
+                        <li>Boosts asset prices</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>❌ Cons</h4>
+                    <ul>
+                        <li>Can create asset bubbles</li>
+                        <li>Hurts savers (low returns)</li>
+                        <li>Increases inequality (rich own more assets)</li>
+                        <li>Hard to exit smoothly</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Ben Bernanke • Nobel Prize 2022</h4>
+                <p>Awarded for research on banking crises and his role in implementing QE during the 2008 financial crisis as Fed Chair.</p>
+            </div>
+        </div>
+
+        <!-- Limitations and Challenges -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Limitations of Monetary Policy
+            </div>
+
+            <ul style="margin-left: 20px;">
+                <li><strong>Liquidity Trap:</strong> When rates are near zero, policy loses effectiveness</li>
+                <li><strong>Time Lags:</strong> Policy takes 6-18 months to fully affect economy</li>
+                <li><strong>Political Pressure:</strong> Central bank independence is crucial</li>
+                <li><strong>Global Spillovers:</strong> US policy affects entire world</li>
+                <li><strong>Inequality:</strong> Low rates benefit asset owners, hurt savers</li>
+            </ul>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-mosque"></i> Islamic Perspective on Monetary Policy</h4>
+                <p>In an Islamic economic system, monetary policy must operate without interest (riba). This presents challenges and opportunities:</p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li><strong>Profit-sharing (Mudaraba):</strong> Instead of interest-based lending, banks share profits with depositors</li>
+                    <li><strong>Asset-backed financing:</strong> Money creation should be tied to real assets</li>
+                    <li><strong>Zakat:</strong> Helps redistribute wealth, complementing monetary policy</li>
+                    <li><strong>No speculative trading:</strong> Reduces financial instability</li>
+                </ul>
+                <p style="margin-top: 10px;">Some Islamic scholars argue that an interest-free system would be more stable and just, as money would be created for productive investment rather than speculative debt.</p>
+            </div>
+        </div>
+
+        <!-- Historical Examples -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Historical Examples
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">1970s: The Great Inflation</div>
+                <p>Fed kept rates too low, inflation hit 14%. Paul Volcker became Fed Chair in 1979 and raised rates to 20%, causing severe recession but breaking inflation's back.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2008: Global Financial Crisis</div>
+                <p>Fed lowered rates to 0 and launched QE. Similar actions by ECB, BoE, BoJ. Prevented depression but led to decade of low rates.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2020-2022: Pandemic Response</div>
+                <p>Massive stimulus, rates near zero. Followed by 2022-2024: fastest rate hikes in 40 years to combat post-pandemic inflation.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-year">2022-2025: Inflation Fight</div>
+                <p>Fed raised rates from 0% to 5.5%, the most aggressive tightening since 1980s. Inflation fell from 9% to 3%.</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 12 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is monetary policy?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">A. Government decisions about taxes and spending</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">B. Central bank management of money supply and interest rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. International trade agreements</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. Stock market regulations</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> Monetary policy is conducted by central banks to manage the economy through interest rates and money supply.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. Which is NOT a tool of monetary policy?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">A. Interest rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">B. Open market operations</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">C. Government spending</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Reserve requirements</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> Government spending is fiscal policy, not monetary policy. The other three are the main monetary tools.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. What is the Federal Reserve's "dual mandate"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">A. Low inflation and balanced budget</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">B. Maximum employment and price stability</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. Strong dollar and low trade deficit</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. Bank profits and stock market growth</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> The Fed must pursue both maximum employment and stable prices (2% inflation target).
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. If inflation is too high, what should the central bank do?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">A. Raise interest rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">B. Lower interest rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. Buy government bonds</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Print more money</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> Higher rates cool the economy by making borrowing expensive, reducing demand and inflation.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What is Quantitative Easing (QE)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">A. Raising taxes on the wealthy</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">B. Increasing government spending</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">C. Central bank buying bonds to inject money</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. Reducing the money supply</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> QE is when central banks create money to buy bonds, increasing money supply when rates are already at zero.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. Who said "Inflation is always and everywhere a monetary phenomenon"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">A. John Maynard Keynes</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">B. Milton Friedman</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. Adam Smith</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Karl Marx</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> Milton Friedman won the Nobel Prize for his work on monetary policy and inflation.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What happens when a central bank buys government bonds?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">A. Money supply increases (stimulus)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. Money supply decreases</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. Interest rates rise</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. Inflation always falls</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> Buying bonds injects money into the economy, increasing money supply and stimulating growth.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. What is the "liquidity trap"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">A. When banks run out of cash</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">B. When interest rates near zero, policy loses effectiveness</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. When inflation is too high</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. When the stock market crashes</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> A liquidity trap occurs when rates are at or near zero and people hoard cash, making traditional monetary policy ineffective.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. Who won the Nobel Prize in 2022 for research on banking crises?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">A. Janet Yellen</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. Jerome Powell</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">C. Ben Bernanke</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. Christine Lagarde</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> Ben Bernanke, former Fed Chair, won for his research on banking crises and his role during the 2008 financial crisis.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. How does Islamic monetary policy differ from conventional?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. No interest (riba), profit-sharing instead</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Higher interest rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. No central bank</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. Gold standard only</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Islamic monetary policy operates without interest, using profit-sharing (Mudaraba) and asset-backed financing instead.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. What did Paul Volcker do to fight 1970s inflation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">A. Raised rates to 20%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. Lowered rates to 0%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. Printed more money</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. Cut taxes</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Volcker raised rates to an unprecedented 20%, causing a deep recession but permanently breaking inflation expectations.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. Why is central bank independence important?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">A. So banks can make more profit</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">B. To prevent politicians from manipulating rates for short-term gain</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. To keep interest rates secret</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. So they can ignore the economy</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> Independent central banks can make unpopular decisions (like raising rates) without political pressure, leading to better long-term outcomes.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"A Monetary History of the United States" - Milton Friedman</a></li>
+                        <li><a href="#">"The Courage to Act" - Ben Bernanke</a></li>
+                        <li><a href="#">"Principles of Economics" - Mankiw (Ch. 29-30)</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🌐 Central Bank Websites</h4>
+                    <ul>
+                        <li><a href="https://www.federalreserve.gov" target="_blank">Federal Reserve</a></li>
+                        <li><a href="https://www.ecb.europa.eu" target="_blank">European Central Bank</a></li>
+                        <li><a href="https://www.bis.org" target="_blank">Bank for International Settlements</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Economics</h4>
+                    <ul>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Finance</a></li>
+                        <li><a href="https://isdb.org" target="_blank">Islamic Development Bank</a></li>
+                        <li><a href="#">"Monetary Policy in Islamic Economics" - M. Umer Chapra</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/beginner/05-unemployment.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Unemployment</a>
+            <a href="/economics/learn/beginner/07-fiscal-policy.html" class="nav-link">Next: Fiscal Policy <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May your wealth be managed with wisdom and justice</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 6 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في رمضان وتقبل منا</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

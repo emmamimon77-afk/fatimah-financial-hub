@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break-Even Analysis</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .analysis-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-top: 4px solid #2196f3;
+        }
+        
+        .analysis-card.break-even {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+        
+        .analysis-card h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 1em;
+        }
+        
+        .analysis-card .value {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2196f3;
+        }
+        
+        .analysis-card.break-even .value {
+            color: #4caf50;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background: #f5f5f5;
+            color: #2196f3;
+            font-weight: 600;
+        }
+        
+        tr:hover { background: #f9f9f9; }
+        
+        .profit { color: #4caf50; font-weight: bold; }
+        .loss { color: #f44336; font-weight: bold; }
+        
+        /* Explanation Cards Styles */
+        .explanation-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .explanation-card {
+            background: linear-gradient(135deg, #0f4c5c 0%, #2e8b57 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .explanation-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .explanation-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .explanation-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 0.5rem;
+        }
+        
+        .explanation-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 768px) {
+            .explanation-cards {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+        
+        /* Islamic decoration */
+        .bismillah {
+            font-size: 1.5rem;
+            font-family: 'Traditional Arabic', serif;
+            text-align: center;
+            margin: 20px 0;
+            color: #4a6fa5;
+        }
+        
+        .hamdullah {
+            font-size: 1rem;
+            font-family: 'Traditional Arabic', serif;
+            text-align: center;
+            margin: 10px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                 <i class="fas fa-user" style="margin-right: 5px;"></i> Personal Finance
+            </span>
+        </div>
+    </div>
+    
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="index.html" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Business Finance</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333; font-weight: 500;">Break-Even Analysis</span>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="bismillah">﷽</div>
+            <h1><i class="fas fa-balance-scale"></i> Break-Even Analysis</h1>
+            <p>Calculate units needed to cover costs and analyze profitability</p>
+            <a href="index.html" class="back-link">← Back to Business Hub</a>
+        </div>
+        
+        <!-- Explanation Cards -->
+        <div class="explanation-cards">
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>What It Does</h3>
+                <p>Break-even analysis determines the point where total revenue equals total costs - the moment your business starts making profit. It shows how many units you must sell to cover all fixed and variable expenses.</p>
+            </div>
+    
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <h3>Why It Matters</h3>
+                <p>Knowing your break-even point helps set sales targets, price products appropriately, and understand your cost structure. It's essential for business planning, loan applications, and making informed decisions about expansion.</p>
+            </div>
+    
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Key Insights</h3>
+                <p>Lower break-even points mean less risk. Increase contribution margin by raising prices or reducing variable costs. Fixed costs should be minimized when starting out. Monitor your margin of safety - how far sales can fall before losing money.</p>
+            </div>
+        </div>
+        
+        <div class="calculator-card">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                <div class="input-group">
+                    <label>Fixed Costs ($)</label>
+                    <input type="number" id="fixedCosts" value="10000" class="form-input">
+                    <div class="input-hint">Rent, salaries, insurance</div>
+                </div>
+                
+                <div class="input-group">
+                    <label>Price per Unit ($)</label>
+                    <input type="number" id="pricePerUnit" value="100" class="form-input">
+                    <div class="input-hint">Selling price of each unit</div>
+                </div>
+                
+                <div class="input-group">
+                    <label>Variable Cost per Unit ($)</label>
+                    <input type="number" id="variableCost" value="40" class="form-input">
+                    <div class="input-hint">Materials, labor per unit</div>
+                </div>
+            </div>
+            
+            <button id="calculateBtn" class="calculate-btn">
+                Calculate Break-Even <i class="fas fa-calculator"></i>
+            </button>
+            
+            <div id="results" class="results">
+                Enter costs and prices to calculate
+            </div>
+        </div>
+    </div>
+    
+    <script src="../shared/config.js"></script>
+    <script src="../shared/calculators.js"></script>
+    <script>
+    function calculateBreakEven() {
+        const fixedCosts = parseFloat(document.getElementById('fixedCosts').value) || 0;
+        const pricePerUnit = parseFloat(document.getElementById('pricePerUnit').value) || 0;
+        const variableCost = parseFloat(document.getElementById('variableCost').value) || 0;
+        
+        if (!window.FinancialCalculators) {
+            document.getElementById('results').innerHTML = 
+                '<div class="error">Calculators not loaded</div>';
+            return;
+        }
+        
+        const calc = new FinancialCalculators();
+        const result = calc.calculateBreakEven({
+            fixedCosts: fixedCosts,
+            pricePerUnit: pricePerUnit,
+            variableCostPerUnit: variableCost
+        });
+        
+        displayResults(result);
+    }
+    
+    function displayResults(result) {
+        const resultsDiv = document.getElementById('results');
+        
+        if (!result.success) {
+            resultsDiv.innerHTML = `<div class="error">Error: ${result.error}</div>`;
+            return;
+        }
+        
+        // Format numbers with 2 decimal places
+        const formatMoney = (value) => {
+            return parseFloat(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        };
+        
+        resultsDiv.innerHTML = `
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <h4>Fixed Costs</h4>
+                    <div class="value">$${formatMoney(result.fixedCosts)}</div>
+                </div>
+                <div class="analysis-card">
+                    <h4>Price per Unit</h4>
+                    <div class="value">$${formatMoney(result.pricePerUnit)}</div>
+                </div>
+                <div class="analysis-card">
+                    <h4>Variable Cost</h4>
+                    <div class="value">$${formatMoney(result.variableCostPerUnit)}</div>
+                </div>
+                <div class="analysis-card">
+                    <h4>Contribution Margin</h4>
+                    <div class="value">$${formatMoney(result.contributionMargin)}</div>
+                    <div style="font-size: 0.9em; color: #666;">
+                        ${result.contributionMarginRatio}% of price
+                    </div>
+                </div>
+                <div class="analysis-card break-even">
+                    <h4>Break-Even Units</h4>
+                    <div class="value">${result.breakEvenUnits}</div>
+                    <div style="font-size: 0.9em; color: #666;">
+                        units to sell
+                    </div>
+                </div>
+                <div class="analysis-card break-even">
+                    <h4>Break-Even Revenue</h4>
+                    <div class="value">$${formatMoney(result.breakEvenRevenue)}</div>
+                    <div style="font-size: 0.9em; color: #666;">
+                        total sales needed
+                    </div>
+                </div>
+            </div>
+            
+            <h3 style="margin: 30px 0 15px 0; color: #2196f3;">Profitability at Different Sales Levels</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sales Level</th>
+                        <th>Units</th>
+                        <th>Revenue</th>
+                        <th>Total Costs</th>
+                        <th>Profit/Loss</th>
+                        <th>Profit Margin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${result.analysis.map(item => `
+                        <tr>
+                            <td><strong>${item.label}</strong></td>
+                            <td>${item.units}</td>
+                            <td>$${formatMoney(item.revenue)}</td>
+                            <td>$${formatMoney(item.totalCosts)}</td>
+                            <td class="${parseFloat(item.profit) >= 0 ? 'profit' : 'loss'}">
+                                $${formatMoney(item.profit)}
+                            </td>
+                            <td class="${parseFloat(item.profitMargin) >= 0 ? 'profit' : 'loss'}">
+                                ${item.profitMargin}%
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 8px;">
+                <h4 style="margin: 0 0 10px 0; color: #2e7d32;">
+                    <i class="fas fa-lightbulb"></i> ${result.interpretation}
+                </h4>
+                <p style="margin: 0; color: #666;">
+                    <strong>Formula:</strong> Break-even Units = Fixed Costs ÷ (Price - Variable Cost)<br>
+                    Each unit sold contributes $${formatMoney(result.contributionMargin)} toward covering fixed costs.
+                </p>
+            </div>
+            <div class="hamdullah">الحمد لله</div>
+        `;
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('calculateBtn').addEventListener('click', calculateBreakEven);
+        
+        // Auto-calculate on input changes
+        ['fixedCosts', 'pricePerUnit', 'variableCost'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateBreakEven);
+        });
+        
+        // Initial calculation
+        setTimeout(calculateBreakEven, 100);
+    });
+    </script>
+    
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+         <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+             <div>
+                 <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                 <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                 </a>
+                 <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                 </a>
+             </div>
+        
+             <div>
+                 <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                 <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                 </a>
+                 <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                 </a>
+                 <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                 </a>
+             </div>
+        
+             <div>
+                 <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+                 <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                 </a>
+                 <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                 </a>
+                 <a href="/economics" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0;">
+                    <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics
+                 </a>
+             </div>
+         </div>
+    
+         <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+             <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+             <p style="margin-top: 10px; font-size: 0.9rem;">
+                <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+             </p>
+         </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phillips Curve & Inflation Dynamics - Lesson 14 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #7c3aed;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .debate-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            margin: 15px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/intermediate">Intermediate</a> › 
+                Lesson 14: Phillips Curve & Inflation Dynamics
+            </div>
+            <div class="title-section">
+                <h1>The Phillips Curve</h1>
+                <span class="badge">Intermediate • 50 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 14 Quiz Questions</span>
+                <span><i class="fas fa-chart-line"></i> Inflation-Unemployment Trade-off</span>
+                <span><i class="fas fa-mosque"></i> Islamic Perspective on Inflation</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">وَلَا تَبْخَسُوا النَّاسَ أَشْيَاءَهُمْ وَلَا تَعْثَوْا فِي الْأَرْضِ مُفْسِدِينَ</div>
+            <div class="translation">"And do not deprive people of their due and do not commit abuse on earth, spreading corruption."</div>
+            <div class="reference">— Quran 26:183</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Inflation silently deprives people of their money's value. Understanding its causes helps us prevent this form of economic injustice.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-line"></i>
+                The Most Famous Relationship in Macroeconomics
+            </div>
+            <p style="font-size: 18px;">In 1958, New Zealand economist A.W. Phillips discovered a striking pattern in UK data: when unemployment was low, wages rose quickly; when unemployment was high, wages were stable. This relationship—the Phillips Curve—became the cornerstone of macroeconomic policy for decades.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 The Phillips Curve:</strong> An inverse relationship between inflation and unemployment. Lower unemployment → higher inflation. Higher unemployment → lower inflation.</p>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 A.W. Phillips • 1914-1975</h4>
+                <p>New Zealand economist who plotted 100 years of UK data (1861-1957) and found a remarkably stable curve. His discovery changed how central banks think forever.</p>
+            </div>
+        </div>
+
+        <!-- The Original Phillips Curve -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-area"></i>
+                The Original Phillips Curve (1958)
+            </div>
+
+            <div class="chart-container">
+                <canvas id="phillipsChart"></canvas>
+            </div>
+
+            <p style="text-align:center; margin:10px 0; font-size:14px; color:#64748b;">The original relationship: lower unemployment, higher wage inflation</p>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Intuition</h4>
+                <p><strong>Low unemployment (3-4%):</strong> Workers are scarce. Companies compete for labor by raising wages. Workers have more bargaining power. Inflation rises.</p>
+                <p><strong>High unemployment (8-10%):</strong> Workers are plentiful. Companies don't need to raise wages. Workers have little bargaining power. Inflation stays low.</p>
+            </div>
+        </div>
+
+        <!-- The Policy Trade-off -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-scale-balanced"></i>
+                The Policy Trade-off: Can We Choose?
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📈 Low Unemployment (3-4%)</h4>
+                    <p><strong>Cost:</strong> Higher inflation (5-6%)</p>
+                    <p><strong>Benefit:</strong> Everyone who wants a job has one</p>
+                </div>
+                <div class="column-card">
+                    <h4>📉 Low Inflation (2%)</h4>
+                    <p><strong>Cost:</strong> Higher unemployment (6-7%)</p>
+                    <p><strong>Benefit:</strong> Money retains its value</p>
+                </div>
+            </div>
+
+            <p>In the 1960s, policymakers believed they could permanently choose any point on the curve. Want 3% unemployment? Accept 5% inflation. Want 2% inflation? Accept 6% unemployment. It seemed like a stable menu of choices.</p>
+
+            <div class="debate-box">
+                <h4>⚖️ The Kennedy Tax Cuts (1964)</h4>
+                <p>President Kennedy explicitly used Phillips Curve reasoning: tax cuts would stimulate demand, lower unemployment, and the resulting inflation was an acceptable price. It worked—unemployment fell, growth boomed, inflation rose modestly.</p>
+            </div>
+        </div>
+
+        <!-- The Great Breakdown: Stagflation -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                The Great Breakdown: Stagflation (1970s)
+            </div>
+
+            <div class="timeline-item">
+                <h4>📉 1973-1975: Everything Changed</h4>
+                <p>Oil prices quadrupled (OPEC embargo). Both inflation AND unemployment rose simultaneously—something the Phillips Curve said couldn't happen.</p>
+                <p><strong>Inflation:</strong> 12% | <strong>Unemployment:</strong> 9% | <strong>Result:</strong> "Stagflation" (stagnation + inflation)</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>📊 1960s (Normal)</h4>
+                    <ul>
+                        <li>Unemployment: 4% → Inflation: 2%</li>
+                        <li>Unemployment: 3% → Inflation: 4%</li>
+                        <li><em>Trade-off worked</em></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>📉 1970s (Stagflation)</h4>
+                    <ul>
+                        <li>Unemployment: 6% → Inflation: 8%</li>
+                        <li>Unemployment: 9% → Inflation: 12%</li>
+                        <li><em>Trade-off broke</em></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> What Happened?</h4>
+                <p>The old Phillips Curve assumed people didn't expect inflation. Once people started expecting inflation, behavior changed. Workers demanded higher wages. Companies raised prices preemptively. The relationship shifted.</p>
+            </div>
+        </div>
+
+        <!-- Enter Milton Friedman: Expectations-Augmented Phillips Curve -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-brain"></i>
+                Milton Friedman's Revolution: Expectations Matter
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Milton Friedman • Nobel Prize 1976</h4>
+                <p>Friedman argued there is NO long-run trade-off between inflation and unemployment. In the long run, unemployment returns to its "natural rate" (NAIRU), regardless of inflation.</p>
+            </div>
+
+            <div class="formula-box">
+                π = πᵉ - β(u - uⁿ) + ε
+            </div>
+
+            <p><strong>Where:</strong></p>
+            <ul style="margin-left:20px;">
+                <li><strong>π</strong> = actual inflation</li>
+                <li><strong>πᵉ</strong> = expected inflation</li>
+                <li><strong>u</strong> = actual unemployment</li>
+                <li><strong>uⁿ</strong> = natural rate of unemployment (NAIRU)</li>
+                <li><strong>β</strong> = sensitivity of inflation to unemployment gap</li>
+                <li><strong>ε</strong> = supply shocks (like oil prices)</li>
+            </ul>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Intuition</h4>
+                <p><strong>Short run:</strong> If unemployment falls below natural rate (u < uⁿ), inflation rises ABOVE expectations. Workers are surprised by higher prices.</p>
+                <p><strong>Long run:</strong> Workers adjust expectations. They demand higher wages. Unemployment returns to natural rate. Inflation stays higher. No permanent gain.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>📈 Short-Run Phillips Curve</h4>
+                    <p>Downward sloping (trade-off exists temporarily)</p>
+                    <p>Shifts with expectations</p>
+                </div>
+                <div>
+                    <h4>📊 Long-Run Phillips Curve</h4>
+                    <p>Vertical at natural rate (uⁿ)</p>
+                    <p>No trade-off permanently</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAIRU Explained -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-bar"></i>
+                NAIRU: The Natural Rate
+            </div>
+
+            <p><strong>NAIRU = Non-Accelerating Inflation Rate of Unemployment</strong></p>
+
+            <div class="definition-box">
+                <p>The unemployment rate at which inflation is stable. If unemployment falls below NAIRU, inflation rises. If unemployment rises above NAIRU, inflation falls.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>📈 Below NAIRU</h4>
+                    <p>u = 3%, NAIRU = 5%</p>
+                    <p>Labor market tight → wages rise → inflation accelerates</p>
+                </div>
+                <div>
+                    <h4>📉 Above NAIRU</h4>
+                    <p>u = 7%, NAIRU = 5%</p>
+                    <p>Labor market slack → wages stable → inflation decelerates</p>
+                </div>
+            </div>
+
+            <div style="background:#f1f5f9; padding:20px; border-radius:16px; margin:20px 0;">
+                <h4>📊 Estimated NAIRU Over Time</h4>
+                <ul>
+                    <li><strong>1960s:</strong> ~4%</li>
+                    <li><strong>1970s-80s:</strong> ~6% (baby boomers, women entering workforce)</li>
+                    <li><strong>1990s-2000s:</strong> ~5%</li>
+                    <li><strong>2010s:</strong> ~4.5% (aging workforce, fewer new entrants)</li>
+                    <li><strong>2020s:</strong> ~4% (post-pandemic estimates vary)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- The Great Moderation and Flattening -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-wave-square"></i>
+                The Great Moderation & The Flattening Phillips Curve
+            </div>
+
+            <div class="timeline-item">
+                <h4>📊 1985-2007: The Great Moderation</h4>
+                <p>Inflation and unemployment both fell. The Phillips Curve seemed to disappear! From 1992-2007, unemployment fell from 7.5% to 4.5%, yet inflation stayed around 2-3%.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> Why Did the Curve Flatten?</h4>
+                <ul>
+                    <li><strong>Anchored expectations:</strong> People trusted the Fed to keep inflation low</li>
+                    <li><strong>Globalization:</strong> Cheap imports from China kept prices down</li>
+                    <li><strong>Technology:</strong> Productivity gains without wage pressure</li>
+                    <li><strong>Union decline:</strong> Workers lost bargaining power</li>
+                    <li><strong>Central bank credibility:</strong> Volcker/Greenspan era</li>
+                </ul>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ Is the Phillips Curve Dead?</h4>
+                <p><strong>Yes (critics):</strong> 2010-2019 showed no relationship. Unemployment fell from 10% to 3.5%, inflation barely moved.</p>
+                <p><strong>No (defenders):</strong> 2021-2024 showed it's alive! When unemployment fell to 3.4%, inflation surged to 9%. The curve still exists, but it's flatter.</p>
+                <p><strong>Consensus:</strong> The curve is flatter than in the 1970s, but not dead. Supply shocks (COVID, war) still matter more.</p>
+            </div>
+        </div>
+
+        <!-- Supply Shocks -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-oil-can"></i>
+                Supply Shocks: When the Curve Shifts
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>📉 Negative Supply Shock</h4>
+                    <p><strong>Example:</strong> Oil price spike (1973, 1979, 2022)</p>
+                    <p>Inflation ↑, Unemployment ↑ → Stagflation</p>
+                    <p>Curve shifts UP and RIGHT</p>
+                </div>
+                <div>
+                    <h4>📈 Positive Supply Shock</h4>
+                    <p><strong>Example:</strong> Technology boom, China joining WTO</p>
+                    <p>Inflation ↓, Unemployment ↓ → "Goldilocks"</p>
+                    <p>Curve shifts DOWN and LEFT</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <h4>🛢️ 2022 Oil Price Shock</h4>
+                <p>Russia-Ukraine war caused energy and food prices to spike. Inflation surged to 9% even as unemployment was low (3.6%). Classic negative supply shock—the worst of both worlds.</p>
+            </div>
+        </div>
+
+        <!-- Case Study: The Volcker Disinflation -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Case Study: The Volcker Disinflation (1979-1982)
+            </div>
+
+            <div class="timeline-item">
+                <h4>📉 What Happened</h4>
+                <p>Fed Chair Paul Volcker raised rates to 20% to break inflation. Unemployment soared to 10.8%. Inflation fell from 14% to 3%.</p>
+                <p><strong>Sacrifice Ratio:</strong> How much GDP lost to reduce inflation by 1%? Estimated: 2-3% GDP per 1% inflation reduction.</p>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-calculator"></i> The Cost of Credibility</h4>
+                <p>To reduce inflation from 14% to 4% (10% reduction):</p>
+                <p>Sacrifice ratio 2 → 20% of GDP lost (~$4 trillion in today's economy)</p>
+                <p>But once credibility was established, future disinflations cost less. By 1990, the Fed could lower inflation with minimal pain because everyone believed they would.</p>
+            </div>
+        </div>
+
+        <!-- Case Study: The 2021-2024 Inflation Surge -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Case Study: The 2021-2024 Inflation Surge
+            </div>
+
+            <div class="timeline-item">
+                <h4>📈 What Happened</h4>
+                <ul>
+                    <li><strong>2021:</strong> Stimulus + supply chains + reopening → inflation 7%</li>
+                    <li><strong>2022:</strong> War in Ukraine → energy/food shock → inflation 9%</li>
+                    <li><strong>2023-2024:</strong> Fed raised rates to 5.5% → inflation fell to 3%</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>✅ Phillips Curve Alive?</h4>
+                    <ul>
+                        <li>Unemployment fell to 3.4% (lowest in 50 years)</li>
+                        <li>Inflation surged to 9%</li>
+                        <li>Classic negative relationship appeared!</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>⚠️ But Supply Shocks Dominated</h4>
+                    <ul>
+                        <li>Energy prices: +40%</li>
+                        <li>Food prices: +25%</li>
+                        <li>Used cars: +50% (supply chain)</li>
+                        <li>Curve shifted, not just moved along</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ Was It Demand or Supply?</h4>
+                <p><strong>Team Demand:</strong> Too much stimulus caused overheating (Summers).</p>
+                <p><strong>Team Supply:</strong> Mostly supply shocks (oil, food, chips).</p>
+                <p><strong>Consensus:</strong> Both. Demand pulled inflation up, supply shocks pushed it higher.</p>
+            </div>
+        </div>
+
+        <!-- Policy Implications -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-university"></i>
+                What This Means for Policymakers
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🎯 Short Run (1-2 years)</h4>
+                    <ul>
+                        <li>Trade-off exists temporarily</li>
+                        <li>Can lower unemployment by accepting higher inflation</li>
+                        <li>But only until expectations adjust</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🎯 Long Run (3+ years)</h4>
+                    <ul>
+                        <li>No trade-off</li>
+                        <li>Unemployment returns to natural rate</li>
+                        <li>Inflation determined by money growth & expectations</li>
+                        <li>Central bank must anchor expectations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> The Most Important Lesson</h4>
+                <p><strong>Expectations are everything.</strong> If people believe the central bank will control inflation, they won't demand huge wage increases, and businesses won't raise prices preemptively. This is why "inflation targeting" works—it anchors expectations.</p>
+            </div>
+        </div>
+
+        <!-- Islamic Perspective on Inflation -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islamic Perspective: Inflation as Injustice
+            </div>
+
+            <div class="psychology-box">
+                <h4>📜 Quranic Principles</h4>
+                <ul>
+                    <li><strong>"Give full measure and weight" (6:152):</strong> Inflation that erodes money's value can be seen as a form of cheating, if contracts don't account for it.</li>
+                    <li><strong>"Do not consume wealth unjustly" (2:188):</strong> Unanticipated inflation transfers wealth from savers to borrowers without consent—potentially unjust.</li>
+                    <li><strong>"And do not deprive people of their due" (26:183):</strong> Inflation silently deprives people of purchasing power.</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>💰 Zakat and Inflation</h4>
+                    <p>Zakat is 2.5% of savings annually. High inflation can erode wealth before Zakat is due. Scholars debate: Should Zakat be based on original value or current purchasing power?</p>
+                </div>
+                <div class="column-card">
+                    <h4>📈 Riba and Inflation</h4>
+                    <p>Conventional loans charge interest partly to compensate for inflation. In Islam, this is not permitted. Instead, Islamic finance uses profit-sharing (Mudaraba) where returns reflect real economic performance, not just inflation compensation.</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Inflation Adjustment in Islamic Contracts</h4>
+                <p>Some modern Islamic scholars permit inflation-indexed contracts to maintain justice. For example, a loan repayment could be adjusted for inflation to preserve real value—as long as it's not structured as interest. This is debated but increasingly accepted in high-inflation environments.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-balance-scale"></i> The Justice Dimension</h4>
+                <p>Inflation hurts the poor most (they hold cash, no assets). It benefits the wealthy (they own stocks, real estate). This concentration of wealth violates the Quranic principle that wealth "should not circulate only among the rich" (59:7). Islamic economists argue for policies that protect the vulnerable from inflation's harshest effects.</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 14 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What did A.W. Phillips discover in 1958?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">A. An inverse relationship between unemployment and wage inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">B. A positive relationship between GDP and inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. That money supply determines prices</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. That trade deficits cause recessions</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> Phillips found that when unemployment was low, wages rose quickly—the inverse relationship.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. What is "stagflation"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">A. High inflation + high unemployment simultaneously</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">B. Low inflation + low unemployment</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. High growth + high inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Deflation + recession</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> Stagflation = stagnation (high unemployment) + inflation. The 1970s broke the simple Phillips Curve.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. What did Milton Friedman add to the Phillips Curve?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">A. Inflation expectations matter; no long-run trade-off</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. The curve is always stable</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. Government spending determines everything</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. The curve only applies to developing countries</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Friedman's expectations-augmented Phillips Curve showed that any trade-off is temporary—in the long run, unemployment returns to its natural rate.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. What is NAIRU?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">A. The unemployment rate where inflation is stable</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">B. The rate where inflation is zero</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. Maximum unemployment possible</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Minimum unemployment possible</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> NAIRU = Non-Accelerating Inflation Rate of Unemployment. Below it, inflation rises; above it, inflation falls.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What happened during the "Great Moderation" (1985-2007)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">A. Both inflation and unemployment fell together</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">B. Inflation rose, unemployment fell</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">C. Inflation fell, unemployment rose</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. Both rose together</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> Both fell—the Phillips Curve seemed to disappear, puzzling economists.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. What is a negative supply shock?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">A. Something that raises costs and shifts Phillips Curve up/right</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. Something that lowers costs</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. A tax cut</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. More immigration</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> Oil shocks, wars, supply chain disruptions raise both inflation and unemployment—the worst outcome.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What was the "sacrifice ratio" in the Volcker disinflation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">A. About 2-3% GDP lost per 1% inflation reduction</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. 0% GDP loss</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. 10% GDP loss per 1% inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. GDP increased</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> Volcker's fight cost about 2-3% of GDP per point of inflation reduction—a painful but necessary lesson.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. In the 2021-2024 inflation surge, what was the lowest unemployment rate?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">A. 3.4%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">B. 5%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. 7%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. 10%</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> Unemployment fell to 3.4% in 2023—the lowest in 50 years—while inflation surged.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What does the long-run Phillips Curve look like?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">A. Vertical at the natural rate of unemployment</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. Downward sloping</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. Upward sloping</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. Horizontal</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> In the long run, no trade-off exists—unemployment returns to natural rate regardless of inflation.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. Why is anchoring inflation expectations important?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. If people expect low inflation, they won't fuel wage-price spiral</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. It makes the Phillips Curve steeper</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. It increases unemployment permanently</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. It has no effect</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Anchored expectations prevent self-fulfilling inflation spirals. This is why central banks target 2%—to shape expectations.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. What Quranic principle relates to inflation's injustice?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">A. "Give full measure and weight" (6:152)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. "Fight in the way of Allah" (2:190)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. "And establish prayer" (2:43)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. "And speak kindly" (2:83)</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Inflation that erodes value without consent can be seen as a form of cheating or injustice.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. What was the peak US inflation rate in 2022?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">A. 9%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">B. 5%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. 12%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. 3%</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> Inflation peaked at 9% in June 2022, the highest since 1981.
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="quiz-question" id="q13">
+                <p>13. How might Islamic contracts address inflation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'correct')">A. Inflation-indexed adjustments (debated, but some scholars permit for justice)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">B. Adding interest to compensate</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">C. Ignoring it completely</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">D. Only using cash</div>
+                </div>
+                <div class="explanation" id="exp-q13">
+                    <strong>✅ Correct!</strong> Some modern scholars permit inflation adjustments to maintain justice, as long as it's not structured as riba.
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="quiz-question" id="q14">
+                <p>14. What causes the short-run Phillips Curve to shift?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'correct')">A. Changes in inflation expectations or supply shocks</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">B. Movement along the curve</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">C. Changes in the money supply only</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">D. Government spending changes</div>
+                </div>
+                <div class="explanation" id="exp-q14">
+                    <strong>✅ Correct!</strong> Expectations and supply shocks shift the curve; demand changes move along it.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"A Monetary History of the United States" - Friedman & Schwartz</a></li>
+                        <li><a href="#">"The Great Inflation" - Michael Bryan</a></li>
+                        <li><a href="#">"Principles of Economics" - Mankiw (Ch. 35)</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>📊 Academic Papers</h4>
+                    <ul>
+                        <li><a href="#">"The Role of Monetary Policy" - Milton Friedman (1968)</a></li>
+                        <li><a href="#">"Inflation and Unemployment" - A.W. Phillips (1958)</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Economics</h4>
+                    <ul>
+                        <li><a href="#">"Inflation and Islamic Finance" - M. Umer Chapra</a></li>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Economics</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/intermediate/13-fiscal-policy-deep-dive.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Fiscal Policy Deep Dive</a>
+            <a href="/economics/learn/intermediate/15-business-cycles-advanced.html" class="nav-link">Next: Business Cycles Advanced <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May your understanding of inflation help you protect your wealth and deal justly with others</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 14 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في العشر الأواخر من رمضان</p>
+    </footer>
+
+    <script>
+        // Initialize Chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('phillipsChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Phillips Curve (Original)',
+                        data: [
+                            { x: 3, y: 6 },
+                            { x: 4, y: 4 },
+                            { x: 5, y: 3 },
+                            { x: 6, y: 2.5 },
+                            { x: 7, y: 2 },
+                            { x: 8, y: 1.5 },
+                            { x: 9, y: 1 },
+                            { x: 10, y: 0.5 }
+                        ],
+                        backgroundColor: '#312e81',
+                        pointRadius: 6,
+                        showLine: true,
+                        borderColor: '#312e81',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Unemployment Rate (%)'
+                            },
+                            min: 2,
+                            max: 11
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Inflation Rate (%)'
+                            },
+                            min: 0,
+                            max: 7
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        });
+
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

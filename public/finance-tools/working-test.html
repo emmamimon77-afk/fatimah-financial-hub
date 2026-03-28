@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Working Test</title>
+    <style>
+        body { padding: 20px; font-family: Arial; }
+        .result { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>Financial Calculators Test</h1>
+    <div id="results"></div>
+
+    <script src="config.js"></script>
+    <script src="calculators.js"></script>
+    <script>
+        const results = document.getElementById('results');
+        
+        function addResult(html, className) {
+            const div = document.createElement('div');
+            div.className = 'result ' + className;
+            div.innerHTML = html;
+            results.appendChild(div);
+        }
+        
+        // Test 1: Check if loaded
+        if (!window.FinancialCalculators) {
+            addResult('❌ FinancialCalculators not loaded', 'error');
+        } else {
+            addResult('✅ FinancialCalculators loaded', 'success');
+            
+            // Create instance
+            const calc = new FinancialCalculators();
+            
+            // Test 2: US mortgage
+            const usMortgage = calc.calculateMortgage({
+                principal: 300000,
+                years: 30,
+                country: 'US'
+            });
+            
+            if (usMortgage.success) {
+                addResult(`✅ US Mortgage: ${usMortgage.monthly} at ${usMortgage.rate}`, 'success');
+            } else {
+                addResult(`❌ US Mortgage error: ${usMortgage.error}`, 'error');
+            }
+            
+            // Test 3: China mortgage
+            const cnMortgage = calc.calculateMortgage({
+                principal: 300000,
+                years: 30,
+                country: 'CN'
+            });
+            
+            if (cnMortgage.success) {
+                addResult(`✅ China Mortgage: ${cnMortgage.monthly} at ${cnMortgage.rate}`, 'success');
+            } else {
+                addResult(`❌ China Mortgage error: ${cnMortgage.error}`, 'error');
+            }
+            
+            // Test 4: Russia mortgage
+            const ruMortgage = calc.calculateMortgage({
+                principal: 300000,
+                years: 30,
+                country: 'RU'
+            });
+            
+            if (ruMortgage.success) {
+                addResult(`✅ Russia Mortgage: ${ruMortgage.monthly} at ${ruMortgage.rate}`, 'success');
+            } else {
+                addResult(`❌ Russia Mortgage error: ${ruMortgage.error}`, 'error');
+            }
+            
+            // Test 5: Investment
+            const investment = calc.calculateInvestment({
+                initial: 10000,
+                monthly: 500,
+                years: 20,
+                country: 'US'
+            });
+            
+            if (investment.success) {
+                addResult(`✅ Investment: ${investment.future} at ${investment.rate}`, 'success');
+            }
+        }
+        
+        console.log('Test complete');
+    </script>
+</body>
+</html>

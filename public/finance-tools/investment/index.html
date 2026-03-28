@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investment Hub | Fatimah Financial Hub</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: #764ba2;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #764ba2;
+        }
+
+        .nav-links a.active {
+            color: #764ba2;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 0.5rem 0;
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.7rem 1.5rem;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+            color: #764ba2;
+            padding-left: 2rem;
+        }
+
+        .bismillah {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1.5rem;
+            font-family: 'Traditional Arabic', serif;
+            letter-spacing: 2px;
+        }
+
+        /* Main Container */
+        .container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            color: white;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+
+        /* Header */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateX(-5px);
+        }
+
+        /* Description Card */
+        .description-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .description-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .description-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .tool-card.ready::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            transform: rotate(45deg) translate(30px, -30px);
+        }
+
+        .tool-card.coming-soon {
+            opacity: 0.7;
+        }
+
+        .tool-card.coming-soon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            transform: rotate(45deg) translate(30px, -30px);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .tool-card h3 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .tool-card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .status-ready {
+            background: #10b98120;
+            color: #10b981;
+        }
+
+        .status-coming {
+            background: #f59e0b20;
+            color: #f59e0b;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #764ba2;
+            text-decoration: none;
+            font-weight: 600;
+            transition: gap 0.3s ease;
+        }
+
+        .tool-link:hover {
+            gap: 1rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            margin: 3rem 0;
+        }
+
+        .features-section h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .feature-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-item h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-item p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Navigation Links */
+        .nav-links-section {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3rem 5% 1rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #666;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #764ba2;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .alhamdulillah {
+            font-family: 'Traditional Arabic', serif;
+            font-size: 1.5rem;
+            color: #764ba2;
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bismillah -->
+    <div class="bismillah">
+        ﷽
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-landmark"></i>
+            <span>Fatimah Financial Hub</span>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <div class="dropdown">
+                <a href="/finance-tools/index.html" class="active">Finance Tools</a>
+                <div class="dropdown-content">
+                    <a href="/finance-tools/personal/index.html">Personal Finance</a>
+                    <a href="/finance-tools/investment/index.html" class="active">Investment Hub</a>
+                    <a href="/finance-tools/business/index.html">Business Tools</a>
+                    <a href="/finance-tools/global/index.html">Global Calculators</a>
+                    <a href="/finance-tools/islamic/index.html">Islamic Finance</a>
+                </div>
+            </div>
+            <a href="/resources">Resources</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/">Home</a> › <a href="/finance-tools/index.html">Tools</a> › <a href="/finance-tools/personal/index.html">Personal Finance</a> › Investment Hub
+        </div>
+
+        <!-- Header -->
+        <div class="page-header">
+            <a href="/finance-tools/index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Financial Tools Hub
+            </a>
+            <h1>Investment Hub</h1>
+            <p>Advanced tools for investors and traders</p>
+        </div>
+
+        <!-- Description -->
+        <div class="description-card">
+            <h2>
+                <i class="fas fa-chart-line"></i>
+                Professional Investment Analysis
+            </h2>
+            <p>Use these advanced calculators to analyze stocks, real estate, and build diversified portfolios. Professional-grade tools for serious investors.</p>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="tools-grid">
+            <!-- Stock Valuation -->
+            <div class="tool-card ready">
+                <div class="tool-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <span class="status-badge status-ready">READY</span>
+                <h3>Stock Valuation Calculator</h3>
+                <p>DCF analysis, P/E ratios, intrinsic value calculation with charts and real-time stock data.</p>
+                <a href="/finance-tools/investment/stock-valuation.html" class="tool-link">
+                    Launch Tool <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Real Estate -->
+            <div class="tool-card ready">
+                <div class="tool-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <span class="status-badge status-ready">READY</span>
+                <h3>Real Estate Investment</h3>
+                <p>ROI analysis, cash flow projections, property valuation with global city data and currency support.</p>
+                <a href="/finance-tools/investment/real-estate.html" class="tool-link">
+                    Launch Tool <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Portfolio Diversification -->
+            <div class="tool-card ready">
+                <div class="tool-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <span class="status-badge status-ready">READY</span>
+                <h3>Portfolio Diversification</h3>
+                <p>Analyze risk, correlation, sector exposure and optimize asset allocation with diversification scoring.</p>
+                <a href="/finance-tools/investment/portfolio-analyzer.html" class="tool-link">
+                    Launch Tool <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Business Investment Tools -->
+            <div class="tool-card coming-soon">
+                <div class="tool-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <span class="status-badge status-ready">READY</span>
+                <h3>Business Investment Tools</h3>
+                <p>NPV, IRR, break-even analysis for business projects and investment decisions.</p>
+                <a href="/finance-tools/business/index.html" class="tool-link">
+                    View Business Hub <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-section">
+            <h2>Investment Analysis Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Advanced Calculations</h3>
+                    <p>DCF, IRR, ROI, cash-on-cash returns</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Visual Analytics</h3>
+                    <p>Charts, graphs, and visual projections</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Detailed Reports</h3>
+                    <p>Comprehensive breakdowns and insights</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Responsive Design</h3>
+                    <p>Works on desktop, tablet, and mobile</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="nav-links-section">
+            <a href="/finance-tools/personal/index.html" class="nav-link">
+                <i class="fas fa-user"></i> Personal Finance Hub
+            </a>
+            <a href="/finance-tools/global/index.html" class="nav-link">
+                <i class="fas fa-globe"></i> Global Calculators
+            </a>
+            <a href="/finance-tools/index.html" class="nav-link">
+                <i class="fas fa-th-large"></i> All Tools Hub
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+        <footer style="background: #2d3748; color: #fff; padding: 3rem 0 1.5rem; margin-top: 3rem;">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    
+                    <!-- About Section -->
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 1rem;">Fatimah Financial Hub</h4>
+                        <p style="color: #cbd5e0; font-size: 0.9rem; line-height: 1.6;">
+                            An educational platform dedicated to teaching finance, trading, and economics 
+                            through an Islamic lens. All content is for learning purposes only.
+                        </p>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 1rem;">Quick Links</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><a href="/" style="color: #cbd5e0; text-decoration: none;">Home</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/trading" style="color: #cbd5e0; text-decoration: none;">Trading</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/economics" style="color: #cbd5e0; text-decoration: none;">Economics</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/resources" style="color: #cbd5e0; text-decoration: none;">Resources</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/simulator/trade" style="color: #cbd5e0; text-decoration: none;">Simulator</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Legal & Disclaimer -->
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 1rem;">Disclaimer</h4>
+                        <p style="color: #cbd5e0; font-size: 0.85rem; line-height: 1.6;">
+                            This website is for <strong>educational and research purposes only</strong>. 
+                            It is not a financial advisory platform, does not provide professional investment advice, 
+                            and should not be used for real trading decisions. All information is for learning and 
+                            skill development. Users are responsible for their own financial decisions.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Copyright -->
+                <div style="text-align: center; padding-top: 2rem; border-top: 1px solid #4a5568;">
+                    <p style="color: #a0aec0; font-size: 0.85rem;">
+                        © 1447-1448 AH / 2026 CE Fatimah Financial Hub. All content for educational purposes.
+                    </p>
+                    <p style="color: #a0aec0; font-size: 0.85rem; margin-top: 0.5rem;">
+                        <i class="fas fa-mosque" style="color: #fbbf24;"></i> Built with intention for those seeking knowledge
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

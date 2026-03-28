@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profit Margin Calculator</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Main Layout */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .input-section {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus {
+            border-color: #607d8b;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(96, 125, 139, 0.1);
+        }
+        
+        .input-hint {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+        
+        /* Results Section */
+        .results-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #607d8b;
+        }
+        
+        /* Margin Cards */
+        .margin-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .margin-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 4px solid #607d8b;
+        }
+        
+        .margin-card.gross { border-color: #4caf50; }
+        .margin-card.operating { border-color: #2196f3; }
+        .margin-card.net { border-color: #9c27b0; }
+        
+        .margin-card h4 {
+            margin: 0 0 1rem 0;
+            color: #333;
+            font-size: 1.1rem;
+        }
+        
+        .margin-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+        
+        .margin-card.gross .margin-value { color: #4caf50; }
+        .margin-card.operating .margin-value { color: #2196f3; }
+        .margin-card.net .margin-value { color: #9c27b0; }
+        
+        .margin-amount {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        /* Step-by-Step Breakdown */
+        .breakdown-section {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .breakdown-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #607d8b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .calculation-steps {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .step {
+            padding: 0.5rem;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .step:last-child {
+            border-bottom: none;
+        }
+        
+        .step-formula {
+            color: #607d8b;
+            font-weight: 600;
+        }
+        
+        .step-result {
+            float: right;
+            font-weight: 600;
+        }
+        
+        /* Income Statement Table */
+        .income-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .income-table th {
+            background: #607d8b;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        
+        .income-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .income-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .income-table .label {
+            font-weight: 600;
+        }
+        
+        .income-table .amount {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .income-table .percentage {
+            text-align: right;
+            color: #666;
+        }
+        
+        .total-row {
+            background: #f5f5f5;
+            font-weight: 600;
+        }
+        
+        /* Benchmark Table */
+        .benchmark-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .benchmark-table th {
+            background: #607d8b;
+            color: white;
+            padding: 0.75rem;
+        }
+        
+        .benchmark-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .rating-excellent { color: #4caf50; font-weight: bold; }
+        .rating-good { color: #2196f3; font-weight: bold; }
+        .rating-fair { color: #ff9800; font-weight: bold; }
+        .rating-poor { color: #f44336; font-weight: bold; }
+        
+        /* Explanation Cards */
+        .explanation-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .explanation-card {
+            background: linear-gradient(135deg, #0f4c5c 0%, #2e8b57 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .explanation-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .explanation-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .explanation-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 0.5rem;
+        }
+        
+        .explanation-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        /* Islamic decoration */
+        .bismillah {
+            font-size: 1.5rem;
+            font-family: 'Traditional Arabic', serif;
+            text-align: center;
+            margin: 20px 0;
+            color: #4a6fa5;
+        }
+        
+        .hamdullah {
+            font-size: 1rem;
+            font-family: 'Traditional Arabic', serif;
+            text-align: center;
+            margin: 10px 0;
+            color: #666;
+        }
+        
+        @media (max-width: 968px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            .explanation-cards {
+                grid-template-columns: 1fr;
+            }
+            .margin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                 <i class="fas fa-percentage" style="margin-right: 5px;"></i> Business Finance
+            </span>
+        </div>
+    </div>
+    
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="index.html" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Business Finance</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333; font-weight: 500;">Profit Margin Calculator</span>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="bismillah">﷽</div>
+            <h1><i class="fas fa-percentage"></i> Profit Margin Calculator</h1>
+            <p>Calculate gross, operating, and net profit margins with detailed breakdown</p>
+            <a href="index.html" class="back-link">← Back to Business Hub</a>
+        </div>
+        
+        <!-- Explanation Cards -->
+        <div class="explanation-cards">
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h3>What It Does</h3>
+                <p>Profit margins measure how much money a business keeps from each dollar of revenue. Gross margin shows product profitability, operating margin reflects operational efficiency, and net margin reveals overall profitability after all expenses.</p>
+            </div>
+    
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Why It Matters</h3>
+                <p>Margins help you price products correctly, control costs, and benchmark against competitors. Rising margins indicate improving efficiency; falling margins signal potential problems. Investors use margins to assess business health.</p>
+            </div>
+    
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Key Insights</h3>
+                <p>Gross margin should be high enough to cover operating expenses. Operating margin shows management effectiveness. Net margin is the bottom line - what you actually keep. Compare your margins to industry averages for context.</p>
+            </div>
+        </div>
+        
+        <!-- Main Calculator -->
+        <div class="calculator-card">
+            <div class="calculator-grid">
+                <!-- Input Section -->
+                <div class="input-section">
+                    <h3 style="margin-bottom: 1.5rem; color: #607d8b;">
+                        <i class="fas fa-sliders-h"></i> Enter Your Numbers
+                    </h3>
+                    
+                    <div class="input-group">
+                        <label>Revenue ($)</label>
+                        <input type="number" id="revenue" value="500000" min="0" step="10000">
+                        <div class="input-hint">Total sales or revenue</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Cost of Goods Sold (COGS) ($)</label>
+                        <input type="number" id="cogs" value="200000" min="0" step="5000">
+                        <div class="input-hint">Direct costs to produce goods</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Operating Expenses ($)</label>
+                        <input type="number" id="opEx" value="150000" min="0" step="5000">
+                        <div class="input-hint">Salaries, rent, marketing, R&D</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Interest Expense ($)</label>
+                        <input type="number" id="interest" value="20000" min="0" step="1000">
+                        <div class="input-hint">Cost of debt financing</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Tax Expense ($)</label>
+                        <input type="number" id="taxes" value="30000" min="0" step="1000">
+                        <div class="input-hint">Income taxes paid</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Industry Sector</label>
+                        <select id="industrySector">
+                            <option value="technology">Technology / Software</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="retail">Retail / Wholesale</option>
+                            <option value="services">Professional Services</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="construction">Construction</option>
+                            <option value="hospitality">Hospitality / Restaurant</option>
+                            <option value="ecommerce">E-commerce</option>
+                        </select>
+                        <div class="input-hint">For industry comparison</div>
+                    </div>
+                </div>
+                
+                <!-- Results Section -->
+                <div class="results-section" id="results">
+                    <h3 style="margin-bottom: 1.5rem; color: #607d8b;">
+                        <i class="fas fa-chart-bar"></i> Margin Analysis
+                    </h3>
+                    
+                    <!-- Margin Cards -->
+                    <div class="margin-grid" id="marginCards">
+                        <!-- Dynamic content -->
+                    </div>
+                    
+                    <!-- Step-by-Step Breakdown -->
+                    <div class="breakdown-section" id="breakdown">
+                        <!-- Dynamic breakdown -->
+                    </div>
+                    
+                    <!-- Income Statement -->
+                    <div class="breakdown-section">
+                        <div class="breakdown-title">
+                            <i class="fas fa-file-invoice"></i> Income Statement Breakdown
+                        </div>
+                        <table class="income-table" id="incomeStatement">
+                            <!-- Dynamic content -->
+                        </table>
+                    </div>
+                    
+                    <!-- Industry Comparison -->
+                    <div class="breakdown-section">
+                        <div class="breakdown-title">
+                            <i class="fas fa-chart-simple"></i> Industry Comparison
+                        </div>
+                        <table class="benchmark-table" id="benchmarkTable">
+                            <!-- Dynamic content -->
+                        </table>
+                    </div>
+                    
+                    <!-- Interpretation -->
+                    <div style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 8px;" id="interpretation">
+                        <!-- Dynamic interpretation -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    // Industry benchmarks by sector
+    const industryBenchmarks = {
+        technology: { gross: 70, operating: 25, net: 18 },
+        manufacturing: { gross: 35, operating: 12, net: 8 },
+        retail: { gross: 40, operating: 8, net: 4 },
+        services: { gross: 50, operating: 15, net: 10 },
+        healthcare: { gross: 45, operating: 14, net: 9 },
+        construction: { gross: 25, operating: 8, net: 5 },
+        hospitality: { gross: 60, operating: 12, net: 6 },
+        ecommerce: { gross: 45, operating: 10, net: 5 }
+    };
+    
+    // Format money
+    function formatMoney(value) {
+        return '$' + value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    }
+    
+    // Format percentage
+    function formatPercent(value) {
+        return value.toFixed(1) + '%';
+    }
+    
+    // Get rating class
+    function getRatingClass(actual, benchmark, isHigherBetter = true) {
+        const ratio = actual / benchmark;
+        if (isHigherBetter) {
+            if (ratio >= 1.2) return 'rating-excellent';
+            if (ratio >= 0.9) return 'rating-good';
+            if (ratio >= 0.7) return 'rating-fair';
+            return 'rating-poor';
+        } else {
+            if (ratio <= 0.8) return 'rating-excellent';
+            if (ratio <= 1.0) return 'rating-good';
+            if (ratio <= 1.2) return 'rating-fair';
+            return 'rating-poor';
+        }
+    }
+    
+    // Calculate all margins
+    function calculateMargins() {
+        // Get inputs
+        const revenue = parseFloat(document.getElementById('revenue').value) || 0;
+        const cogs = parseFloat(document.getElementById('cogs').value) || 0;
+        const opEx = parseFloat(document.getElementById('opEx').value) || 0;
+        const interest = parseFloat(document.getElementById('interest').value) || 0;
+        const taxes = parseFloat(document.getElementById('taxes').value) || 0;
+        const sector = document.getElementById('industrySector').value;
+        
+        // Calculate intermediate values
+        const grossProfit = revenue - cogs;
+        const operatingProfit = grossProfit - opEx;
+        const preTaxProfit = operatingProfit - interest;
+        const netProfit = preTaxProfit - taxes;
+        
+        // Calculate margins
+        const grossMargin = revenue > 0 ? (grossProfit / revenue) * 100 : 0;
+        const operatingMargin = revenue > 0 ? (operatingProfit / revenue) * 100 : 0;
+        const netMargin = revenue > 0 ? (netProfit / revenue) * 100 : 0;
+        
+        // Get benchmarks
+        const benchmark = industryBenchmarks[sector] || industryBenchmarks.services;
+        
+        // Update margin cards
+        document.getElementById('marginCards').innerHTML = `
+            <div class="margin-card gross">
+                <h4><i class="fas fa-box"></i> Gross Margin</h4>
+                <div class="margin-value">${formatPercent(grossMargin)}</div>
+                <div class="margin-amount">${formatMoney(grossProfit)}</div>
+                <div style="margin-top: 0.5rem; font-size: 0.9rem;">
+                    Industry avg: ${formatPercent(benchmark.gross)}
+                </div>
+            </div>
+            <div class="margin-card operating">
+                <h4><i class="fas fa-gear"></i> Operating Margin</h4>
+                <div class="margin-value">${formatPercent(operatingMargin)}</div>
+                <div class="margin-amount">${formatMoney(operatingProfit)}</div>
+                <div style="margin-top: 0.5rem; font-size: 0.9rem;">
+                    Industry avg: ${formatPercent(benchmark.operating)}
+                </div>
+            </div>
+            <div class="margin-card net">
+                <h4><i class="fas fa-money-bill"></i> Net Margin</h4>
+                <div class="margin-value">${formatPercent(netMargin)}</div>
+                <div class="margin-amount">${formatMoney(netProfit)}</div>
+                <div style="margin-top: 0.5rem; font-size: 0.9rem;">
+                    Industry avg: ${formatPercent(benchmark.net)}
+                </div>
+            </div>
+        `;
+        
+        // Step-by-step breakdown
+        document.getElementById('breakdown').innerHTML = `
+            <div class="breakdown-title">
+                <i class="fas fa-calculator"></i> Step-by-Step Calculation
+            </div>
+            <div class="calculation-steps">
+                <div class="step">
+                    <span class="step-formula">Step 1: Gross Profit = Revenue - COGS</span>
+                    <span class="step-result">${formatMoney(revenue)} - ${formatMoney(cogs)} = ${formatMoney(grossProfit)}</span>
+                </div>
+                <div class="step">
+                    <span class="step-formula">Step 2: Gross Margin = (Gross Profit ÷ Revenue) × 100</span>
+                    <span class="step-result">(${formatMoney(grossProfit)} ÷ ${formatMoney(revenue)}) × 100 = ${formatPercent(grossMargin)}</span>
+                </div>
+                <div class="step">
+                    <span class="step-formula">Step 3: Operating Profit = Gross Profit - Operating Expenses</span>
+                    <span class="step-result">${formatMoney(grossProfit)} - ${formatMoney(opEx)} = ${formatMoney(operatingProfit)}</span>
+                </div>
+                <div class="step">
+                    <span class="step-formula">Step 4: Operating Margin = (Operating Profit ÷ Revenue) × 100</span>
+                    <span class="step-result">(${formatMoney(operatingProfit)} ÷ ${formatMoney(revenue)}) × 100 = ${formatPercent(operatingMargin)}</span>
+                </div>
+                <div class="step">
+                    <span class="step-formula">Step 5: Pre-Tax Profit = Operating Profit - Interest</span>
+                    <span class="step-result">${formatMoney(operatingProfit)} - ${formatMoney(interest)} = ${formatMoney(preTaxProfit)}</span>
+                </div>
+                <div class="step">
+                    <span class="step-formula">Step 6: Net Profit = Pre-Tax Profit - Taxes</span>
+                    <span class="step-result">${formatMoney(preTaxProfit)} - ${formatMoney(taxes)} = ${formatMoney(netProfit)}</span>
+                </div>
+                <div class="step">
+                    <span class="step-formula">Step 7: Net Margin = (Net Profit ÷ Revenue) × 100</span>
+                    <span class="step-result">(${formatMoney(netProfit)} ÷ ${formatMoney(revenue)}) × 100 = ${formatPercent(netMargin)}</span>
+                </div>
+            </div>
+        `;
+        
+        // Income Statement
+        document.getElementById('incomeStatement').innerHTML = `
+            <thead>
+                <tr>
+                    <th>Line Item</th>
+                    <th>Amount</th>
+                    <th>% of Revenue</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="label">Revenue</td>
+                    <td class="amount">${formatMoney(revenue)}</td>
+                    <td class="percentage">100.0%</td>
+                </tr>
+                <tr>
+                    <td class="label">Less: Cost of Goods Sold (COGS)</td>
+                    <td class="amount">${formatMoney(cogs)}</td>
+                    <td class="percentage">${revenue > 0 ? ((cogs/revenue)*100).toFixed(1) : 0}%</td>
+                </tr>
+                <tr class="total-row">
+                    <td class="label"><strong>Gross Profit</strong></td>
+                    <td class="amount"><strong>${formatMoney(grossProfit)}</strong></td>
+                    <td class="percentage"><strong>${formatPercent(grossMargin)}</strong></td>
+                </tr>
+                <tr>
+                    <td class="label">Less: Operating Expenses</td>
+                    <td class="amount">${formatMoney(opEx)}</td>
+                    <td class="percentage">${revenue > 0 ? ((opEx/revenue)*100).toFixed(1) : 0}%</td>
+                </tr>
+                <tr class="total-row">
+                    <td class="label"><strong>Operating Profit</strong></td>
+                    <td class="amount"><strong>${formatMoney(operatingProfit)}</strong></td>
+                    <td class="percentage"><strong>${formatPercent(operatingMargin)}</strong></td>
+                </tr>
+                <tr>
+                    <td class="label">Less: Interest Expense</td>
+                    <td class="amount">${formatMoney(interest)}</td>
+                    <td class="percentage">${revenue > 0 ? ((interest/revenue)*100).toFixed(1) : 0}%</td>
+                </tr>
+                <tr>
+                    <td class="label">Less: Taxes</td>
+                    <td class="amount">${formatMoney(taxes)}</td>
+                    <td class="percentage">${revenue > 0 ? ((taxes/revenue)*100).toFixed(1) : 0}%</td>
+                </tr>
+                <tr class="total-row">
+                    <td class="label"><strong>Net Profit</strong></td>
+                    <td class="amount"><strong>${formatMoney(netProfit)}</strong></td>
+                    <td class="percentage"><strong>${formatPercent(netMargin)}</strong></td>
+                </tr>
+            </tbody>
+        `;
+        
+        // Industry Comparison
+        document.getElementById('benchmarkTable').innerHTML = `
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Your Company</th>
+                    <th>Industry Avg</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Gross Margin</td>
+                    <td>${formatPercent(grossMargin)}</td>
+                    <td>${formatPercent(benchmark.gross)}</td>
+                    <td class="${getRatingClass(grossMargin, benchmark.gross)}">
+                        ${grossMargin >= benchmark.gross * 1.2 ? 'Excellent' : 
+                          grossMargin >= benchmark.gross * 0.9 ? 'Good' : 
+                          grossMargin >= benchmark.gross * 0.7 ? 'Fair' : 'Poor'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Operating Margin</td>
+                    <td>${formatPercent(operatingMargin)}</td>
+                    <td>${formatPercent(benchmark.operating)}</td>
+                    <td class="${getRatingClass(operatingMargin, benchmark.operating)}">
+                        ${operatingMargin >= benchmark.operating * 1.2 ? 'Excellent' : 
+                          operatingMargin >= benchmark.operating * 0.9 ? 'Good' : 
+                          operatingMargin >= benchmark.operating * 0.7 ? 'Fair' : 'Poor'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Net Margin</td>
+                    <td>${formatPercent(netMargin)}</td>
+                    <td>${formatPercent(benchmark.net)}</td>
+                    <td class="${getRatingClass(netMargin, benchmark.net)}">
+                        ${netMargin >= benchmark.net * 1.2 ? 'Excellent' : 
+                          netMargin >= benchmark.net * 0.9 ? 'Good' : 
+                          netMargin >= benchmark.net * 0.7 ? 'Fair' : 'Poor'}
+                    </td>
+                </tr>
+            </tbody>
+        `;
+        
+        // Interpretation
+        let interpretation = '';
+        if (grossMargin < 20) {
+            interpretation = '⚠️ Your gross margin is low. Consider reviewing pricing strategy or reducing cost of goods sold.';
+        } else if (operatingMargin < 5) {
+            interpretation = '📊 Your operating expenses are eating into profits. Look for ways to control overhead costs.';
+        } else if (netMargin > benchmark.net * 1.5) {
+            interpretation = '🚀 Excellent profitability! Your margins significantly exceed industry averages.';
+        } else if (netMargin > benchmark.net) {
+            interpretation = '✅ Good performance. Your margins are above industry average.';
+        } else {
+            interpretation = '📈 Your margins are below industry average. Focus on improving efficiency and cost control.';
+        }
+        
+        document.getElementById('interpretation').innerHTML = `
+            <h4 style="margin: 0 0 0.5rem 0; color: #607d8b;">
+                <i class="fas fa-info-circle"></i> Profitability Insights
+            </h4>
+            <p style="margin: 0; color: #666;">${interpretation}</p>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #888;">
+                <strong>Key Formula:</strong> Margin % = (Profit ÷ Revenue) × 100
+            </p>
+        `;
+    }
+    
+    // Set up event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        // Input listeners
+        ['revenue', 'cogs', 'opEx', 'interest', 'taxes', 'industrySector'].forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.addEventListener('input', calculateMargins);
+                element.addEventListener('change', calculateMargins);
+            }
+        });
+        
+        // Initial calculation
+        calculateMargins();
+    });
+    </script>
+    
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                </a>
+                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                </a>
+                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                </a>
+                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+                <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                </a>
+                <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                </a>
+                <a href="/economics" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0;">
+                   <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics
+                </a>
+            </div>
+        </div>
+    
+        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+            <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+               <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+            </p>
+        </div>
+        <div class="hamdullah">الحمد لله</div>
+    </div>
+</body>
+</html>

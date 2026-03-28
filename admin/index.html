@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Private</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, monospace;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 30px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #fbbf24;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid #334155;
+        }
+        .stat-label {
+            color: #94a3b8;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #fbbf24;
+            margin-bottom: 5px;
+        }
+        .stat-desc {
+            color: #64748b;
+            font-size: 14px;
+        }
+        .table-card {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid #334155;
+            margin-bottom: 30px;
+        }
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .table-header h3 {
+            color: #fbbf24;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            text-align: left;
+            padding: 12px 5px;
+            color: #94a3b8;
+            font-weight: 500;
+            border-bottom: 1px solid #334155;
+        }
+        td {
+            padding: 12px 5px;
+            border-bottom: 1px solid #2d3a4f;
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+        .badge {
+            background: #2d3a4f;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        .refresh-btn {
+            background: #312e81;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .refresh-btn:hover {
+            background: #1e1b4b;
+        }
+        .footer {
+            color: #64748b;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span>📊</span> 
+            Fatimah Financial Hub - Admin Analytics
+        </h1>
+        <div class="subtitle">Private Dashboard - Authorized Access Only</div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-label">Total Users</div>
+                <div class="stat-number" id="totalUsers">0</div>
+                <div class="stat-desc">Registered traders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Active Today</div>
+                <div class="stat-number" id="activeToday">0</div>
+                <div class="stat-desc">Last 24 hours</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Trades</div>
+                <div class="stat-number" id="totalTrades">0</div>
+                <div class="stat-desc">All time</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Trade Volume</div>
+                <div class="stat-number" id="totalVolume">$0</div>
+                <div class="stat-desc">Total value traded</div>
+            </div>
+        </div>
+
+        <!-- Recent Users -->
+        <div class="table-card">
+            <div class="table-header">
+                <h3>👥 Recent Users</h3>
+                <button class="refresh-btn" onclick="loadData()">
+                    <span>🔄</span> Refresh
+                </button>
+            </div>
+            <table id="usersTable">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Signup Date</th>
+                        <th>Last Active</th>
+                        <th>Trades</th>
+                    </tr>
+                </thead>
+                <tbody id="usersBody">
+                    <tr><td colspan="5">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Recent Trades -->
+        <div class="table-card">
+            <div class="table-header">
+                <h3>📈 Recent Trades</h3>
+            </div>
+            <table id="tradesTable">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>User</th>
+                        <th>Symbol</th>
+                        <th>Type</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tradesBody">
+                    <tr><td colspan="7">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Popular Pages -->
+        <div class="table-card">
+            <div class="table-header">
+                <h3>👀 Popular Pages (Last 500 visits)</h3>
+            </div>
+            <table id="pagesTable">
+                <thead>
+                    <tr>
+                        <th>Page</th>
+                        <th>Views</th>
+                    </tr>
+                </thead>
+                <tbody id="pagesBody">
+                    <tr><td colspan="2">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>Data updates automatically every 30 seconds • All data stored locally</p>
+            <p style="margin-top: 10px;">© 2026 Fatimah Financial Hub</p>
+        </div>
+    </div>
+
+    <script>
+        // Simple password protection
+        (function() {
+            const password = prompt('Enter admin password:');
+            if (password !== 'Fatimah2026') { // Change this to your password
+                document.body.innerHTML = '<div style="color: white; padding: 50px; text-align: center;"><h1>⛔ Access Denied</h1><p>Invalid password</p></div>';
+                throw new Error('Unauthorized');
+            }
+        })();
+
+        function loadData() {
+            try {
+                // Get data from localStorage
+                const users = JSON.parse(localStorage.getItem('admin_trading_users_v2') || '[]');
+                const trades = JSON.parse(localStorage.getItem('admin_trades_Khan_v2') || '[]'); // Example for one user
+                
+                // Also check for individual user trade data
+                const allTrades = [];
+                
+                // Loop through all localStorage keys to find trade data for all users
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key && key.startsWith('admin_trades_') && key.endsWith('_v2')) {
+                        try {
+                            const userTrades = JSON.parse(localStorage.getItem(key) || '[]');
+                            allTrades.push(...userTrades);
+                        } catch (e) {}
+                    }
+                }
+                
+                // Update stats
+                document.getElementById('totalUsers').textContent = users.length;
+                
+                // Calculate active today
+                const today = new Date().toDateString();
+                const activeToday = users.filter(u => {
+                    const lastActive = u.lastActive || u.lastActive;
+                    return lastActive && new Date(lastActive).toDateString() === today;
+                }).length;
+                document.getElementById('activeToday').textContent = activeToday;
+                
+                document.getElementById('totalTrades').textContent = allTrades.length;
+                
+                const totalVolume = allTrades.reduce((sum, t) => sum + (t.total || 0), 0);
+                document.getElementById('totalVolume').textContent = '$' + totalVolume.toFixed(2);
+                
+                // Load users table
+                const usersBody = document.getElementById('usersBody');
+                if (users.length === 0) {
+                    usersBody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">No users yet</td></tr>';
+                } else {
+                    usersBody.innerHTML = users.slice(0, 10).map(user => {
+                        // Get trade count for this user
+                        const userTradeKey = `admin_trades_${user.username}_v2`;
+                        const userTrades = JSON.parse(localStorage.getItem(userTradeKey) || '[]');
+                        const tradeCount = userTrades.length;
+                        
+                        return `
+                            <tr>
+                                <td><strong>${user.username || 'Anonymous'}</strong></td>
+                                <td>${user.email || '—'}</td>
+                                <td>${new Date(user.signupDate || user.trackedAt).toLocaleString()}</td>
+                                <td>${user.lastActive ? new Date(user.lastActive).toLocaleString() : '—'}</td>
+                                <td>${tradeCount}</td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+                
+                // Load trades table
+                const tradesBody = document.getElementById('tradesBody');
+                if (allTrades.length === 0) {
+                    tradesBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 20px;">No trades yet</td></tr>';
+                } else {
+                    tradesBody.innerHTML = allTrades.slice(0, 15).map(trade => `
+                        <tr>
+                            <td>${new Date(trade.timestamp).toLocaleString()}</td>
+                            <td>${trade.username || trade.userId?.substring(0, 8) || '—'}</td>
+                            <td><strong>${trade.symbol}</strong></td>
+                            <td><span style="color: ${trade.type === 'buy' ? '#10b981' : '#ef4444'}">${trade.type}</span></td>
+                            <td>${trade.quantity}</td>
+                            <td>$${(trade.price || 0).toFixed(2)}</td>
+                            <td>$${(trade.total || 0).toFixed(2)}</td>
+                        </tr>
+                    `).join('');
+                }
+                
+                // Load popular pages
+                const visits = JSON.parse(localStorage.getItem('admin_page_visits_v2') || '[]');
+                const pageCounts = {};
+                visits.slice(-200).forEach(v => {
+                    const page = v.page || 'unknown';
+                    pageCounts[page] = (pageCounts[page] || 0) + 1;
+                });
+                
+                const pagesBody = document.getElementById('pagesBody');
+                if (Object.keys(pageCounts).length === 0) {
+                    pagesBody.innerHTML = '<tr><td colspan="2" style="text-align: center; padding: 20px;">No page views yet</td></tr>';
+                } else {
+                    pagesBody.innerHTML = Object.entries(pageCounts)
+                        .sort((a,b) => b[1] - a[1])
+                        .slice(0, 10)
+                        .map(([page, count]) => `
+                            <tr>
+                                <td>${page}</td>
+                                <td>${count} views</td>
+                            </tr>
+                        `).join('');
+                }
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('usersBody').innerHTML = '<tr><td colspan="5" style="color: #ef4444;">Error loading data</td></tr>';
+            }
+        }
+
+        function loadDataFromStorage() {
+            // Fallback if TradingTracker not available
+            const users = JSON.parse(localStorage.getItem('admin_trading_users_v2') || '[]');
+            const trades = JSON.parse(localStorage.getItem('admin_trades_v2') || '[]');
+            const visits = JSON.parse(localStorage.getItem('admin_page_visits_v2') || '[]');
+            
+            document.getElementById('totalUsers').textContent = users.length;
+            document.getElementById('totalTrades').textContent = trades.length;
+            
+            const totalVolume = trades.reduce((sum, t) => sum + (t.total || 0), 0);
+            document.getElementById('totalVolume').textContent = '$' + totalVolume.toLocaleString();
+            
+            // Calculate active today
+            const today = new Date().toDateString();
+            const activeToday = users.filter(u => new Date(u.lastActive).toDateString() === today).length;
+            document.getElementById('activeToday').textContent = activeToday;
+            
+            // Rest of display code...
+        }
+
+        // Load data initially
+        setTimeout(loadData, 500);
+        
+        // Auto refresh every 30 seconds
+        setInterval(loadData, 30000);
+
+        // For testing - add current user to tracking if not already there
+        function ensureUserTracked() {
+            const currentUser = localStorage.getItem('trading_user');
+            if (currentUser) {
+                const user = JSON.parse(currentUser);
+                const users = JSON.parse(localStorage.getItem('admin_trading_users_v2') || '[]');
+                
+                // Check if user already exists
+                const exists = users.some(u => u.username === user.username);
+                
+                if (!exists) {
+                    users.push({
+                        username: user.username,
+                        email: user.email || 'anonymous',
+                        signupDate: user.signupDate || new Date().toISOString(),
+                        lastActive: new Date().toISOString()
+                    });
+                    localStorage.setItem('admin_trading_users_v2', JSON.stringify(users));
+                    console.log('✅ User added to tracking:', user.username);
+                } else {
+                    // Update last active
+                    const index = users.findIndex(u => u.username === user.username);
+                    users[index].lastActive = new Date().toISOString();
+                    localStorage.setItem('admin_trading_users_v2', JSON.stringify(users));
+                    console.log('✅ User updated:', user.username);
+                }
+            }
+        }
+
+        // Call it when page loads
+        ensureUserTracked();
+        loadData();
+
+    </script>
+
+    <!-- Load tracker if available -->
+    <script src="/trading/simulator/trading-tracker.js"></script>
+</body>
+</html>

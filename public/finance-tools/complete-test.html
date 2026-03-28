@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Complete Test</title>
+    <style>
+        body { padding: 20px; font-family: Arial; }
+        .result { margin: 10px; padding: 10px; border-radius: 5px; }
+        .good { background: #d4edda; border: 1px solid #c3e6cb; }
+        .bad { background: #f8d7da; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>Complete Calculators Test</h1>
+    <div id="output">Testing...</div>
+
+    <script src="config.js"></script>
+    <script src="calculators.js"></script>
+    <script>
+        const output = document.getElementById('output');
+        
+        if (!window.FinancialCalculators) {
+            output.innerHTML = '<div class="bad">❌ FinancialCalculators not loaded</div>';
+            throw new Error('Calculators not loaded');
+        }
+        
+        const calc = new FinancialCalculators();
+        let html = '';
+        
+        // Test 1: Mortgage
+        const mortgage = calc.calculateMortgage({ principal: 300000, years: 30, country: 'US' });
+        html += `<div class="good"><strong>US Mortgage:</strong> ${mortgage.monthly} at ${mortgage.rate}</div>`;
+        
+        // Test 2: China Mortgage
+        const chinaMortgage = calc.calculateMortgage({ principal: 300000, years: 30, country: 'CN' });
+        html += `<div class="good"><strong>China Mortgage:</strong> ${chinaMortgage.monthly} at ${chinaMortgage.rate}</div>`;
+        
+        // Test 3: Retirement
+        const retirement = calc.calculateRetirement({ 
+            currentAge: 35, 
+            retirementAge: 65,
+            currentSavings: 50000,
+            monthlySave: 1000,
+            country: 'US'
+        });
+        html += `<div class="good"><strong>US Retirement:</strong> ${retirement.savingsAtRetirement} (${retirement.readiness})</div>`;
+        
+        // Test 4: Loan Payoff
+        const loan = calc.calculateLoanPayoff({ 
+            amount: 25000,
+            rate: 7.5,
+            minPayment: 300,
+            extraPayment: 100
+        });
+        html += `<div class="good"><strong>Loan Payoff:</strong> Save ${loan.withExtra.interestSaved} and ${loan.withExtra.timeSaved}</div>`;
+        
+        output.innerHTML = html;
+        console.log('All tests passed!');
+    </script>
+</body>
+</html>

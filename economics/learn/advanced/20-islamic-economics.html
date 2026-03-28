@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic Economic System - Lesson 20 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #7c3aed;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .pillar-card {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 15px 0;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #fbbf24;
+        }
+
+        .scholar-box {
+            background: #312e81;
+            color: white;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+
+        .completion-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 30px;
+            border-radius: 30px;
+            text-align: center;
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/advanced">Advanced</a> › 
+                Lesson 20: Islamic Economic System
+            </div>
+            <div class="title-section">
+                <h1>The Islamic Economic System</h1>
+                <span class="badge">Advanced • 60 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 16 Quiz Questions</span>
+                <span><i class="fas fa-mosque"></i> Complete Framework</span>
+                <span><i class="fas fa-balance-scale"></i> Justice & Mercy</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">الْيَوْمَ أَكْمَلْتُ لَكُمْ دِينَكُمْ وَأَتْمَمْتُ عَلَيْكُمْ نِعْمَتِي وَرَضِيتُ لَكُمُ الْإِسْلَامَ دِينًا</div>
+            <div class="translation">"This day I have perfected for you your religion and completed My favor upon you and have approved for you Islam as your religion."</div>
+            <div class="reference">— Quran 5:3</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Islam is complete—including a comprehensive economic system based on justice, mercy, and human dignity.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islam's Unique Economic Vision
+            </div>
+            <p style="font-size: 18px;">Islamic economics is not just "capitalism without interest" or "socialism with God." It is a unique system based on divine revelation, balancing material and spiritual needs, individual rights and social obligations.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 Three Pillars:</strong> Tawhid (Unity of God), Adl (Justice), Ihsan (Excellence). Every economic activity must serve these higher purposes.</p>
+            </div>
+        </div>
+
+        <!-- Foundational Principles -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-book"></i>
+                Foundational Principles
+            </div>
+
+            <div class="pillar-card">
+                <h4>1. Tawhid (Unity of God)</h4>
+                <p>Allah is the ultimate owner. Humans are trustees (khalifa). Wealth is a test, not an end. "Believe in Allah and His Messenger and spend out of that which He has made you successors." (Quran 57:7)</p>
+            </div>
+
+            <div class="pillar-card">
+                <h4>2. Adl (Justice)</h4>
+                <p>Fairness in all transactions. No exploitation, no oppression. "Give full measure and weight in justice." (Quran 6:152). Prohibition of riba (interest), gharar (uncertainty), and exploitation.</p>
+            </div>
+
+            <div class="pillar-card">
+                <h4>3. Ihsan (Excellence)</h4>
+                <p>Going beyond minimum requirements. Charity, kindness, quality work. "Indeed, Allah loves those who do ihsan." (Quran 2:195)</p>
+            </div>
+
+            <div class="pillar-card">
+                <h4>4. Maqasid al-Shariah (Higher Objectives)</h4>
+                <p>Economic activity must protect: Faith (Din), Life (Nafs), Intellect (Aql), Lineage (Nasl), Property (Mal). Any activity harming these is prohibited.</p>
+            </div>
+
+            <div class="pillar-card">
+                <h4>5. Balance (Wasatiyyah)</h4>
+                <p>Neither extreme individualism (capitalism) nor extreme collectivism (socialism). Balance between this world and next, between self and society.</p>
+            </div>
+        </div>
+
+        <!-- Prohibitions -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-ban"></i>
+                What is Prohibited?
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background:#fee2e2;">
+                    <h4 style="color:#991b1b;">⚠️ Riba (Interest)</h4>
+                    <p>Any guaranteed return on loan. Quran: "Allah has permitted trade and forbidden riba." (2:275). Includes bank interest, bonds, credit card interest.</p>
+                </div>
+                <div class="column-card" style="background:#fee2e2;">
+                    <h4 style="color:#991b1b;">⚠️ Gharar (Excessive Uncertainty)</h4>
+                    <p>Transactions with major unknown elements. Includes derivatives, short selling, speculative forex, most futures/options.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background:#fee2e2;">
+                    <h4 style="color:#991b1b;">⚠️ Maysir (Gambling)</h4>
+                    <p>Games of chance, speculation resembling gambling. Zero-sum transactions where one gains at other's loss without productive activity.</p>
+                </div>
+                <div class="column-card" style="background:#fee2e2;">
+                    <h4 style="color:#991b1b;">⚠️ Haram Industries</h4>
+                    <p>Alcohol, pork, gambling, weapons, adult entertainment, interest-based finance.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background:#fee2e2;">
+                    <h4 style="color:#991b1b;">⚠️ Hoarding (Ihtikar)</h4>
+                    <p>Withholding goods to drive up prices. Prophet cursed hoarders.</p>
+                </div>
+                <div class="column-card" style="background:#fee2e2;">
+                    <h4 style="color:#991b1b;">⚠️ Fraud & Deception</h4>
+                    <p>Lying about products, hiding defects, false advertising.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Positive Institutions -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-building"></i>
+                Islamic Economic Institutions
+            </div>
+
+            <div class="two-column">
+                <div class="pillar-card">
+                    <h4>💰 Zakat</h4>
+                    <p>2.5% annual wealth tax on savings. Eight categories of recipients (Quran 9:60). Mandatory redistribution, not charity. Purifies wealth.</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>🕋 Sadaqah (Voluntary Charity)</h4>
+                    <p>Encouraged at all times. "The believer's shade on Judgment Day will be his charity." (Hadith)</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="pillar-card">
+                    <h4>🏛️ Waqf (Endowment)</h4>
+                    <p>Assets dedicated permanently for public good. Hospitals, schools, mosques, water systems funded by waqf for centuries.</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>🤝 Qard Hasan (Benevolent Loan)</h4>
+                    <p>Interest-free loan for those in need. Repay principal only. "Who will lend Allah a goodly loan?" (Quran 2:245)</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="pillar-card">
+                    <h4>📜 Inheritance (Mirath)</h4>
+                    <p>Detailed Quranic rules (4:11-12). Wealth distributed widely among family, preventing concentration.</p>
+                </div>
+                <div class="pillar-card">
+                    <h4>⚖️ Hisba (Market Regulation)</h4>
+                    <p>State-appointed inspectors ensure fair weights, honest trade, no fraud. Classical Islamic markets had muhtasib (ombudsman).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Islamic Finance -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-university"></i>
+                Islamic Finance: Shariah-Compliant Alternatives
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🏦 Mudaraba (Profit-Sharing)</h4>
+                    <p>One party provides capital, other provides expertise. Profits shared by agreement. Losses borne by capital provider. Islamic banks use this for investment accounts.</p>
+                </div>
+                <div class="column-card">
+                    <h4>🤝 Musharaka (Joint Venture)</h4>
+                    <p>All partners contribute capital and share profits/losses proportionally. Used for large projects, home financing (diminishing musharaka).</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🛒 Murabaha (Cost-Plus Sale)</h4>
+                    <p>Bank buys asset and sells to customer at agreed markup. Most common Islamic financing. Must be real asset, not just money.</p>
+                </div>
+                <div class="column-card">
+                    <h4>🏠 Ijara (Lease)</h4>
+                    <p>Islamic leasing. Bank buys asset, leases to customer, transfers ownership gradually. Similar to conventional lease but Shariah-compliant.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📊 Sukuk (Islamic Bonds)</h4>
+                    <p>Asset-backed securities representing ownership in underlying asset. Unlike conventional bonds (debt with interest), sukuk holders share asset returns.</p>
+                </div>
+                <div class="column-card">
+                    <h4>🌾 Salam & Istisna</h4>
+                    <p>Forward contracts for agriculture and manufacturing, with strict rules to prevent gharar.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison with Other Systems -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-scale-balanced"></i>
+                Islam vs Capitalism vs Socialism
+            </div>
+
+            <table style="width:100%; border-collapse:collapse; margin:20px 0;">
+                <tr style="background:#312e81; color:white;">
+                    <th style="padding:10px;">Aspect</th>
+                    <th style="padding:10px;">Capitalism</th>
+                    <th style="padding:10px;">Socialism</th>
+                    <th style="padding:10px;">Islam</th>
+                </tr>
+                <tr style="border-bottom:1px solid #e2e8f0;">
+                    <td style="padding:10px;"><strong>Ownership</strong></td>
+                    <td>Private</td>
+                    <td>State/collective</td>
+                    <td>Private + public + state, all as trust from Allah</td>
+                </tr>
+                <tr style="border-bottom:1px solid #e2e8f0;">
+                    <td style="padding:10px;"><strong>Goal</strong></td>
+                    <td>Profit maximization</td>
+                    <td>Equality</td>
+                    <td>Falah (success in this world and next)</td>
+                </tr>
+                <tr style="border-bottom:1px solid #e2e8f0;">
+                    <td style="padding:10px;"><strong>Interest</strong></td>
+                    <td>Permitted</td>
+                    <td>Permitted</td>
+                    <td>Strictly prohibited</td>
+                </tr>
+                <tr style="border-bottom:1px solid #e2e8f0;">
+                    <td style="padding:10px;"><strong>Redistribution</strong></td>
+                    <td>Voluntary charity</td>
+                    <td>State taxation</td>
+                    <td>Mandatory Zakat + voluntary Sadaqah</td>
+                </tr>
+                <tr style="border-bottom:1px solid #e2e8f0;">
+                    <td style="padding:10px;"><strong>Market regulation</strong></td>
+                    <td>Minimal</td>
+                    <td>State-controlled</td>
+                    <td>Regulated to prevent harm, otherwise free</td>
+                </tr>
+                <tr>
+                    <td style="padding:10px;"><strong>View of wealth</strong></td>
+                    <td>End in itself</td>
+                    <td>Evil to be abolished</td>
+                    <td>Trust from Allah, means to higher ends</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Modern Islamic Economies -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-globe"></i>
+                Islamic Economics Today
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>🇲🇾 Malaysia</h4>
+                    <p>Most advanced Islamic finance sector. Islamic banking 30% of market. Sukuk dominate global issuance. Dual system works.</p>
+                </div>
+                <div>
+                    <h4>🇦🇪 UAE</h4>
+                    <p>Dubai Islamic Bank (first modern Islamic bank, 1975). Dubai Islamic Economy Development Centre. Sukuk hub.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>🇸🇦 Saudi Arabia</h4>
+                    <p>Fully Shariah-compliant banking system. Large Islamic asset base. Vision 2030 includes Islamic finance development.</p>
+                </div>
+                <div>
+                    <h4>🇬🇧 UK</h4>
+                    <p>First Western country to issue sovereign sukuk (2014). 6 Islamic banks. London major hub for Islamic finance.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>🇮🇷 Iran</h4>
+                    <p>Fully interest-free banking since 1983. Mixed record—Islamic in name, but challenges with inflation, sanctions.</p>
+                </div>
+                <div>
+                    <h4>🇸🇩 Sudan</h4>
+                    <p>Interest-free system since 1980s. Faced many other challenges, but banking Shariah-compliant.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contemporary Challenges -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Challenges Facing Islamic Economics
+            </div>
+
+            <div class="pillar-card">
+                <h4>⚠️ Form over Substance</h4>
+                <p>Some Islamic products mimic conventional ones with superficial changes. Scholars debate: Is it truly Islamic or just "Shariah-compliant" in name?</p>
+            </div>
+
+            <div class="pillar-card">
+                <h4>⚠️ Lack of Scholars</h4>
+                <p>Shortage of qualified Shariah scholars who understand modern finance. Same scholars sit on multiple boards—potential conflicts.</p>
+            </div>
+
+            <div class="pillar-card">
+                <h4>⚠️ Standardization</h4>
+                <p>Different scholars have different rulings. AAOIFI sets standards but not universally adopted. Creates uncertainty.</p>
+            </div>
+
+            <div class="pillar-card">
+                <h4>⚠️ Scale</h4>
+                <p>Islamic finance still small relative to conventional ($3T vs $300T). Needs growth to compete.</p>
+            </div>
+
+            <div class="pillar-card">
+                <h4>⚠️ Maqasid Implementation</h4>
+                <p>Are we achieving higher objectives or just avoiding prohibitions? True Islamic economics requires justice, development, human dignity—not just avoiding interest.</p>
+            </div>
+        </div>
+
+        <!-- The Vision -->
+        <div class="scholar-box">
+            <h4 style="color:#fbbf24;">🌟 The Vision of Islamic Economics (M. Umer Chapra)</h4>
+            <p>"Islamic economics is not just about avoiding interest. It is about creating a society where everyone's basic needs are met, where wealth circulates broadly, where markets are fair, and where economic activity serves human well-being—body and soul."</p>
+        </div>
+
+        <!-- QUIZ SECTION - 16 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 - Correct Answer: B -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is the fundamental basis of Islamic economics?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">A. Profit maximization</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">B. Tawhid (Allah as ultimate owner)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. State ownership</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. Individual freedom</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> Tawhid means Allah owns everything; humans are trustees responsible for using wealth according to His guidance.
+                </div>
+            </div>
+
+            <!-- Question 2 - Correct Answer: C -->
+            <div class="quiz-question" id="q2">
+                <p>2. What is riba?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">A. Profit from trade</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">B. Charitable giving</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">C. Any guaranteed return on loan (interest)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Business partnership</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> Riba includes all forms of interest, whether on loans, bonds, or credit cards—strictly prohibited in Quran and Sunnah.
+                </div>
+            </div>
+
+            <!-- Question 3 - Correct Answer: A -->
+            <div class="quiz-question" id="q3">
+                <p>3. What is zakat?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">A. Mandatory 2.5% wealth tax for specific recipients</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. Voluntary charity</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. Government tax</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. Business profit</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Zakat is a pillar of Islam, an annual obligation on savings, distributed to eight categories specified in Quran 9:60.
+                </div>
+            </div>
+
+            <!-- Question 4 - Correct Answer: D -->
+            <div class="quiz-question" id="q4">
+                <p>4. What is gharar?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">A. Interest</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">B. Gambling</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. Charity</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">D. Excessive uncertainty in contracts</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> Gharar refers to transactions with major unknown elements—selling fish in sea, unborn calf, or most derivatives.
+                </div>
+            </div>
+
+            <!-- Question 5 - Correct Answer: B -->
+            <div class="quiz-question" id="q5">
+                <p>5. What is a Waqf?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">A. Interest-free loan</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">B. Perpetual endowment for public good</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">C. Business partnership</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. Profit-sharing contract</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> Waqf endowments funded hospitals, schools, and infrastructure across Islamic civilization for centuries.
+                </div>
+            </div>
+
+            <!-- Question 6 - Correct Answer: C -->
+            <div class="quiz-question" id="q6">
+                <p>6. What is Mudaraba?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">A. Interest-based loan</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. Leasing contract</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">C. Profit-sharing partnership (capital provider + entrepreneur)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Cost-plus sale</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> In Mudaraba, one party provides capital, other provides expertise. Profits shared, losses borne by capital provider.
+                </div>
+            </div>
+
+            <!-- Question 7 - Correct Answer: A -->
+            <div class="quiz-question" id="q7">
+                <p>7. Which country has the most developed Islamic finance sector?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">A. Malaysia</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. Saudi Arabia</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. Iran</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. UAE</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> Malaysia leads in innovation, regulation, and market share (30% of banking). First to issue sovereign sukuk, most developed ecosystem.
+                </div>
+            </div>
+
+            <!-- Question 8 - Correct Answer: D -->
+            <div class="quiz-question" id="q8">
+                <p>8. What are Sukuk?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">A. Interest-bearing bonds</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">B. Shares of stock</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. Insurance policies</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">D. Asset-backed Islamic securities</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> Sukuk represent ownership in underlying assets, not debt. Returns come from asset performance, not interest.
+                </div>
+            </div>
+
+            <!-- Question 9 - Correct Answer: B -->
+            <div class="quiz-question" id="q9">
+                <p>9. What is the Maqasid al-Shariah?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">A. Islamic legal maxims</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">B. Higher objectives: protect faith, life, intellect, lineage, property</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. Rules of inheritance</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. Conditions for valid trade</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> Maqasid ensures economic activity serves deeper human needs, not just material gain.
+                </div>
+            </div>
+
+            <!-- Question 10 - Correct Answer: C -->
+            <div class="quiz-question" id="q10">
+                <p>10. What is Qard Hasan?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">A. Commercial loan with profit</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Charity</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">C. Interest-free benevolent loan</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. Leasing contract</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Qard Hasan is lending to those in need with no interest, only principal repaid—highly rewarded in Islam.
+                </div>
+            </div>
+
+            <!-- Question 11 - Correct Answer: A -->
+            <div class="quiz-question" id="q11">
+                <p>11. What does the Quran say about hoarding wealth?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">A. Those who hoard gold and silver will be punished (9:34-35)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. It is encouraged</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. It is neutral</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. Only applies to non-Muslims</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Quran 9:34-35 warns of severe punishment for those who hoard wealth without paying zakat.
+                </div>
+            </div>
+
+            <!-- Question 12 - Correct Answer: B -->
+            <div class="quiz-question" id="q12">
+                <p>12. What is Ijara?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">A. Profit-sharing</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">B. Islamic leasing</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. Cost-plus sale</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. Joint venture</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> Ijara is Islamic leasing—bank buys asset, leases it to customer, often with ownership transfer (ijara wa iqtina).
+                </div>
+            </div>
+
+            <!-- Question 13 - Correct Answer: D -->
+            <div class="quiz-question" id="q13">
+                <p>13. Who are the eight recipients of zakat?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">A. Only the poor</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">B. Only Muslims</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">C. Government only</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'correct')">D. Specified in Quran 9:60 (poor, needy, collectors, new Muslims, slaves, debtors, Allah's cause, travelers)</div>
+                </div>
+                <div class="explanation" id="exp-q13">
+                    <strong>✅ Correct!</strong> Zakat has eight specific categories, ensuring broad social welfare.
+                </div>
+            </div>
+
+            <!-- Question 14 - Correct Answer: C -->
+            <div class="quiz-question" id="q14">
+                <p>14. What is the role of the muhtasib in Islamic markets?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">A. Tax collector</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">B. Judge</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'correct')">C. Market inspector ensuring fair trade</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">D. Charity distributor</div>
+                </div>
+                <div class="explanation" id="exp-q14">
+                    <strong>✅ Correct!</strong> Hisba institution ensured honest weights, no fraud, ethical market conduct.
+                </div>
+            </div>
+
+            <!-- Question 15 - Correct Answer: A -->
+            <div class="quiz-question" id="q15">
+                <p>15. What is the main challenge facing modern Islamic finance?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'correct')">A. Form over substance (mimicking conventional products)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">B. Too many scholars</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">C. Too much standardization</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">D. No demand</div>
+                </div>
+                <div class="explanation" id="exp-q15">
+                    <strong>✅ Correct!</strong> Critics argue some products are conventional products with Arabic names—losing the spirit of Islamic economics.
+                </div>
+            </div>
+
+            <!-- Question 16 - Correct Answer: B -->
+            <div class="quiz-question" id="q16">
+                <p>16. What is the ultimate goal of Islamic economics?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q16', 'incorrect')">A. Maximizing GDP</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q16', 'correct')">B. Falah (success in this world and the Hereafter)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q16', 'incorrect')">C. Equality of outcomes</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q16', 'incorrect')">D. Elimination of private property</div>
+                </div>
+                <div class="explanation" id="exp-q16">
+                    <strong>✅ Correct!</strong> Falah means true prosperity—material well-being + spiritual success + social justice. This is the ultimate goal.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- COMPLETION SECTION -->
+        <div class="completion-badge">
+            <h2 style="color:white; font-size:36px; margin-bottom:20px;">🏆 مبارك 🏆</h2>
+            <p style="font-size:22px; margin-bottom:15px;">Congratulations! You have completed all 20 Economics Lessons!</p>
+            <p style="font-size:18px;">You've journeyed from basic concepts to advanced theories, from conventional economics to Islamic perspectives.</p>
+            <p style="font-size:18px; margin-top:20px;">May this knowledge benefit you and all who seek it.</p>
+            <p style="font-size:24px; margin-top:30px;">الحمد لله</p>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Foundational Texts</h4>
+                    <ul>
+                        <li><a href="#">"Islam and the Economic Challenge" - M. Umer Chapra</a></li>
+                        <li><a href="#">"Economic Doctrines of Islam" - Afzalur Rahman</a></li>
+                        <li><a href="#">"Introduction to Islamic Finance" - Mufti Taqi Usmani</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>📊 Modern Works</h4>
+                    <ul>
+                        <li><a href="#">"Islamic Economics: Theory and Practice" - Abul Hassan</a></li>
+                        <li><a href="#">"The Art of Islamic Banking" - Yusuf Talal DeLorenzo</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Classical Scholars</h4>
+                    <ul>
+                        <li><a href="#">"Kitab al-Kharaj" - Abu Yusuf</a></li>
+                        <li><a href="#">"Al-Hisba fi al-Islam" - Ibn Taymiyyah</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/advanced/19-behavioral-economics.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Behavioral Economics</a>
+            <a href="/economics" class="nav-link">Back to Economics Hub <i class="fas fa-home"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله الذي بنعمته تتم الصالحات</div>
+        <p>Praise be to Allah, by whose blessing good deeds are completed.</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • 20 Economics Lessons Complete</p>
+        <p style="margin-top: 20px; color: #fbbf24;">اللهم تقبل منا واجعل هذا العمل خالصًا لوجهك الكريم</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

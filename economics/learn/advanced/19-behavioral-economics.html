@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behavioral Economics - Lesson 19 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #7c3aed;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .experiment-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border: 2px dashed #312e81;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/advanced">Advanced</a> › 
+                Lesson 19: Behavioral Economics
+            </div>
+            <div class="title-section">
+                <h1>Behavioral Economics</h1>
+                <span class="badge">Advanced • 55 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 15 Quiz Questions</span>
+                <span><i class="fas fa-brain"></i> Psychology & Economics</span>
+                <span><i class="fas fa-mosque"></i> Human Nature in Islam</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">وَلَقَدْ خَلَقْنَا الْإِنسَانَ وَنَعْلَمُ مَا تُوَسْوِسُ بِهِ نَفْسُهُ ۖ وَنَحْنُ أَقْرَبُ إِلَيْهِ مِنْ حَبْلِ الْوَرِيدِ</div>
+            <div class="translation">"And We have certainly created man and We know what his soul whispers to him, and We are closer to him than his jugular vein."</div>
+            <div class="reference">— Quran 50:16</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Allah knows the deepest whispers of our souls—the biases, fears, and desires that drive our decisions. Behavioral economics studies these whispers.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-brain"></i>
+                The Human Side of Economics
+            </div>
+            <p style="font-size: 18px;">Traditional economics assumes "Homo economicus"—rational, self-interested, with perfect information. Behavioral economics studies how humans ACTUALLY behave: emotional, irrational, and wonderfully complicated.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 Behavioral Economics:</strong> The combination of psychology and economics that studies how cognitive biases, emotions, and social factors influence economic decisions.</p>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Daniel Kahneman • Nobel Prize 2002</h4>
+                <p>Psychologist who won Nobel in Economics. Pioneered study of cognitive biases with Amos Tversky. Showed how humans systematically make "irrational" decisions.</p>
+            </div>
+        </div>
+
+        <!-- System 1 vs System 2 -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-gauge-high"></i>
+                Thinking, Fast and Slow
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>⚡ System 1: Fast</h4>
+                    <ul>
+                        <li>Automatic, intuitive</li>
+                        <li>No effort</li>
+                        <li>Emotional</li>
+                        <li>Hard to control</li>
+                        <li>Examples: Recognize a face, drive on empty road</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🧠 System 2: Slow</h4>
+                    <ul>
+                        <li>Deliberate, analytical</li>
+                        <li>Requires effort</li>
+                        <li>Logical</li>
+                        <li>Lazy (tires easily)</li>
+                        <li>Examples: Solve math problem, choose retirement plan</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> The Bat and Ball Problem</h4>
+                <p><strong>Question:</strong> A bat and ball cost $1.10. The bat costs $1 more than the ball. How much is the ball?</p>
+                <p>System 1 says: 10 cents! (Wrong!)</p>
+                <p>System 2 calculates: Ball = x, Bat = x+1, Total = 2x+1 = 1.10 → x = 5 cents</p>
+                <p>Most people answer 10 cents because System 1 is fast but wrong.</p>
+            </div>
+        </div>
+
+        <!-- Cognitive Biases -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-list"></i>
+                Common Cognitive Biases
+            </div>
+
+            <div class="two-column">
+                <div class="psychology-box">
+                    <h4>1. Loss Aversion</h4>
+                    <p>Losing $100 hurts more than gaining $100 pleases. About 2-2.5x more painful. This explains why investors hold losing stocks too long (hope) and sell winners too early (fear).</p>
+                </div>
+                <div class="psychology-box">
+                    <h4>2. Anchoring</h4>
+                    <p>We rely too heavily on first information. A $1000 suit seems reasonable after seeing a $2000 suit. Used in negotiations, sales, pricing.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="psychology-box">
+                    <h4>3. Confirmation Bias</h4>
+                    <p>We seek information that confirms our beliefs, ignore contradicting evidence. In trading, you remember winning trades, forget losers.</p>
+                </div>
+                <div class="psychology-box">
+                    <h4>4. Overconfidence</h4>
+                    <p>90% of drivers think they're above average. Traders think they can beat market (most can't). CEOs overestimate merger success.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="psychology-box">
+                    <h4>5. Present Bias</h4>
+                    <p>We value today much more than tomorrow. Why we eat cake now, regret later. Why we don't save enough for retirement.</p>
+                </div>
+                <div class="psychology-box">
+                    <h4>6. Herd Mentality</h4>
+                    <p>We follow others. Stock market bubbles, bank runs, fashion trends. "If everyone's buying, it must be good."</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="psychology-box">
+                    <h4>7. Framing Effect</h4>
+                    <p>"90% survival rate" sounds better than "10% mortality rate"—same information, different reaction. How choices are presented matters.</p>
+                </div>
+                <div class="psychology-box">
+                    <h4>8. Endowment Effect</h4>
+                    <p>We value things more once we own them. Your coffee mug is worth more to you than the same mug in a store.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prospect Theory -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-line"></i>
+                Prospect Theory: Kahneman & Tversky's Revolution
+            </div>
+
+            <div class="experiment-box">
+                <h4>📊 The Experiment</h4>
+                <p><strong>Choice 1:</strong> A) Guaranteed $900  B) 90% chance of $1000, 10% chance of $0</p>
+                <p>Most choose A (risk-averse for gains).</p>
+                <p><strong>Choice 2:</strong> A) Guaranteed loss $900  B) 90% chance of losing $1000, 10% chance of losing $0</p>
+                <p>Most choose B (risk-seeking for losses).</p>
+                <p>This contradicts traditional economics (which says both should be same).</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>📈 Value Function</h4>
+                    <ul>
+                        <li>Steeper for losses than gains</li>
+                        <li>Diminishing sensitivity (difference between $0 and $100 feels bigger than $900 and $1000)</li>
+                        <li>Explains why we're risk-averse with gains, risk-seeking with losses</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>⚖️ Weighting Function</h4>
+                    <ul>
+                        <li>We overweigh small probabilities (lottery tickets, insurance)</li>
+                        <li>We underweigh medium/large probabilities</li>
+                        <li>Why we fear plane crashes (rare) more than car crashes (common)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mental Accounting -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-wallet"></i>
+                Mental Accounting (Richard Thaler)
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Richard Thaler • Nobel Prize 2017</h4>
+                <p>Father of behavioral economics. Showed how people mentally categorize money differently, leading to irrational decisions.</p>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> The $100 Suit</h4>
+                <p>You have $100. You plan to buy a suit for $95 and a book for $5. At the store, you discover the suit is on sale for $90. Do you buy it? Most say yes—you save $5!</p>
+                <p>But what if you're buying the book first, and it's on sale from $5 to $2? Most say yes again. But mathematically it's the same $5 saving!</p>
+                <p>Mental accounting: we treat money in different "accounts" (suit account, book account) instead of integrating.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>💳 Credit Card Premium</h4>
+                <p>People will pay more with credit card than cash for same item—because mental accounting separates payment from consumption. Credit "feels" less painful.</p>
+            </div>
+        </div>
+
+        <!-- Nudge Theory -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-hand-pointer"></i>
+                Nudge: Libertarian Paternalism
+            </div>
+
+            <div class="nobel-card">
+                <h4>📚 Richard Thaler & Cass Sunstein • "Nudge" (2008)</h4>
+                <p>Small changes in "choice architecture" can dramatically improve decisions—without restricting freedom.</p>
+            </div>
+
+            <div class="two-column">
+                <div class="example-box">
+                    <h4>🍏 Cafeteria Layout</h4>
+                    <p>Place healthy food at eye level, junk food harder to reach. Sales of healthy items increase 25%—without banning anything.</p>
+                </div>
+                <div class="example-box">
+                    <h4>💰 Save More Tomorrow</h4>
+                    <p>Employees commit now to save more from FUTURE pay raises (not current income). Loss aversion avoided. Savings rates tripled.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="example-box">
+                    <h4>⚙️ Defaults Matter</h4>
+                    <p>Opt-out organ donation (default = donor) vs opt-in (default = non-donor). Countries with opt-out have 90%+ donation rates; opt-in have 15%.</p>
+                </div>
+                <div class="example-box">
+                    <h4>📊 Pension Enrollment</h4>
+                    <p>Automatic enrollment (opt-out) boosts participation from 40% to 90%+ compared to opt-in.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Applications in Finance -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-pie"></i>
+                Behavioral Finance
+            </div>
+
+            <div class="two-column">
+                <div class="psychology-box">
+                    <h4>📈 Disposition Effect</h4>
+                    <p>Investors sell winners too early (realize gains) and hold losers too long (avoid realizing losses). Loss aversion at work.</p>
+                </div>
+                <div class="psychology-box">
+                    <h4>📊 Herding in Bubbles</h4>
+                    <p>Dot-com bubble (1999), Housing bubble (2006), Crypto frenzy (2021). Everyone buys because everyone's buying. Then panic.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="psychology-box">
+                    <h4>📉 Overtrading</h4>
+                    <p>Men trade 45% more than women, earn 1% less. Overconfidence leads to excessive trading. "Buy and hold" beats active trading for most.</p>
+                </div>
+                <div class="psychology-box">
+                    <h4>🧠 Home Bias</h4>
+                    <p>Investors overweight domestic stocks. Saudis invest in Saudi, Americans in US—even when diversification would reduce risk.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Islamic Perspective on Human Nature -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islamic Perspective: Knowing the Self
+            </div>
+
+            <div class="psychology-box">
+                <h4>📜 The Three Selves in Islam</h4>
+                <ul>
+                    <li><strong>Nafs al-Ammarah (the commanding self):</strong> Prone to evil, follows desires, impulsive. Behavioral biases come from here.</li>
+                    <li><strong>Nafs al-Lawwama (the blaming self):</strong> Conscience that regrets, feels guilt after wrong decisions.</li>
+                    <li><strong>Nafs al-Mutma'innah (the peaceful self):</strong> Attained through discipline, prayer, self-control—the ideal.</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>⚠️ Biases as Nafs al-Ammarah</h4>
+                    <ul>
+                        <li><strong>Greed:</strong> Hoarding, excessive risk</li>
+                        <li><strong>Fear:</strong> Panic selling, avoiding charity</li>
+                        <li><strong>Herd instinct:</strong> Following without thought</li>
+                        <li><strong>Overconfidence:</strong> Forgetting Allah's role</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>✅ Solutions in Islam</h4>
+                    <ul>
+                        <li><strong>Muhasaba:</strong> Self-accounting, reflection</li>
+                        <li><strong>Tawakkul:</strong> Trust in Allah reduces anxiety</li>
+                        <li><strong>Sabr:</strong> Patience counters loss aversion</li>
+                        <li><strong>Shura:</strong> Consultation counters overconfidence</li>
+                        <li><strong>Dhikr:</strong> Remembrance brings peace</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> The Prophet's (ﷺ) Guidance</h4>
+                <p><strong>On greed:</strong> "The son of Adam would fill a valley with gold if he could, then a second, then a third. Nothing fills his belly but dust." (Bukhari)</p>
+                <p><strong>On fear of poverty:</strong> "Poor is not the one who has little wealth, but the one whose soul is poor." (Ibn Hibban)</p>
+                <p><strong>On overconfidence:</strong> "Say: 'Nothing will happen to us except what Allah has decreed for us.'" (Quran 9:51)</p>
+            </div>
+        </div>
+
+        <!-- Behavioral Policy in Islam -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-balance-scale"></i>
+                Islamic Nudges
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>🕌 Zakat as Nudge</h4>
+                    <p>Automatic 2.5% wealth redistribution. Set by Allah—no choice. But also nudges: pay in Ramadan for more reward, pay secretly to avoid showing off.</p>
+                </div>
+                <div>
+                    <h4>🕋 Hajj Savings</h4>
+                    <p>Many Muslims save specifically for Hajj (mental accounting). Islamic banks offer dedicated Hajj accounts—positive nudge.</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>🍖 Qurbani (Sacrifice)</h4>
+                    <p>Annual reminder of Prophet Ibrahim's devotion. Framing: "You're not just buying meat, you're following a prophet's example."</p>
+                </div>
+                <div>
+                    <h4>📅 Ramadan Fasting</h4>
+                    <p>Month-long training in self-control. Helps overcome present bias, instant gratification. Research shows Muslims smoke less, spend less during Ramadan.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 15 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 - Correct Answer: C -->
+            <div class="quiz-question" id="q1">
+                <p>1. What did Daniel Kahneman win the Nobel Prize for?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">A. Efficient markets theory</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">B. Rational choice theory</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">C. Integrating psychology into economics (cognitive biases)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. Game theory</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> Kahneman (with Tversky) pioneered behavioral economics, showing how humans systematically deviate from rationality.
+                </div>
+            </div>
+
+            <!-- Question 2 - Correct Answer: D -->
+            <div class="quiz-question" id="q2">
+                <p>2. What is loss aversion?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">A. People prefer winning to losing</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">B. People don't care about losses</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. Losses and gains feel equal</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">D. Losses hurt about 2-2.5x more than equivalent gains please</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> This asymmetry explains many financial behaviors—holding losers too long, selling winners too early.
+                </div>
+            </div>
+
+            <!-- Question 3 - Correct Answer: A -->
+            <div class="quiz-question" id="q3">
+                <p>3. Who won the 2017 Nobel Prize for contributions to behavioral economics?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">A. Richard Thaler</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. Daniel Kahneman</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. Robert Shiller</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. Amos Tversky</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Thaler pioneered mental accounting, nudge theory, and showed how behavioral factors affect economic decisions.
+                </div>
+            </div>
+
+            <!-- Question 4 - Correct Answer: B -->
+            <div class="quiz-question" id="q4">
+                <p>4. What is the "bat and ball" problem designed to illustrate?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">A. People are good at math</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">B. Fast System 1 thinking leads to intuitive but wrong answers</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. People are always rational</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Slow System 2 is always correct</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> Most people answer 10 cents (System 1), but correct is 5 cents (System 2). Shows fast thinking traps.
+                </div>
+            </div>
+
+            <!-- Question 5 - Correct Answer: C -->
+            <div class="quiz-question" id="q5">
+                <p>5. What is the endowment effect?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">A. Rich people donate more</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">B. People value what they want more</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">C. People value things more once they own them</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. People don't value their possessions</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> In Thaler's experiments, coffee mugs given to students were valued much higher by owners than buyers.
+                </div>
+            </div>
+
+            <!-- Question 6 - Correct Answer: A -->
+            <div class="quiz-question" id="q6">
+                <p>6. What does "nudge" theory recommend?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">A. Small changes in choice architecture to improve decisions</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. Forcing people to make good choices</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. Removing all choices</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Letting people make all decisions alone</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> Nudges preserve freedom while steering people toward better choices (like opt-out retirement plans).
+                </div>
+            </div>
+
+            <!-- Question 7 - Correct Answer: D -->
+            <div class="quiz-question" id="q7">
+                <p>7. What is present bias?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">A. Caring equally about present and future</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. Only caring about the future</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. Not caring about time at all</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">D. Overvaluing today relative to tomorrow</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> Why we procrastinate, under-save, eat cake now—the future self is discounted.
+                </div>
+            </div>
+
+            <!-- Question 8 - Correct Answer: B -->
+            <div class="quiz-question" id="q8">
+                <p>8. How does Islam describe the self that follows base desires?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">A. Nafs al-Mutma'innah</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">B. Nafs al-Ammarah</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. Nafs al-Lawwama</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. Ruh al-Qudus</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> Nafs al-Ammarah is the commanding self that inclines toward evil and impulse.
+                </div>
+            </div>
+
+            <!-- Question 9 - Correct Answer: C -->
+            <div class="quiz-question" id="q9">
+                <p>9. Why do investors sell winners too early and hold losers too long?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">A. They're rational</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. They follow expert advice</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">C. Loss aversion (realizing losses hurts more than gains please)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. They don't care about profits</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> This "disposition effect" is driven by loss aversion—selling winners feels good, selling losers admits mistake.
+                </div>
+            </div>
+
+            <!-- Question 10 - Correct Answer: A -->
+            <div class="quiz-question" id="q10">
+                <p>10. What does the Quran verse 50:16 teach about human nature?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. Allah knows the whispers of our souls</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Humans are perfectly rational</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. Humans have no inner thoughts</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. Allah is far from us</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> "We know what his soul whispers to him, and We are closer to him than his jugular vein." Allah understands our deepest biases.
+                </div>
+            </div>
+
+            <!-- Question 11 - Correct Answer: D -->
+            <div class="quiz-question" id="q11">
+                <p>11. Why do defaults matter so much in choice architecture?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">A. People love making choices</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. Defaults are illegal</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. People ignore defaults</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">D. People tend to stick with the default (inertia)</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Inertia and procrastination mean default options have huge effects—like organ donation rates from 15% to 90%+.
+                </div>
+            </div>
+
+            <!-- Question 12 - Correct Answer: B -->
+            <div class="quiz-question" id="q12">
+                <p>12. What Islamic practice helps counter present bias?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">A. Eating more</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">B. Ramadan fasting (self-control training)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. Sleeping late</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. Spending all savings</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> Fasting teaches self-control, reducing present bias and impulsive behavior.
+                </div>
+            </div>
+
+            <!-- Question 13 - Correct Answer: C -->
+            <div class="quiz-question" id="q13">
+                <p>13. What is mental accounting?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">A. Accounting for mental illness</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">B. Rational budgeting</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'correct')">C. Treating money differently based on mental categories</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">D. Ignoring money completely</div>
+                </div>
+                <div class="explanation" id="exp-q13">
+                    <strong>✅ Correct!</strong> Thaler's concept—people treat $100 found differently than $100 earned, though money is fungible.
+                </div>
+            </div>
+
+            <!-- Question 14 - Correct Answer: A -->
+            <div class="quiz-question" id="q14">
+                <p>14. Why do lottery tickets sell even though expected value is negative?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'correct')">A. People overweigh small probabilities</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">B. People are good at math</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">C. Lottery has positive expected value</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">D. People don't care about money</div>
+                </div>
+                <div class="explanation" id="exp-q14">
+                    <strong>✅ Correct!</strong> Prospect theory shows we overweigh tiny probabilities (winning jackpot) and underweigh moderate ones.
+                </div>
+            </div>
+
+            <!-- Question 15 - Correct Answer: D -->
+            <div class="quiz-question" id="q15">
+                <p>15. What does tawakkul (trust in Allah) help overcome?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">A. Overconfidence only</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">B. Loss aversion only</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">C. Present bias only</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'correct')">D. Anxiety about future, excessive fear, and greed</div>
+                </div>
+                <div class="explanation" id="exp-q15">
+                    <strong>✅ Correct!</strong> Tawakkul brings peace, reducing the fear and greed that drive many behavioral biases.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"Thinking, Fast and Slow" - Daniel Kahneman</a></li>
+                        <li><a href="#">"Nudge" - Richard Thaler & Cass Sunstein</a></li>
+                        <li><a href="#">"Misbehaving" - Richard Thaler</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>📊 Academic Papers</h4>
+                    <ul>
+                        <li><a href="#">"Prospect Theory" - Kahneman & Tversky (1979)</a></li>
+                        <li><a href="#">"Mental Accounting Matters" - Thaler (1999)</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Psychology</h4>
+                    <ul>
+                        <li><a href="#">"Purification of the Soul" - Ibn Qayyim</a></li>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Economics</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/advanced/18-economic-development.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Economic Development</a>
+            <a href="/economics/learn/advanced/20-islamic-economics.html" class="nav-link">Next: Islamic Economic System <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May you know yourself, control your nafs, and find peace in Allah</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 19 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في العشر الأواخر من رمضان</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

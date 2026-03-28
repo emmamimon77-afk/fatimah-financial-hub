@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiscal Policy - Lesson 7 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th {
+            background: #312e81;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            margin: 15px 0;
+            border-left: 4px solid #312e81;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/beginner">Beginner</a> › 
+                Lesson 7: Fiscal Policy
+            </div>
+            <div class="title-section">
+                <h1>Fiscal Policy</h1>
+                <span class="badge">Beginner • 35 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 12 Quiz Questions</span>
+                <span><i class="fas fa-landmark"></i> Government Budget</span>
+                <span><i class="fas fa-mosque"></i> Islamic Public Finance</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا وَإِذَا حَكَمْتُم بَيْنَ النَّاسِ أَن تَحْكُمُوا بِالْعَدْلِ</div>
+            <div class="translation">"Indeed, Allah commands you to render trusts to whom they are due and when you judge between people to judge with justice."</div>
+            <div class="reference">— Quran 4:58</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Fiscal policy is about how government manages the public's trust—taxing justly and spending wisely.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-landmark"></i>
+                What is Fiscal Policy?
+            </div>
+            <p style="font-size: 18px;">Fiscal policy refers to the use of government spending and taxation to influence the economy. Unlike monetary policy (central banks), fiscal policy is determined by the government (parliament/treasury).</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 Simple Definition:</strong> Fiscal policy is how the government collects money (taxes) and spends money (budget) to affect the economy.</p>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🏛️ Government Revenue (Taxes)</h4>
+                    <ul>
+                        <li>Income tax</li>
+                        <li>Corporate tax</li>
+                        <li>Sales tax (VAT)</li>
+                        <li>Property tax</li>
+                        <li>Customs duties</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>💰 Government Spending</h4>
+                    <ul>
+                        <li>Infrastructure (roads, bridges)</li>
+                        <li>Healthcare & education</li>
+                        <li>Defense & security</li>
+                        <li>Social welfare</li>
+                        <li>Public sector wages</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fiscal vs Monetary Policy -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-balance-scale"></i>
+                Fiscal vs Monetary Policy
+            </div>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Aspect</th>
+                    <th>Fiscal Policy</th>
+                    <th>Monetary Policy</th>
+                </tr>
+                <tr>
+                    <td><strong>Who Controls?</strong></td>
+                    <td>Government (Treasury)</td>
+                    <td>Central Bank</td>
+                </tr>
+                <tr>
+                    <td><strong>Tools</strong></td>
+                    <td>Taxes, Spending, Borrowing</td>
+                    <td>Interest Rates, Money Supply</td>
+                </tr>
+                <tr>
+                    <td><strong>Speed</strong></td>
+                    <td>Slow (needs legislation)</td>
+                    <td>Fast (central bank decisions)</td>
+                </tr>
+                <tr>
+                    <td><strong>Target</strong></td>
+                    <td>Specific sectors/regions</td>
+                    <td>Whole economy</td>
+                </tr>
+                <tr>
+                    <td><strong>Political</strong></td>
+                    <td>Highly political</td>
+                    <td>Independent/technocratic</td>
+                </tr>
+            </table>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Think of it like this:</h4>
+                <p><strong>Fiscal Policy</strong> is like the government steering the ship (choosing direction, funding projects).<br>
+                <strong>Monetary Policy</strong> is like the engine room (controlling speed, fuel flow).</p>
+            </div>
+        </div>
+
+        <!-- Expansionary vs Contractionary -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-arrows-alt"></i>
+                Expansionary vs Contractionary
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background: #d1fae5;">
+                    <h3 style="color: #065f46;">📈 Expansionary</h3>
+                    <p><strong>When:</strong> Recession, high unemployment</p>
+                    <p><strong>Actions:</strong></p>
+                    <ul>
+                        <li>Increase spending (infrastructure projects)</li>
+                        <li>Cut taxes (more money for people)</li>
+                        <li>Result: Budget deficit</li>
+                    </ul>
+                </div>
+                <div class="column-card" style="background: #fee2e2;">
+                    <h3 style="color: #991b1b;">📉 Contractionary</h3>
+                    <p><strong>When:</strong> High inflation, overheating</p>
+                    <p><strong>Actions:</strong></p>
+                    <ul>
+                        <li>Decrease spending</li>
+                        <li>Raise taxes</li>
+                        <li>Result: Budget surplus</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> The Multiplier Effect</h4>
+                <p>When government spends $1, it can create more than $1 in economic activity. The worker who builds the bridge spends their wages at local stores, those store owners hire more staff, etc. This is called the multiplier effect (typically 1.5 to 2.0).</p>
+            </div>
+        </div>
+
+        <!-- Budget Deficits and National Debt -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-line"></i>
+                Budget Deficits & National Debt
+            </div>
+
+            <div class="formula-box">
+                Deficit = Spending > Revenue
+                Debt = Accumulated Deficits
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📊 US Federal Budget (2025)</h4>
+                    <ul>
+                        <li>Revenue: ~$5 trillion</li>
+                        <li>Spending: ~$6.5 trillion</li>
+                        <li><strong>Deficit: ~$1.5 trillion</strong></li>
+                        <li>National Debt: ~$35 trillion</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>⚠️ When is Debt a Problem?</h4>
+                    <ul>
+                        <li>When interest payments consume budget</li>
+                        <li>When investors lose confidence</li>
+                        <li>When it crowds out private investment</li>
+                        <li>When it burdens future generations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>📈 Debt-to-GDP Ratio</h4>
+                <p>Most important metric: Debt as % of GDP</p>
+                <ul>
+                    <li>Japan: ~260% (but owned domestically)</li>
+                    <li>USA: ~120%</li>
+                    <li>Germany: ~70%</li>
+                    <li>Greece: ~170% (crisis level)</li>
+                </ul>
+                <p>Economists worry when debt exceeds 90-100% of GDP for extended periods.</p>
+            </div>
+        </div>
+
+        <!-- Automatic Stabilizers -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-shield-alt"></i>
+                Automatic Stabilizers
+            </div>
+
+            <p>Not all fiscal policy requires new laws. Some things happen automatically:</p>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📉 During Recession</h4>
+                    <ul>
+                        <li>Unemployment benefits increase (more people qualify)</li>
+                        <li>Tax revenues fall (people earn less)</li>
+                        <li>Automatic stimulus without legislation</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>📈 During Boom</h4>
+                    <ul>
+                        <li>Unemployment benefits decrease</li>
+                        <li>Tax revenues rise (higher incomes)</li>
+                        <li>Automatic cooling of economy</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Real-World Example</h4>
+                <p>In 2020, US unemployment benefits automatically extended as claims surged. In 2021-2022, as people returned to work, benefits automatically phased out.</p>
+            </div>
+        </div>
+
+        <!-- Historical Examples -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Historical Examples
+            </div>
+
+            <div class="timeline-item">
+                <h4>1930s: The New Deal</h4>
+                <p>FDR's response to Great Depression. Massive government spending on infrastructure, jobs programs. Created Social Security. Laid foundation for modern fiscal policy.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>2008-2009: Great Recession</h4>
+                <p>Obama's $831 billion stimulus (tax cuts, spending, aid to states). Combined with bank bailouts. Prevented depression but slow recovery.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>2020-2021: COVID-19 Response</h4>
+                <p>Trillion-dollar stimulus checks, enhanced unemployment, PPP loans for businesses. Total ~$5 trillion. Led to rapid recovery but also high inflation.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>2022-2024: Inflation Reduction Act</h4>
+                <p>Despite name, focused on climate spending, healthcare subsidies, and tax changes. Debated whether it added to inflation or helped long-term.</p>
+            </div>
+        </div>
+
+        <!-- Islamic Perspective on Fiscal Policy -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islamic Perspective on Public Finance
+            </div>
+
+            <div class="psychology-box">
+                <h4>📖 Principles from the Caliphate</h4>
+                <p>The second Caliph, Umar ibn al-Khattab (may Allah be pleased with him), established the <strong>Bayt al-Mal</strong> (Treasury) with clear principles:</p>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Zakat:</strong> Mandatory wealth redistribution (2.5% on savings)</li>
+                    <li><strong>Kharaj:</strong> Land tax (fair and proportional)</li>
+                    <li><strong>Jizya:</strong> Protection tax for non-Muslims</li>
+                    <li><strong>Ghanimah:</strong> Spoils of war (20% to public treasury)</li>
+                    <li><strong>Waqf:</strong> Endowments for public goods (hospitals, schools)</li>
+                </ul>
+            </div>
+
+            <div class="psychology-box">
+                <h4>⚖️ Justice in Taxation</h4>
+                <p>Abu Yusuf, the chief judge of Harun al-Rashid, wrote in "Kitab al-Kharaj":</p>
+                <p style="font-style: italic;">"Justice in taxation means that the burden should be proportional to ability to pay, and the collector should be kind and not harsh with the people."</p>
+                <p>Islamic fiscal policy emphasizes:</p>
+                <ul>
+                    <li>No taxation without representation</li>
+                    <li>Progressive but fair rates</li>
+                    <li>Transparent collection and spending</li>
+                    <li>Priority on basic needs (maqasid al-shariah)</li>
+                </ul>
+            </div>
+
+            <div class="psychology-box">
+                <h4>🕌 Modern Islamic Fiscal Policy</h4>
+                <p>Countries like Malaysia, UAE, and Saudi Arabia integrate Islamic principles:</p>
+                <ul>
+                    <li>Zakat funds managed separately for the poor</li>
+                    <li>Sukuk (Islamic bonds) for infrastructure funding</li>
+                    <li>No interest-based government borrowing</li>
+                    <li>Prohibition of investing in haram sectors</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Sukuk vs Conventional Bonds</h4>
+                <p><strong>Conventional Bond:</strong> Government borrows $1000, pays 5% interest annually, returns $1000 at end. (Riba - Haram)</p>
+                <p><strong>Sukuk:</strong> Government sells share in an asset (like a toll road). Investors receive share of profits from the road. Asset-backed, not interest. (Halal)</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 12 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is fiscal policy?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">A. Central bank interest rate decisions</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">B. Government taxation and spending decisions</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. International trade agreements</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. Stock market regulations</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> Fiscal policy is government's use of taxes and spending to influence the economy.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. Which is an example of expansionary fiscal policy?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">A. Cutting taxes during a recession</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">B. Raising taxes during a boom</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. Reducing government spending</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Increasing interest rates</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> Tax cuts put more money in people's pockets, stimulating demand during recessions.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. What is the difference between a deficit and debt?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">A. They are the same thing</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">B. Deficit is yearly shortfall; debt is accumulated deficits</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. Debt is yearly; deficit is accumulated</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. Deficit is for states; debt is federal</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Deficit = this year's gap. Debt = total of all past deficits.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. What are "automatic stabilizers"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">A. Laws that prevent recessions</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">B. Policies like unemployment benefits that automatically respond to economy</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. Fixed tax rates that never change</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Central bank interventions</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> Automatic stabilizers (unemployment benefits, progressive taxes) kick in without new legislation.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. During high inflation, what fiscal policy is appropriate?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">A. Increase spending</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">B. Cut taxes</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">C. Reduce spending and/or raise taxes</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. Print more money</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> Contractionary policy (spending cuts, tax hikes) cools demand and reduces inflation.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. What was the New Deal?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">A. FDR's massive spending program during Great Depression</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. Reagan's tax cuts in 1980s</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. Obama's 2009 stimulus</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. COVID relief package</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> The New Deal was FDR's response to the Great Depression, creating Social Security and massive infrastructure projects.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What is the "multiplier effect"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">A. Taxes multiplied by spending</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">B. When $1 of government spending creates >$1 of economic activity</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. When inflation multiplies</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. When debt grows faster than GDP</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> The multiplier effect means initial spending ripples through the economy, creating additional activity.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. What was the Bayt al-Mal in Islamic history?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">A. A type of tax</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">B. The public treasury established by Caliph Umar</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. A charity organization</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. A trade route</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> Bayt al-Mal was the Islamic public treasury, managing zakat, taxes, and public spending justly.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. How do Sukuk (Islamic bonds) differ from conventional bonds?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">A. Sukuk represent ownership in assets, not interest-based debt</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. Sukuk pay higher interest</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. Sukuk are only for Muslims</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. Sukuk cannot be traded</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> Sukuk are asset-backed securities representing ownership, avoiding interest (riba).
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. When is national debt most dangerous?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. When debt-to-GDP ratio is very high and investors lose confidence</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Whenever there is any debt</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. Only during wartime</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. When it's owned by foreigners only</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> High debt-to-GDP can lead to higher borrowing costs, crowding out investment, and potential crisis.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. Who established the first formal Islamic treasury (Bayt al-Mal)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">A. Prophet Muhammad (ﷺ)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">B. Caliph Umar ibn al-Khattab</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. Caliph Abu Bakr</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. Caliph Uthman</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Umar (RA) established the Bayt al-Mal to manage public funds justly during his caliphate.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. What fiscal policy response happened during COVID-19?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">A. Tax increases</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">B. Spending cuts</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">C. Massive stimulus checks and business support</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. Interest rate hikes</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> Governments worldwide responded with huge expansionary fiscal policy: stimulus checks, unemployment benefits, business loans.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"The General Theory" - John Maynard Keynes</a></li>
+                        <li><a href="#">"Kitab al-Kharaj" - Abu Yusuf (Islamic taxation)</a></li>
+                        <li><a href="#">"Principles of Economics" - Mankiw (Ch. 34)</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🌐 Data Sources</h4>
+                    <ul>
+                        <li><a href="https://www.treasury.gov" target="_blank">US Treasury</a></li>
+                        <li><a href="https://www.imf.org" target="_blank">IMF Fiscal Monitor</a></li>
+                        <li><a href="https://www.oecd.org/tax/" target="_blank">OECD Tax Database</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Economics</h4>
+                    <ul>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Finance</a></li>
+                        <li><a href="https://isdb.org" target="_blank">Islamic Development Bank</a></li>
+                        <li><a href="#">"Public Finance in Islam" - M. Umer Chapra</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/beginner/06-monetary-policy.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Monetary Policy</a>
+            <a href="/economics/learn/beginner/08-business-cycles.html" class="nav-link">Next: Business Cycles <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May governments govern with justice and spend with wisdom</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 7 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في رمضان وتقبل منا</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

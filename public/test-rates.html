@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Real-Time Rates</title>
+</head>
+<body>
+    <h1>Real-Time Rate Test</h1>
+    <button onclick="testRates()">Test US Rates</button>
+    <div id="results"></div>
+    
+    <script src="finance-tools/shared/api-keys.js"></script>
+    <script src="finance-tools/shared/real-time-rates.js"></script>
+    <script src="finance-tools/shared/config.js"></script>
+    
+    <script>
+    async function testRates() {
+        const results = document.getElementById('results');
+        results.innerHTML = '<p>Fetching rates... This may take a moment.</p>';
+        
+        try {
+            const config = window.FinancialConfig;
+            const rt = window.RealTimeRates;
+            
+            // Test 1: Get US mortgage rate with real-time
+            const mortgageRate = await config.getRate('mortgage30yr', 'US');
+            const mortgageInfo = await config.getRateWithInfo('mortgage30yr', 'US');
+            
+            // Test 2: Get UK mortgage rate (should use static)
+            const ukRate = await config.getRate('mortgage30yr', 'UK');
+            
+            results.innerHTML = `
+                <h3>US Mortgage Rate (Real-Time):</h3>
+                <p>Value: ${mortgageRate}%</p>
+                <p>Source: ${mortgageInfo.source}</p>
+                <p>Date: ${mortgageInfo.date}</p>
+                <p>Live Data: ${mortgageInfo.isLive ? '✅ Yes' : '❌ No (Demo Mode)'}</p>
+                
+                <h3>UK Mortgage Rate (Static Fallback):</h3>
+                <p>Value: ${ukRate}%</p>
+                <p>Source: Static Database (Q1 2024)</p>
+                
+                <h3>Cache Status:</h3>
+                <pre>${JSON.stringify(rt.getCacheStatus(), null, 2)}</pre>
+                
+                <p><small>Note: If you see "Demo Mode", you need to get a FRED API key.</small></p>
+            `;
+            
+        } catch (error) {
+            results.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+        }
+    }
+    </script>
+</body>
+</html>

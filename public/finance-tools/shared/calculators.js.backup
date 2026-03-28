@@ -1,0 +1,212 @@
+// Financial Calculators - COMPLETE WORKING VERSION
+class FinancialCalculators {
+    constructor() {
+        console.log('FinancialCalculators constructor');
+        this.config = window.FinancialConfig;
+        console.log('Config loaded:', !!this.config);
+    }
+
+    // Simple mortgage calculator
+    calculateMortgage(params) {
+        console.log('calculateMortgage called:', params);
+        try {
+            const principal = params.principal || 300000;
+            const years = params.years || 30;
+            const country = params.country || 'US';
+            
+            // Get rate from config
+            const rate = this.config.getRate('mortgage30yr', country);
+            console.log('Rate for', country, ':', rate);
+            
+            const monthlyRate = rate / 100 / 12;
+            const payments = years * 12;
+            
+            // Calculate monthly payment
+            const monthly = principal * (monthlyRate * Math.pow(1 + monthlyRate, payments)) / 
+                           (Math.pow(1 + monthlyRate, payments) - 1);
+            
+            console.log('Monthly payment:', monthly);
+            
+            // Return result
+            return {
+                success: true,
+                monthly: this.formatMoney(monthly, country),
+                rate: rate.toFixed(2) + '%',
+                country: country
+            };
+        } catch (error) {
+            console.error('Mortgage error:', error);
+            return { 
+                success: false, 
+                error: error.message 
+            };
+        }
+    }
+
+    // Simple investment calculator
+    calculateInvestment(params) {
+        try {
+            const initial = params.initial || 10000;
+            const monthly = params.monthly || 500;
+            const years = params.years || 20;
+            const country = params.country || 'US';
+            
+            const rate = this.config.getRate('retirementReturn', country);
+            const monthlyRate = rate / 100 / 12;
+            const months = years * 12;
+            
+            const future = initial * Math.pow(1 + monthlyRate, months) + 
+                          monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+            
+            return {
+                success: true,
+                future: this.formatMoney(future, country),
+                rate: rate.toFixed(2) + '%'
+            };
+        } catch (error) {
+            return { 
+                success: false, 
+                error: error.message 
+            };
+        }
+    }
+
+    // Retirement Calculator
+    calculateRetirement(params) {
+        try {
+            const currentAge = params.currentAge || 35;
+            const retirementAge = params.retirementAge || 65;
+            const currentSavings = params.currentSavings || 50000;
+            const monthlySave = params.monthlySave || 1000;
+            const desiredIncome = params.desiredIncome || 60000;
+            const country = params.country || 'US';
+            
+            const years = retirementAge - currentAge;
+            
+            // Calculate savings at retirement
+            const investment = this.calculateInvestment({
+                initial: currentSavings,
+                monthly: monthlySave,
+                years: years,
+                country: country
+            });
+            
+            if (!investment.success) {
+                throw new Error(investment.error);
+            }
+            
+            const savings = this.parseMoney(investment.future);
+            const safeWithdrawal = savings * 0.04;
+            const yearsCovered = savings / (desiredIncome || safeWithdrawal * 25);
+            
+            return {
+                success: true,
+                country: country,
+                savingsAtRetirement: investment.future,
+                safeWithdrawal: this.formatMoney(safeWithdrawal, country) + '/year',
+                yearsCovered: yearsCovered.toFixed(1),
+                readiness: yearsCovered >= 30 ? 'On track' : 'Need to save more'
+            };
+        } catch (error) {
+            return { success: false, error: error.message };
+        }
+    }
+
+    // Loan Payoff Calculator
+    calculateLoanPayoff(params) {
+        try {
+            const amount = params.amount || 25000;
+            const rate = params.rate || this.config.getRate('mortgage30yr', params.country || 'US');
+            const minPayment = params.minPayment || 300;
+            const extraPayment = params.extraPayment || 100;
+            const country = params.country || 'US';
+            
+            const monthlyRate = rate / 100 / 12;
+            
+            // Calculate with minimum payment
+            let balanceMin = amount;
+            let monthsMin = 0;
+            let interestMin = 0;
+            
+            while (balanceMin > 0 && monthsMin < 600) {
+                const interest = balanceMin * monthlyRate;
+                interestMin += interest;
+                const principal = minPayment - interest;
+                balanceMin -= principal;
+                monthsMin++;
+            }
+            
+            // Calculate with extra payment
+            let balanceExtra = amount;
+            let monthsExtra = 0;
+            let interestExtra = 0;
+            const totalPayment = minPayment + extraPayment;
+            
+            while (balanceExtra > 0 && monthsExtra < 600) {
+                const interest = balanceExtra * monthlyRate;
+                interestExtra += interest;
+                const principal = totalPayment - interest;
+                balanceExtra -= principal;
+                monthsExtra++;
+            }
+            
+            return {
+                success: true,
+                country: country,
+                withMinimum: {
+                    months: monthsMin,
+                    years: (monthsMin / 12).toFixed(1),
+                    totalInterest: this.formatMoney(interestMin, country)
+                },
+                withExtra: {
+                    months: monthsExtra,
+                    years: (monthsExtra / 12).toFixed(1),
+                    totalInterest: this.formatMoney(interestExtra, country),
+                    timeSaved: ((monthsMin - monthsExtra) / 12).toFixed(1) + ' years',
+                    interestSaved: this.formatMoney(interestMin - interestExtra, country)
+                }
+            };
+        } catch (error) {
+            return { success: false, error: error.message };
+        }
+    }
+
+    // Format money with country symbol
+    formatMoney(amount, country) {
+        if (!this.config || !this.config.countryData) {
+            return '$' + amount.toFixed(2);
+        }
+        
+        const countryInfo = this.config.countryData[country];
+        const symbol = countryInfo ? countryInfo.symbol : '$';
+        return symbol + amount.toFixed(2);
+    }
+
+    // Helper: Parse money string back to number
+    parseMoney(moneyString) {
+        return parseFloat(moneyString.replace(/[^0-9.-]+/g, ''));
+    }
+
+    // Get all available countries
+    getAvailableCountries() {
+        if (!this.config || !this.config.getCountries) {
+            return ['US', 'UK', 'CN', 'RU'];
+        }
+        return this.config.getCountries();
+    }
+
+    // Update country settings
+    setCountry(countryCode) {
+        if (this.config && this.config.updateSettings) {
+            this.config.updateSettings({ country: countryCode });
+            return true;
+        }
+        return false;
+    }
+}
+
+// Make available in browser
+if (typeof window !== 'undefined') {
+    window.FinancialCalculators = FinancialCalculators;
+    console.log('FinancialCalculators registered to window');
+}

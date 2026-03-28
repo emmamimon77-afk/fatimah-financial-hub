@@ -1,0 +1,298 @@
+// modules/ui-controls.js
+// Country selector and shared UI components
+
+class UIControls {
+    constructor() {
+        this.config = window.FinancialConfig;
+        this.calculators = window.FinancialCalculators ? 
+            (typeof window.FinancialCalculators === 'function' ? new window.FinancialCalculators() : window.FinancialCalculators) : 
+            null;
+        this.onCountryChangeCallback = null;
+    }
+
+    // Create country selector dropdown
+    createCountrySelector(containerId, onCountryChange = null) {
+        const container = document.getElementById(containerId);
+        if (!container) {
+            console.error('Container not found:', containerId);
+            return;
+        }
+
+        // Store callback for country change
+        this.onCountryChangeCallback = onCountryChange;
+
+        // Get countries from config
+        const countries = this.config.getCountries ? this.config.getCountries() : [
+            { code: 'US', name: 'United States', symbol: '$' },
+            { code: 'CN', name: 'China', symbol: '¥' },
+            { code: 'RU', name: 'Russia', symbol: '₽' },
+            { code: 'UK', name: 'United Kingdom', symbol: '£' },
+            { code: 'EU', name: 'European Union', symbol: '€' },
+            { code: 'JP', name: 'Japan', symbol: '¥' },
+            { code: 'IN', name: 'India', symbol: '₹' },
+            { code: 'AU', name: 'Australia', symbol: 'A$' }
+        ];
+
+        // Create select element
+        const select = document.createElement('select');
+        select.id = 'country-selector';
+        select.className = 'country-select';
+        select.innerHTML = '<option value="">Select Country</option>';
+
+        // Add country options
+        countries.forEach(country => {
+            const option = document.createElement('option');
+            option.value = country.code;
+            option.textContent = `${country.name} (${country.symbol})`;
+            select.appendChild(option);
+        });
+
+        // Set current country
+        const currentCountry = this.config.userSettings?.country || 'US';
+        select.value = currentCountry;
+
+        // Add change event - NOW ASYNC
+        select.addEventListener('change', async (e) => {
+            const countryCode = e.target.value;
+            if (countryCode) {
+                await this.setCountry(countryCode);
+                if (this.onCountryChangeCallback) this.onCountryChangeCallback(countryCode);
+            }
+        });
+
+        // Clear and append
+        container.innerHTML = '';
+        container.appendChild(select);
+
+        // Initial display update
+        setTimeout(async () => {
+            await this.updateCountryDisplay(currentCountry);
+        }, 100);
+
+        return select;
+    }
+
+    // Set country in config - NOW ASYNC
+    async setCountry(countryCode) {
+        if (this.config.updateSettings) {
+            this.config.updateSettings({ country: countryCode });
+            console.log('Country set to:', countryCode);
+            
+            // Update UI to show selected country - NOW ASYNC
+            await this.updateCountryDisplay(countryCode);
+            return true;
+        }
+        return false;
+    }
+
+    // Update country display - NOW ASYNC
+    async updateCountryDisplay(countryCode) {
+        const country = this.config.countryData[countryCode];
+        if (!country) return;
+
+        // Update all currency symbols on page
+        document.querySelectorAll('.currency-symbol').forEach(el => {
+            el.textContent = country.symbol;
+        });
+
+        // Update country name display
+        document.querySelectorAll('.country-name').forEach(el => {
+            el.textContent = country.name;
+        });
+
+        // Update rate displays - NOW ASYNC
+        await this.updateRateDisplays(countryCode);
+    }
+
+    // Update rate displays for current country - NOW ASYNC
+    async updateRateDisplays(countryCode) {
+        try {
+            let mortgageRate, investmentRate, inflationRate, centralBankRate;
+            
+            // For US: Try to get live rates first
+            if (countryCode === 'US' && window.RealTimeRates) {
+                try {
+                    const usRates = await window.RealTimeRates.fetchUSRates();
+                    if (usRates) {
+                        mortgageRate = usRates.mortgage30yr;
+                        investmentRate = usRates.investmentReturn;
+                        centralBankRate = usRates.fedFundsRate;
+                        
+                        // Convert CPI index to inflation percentage (simplified)
+                        // CPI of 326.03 means 3.26x base, annual inflation roughly:
+                        inflationRate = ((usRates.inflationRate / 100 - 1) * 100).toFixed(1);
+                    }
+                } catch (liveError) {
+                    console.warn('Live rates failed, using config:', liveError);
+                }
+            }
+            
+            // If live rates failed or not US, use config rates
+            if (mortgageRate === undefined) {
+                mortgageRate = await this.config.getRate('mortgage30yr', countryCode);
+            }
+            if (investmentRate === undefined) {
+                investmentRate = await this.config.getRate('retirementReturn', countryCode);
+            }
+            if (inflationRate === undefined) {
+                inflationRate = await this.config.getRate('inflation', countryCode);
+            }
+            if (centralBankRate === undefined) {
+                centralBankRate = await this.config.getRate('centralBank', countryCode);
+            }
+            
+            // Prepare rates object with safe numbers
+            const rates = {
+                'mortgage': parseFloat(mortgageRate) || 0,
+                'investment': parseFloat(investmentRate) || 0,
+                'inflation': parseFloat(inflationRate) || 0,
+                'centralBank': parseFloat(centralBankRate) || 0
+            };
+
+            // Update rate display elements
+            Object.keys(rates).forEach(rateType => {
+                const elements = document.querySelectorAll(`.${rateType}-rate`);
+                elements.forEach(el => {
+                    const numericValue = rates[rateType];
+                    el.textContent = numericValue.toFixed(2) + '%';
+                });
+            });
+            
+            // Also update specific calculator displays
+            await this.updateCalculatorRateDisplays(countryCode, rates);
+            
+        } catch (error) {
+            console.error('Error updating rate displays:', error);
+            // Fallback: show N/A
+            ['mortgage', 'investment', 'inflation', 'centralBank'].forEach(rateType => {
+                const elements = document.querySelectorAll(`.${rateType}-rate`);
+                elements.forEach(el => {
+                    el.textContent = 'N/A';
+                });
+            });
+        }
+    }
+    
+    // Update calculator-specific rate displays
+    async updateCalculatorRateDisplays(countryCode, rates) {
+        const country = this.config.countryData[countryCode];
+        const countryName = country ? country.name : countryCode;
+        
+        // Update investment calculator display
+        const investmentRateElements = document.querySelectorAll('.investment-rate');
+        investmentRateElements.forEach(el => {
+            el.textContent = rates.investment.toFixed(2) + '%';
+            
+            // Update the parent text if it exists
+            const parent = el.closest('.current-rate');
+            if (parent) {
+                parent.innerHTML = `Current <span class="country-name">${countryName}</span> return: <span class="investment-rate">${rates.investment.toFixed(2)}%</span>`;
+            }
+        });
+        
+        // Update retirement calculator display
+        const retirementRateElements = document.querySelectorAll('.retirement-rate');
+        retirementRateElements.forEach(el => {
+            el.textContent = rates.investment.toFixed(2) + '%'; // Uses same rate as investment
+            
+            // Update the parent text if it exists
+            const parent = el.closest('.current-rate');
+            if (parent) {
+                parent.innerHTML = `<span class="country-name">${countryName}</span> average return: <span class="retirement-rate">${rates.investment.toFixed(2)}%</span>`;
+            }
+        });
+        
+        // Update any mortgage rate displays not caught by the selector
+        const mortgageRateElements = document.querySelectorAll('.mortgage-rate');
+        mortgageRateElements.forEach(el => {
+            if (!el.classList.contains('mortgage-rate')) { // Avoid infinite loop
+                el.textContent = rates.mortgage.toFixed(2) + '%';
+            }
+        });
+    }
+
+    // Create number input with label
+    createInput(labelText, id, defaultValue = '', type = 'number') {
+        const div = document.createElement('div');
+        div.className = 'input-group';
+        
+        const label = document.createElement('label');
+        label.htmlFor = id;
+        label.textContent = labelText;
+        
+        const input = document.createElement('input');
+        input.type = type;
+        input.id = id;
+        input.value = defaultValue;
+        input.className = 'form-input';
+        
+        div.appendChild(label);
+        div.appendChild(input);
+        
+        return div;
+    }
+
+    // Create result display
+    createResultDisplay(title, containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return null;
+        
+        container.innerHTML = `
+            <div class="result-card">
+                <h3>${title}</h3>
+                <div class="result-content" id="${containerId}-content">
+                    Select country and enter values
+                </div>
+            </div>
+        `;
+        
+        return document.getElementById(`${containerId}-content`);
+    }
+
+    // Show loading spinner
+    showLoading(containerId) {
+        const container = document.getElementById(containerId);
+        if (container) {
+            container.innerHTML = '<div class="loading">Calculating...</div>';
+        }
+    }
+
+    // Show error
+    showError(containerId, message) {
+        const container = document.getElementById(containerId);
+        if (container) {
+            container.innerHTML = `<div class="error">${message}</div>`;
+        }
+    }
+
+    // Show success results
+    showResults(containerId, results) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        let html = '<div class="success">';
+        
+        if (results.success) {
+            Object.keys(results).forEach(key => {
+                if (key !== 'success' && key !== 'country') {
+                    html += `<div class="result-item"><strong>${this.formatKey(key)}:</strong> ${results[key]}</div>`;
+                }
+            });
+        } else {
+            html = `<div class="error">Error: ${results.error}</div>`;
+        }
+        
+        html += '</div>';
+        container.innerHTML = html;
+    }
+
+    // Format key for display (mortgageRate -> Mortgage Rate)
+    formatKey(key) {
+        return key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+    }
+}
+
+// Export
+if (typeof window !== 'undefined') {
+    window.UIControls = UIControls;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple FRED Test</title>
+</head>
+<body>
+    <h1>Simple FRED API Test</h1>
+    <button onclick="testSimple()">Test Simple FRED</button>
+    <div id="result"></div>
+    
+    <script src="finance-tools/shared/api-keys.js"></script>
+    <script src="finance-tools/shared/real-time-rates.js"></script>
+    
+    <script>
+    async function testSimple() {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '<p>Testing with JSONP...</p>';
+        
+        try {
+            const rt = window.RealTimeRates;
+            const rates = await rt.fetchUSRates();
+            
+            resultDiv.innerHTML = `
+                <h3 style="color: green;">✅ Success!</h3>
+                <p><strong>US Mortgage Rate:</strong> ${rates.mortgage30yr}%</p>
+                <p><strong>Source:</strong> ${rates.sources.mortgage}</p>
+                <p><strong>Date:</strong> ${rates.dates.mortgage}</p>
+                <p><strong>Live Data:</strong> ${rates.isLiveData ? '✅ Yes' : '❌ No (Using fallback)'}</p>
+                <p><strong>Fed Funds Rate:</strong> ${rates.fedFundsRate}%</p>
+                <p><strong>Inflation:</strong> ${rates.inflationRate}%</p>
+                <p><strong>Investment Return (Calculated):</strong> ${rates.investmentReturn}%</p>
+            `;
+            
+            console.log('Full rates object:', rates);
+            
+        } catch (error) {
+            resultDiv.innerHTML = `
+                <h3 style="color: red;">❌ Error</h3>
+                <p>${error.message}</p>
+                <p>Check console for details.</p>
+            `;
+            console.error('Test error:', error);
+        }
+    }
+    </script>
+</body>
+</html>

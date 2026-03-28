@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Savings Calculator</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                <i class="fas fa-user" style="margin-right: 5px;"></i> Personal Finance
+            </span>
+        </div>
+    </div>
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="../personal/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Personal Finance</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333; font-weight: 500;">Education Savings Calculator</span>
+    </div> 
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-graduation-cap"></i> Education Savings Calculator</h1>
+            <p>Plan for college costs with inflation and investment growth</p>
+            <a href="index.html" class="back-link">← Back to Personal Finance Hub</a>
+        </div>
+        
+        <!-- Calculator Card -->
+        <div class="calculator-card">
+            <div id="calculator-inputs">
+                <!-- Child's Current Age -->
+                <div class="input-group">
+                    <label for="child-age">Child's Current Age</label>
+                    <input type="number" id="child-age" class="form-input" value="5" min="0" max="18">
+                </div>
+                
+                <!-- College Start Age -->
+                <div class="input-group">
+                    <label for="college-age">College Start Age</label>
+                    <input type="number" id="college-age" class="form-input" value="18" min="1" max="30">
+                </div>
+                
+                <!-- Current College Cost -->
+                <div class="input-group">
+                    <label for="current-cost">Current Annual College Cost ($)</label>
+                    <input type="number" id="current-cost" class="form-input" value="30000">
+                    <div class="input-hint">Average annual cost (tuition + room/board)</div>
+                </div>
+                
+                <!-- Current Savings -->
+                <div class="input-group">
+                    <label for="current-savings">Current Savings ($)</label>
+                    <input type="number" id="current-savings" class="form-input" value="5000">
+                </div>
+                
+                <!-- Monthly Contribution -->
+                <div class="input-group">
+                    <label for="monthly-contribution">Monthly Contribution ($)</label>
+                    <input type="number" id="monthly-contribution" class="form-input" value="300">
+                </div>
+                
+                <!-- Expected Investment Return -->
+                <div class="input-group">
+                    <label for="expected-return">Expected Investment Return (%)</label>
+                    <input type="number" id="expected-return" class="form-input" value="7.0" step="0.1">
+                </div>
+                
+                <!-- Education Inflation Rate -->
+                <div class="input-group">
+                    <label for="inflation-rate">Education Inflation Rate (%)</label>
+                    <input type="number" id="inflation-rate" class="form-input" value="5.0" step="0.1">
+                    <div class="input-hint">College costs typically rise faster than general inflation</div>
+                </div>
+            </div>
+            
+            <!-- Calculate Button -->
+            <button id="calculate-education" class="calculate-btn">
+                Calculate Education Savings <i class="fas fa-calculator"></i>
+            </button>
+            
+            <!-- Results -->
+            <div id="education-results" class="results">
+                Enter values and click calculate
+            </div>
+        </div>
+        
+        <!-- Footer Links -->
+        <div class="footer-links">
+            <a href="auto-loan.html">🚗 Auto Loan Calculator →</a>
+            <a href="../global/index.html">🌍 Global Calculators →</a>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="../shared/config.js"></script>
+    <script src="../shared/calculators.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Education Savings Calculator loaded');
+        
+        // Get calculate button
+        const calculateBtn = document.getElementById('calculate-education');
+        
+        calculateBtn.addEventListener('click', function() {
+            // Get input values
+            const currentAge = parseFloat(document.getElementById('child-age').value) || 0;
+            const collegeAge = parseFloat(document.getElementById('college-age').value) || 18;
+            const currentCost = parseFloat(document.getElementById('current-cost').value) || 0;
+            const currentSavings = parseFloat(document.getElementById('current-savings').value) || 0;
+            const monthlyContribution = parseFloat(document.getElementById('monthly-contribution').value) || 0;
+            const expectedReturn = parseFloat(document.getElementById('expected-return').value) || 7.0;
+            const inflationRate = parseFloat(document.getElementById('inflation-rate').value) || 5.0;
+            
+            // Validation
+            if (collegeAge <= currentAge) {
+                alert('College age must be greater than current age');
+                return;
+            }
+            
+            // Show loading
+            const resultsDiv = document.getElementById('education-results');
+            resultsDiv.innerHTML = '<div class="loading">Calculating...</div>';
+            
+            // Calculate
+            setTimeout(function() {
+                if (window.FinancialCalculators) {
+                    const calc = new FinancialCalculators();
+                    const result = calc.calculateEducationSavings({
+                        currentAge: currentAge,
+                        collegeAge: collegeAge,
+                        currentCost: currentCost,
+                        currentSavings: currentSavings,
+                        monthlyContribution: monthlyContribution,
+                        expectedReturn: expectedReturn,
+                        inflationRate: inflationRate
+                    });
+                    
+                    console.log('Education result:', result);
+                    
+                    // Display results
+                    if (result.success) {
+                        const onTrackClass = result.onTrack ? 'success' : 'warning';
+                        const onTrackIcon = result.onTrack ? '✅' : '⚠️';
+                        
+                        resultsDiv.innerHTML = `
+                            <div class="result-card">
+                                <h3><i class="fas fa-university"></i> College Savings Plan</h3>
+                                
+                                <div class="status-badge ${onTrackClass}">
+                                    ${onTrackIcon} ${result.onTrack ? 'On Track!' : 'Needs More Savings'}
+                                </div>
+                                
+                                <div class="result-grid">
+                                    <div class="result-item">
+                                        <span class="label">Years Until College:</span>
+                                        <span class="value">${result.yearsUntilCollege} years</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="label">Current Annual Cost:</span>
+                                        <span class="value">${result.currentCostPerYear}</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="label">Future Annual Cost:</span>
+                                        <span class="value">${result.futureCostPerYear}</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="label">Total College Cost (4 years):</span>
+                                        <span class="value">${result.totalCollegeCost}</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="label">Savings at College Start:</span>
+                                        <span class="value">${result.totalSavingsAtCollege}</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="label">Percentage Covered:</span>
+                                        <span class="value">${result.percentageCovered}</span>
+                                    </div>
+                                    <div class="result-item highlight">
+                                        <span class="label">${result.shortfall !== '$0.00' ? 'Shortfall:' : 'Surplus:'}</span>
+                                        <span class="value ${result.shortfall !== '$0.00' ? 'warning' : 'success'}">
+                                            ${result.shortfall !== '$0.00' ? result.shortfall : result.surplus}
+                                        </span>
+                                    </div>
+                                    <div class="result-item recommendation">
+                                        <span class="label">Recommended Monthly:</span>
+                                        <span class="value">${result.recommendedMonthly}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="note">
+                                    <i class="fas fa-lightbulb"></i> 
+                                    ${result.onTrack ? 
+                                        'Great! Your current savings plan should cover college costs.' :
+                                        'Consider increasing your monthly contribution to meet your goal.'
+                                    }
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        resultsDiv.innerHTML = `<div class="error">Error: ${result.error}</div>`;
+                    }
+                } else {
+                    resultsDiv.innerHTML = '<div class="error">Calculators not loaded</div>';
+                }
+            }, 300);
+        });
+    });
+    </script>
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                </a>
+                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                </a>
+                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                </a>
+                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+                <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                </a>
+                <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                </a>
+                <a href="/economics" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s;">
+                    <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics
+                </a>
+            </div>
+        </div>
+    
+        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+            <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+               <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haram Industries - Islamic Perspectives | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+
+        /* Lesson Header */
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        /* Quran Verse */
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 32px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .reference {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Cards */
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Example Boxes */
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        /* Industry Cards */
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .industry-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+        .industry-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .industry-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+        .industry-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .industry-desc {
+            color: #64748b;
+            font-size: 14px;
+        }
+        .industry-rating {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .rating-haram {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+        .rating-halal {
+            background: #d1fae5;
+            color: #10b981;
+        }
+        .rating-mixed {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        /* Screening Criteria */
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .criteria-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        .criteria-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #312e81;
+        }
+        .criteria-label {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* Lists */
+        .styled-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        .styled-list li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .styled-list li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #312e81;
+            text-align: center;
+        }
+        .quiz-question {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-question p {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Quiz answer highlighting */
+        .quiz-option.correct-answer {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.wrong-answer {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .quiz-option.show-correct {
+            background: #d1fae5;
+            border-color: #10b981;
+            border-width: 3px;
+            position: relative;
+        }
+        .quiz-option.show-correct::after {
+            content: "✓ Correct Answer";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 60px 20px 30px;
+            margin-top: 60px;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .footer-logo i {
+            color: #fbbf24;
+        }
+        .footer-about {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .footer-links ul {
+            list-style: none;
+        }
+        .footer-links li {
+            margin: 10px 0;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            .title-section h1 {
+                font-size: 32px;
+            }
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            .industry-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/trading">Trading Hub</a> › 
+            <a href="/trading/learn">Learning Center</a> › 
+            <a href="/trading/learn/islamic-perspectives">Islamic Perspectives</a> › 
+            Lesson 3: Haram Industries
+        </div>
+
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="title-section">
+                <h1>Haram Industries</h1>
+                <span class="badge">Islamic Finance • 20 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="fas fa-star"></i> Ethical Screening</span>
+                <span><i class="fas fa-gavel"></i> Business Ethics</span>
+                <span><i class="fas fa-question-circle"></i> 10 Quiz Questions</span>
+            </div>
+        </div>
+
+        <!-- Quran Verse -->
+        <div class="quran-verse">
+            <div class="arabic">حُرِّمَتْ عَلَيْكُمُ الْمَيْتَةُ وَالدَّمُ وَلَحْمُ الْخِنزِيرِ</div>
+            <div class="translation">"Prohibited to you are dead animals, blood, the flesh of swine..."</div>
+            <div class="reference">— Quran 5:3</div>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <h2 class="section-title">🎯 Ethical Screening</h2>
+            <p>Muslims cannot invest in companies involved in activities prohibited by Shariah. This requires careful screening of business activities beyond just avoiding interest.</p>
+        </div>
+
+        <!-- Industries to Avoid - Visual Grid -->
+        <div class="industry-grid">
+            <div class="industry-card">
+                <div class="industry-icon">🍷</div>
+                <div class="industry-title">Alcohol</div>
+                <div class="industry-desc">Production, distribution, or sale of alcoholic beverages. Includes breweries, distilleries, bars, and liquor stores.</div>
+                <div class="industry-rating rating-haram">⛔ HARAM</div>
+            </div>
+
+            <div class="industry-card">
+                <div class="industry-icon">🎰</div>
+                <div class="industry-title">Gambling</div>
+                <div class="industry-desc">Casinos, betting companies, lottery tickets, sports betting apps, and any business where gambling is primary.</div>
+                <div class="industry-rating rating-haram">⛔ HARAM</div>
+            </div>
+
+            <div class="industry-card">
+                <div class="industry-icon">🐷</div>
+                <div class="industry-title">Pork</div>
+                <div class="industry-desc">Production, processing, and sale of pork products. Includes pig farming, slaughterhouses, and restaurants serving pork.</div>
+                <div class="industry-rating rating-haram">⛔ HARAM</div>
+            </div>
+
+            <div class="industry-card">
+                <div class="industry-icon">⚔️</div>
+                <div class="industry-title">Weapons</div>
+                <div class="industry-desc">Conventional weapons, firearms, ammunition, and military equipment manufacturers (controversial).</div>
+                <div class="industry-rating rating-haram">⛔ HARAM</div>
+            </div>
+
+            <div class="industry-card">
+                <div class="industry-icon">🎮</div>
+                <div class="industry-title">Haram Entertainment</div>
+                <div class="industry-desc">Pornography, music with immoral content, adult entertainment, and any media promoting haram activities.</div>
+                <div class="industry-rating rating-haram">⛔ HARAM</div>
+            </div>
+
+            <div class="industry-card">
+                <div class="industry-icon">🏦</div>
+                <div class="industry-title">Interest-Based</div>
+                <div class="industry-desc">Conventional banks, insurance companies, and any financial institution dealing primarily in interest.</div>
+                <div class="industry-rating rating-haram">⛔ HARAM</div>
+            </div>
+        </div>
+
+        <!-- Halal Sectors -->
+        <div class="concept-card">
+            <h2 class="section-title">✅ Halal Sectors to Consider</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                <span style="background: #d1fae5; color: #065f46; padding: 8px 20px; border-radius: 50px;">💻 Technology</span>
+                <span style="background: #d1fae5; color: #065f46; padding: 8px 20px; border-radius: 50px;">⚕️ Healthcare</span>
+                <span style="background: #d1fae5; color: #065f46; padding: 8px 20px; border-radius: 50px;">📚 Education</span>
+                <span style="background: #d1fae5; color: #065f46; padding: 8px 20px; border-radius: 50px;">🥩 Halal Food</span>
+                <span style="background: #d1fae5; color: #065f46; padding: 8px 20px; border-radius: 50px;">☀️ Renewable Energy</span>
+                <span style="background: #d1fae5; color: #065f46; padding: 8px 20px; border-radius: 50px;">🕌 Islamic Finance</span>
+            </div>
+        </div>
+
+        <!-- Screening Criteria -->
+        <div class="concept-card">
+            <h2 class="section-title">📊 Shariah Screening Criteria</h2>
+            
+            <div class="criteria-grid">
+                <div class="criteria-card">
+                    <div class="criteria-value">100%</div>
+                    <div class="criteria-label">Business Screening</div>
+                    <p style="font-size: 12px; margin-top: 5px;">Primary business must be halal. No involvement in prohibited activities.</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-value">< 33%</div>
+                    <div class="criteria-label">Debt Ratio</div>
+                    <p style="font-size: 12px; margin-top: 5px;">Debt levels below 33% of market capitalization.</p>
+                </div>
+                
+                <div class="criteria-card">
+                    <div class="criteria-value">< 33%</div>
+                    <div class="criteria-label">Liquid Assets</div>
+                    <p style="font-size: 12px; margin-top: 5px;">Cash and receivables below 33% of total assets.</p>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4>🔍 Detailed Screening</h4>
+                <ul class="styled-list">
+                    <li><strong>Primary Business:</strong> Haram if >5% revenue from prohibited activities</li>
+                    <li><strong>Debt Ratio:</strong> Total debt / Market cap < 33%</li>
+                    <li><strong>Interest Income:</strong> Cash + interest-bearing securities / Market cap < 33%</li>
+                    <li><strong>Impure Income:</strong> Revenue from haram activities < 5% of total revenue</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Case Studies -->
+        <div class="concept-card">
+            <h2 class="section-title">🔍 Case Studies: Halal or Haram?</h2>
+            
+            <div class="warning-box">
+                <h4>Case 1: Tech Giant (Apple, Microsoft)</h4>
+                <p><strong>Business:</strong> Technology products, some cash holdings earn interest.</p>
+                <p><strong>Screening:</strong> Primary business is halal. Check if interest income < 5% and debt < 33%.</p>
+                <p><strong>Ruling:</strong> Usually halal with purification (donate the small interest portion).</p>
+            </div>
+            
+            <div class="warning-box">
+                <h4>Case 2: Hotel Chain</h4>
+                <p><strong>Business:</strong> Hotels that serve alcohol and have casinos.</p>
+                <p><strong>Screening:</strong> If alcohol revenue > 5%, it's haram. Some scholars allow if separate accounting.</p>
+                <p><strong>Ruling:</strong> Most scholars say avoid entirely if any alcohol served on premises.</p>
+            </div>
+            
+            <div class="example-box">
+                <h4>Case 3: Airlines</h4>
+                <p><strong>Business:</strong> Transportation, but serve alcohol on flights.</p>
+                <p><strong>Screening:</strong> Alcohol is incidental service, not primary business.</p>
+                <p><strong>Ruling:</strong> Permitted by some scholars, avoided by others. If alcohol revenue < 5%, may be permissible.</p>
+            </div>
+        </div>
+
+        <!-- Regional Differences -->
+        <div class="psychology-box">
+            <h4 style="color: #312e81;">🌍 Regional Differences in Screening</h4>
+            <ul class="styled-list">
+                <li><strong>AAOIFI (International):</strong> Most strict - 5% threshold for impure income, 30% for debt.</li>
+                <li><strong>S&P Shariah:</strong> Uses 33% thresholds for debt and interest income.</li>
+                <li><strong>FTSE/Yasaar:</strong> Similar to S&P but excludes more controversial stocks.</li>
+                <li><strong>Local Scholars:</strong> May have stricter rulings based on local context.</li>
+            </ul>
+        </div>
+
+        <!-- QUIZ SECTION - 10 Questions -->
+        <div class="quiz-section">
+            <h3><i class="fas fa-pencil-alt"></i> Test Your Understanding</h3>
+            <p style="text-align: center; margin-bottom: 30px;">Answer all 10 questions to test your knowledge of haram industries.</p>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is the maximum allowable debt ratio for a company to be considered Shariah-compliant?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q1" value="a"> 50%</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="b"> 33%</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="c"> 25%</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="d"> 10%</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. If a company earns 3% of revenue from haram sources, what should a Muslim investor do?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q2" value="a"> Invest anyway, it's small</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="b"> Avoid completely</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="c"> Invest but donate 3% of dividend to charity (purification)</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="d"> Only invest if dividend yield is high</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. Which of these industries is generally considered halal for investment?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q3" value="a"> Casino operators</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="b"> Conventional banks</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="c"> Healthcare companies</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="d"> Liquor stores</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. According to AAOIFI standards, what is the maximum threshold for impure income?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q4" value="a"> 1%</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="b"> 5%</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="c"> 10%</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="d"> 15%</label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What is the ruling on investing in an airline that serves alcohol on flights?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q5" value="a"> Always haram</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="b"> Always halal</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="c"> Permitted if alcohol revenue < 5% of total revenue</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="d"> Only haram if you drink the alcohol</label>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. Which organization sets the most strict Shariah screening standards?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q6" value="a"> S&P Shariah</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="b"> FTSE/Yasaar</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="c"> AAOIFI</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="d"> IMF</label>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What Quranic verse prohibits the consumption of pork?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q7" value="a"> Quran 2:275</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="b"> Quran 3:130</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="c"> Quran 5:3</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="d"> Quran 4:29</label>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. Which of these would disqualify a company from being Shariah-compliant?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q8" value="a"> Debt ratio of 35%</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="b"> Interest income of 2%</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="c"> Primary business is gambling</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="d"> Cash ratio of 20%</label>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What does "purification" mean in Islamic investing?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q9" value="a"> Washing money with water</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="b"> Donating the proportion of impure income to charity</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="c"> Reinvesting dividends</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="d"> Paying higher taxes</label>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. A company has total debt of $40M and market cap of $100M. Is it Shariah-compliant under the 33% rule?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q10" value="a"> Yes, 40% is acceptable</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="b"> No, 40% exceeds the 33% limit</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="c"> Only if interest income is also low</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="d"> Only if it's a tech company</label>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="checkHaramQuiz()" style="background: #312e81; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 600; cursor: pointer;">
+                    <i class="fas fa-check-circle"></i> Check My Answers
+                </button>
+            </div>
+            <div id="quizResult" style="margin-top: 20px; text-align: center; font-size: 18px;"></div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/trading/learn/islamic-perspectives/02-gharar-in-trading.html" class="nav-link">
+                <i class="fas fa-arrow-left"></i> Previous: Gharar in Trading
+            </a>
+            <a href="/trading/learn/islamic-perspectives/04-asset-backed-trading.html" class="nav-link">
+                Next: Asset-Backed Trading <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">
+                    <i class="fas fa-mosque"></i>
+                    Fatimah Financial Hub
+                </div>
+                <p class="footer-about">Building ethical traders with Islamic principles at the core. Learn, practice, and grow with confidence.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/trading">Trading</a></li>
+                    <li><a href="/simulator/trade">Simulator</a></li>
+                    <li><a href="/resources">Resources</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Learn</h4>
+                <ul>
+                    <li><a href="/trading/learn/fundamentals/01-order-types.html">Fundamentals</a></li>
+                    <li><a href="/trading/learn/islamic-perspectives/01-riba-explained.html">Islamic Perspectives</a></li>
+                    <li><a href="/economics">Economics</a></li>
+                    <li><a href="/finance-tools">Tools</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/resources">Contact</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="arabic-footer">الحمد لله</div>
+            <p>May this knowledge help you make informed and ethical investment decisions</p>
+            <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Lesson 3 of 4 (Islamic Series)</p>
+        </div>
+    </footer>
+
+    <script>
+        function checkHaramQuiz() {
+            const answers = {
+                q1: 'b',
+                q2: 'c',
+                q3: 'c',
+                q4: 'b',
+                q5: 'c',
+                q6: 'c',
+                q7: 'c',
+                q8: 'c',
+                q9: 'b',
+                q10: 'b'
+            };
+            
+            let score = 0;
+            let total = 10;
+            
+            // Clear previous highlights
+            for (let i = 1; i <= total; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(radio => {
+                    radio.parentElement.classList.remove('correct-answer', 'wrong-answer', 'show-correct');
+                });
+            }
+            
+            // Check each question
+            for (let i = 1; i <= total; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                let answered = false;
+                
+                for (let radio of radios) {
+                    if (radio.checked) {
+                        answered = true;
+                        if (radio.value === answers[`q${i}`]) {
+                            score++;
+                            radio.parentElement.classList.add('correct-answer');
+                        } else {
+                            radio.parentElement.classList.add('wrong-answer');
+                            
+                            // Highlight the correct answer
+                            for (let r of radios) {
+                                if (r.value === answers[`q${i}`]) {
+                                    r.parentElement.classList.add('show-correct');
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+                
+                if (!answered) {
+                    // Highlight correct answer even if not answered
+                    for (let radio of radios) {
+                        if (radio.value === answers[`q${i}`]) {
+                            radio.parentElement.classList.add('show-correct');
+                        }
+                    }
+                }
+            }
+            
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.style.padding = '20px';
+            resultDiv.style.borderRadius = '12px';
+            resultDiv.style.marginTop = '20px';
+            
+            if (score === total) {
+                resultDiv.style.background = '#d1fae5';
+                resultDiv.style.color = '#065f46';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">🎉 MashaAllah! Perfect score (${score}/${total})!</div>
+                    <div style="font-size: 16px;">You have excellent understanding of halal and haram industries.</div>
+                `;
+            } else if (score >= 8) {
+                resultDiv.style.background = '#fef3c7';
+                resultDiv.style.color = '#92400e';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">✅ Good job! You scored ${score}/${total}</div>
+                    <div style="font-size: 16px;">The correct answers are highlighted in green. Review the ones you missed.</div>
+                `;
+            } else {
+                resultDiv.style.background = '#fee2e2';
+                resultDiv.style.color = '#991b1b';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">📚 You scored ${score}/${total}</div>
+                    <div style="font-size: 16px;">Study the highlighted correct answers and try again.</div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

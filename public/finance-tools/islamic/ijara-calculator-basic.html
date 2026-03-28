@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic Finance: Ijara Calculator | Fatimah Financial Hub</title>
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../shared/calculators.css">
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                <i class="fas fa-user" style="margin-right: 5px;"></i> Islamic Finance
+            </span>
+        </div>
+    </div>
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+         <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+         <span style="margin: 0 8px; color: #999;">›</span>
+         <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+         <span style="margin: 0 8px; color: #999;">›</span>
+         <a href="../personal/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Islamic Finance</a>
+         <span style="margin: 0 8px; color: #999;">›</span>
+         <span style="color: #333; font-weight: 500;">Ijara Calculator(Basic)</span>
+    </div>
+    <div class="container">
+        <h1>Islamic Finance: Ijara Calculator</h1>
+        <p class="subtitle">Compare Sharia-compliant lease-to-own financing with conventional leases</p>
+        
+        <div class="breadcrumb">
+            <a href="/">Home</a> > 
+            <a href="/finance-tools/">Financial Tools</a> > 
+            <a href="/finance-tools/islamic/">Islamic Finance</a> > 
+            <span>Ijara Calculator</span>
+        </div>
+        
+        <div class="calculator-container">
+            <!-- Ijara Section -->
+            <div class="calculator-section">
+                <h2>Ijara (Islamic Lease)</h2>
+                <div class="input-group">
+                    <label for="assetValue">Asset Value</label>
+                    <input type="number" id="assetValue" value="100000" class="currency-input">
+                </div>
+                
+                <div class="input-group">
+                    <label for="leaseTerm">Lease Term (months)</label>
+                    <input type="range" id="leaseTerm" min="12" max="120" value="60">
+                    <span id="leaseTermDisplay">60 months</span>
+                </div>
+                
+                <div class="input-group">
+                    <label for="rentalRate">Annual Rental Rate (%)</label>
+                    <input type="range" id="rentalRate" min="3" max="15" value="8" step="0.5">
+                    <span id="rentalRateDisplay">8%</span>
+                </div>
+                
+                <div class="input-group">
+                    <label for="purchaseOption">Purchase Option (%)</label>
+                    <input type="range" id="purchaseOption" min="1" max="30" value="10">
+                    <span id="purchaseOptionDisplay">10%</span>
+                </div>
+                
+                <button onclick="calculateIjara()" class="btn-primary">Calculate Ijara</button>
+            </div>
+            
+            <!-- Conventional Lease Section -->
+            <div class="calculator-section">
+                <h2>Conventional Lease</h2>
+                <div class="input-group">
+                    <label for="interestRate">Interest Rate (%)</label>
+                    <input type="number" id="interestRate" value="6.0" step="0.1">
+                </div>
+                
+                <div class="input-group">
+                    <label for="residualValue">Residual Value (%)</label>
+                    <input type="range" id="residualValue" min="0" max="50" value="20">
+                    <span id="residualValueDisplay">20%</span>
+                </div>
+                
+                <button onclick="calculateConventional()" class="btn-secondary">Calculate Conventional</button>
+                <button onclick="compareBoth()" class="btn-compare">Compare Both</button>
+            </div>
+        </div>
+        
+        <!-- Results Area -->
+        <div id="results" style="display: none;">
+            <h2>Comparison Results</h2>
+            <div id="ijaraResults"></div>
+            <div id="conventionalResults"></div>
+            <div id="comparisonResults"></div>
+        </div>
+        
+        <!-- Educational Content -->
+        <div class="education-section">
+            <h2>Understanding Ijara</h2>
+            <p>Ijara is an Islamic leasing contract where the bank buys and leases an asset to the customer for a fixed rental payment. Key principles:</p>
+            <ul>
+                <li>No interest (riba) - fixed rental payments instead</li>
+                <li>Bank maintains ownership during lease period</li>
+                <li>Bank responsible for major maintenance</li>
+                <li>Option to purchase at end of lease (Ijara wa Iqtina)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Initialize range displays
+        document.getElementById('leaseTerm').addEventListener('input', function() {
+            document.getElementById('leaseTermDisplay').textContent = this.value + ' months';
+        });
+        
+        document.getElementById('rentalRate').addEventListener('input', function() {
+            document.getElementById('rentalRateDisplay').textContent = this.value + '%';
+        });
+        
+        document.getElementById('purchaseOption').addEventListener('input', function() {
+            document.getElementById('purchaseOptionDisplay').textContent = this.value + '%';
+        });
+        
+        document.getElementById('residualValue').addEventListener('input', function() {
+            document.getElementById('residualValueDisplay').textContent = this.value + '%';
+        });
+        
+        function calculateIjara() {
+            const assetValue = parseFloat(document.getElementById('assetValue').value);
+            const leaseTerm = parseInt(document.getElementById('leaseTerm').value);
+            const rentalRate = parseFloat(document.getElementById('rentalRate').value) / 100;
+            const purchaseOption = parseFloat(document.getElementById('purchaseOption').value) / 100;
+            
+            // Ijara calculations
+            const annualRent = assetValue * rentalRate;
+            const monthlyRent = annualRent / 12;
+            const totalRent = monthlyRent * leaseTerm;
+            const purchasePrice = assetValue * purchaseOption;
+            const totalCost = totalRent + purchasePrice;
+            
+            document.getElementById('ijaraResults').innerHTML = `
+                <h3>Ijara Results</h3>
+                <p>Monthly Rent: $${monthlyRent.toFixed(2)}</p>
+                <p>Total Rent Paid: $${totalRent.toFixed(2)}</p>
+                <p>Purchase Option Price: $${purchasePrice.toFixed(2)}</p>
+                <p><strong>Total Cost: $${totalCost.toFixed(2)}</strong></p>
+            `;
+            
+            document.getElementById('results').style.display = 'block';
+        }
+        
+        function calculateConventional() {
+            const assetValue = parseFloat(document.getElementById('assetValue').value);
+            const leaseTerm = parseInt(document.getElementById('leaseTerm').value);
+            const interestRate = parseFloat(document.getElementById('interestRate').value) / 100;
+            const residualValue = parseFloat(document.getElementById('residualValue').value) / 100;
+            
+            // Conventional lease calculations
+            const monthlyRate = interestRate / 12;
+            const residualAmount = assetValue * residualValue;
+            const financedAmount = assetValue - residualAmount;
+            
+            // PMT formula for loan payments
+            const monthlyPayment = financedAmount * 
+                (monthlyRate * Math.pow(1 + monthlyRate, leaseTerm)) / 
+                (Math.pow(1 + monthlyRate, leaseTerm) - 1);
+            
+            const totalPayments = monthlyPayment * leaseTerm;
+            const totalCost = totalPayments + residualAmount;
+            const totalInterest = totalPayments - financedAmount;
+            
+            document.getElementById('conventionalResults').innerHTML = `
+                <h3>Conventional Lease Results</h3>
+                <p>Monthly Payment: $${monthlyPayment.toFixed(2)}</p>
+                <p>Total Payments: $${totalPayments.toFixed(2)}</p>
+                <p>Residual/Buyout: $${residualAmount.toFixed(2)}</p>
+                <p>Total Interest: $${totalInterest.toFixed(2)}</p>
+                <p><strong>Total Cost: $${totalCost.toFixed(2)}</strong></p>
+            `;
+            
+            document.getElementById('results').style.display = 'block';
+        }
+        
+        function compareBoth() {
+            calculateIjara();
+            calculateConventional();
+            
+            // Simple comparison
+            const ijaraCost = parseFloat(document.querySelector('#ijaraResults strong').textContent.replace(/[^0-9.-]+/g, ""));
+            const conventionalCost = parseFloat(document.querySelector('#conventionalResults strong').textContent.replace(/[^0-9.-]+/g, ""));
+            const difference = conventionalCost - ijaraCost;
+            const percentDiff = (difference / ijaraCost * 100).toFixed(1);
+            
+            document.getElementById('comparisonResults').innerHTML = `
+                <h3>Comparison</h3>
+                <p>Ijara Total: $${ijaraCost.toFixed(2)}</p>
+                <p>Conventional Total: $${conventionalCost.toFixed(2)}</p>
+                <p><strong>Difference: $${difference.toFixed(2)} (${percentDiff}%)</strong></p>
+            `;
+        }
+    </script>
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                </a>
+                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                </a>
+                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                </a>
+                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+                <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                </a>
+                <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                </a>
+                <span style="color: #718096; display: block; margin-bottom: 8px; padding: 3px 0;">
+                    <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics (Coming Soon)
+                </span>
+            </div>
+       </div>
+    
+       <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+           <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+           <p style="margin-top: 10px; font-size: 0.9rem;">
+              <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+           </p>
+       </div>
+   </div>
+</body>
+</html>

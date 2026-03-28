@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamic Finance Tools | Fatimah Financial Hub</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .islamic-header {
+            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .islamic-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .islamic-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 15px auto 0;
+        }
+        
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-top: 5px solid #2E7D32;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        
+        .tool-card h3 {
+            color: #2E7D32;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        
+        .tool-card h3 i {
+            margin-right: 10px;
+        }
+        
+        .tool-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .tool-link {
+            display: inline-block;
+            background: #2E7D32;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .tool-link:hover {
+            background: #1B5E20;
+        }
+        
+        .coming-soon {
+            background: #757575;
+        }
+        
+        .coming-soon:hover {
+            background: #616161;
+        }
+        
+        .principles-section {
+            background: #E8F5E9;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+        
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .principle-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #D4A017;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2E7D32;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+             <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+                 <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+             </a>
+             <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+                <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+             </a>
+             <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+                <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+             </a>
+        </div>
+        <div style="color: white;">
+             <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                 <span style="font-size: 1.2rem; margin-right: 5px;">﷽</span> Islamic Finance
+             </span>
+        </div>
+    </div>
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333; font-weight: 500;">Islamic Finance</span>
+    </div>
+    <div class="container">
+        <!-- Back link -->
+        <a href="../global/index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Global Calculators
+        </a>
+        
+        <!-- Header -->
+        <div class="islamic-header">
+            <h1><i class="fas fa-mosque"></i> Islamic Finance Tools</h1>
+            <p>Sharia-compliant financial calculators based on principles of fairness, transparency, and risk-sharing</p>
+        </div>
+        
+        <!-- Tools Grid -->
+        <div class="tool-grid">
+            <!-- Murabaha Calculator -->
+            <div class="tool-card">
+                <h3><i class="fas fa-handshake"></i> Murabaha Calculator</h3>
+                <p>Compare cost-plus Islamic financing with conventional interest-based loans. Understand the ethical and financial differences.</p>
+                <a href="murabaha-calculator.html" class="tool-link">Open Calculator →</a>
+            </div>
+
+            <!-- Ijara Calculator -->
+            <div class="tool-card">
+                <h3><i class="fas fa-home"></i> Ijara Calculator</h3>
+                <p>Islamic lease-to-own financing calculator. Compare Sharia-compliant leasing with conventional leases.</p>
+                <a href="ijara-calculator.html" class="tool-link">Open Calculator →</a>
+            </div>          
+            
+            <!-- Mudaraba Calculator (Coming Soon) -->
+            <div class="tool-card">
+                <h3><i class="fas fa-chart-line"></i> Mudaraba Calculator</h3>
+                <p>Profit-sharing partnership calculator. One party provides capital, the other provides expertise.</p>
+                <a href="mudaraba-calculator.html" class="tool-link">Open Calculator →</a>
+            </div>
+            
+            <!-- Musharaka Calculator - NOW LIVE -->
+            <div class="calculator-card" style="border-left: 5px solid #6A1B9A;">
+                 <div style="display: flex; justify-content: space-between; align-items: start;">
+                      <div>
+                          <h3 style="margin-top: 0; margin-bottom: 10px; color: #6A1B9A;">
+                              <i class="fas fa-hand-holding-heart" style="margin-right: 8px;"></i> 
+                              Musharaka Calculator
+                          </h3>
+                          <p style="color: #666; margin-bottom: 15px; line-height: 1.5;">
+                              Joint venture partnership calculator. All partners contribute capital 
+                              and share profits/losses. <strong style="color: #6A1B9A;">NOW LIVE!</strong>
+                          </p>
+                          <div style="display: flex; gap: 10px;">
+                              <a href="musharaka-calculator.html" class="btn" style="background: #6A1B9A; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">
+                                   Open Calculator <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                              </a>
+                              <span class="badge" style="background: #EDE7F6; color: #6A1B9A;">
+                                  <i class="fas fa-check-circle"></i> New
+                              </span>
+                          </div>
+                      </div>
+                 <div style="font-size: 2.5rem; color: rgba(106, 27, 154, 0.2);">
+                      <i class="fas fa-hand-holding-heart"></i>
+                 </div>
+            </div>
+        </div>
+
+            
+            <!-- Sukuk Calculator (Coming Soon) -->
+            <div class="tool-card">
+                <h3><i class="fas fa-file-contract"></i> Sukuk Calculator</h3>
+                <p>Islamic bonds calculator. Asset-backed investment certificates compliant with Sharia principles.</p>
+                <a href="sukuk-calculator.html" style="display: inline-block; background: #2ecc71; color: white; text-decoration: none; padding: 10px 25px; border-radius: 5px; font-weight: 500; margin-top: 15px;">Open Calculator →</a>
+            </div>
+        </div>
+        
+        <!-- Islamic Finance Principles -->
+        <div class="principles-section">
+            <h2 style="color: #2E7D32; margin-top: 0;"><i class="fas fa-star-and-crescent"></i> Core Islamic Finance Principles</h2>
+            
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <h4><i class="fas fa-ban" style="color: #D32F2F;"></i> No Riba (Interest)</h4>
+                    <p>Prohibition of usury and interest-based transactions. Money cannot generate money without productive activity.</p>
+                </div>
+                
+                <div class="principle-card">
+                    <h4><i class="fas fa-shield-alt" style="color: #1976D2;"></i> Risk-Sharing</h4>
+                    <p>Profits and losses must be shared between parties. No guaranteed returns without risk assumption.</p>
+                </div>
+                
+                <div class="principle-card">
+                    <h4><i class="fas fa-eye" style="color: #388E3C;"></i> Transparency</h4>
+                    <p>Full disclosure of costs, risks, and profits. No hidden terms or ambiguous contracts.</p>
+                </div>
+                
+                <div class="principle-card">
+                    <h4><i class="fas fa-box" style="color: #F57C00;"></i> Asset-Backed</h4>
+                    <p>All financing must be tied to real, tangible assets. No speculation on non-existent goods.</p>
+                </div>
+                
+                <div class="principle-card">
+                    <h4><i class="fas fa-heart" style="color: #C2185B;"></i> Social Welfare</h4>
+                    <p>Financial activities must benefit society. Prohibition of investments in harmful industries.</p>
+                </div>
+                
+                <div class="principle-card">
+                    <h4><i class="fas fa-balance-scale" style="color: #7B1FA2;"></i> Ethical Screening</h4>
+                    <p>Strict screening against alcohol, gambling, weapons, and other prohibited activities.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Note -->
+        <div style="text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 0.9rem;">
+            <p>These tools demonstrate the practical application of Islamic finance principles. Consult with qualified scholars for specific financial decisions.</p>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="../shared/config.js"></script>
+    <script src="../shared/calculators.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Islamic Finance index loaded');
+        });
+    </script>
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                </a>
+                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <span style="font-size: 1rem; margin-right: 10px;">﷽</span>Islamic Finance
+                </a>
+                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                </a>
+                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+                <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                </a>
+                <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                </a>
+                <span style="color: #718096; display: block; margin-bottom: 8px; padding: 3px 0;">
+                    <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics (Coming Soon)
+                </span>
+            </div>
+        </div>
+    
+        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+            <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+               <span style="font-size: 1rem; margin-right: 5px;">﷽</span> Shariah-Compliant • FRED API • Real-Time Data
+            </p>
+            <p style="margin-top: 15px; font-size: 1.2rem; color: #cbd5e0;">
+                الحمد لله
+            </p>
+        </div>
+    </div>
+</body>
+</html>

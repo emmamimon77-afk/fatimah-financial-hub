@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset-Backed Trading - Islamic Perspectives | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+
+        /* Lesson Header */
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        /* Quran Verse */
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 32px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .reference {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Cards */
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Example Boxes */
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th {
+            background: #312e81;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #312e81;
+            text-align: center;
+        }
+        .quiz-question {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-question p {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Quiz answer highlighting */
+        .quiz-option.correct-answer {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.wrong-answer {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .quiz-option.show-correct {
+            background: #d1fae5;
+            border-color: #10b981;
+            border-width: 3px;
+            position: relative;
+        }
+        .quiz-option.show-correct::after {
+            content: "✓ Correct Answer";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 60px 20px 30px;
+            margin-top: 60px;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .footer-logo i {
+            color: #fbbf24;
+        }
+        .footer-about {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .footer-links ul {
+            list-style: none;
+        }
+        .footer-links li {
+            margin: 10px 0;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            .title-section h1 {
+                font-size: 32px;
+            }
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/trading">Trading Hub</a> › 
+            <a href="/trading/learn">Learning Center</a> › 
+            <a href="/trading/learn/islamic-perspectives">Islamic Perspectives</a> › 
+            Lesson 4: Asset-Backed Trading
+        </div>
+
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="title-section">
+                <h1>Asset-Backed Trading</h1>
+                <span class="badge">Islamic Finance • 20 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="fas fa-star"></i> Core Principle</span>
+                <span><i class="fas fa-building"></i> Real Ownership</span>
+                <span><i class="fas fa-question-circle"></i> 10 Quiz Questions</span>
+            </div>
+        </div>
+
+        <!-- Quran Verse -->
+        <div class="quran-verse">
+            <div class="arabic">وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا</div>
+            <div class="translation">"And Allah has permitted trade and forbidden interest."</div>
+            <div class="reference">— Quran 2:275</div>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <h2 class="section-title">🏭 Real Ownership Matters</h2>
+            <p>Every trade must represent real ownership in tangible assets, not just bets on price movements. This distinguishes investing from gambling and ensures economic value creation.</p>
+        </div>
+
+        <!-- Asset-Backed vs Not -->
+        <div class="two-column">
+            <div class="example-box">
+                <h4>✅ Asset-Backed (Halal)</h4>
+                <ul class="styled-list" style="margin: 15px 0 0 20px;">
+                    <li>Common stocks (ownership in company)</li>
+                    <li>Physical commodities (gold, silver, oil)</li>
+                    <li>Real estate and property</li>
+                    <li>Islamic Sukuk (asset-backed bonds)</li>
+                    <li>ETFs holding real assets</li>
+                    <li>Equipment and machinery</li>
+                </ul>
+            </div>
+            <div class="warning-box">
+                <h4>❌ Not Asset-Backed (Haram)</h4>
+                <ul class="styled-list" style="margin: 15px 0 0 20px;">
+                    <li>Naked options and derivatives</li>
+                    <li>Futures contracts (no delivery intention)</li>
+                    <li>CFDs (contracts for difference)</li>
+                    <li>Leveraged ETFs</li>
+                    <li>Short selling (borrowed shares)</li>
+                    <li>Speculative bets on price</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Types of Asset-Backed Investments -->
+        <div class="concept-card">
+            <h2 class="section-title">🏢 Types of Asset-Backed Investments</h2>
+            <div class="two-column">
+                <div class="example-box">
+                    <h4>📦 Tangible Assets</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Real estate</li>
+                        <li>Gold & Silver</li>
+                        <li>Oil & Gas</li>
+                        <li>Agricultural land</li>
+                        <li>Equipment</li>
+                    </ul>
+                </div>
+                <div class="psychology-box">
+                    <h4>📄 Representational</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Common stocks</li>
+                        <li>Islamic Sukuk</li>
+                        <li>Commodity ETFs</li>
+                        <li>REITs</li>
+                        <li>Mudaraba certificates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sukuk Explained -->
+        <div class="concept-card">
+            <h2 class="section-title">📊 Sukuk: Islamic Alternative to Bonds</h2>
+            <table class="comparison-table">
+                <tr style="background: #312e81; color: white;">
+                    <th>Conventional Bond</th>
+                    <th>Islamic Sukuk</th>
+                 </tr>
+                <tr>
+                    <td>Debt obligation</td>
+                    <td>Ownership in asset</td>
+                </tr>
+                <tr>
+                    <td>Guaranteed interest</td>
+                    <td>Profit from asset performance</td>
+                </tr>
+                <tr>
+                    <td>No asset backing</td>
+                    <td>Fully asset-backed</td>
+                </tr>
+                <tr>
+                    <td>Traded at any price</td>
+                    <td>Traded at market value of asset</td>
+                </tr>
+            </table>
+
+            <div style="margin-top: 20px;">
+                <h4>Sukuk Types:</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li><strong>Sukuk Ijara:</strong> Lease-based - owns leased asset</li>
+                    <li><strong>Sukuk Musharaka:</strong> Partnership - owns share in project</li>
+                    <li><strong>Sukuk Mudaraba:</strong> Profit-sharing - capital provider</li>
+                    <li><strong>Sukuk Wakala:</strong> Agency-based - appoints manager</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Why Asset-Backing Matters -->
+        <div class="concept-card">
+            <h2 class="section-title">💡 Why Asset-Backing Matters</h2>
+            <div class="two-column">
+                <div class="example-box">
+                    <h4>1. Prevents Debt Expansion</h4>
+                    <p>Asset-backed transactions prevent the economy from growing faster than real assets, avoiding speculative bubbles.</p>
+                </div>
+                <div class="example-box">
+                    <h4>2. Risk Sharing</h4>
+                    <p>Owners share in both profits and losses of real assets, creating fairer wealth distribution.</p>
+                </div>
+            </div>
+            <div class="two-column">
+                <div class="example-box">
+                    <h4>3. Real Economic Activity</h4>
+                    <p>Money flows into productive assets rather than speculative financial instruments.</p>
+                </div>
+                <div class="example-box">
+                    <h4>4. Transparency</h4>
+                    <p>Asset value is more transparent than complex derivatives with hidden risks.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case Studies -->
+        <div class="concept-card">
+            <h2 class="section-title">🔍 Case Studies: Asset-Backed Test</h2>
+            
+            <div class="example-box">
+                <h4>Case 1: Gold ETF</h4>
+                <p><strong>Scenario:</strong> ETF that holds physical gold in vaults with regular audits.</p>
+                <p><strong>Test:</strong> Is it asset-backed? YES - each share represents actual gold.</p>
+                <p><strong>Ruling:</strong> Halal. Must trade at spot price with no interest components.</p>
+            </div>
+            
+            <div class="example-box">
+                <h4>Case 2: S&P 500 ETF</h4>
+                <p><strong>Scenario:</strong> ETF holding stocks of 500 companies across all sectors.</p>
+                <p><strong>Test:</strong> Is it asset-backed? YES - represents ownership in companies.</p>
+                <p><strong>Ruling:</strong> Halal with screening. Must screen constituent companies for Shariah compliance.</p>
+            </div>
+            
+            <div class="warning-box">
+                <h4>Case 3: Oil Futures</h4>
+                <p><strong>Scenario:</strong> Contract to buy oil in 6 months, closed before delivery with no intention of taking possession.</p>
+                <p><strong>Test:</strong> Is it asset-backed? NO - no asset ownership until settlement.</p>
+                <p><strong>Ruling:</strong> Haram. Due to lack of asset backing and gharar.</p>
+            </div>
+            
+            <div class="psychology-box">
+                <h4>Case 4: Cryptocurrency</h4>
+                <p><strong>Scenario:</strong> Bitcoin purchased on exchange and transferred to personal wallet.</p>
+                <p><strong>Test:</strong> Is it asset-backed? Debated. Has utility but no physical backing.</p>
+                <p><strong>Ruling:</strong> Scholars differ. Some permit as digital commodity, others prohibit due to volatility.</p>
+            </div>
+        </div>
+
+        <!-- Quick Test -->
+        <div class="psychology-box">
+            <h4>📋 Quick Test for Asset-Backing</h4>
+            <p>Ask yourself these three questions:</p>
+            <ul style="margin: 10px 0 0 20px;">
+                <li>Do I legally own this asset? (Not just a contract on price)</li>
+                <li>Can I take delivery if I want? (Physical possession is possible)</li>
+                <li>Does this represent something real? (Not just a bet on price movement)</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>If you answer NO to any, it likely involves prohibited speculation.</strong></p>
+        </div>
+
+        <!-- QUIZ SECTION - 10 Questions -->
+        <div class="quiz-section">
+            <h3><i class="fas fa-pencil-alt"></i> Test Your Understanding</h3>
+            <p style="text-align: center; margin-bottom: 30px;">Answer all 10 questions to test your knowledge of asset-backed trading.</p>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is the key difference between a conventional bond and Islamic sukuk?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q1" value="a"> Sukuk pays higher returns</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="b"> Sukuk represents asset ownership, bonds represent debt</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="c"> Sukuk is risk-free</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="d"> Bonds are longer term</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. Which of these is NOT asset-backed?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q2" value="a"> Real estate investment trust</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="b"> Physical gold ETF</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="c"> S&P 500 index fund</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="d"> Naked call option</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. Why does Islamic finance require asset backing?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q3" value="a"> To make transactions more expensive</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="b"> To link finance with real economic activity</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="c"> To benefit banks only</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="d"> To reduce liquidity</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. If you buy a futures contract and close it before delivery, this is:</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q4" value="a"> Halal - you made a profit</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="b"> Halal - it's traded on exchange</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="c"> Haram - no asset ownership, pure speculation</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="d"> Permitted - it's common practice</label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What is Sukuk Ijara?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q5" value="a"> Interest-based bond</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="b"> Lease-based sukuk (owns leased asset)</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="c"> Profit-sharing sukuk</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="d"> Partnership sukuk</label>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. What does the Quran 2:275 teach about trade vs interest?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q6" value="a"> Interest is permitted, trade is not</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="b"> Allah has permitted trade and forbidden interest</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="c"> Both trade and interest are forbidden</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="d"> Both trade and interest are permitted</label>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. Which of these represents real ownership?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q7" value="a"> CFD on Apple stock</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="b"> Apple stock certificate in your name</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="c"> Options contract on Apple</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="d"> Futures contract on Apple</label>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. What is the Islamic ruling on cryptocurrency according to most scholars?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q8" value="a"> Always halal</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="b"> Always haram</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="c"> Scholars differ (some permit as digital commodity, others prohibit)</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="d"> Only halal if used for trading</label>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What is the three-question test for asset-backing?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q9" value="a"> Do I own it? Can I deliver it? Does it make profit?</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="b"> Do I own it? Can I take delivery? Is it real?</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="c"> Is it cheap? Will it rise? Can I sell quickly?</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="d"> Is it traded? Is it liquid? Is it popular?</label>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. Why does asset-backing prevent financial crises?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q10" value="a"> It makes everything more expensive</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="b"> It prevents debt from expanding faster than real assets</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="c"> It eliminates all risk</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="d"> It makes banks richer</label>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="checkAssetQuiz()" style="background: #312e81; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 600; cursor: pointer;">
+                    <i class="fas fa-check-circle"></i> Check My Answers
+                </button>
+            </div>
+            <div id="quizResult" style="margin-top: 20px; text-align: center; font-size: 18px;"></div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/trading/learn/islamic-perspectives/03-haram-industries.html" class="nav-link">
+                <i class="fas fa-arrow-left"></i> Previous: Haram Industries
+            </a>
+            <a href="/trading/learn/fundamentals/01-order-types.html" class="nav-link">
+                Next: Order Types <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">
+                    <i class="fas fa-mosque"></i>
+                    Fatimah Financial Hub
+                </div>
+                <p class="footer-about">Building ethical traders with Islamic principles at the core. Learn, practice, and grow with confidence.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/trading">Trading</a></li>
+                    <li><a href="/simulator/trade">Simulator</a></li>
+                    <li><a href="/resources">Resources</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Learn</h4>
+                <ul>
+                    <li><a href="/trading/learn/fundamentals/01-order-types.html">Fundamentals</a></li>
+                    <li><a href="/trading/learn/islamic-perspectives/01-riba-explained.html">Islamic Perspectives</a></li>
+                    <li><a href="/economics">Economics</a></li>
+                    <li><a href="/finance-tools">Tools</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/resources">Contact</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="arabic-footer">الحمد لله</div>
+            <p>May this knowledge help you make informed and ethical investment decisions</p>
+            <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Lesson 4 of 4 (Islamic Series)</p>
+            <p style="margin-top: 10px; color: #fbbf24;">✨ Islamic Perspectives Complete ✨</p>
+        </div>
+    </footer>
+
+    <script>
+        function checkAssetQuiz() {
+            const answers = {
+                q1: 'b',
+                q2: 'd',
+                q3: 'b',
+                q4: 'c',
+                q5: 'b',
+                q6: 'b',
+                q7: 'b',
+                q8: 'c',
+                q9: 'b',
+                q10: 'b'
+            };
+            
+            let score = 0;
+            let total = 10;
+            
+            // Clear previous highlights
+            for (let i = 1; i <= total; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(radio => {
+                    radio.parentElement.classList.remove('correct-answer', 'wrong-answer', 'show-correct');
+                });
+            }
+            
+            // Check each question
+            for (let i = 1; i <= total; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                let answered = false;
+                
+                for (let radio of radios) {
+                    if (radio.checked) {
+                        answered = true;
+                        if (radio.value === answers[`q${i}`]) {
+                            score++;
+                            radio.parentElement.classList.add('correct-answer');
+                        } else {
+                            radio.parentElement.classList.add('wrong-answer');
+                            
+                            // Highlight the correct answer
+                            for (let r of radios) {
+                                if (r.value === answers[`q${i}`]) {
+                                    r.parentElement.classList.add('show-correct');
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+                
+                if (!answered) {
+                    // Highlight correct answer even if not answered
+                    for (let radio of radios) {
+                        if (radio.value === answers[`q${i}`]) {
+                            radio.parentElement.classList.add('show-correct');
+                        }
+                    }
+                }
+            }
+            
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.style.padding = '20px';
+            resultDiv.style.borderRadius = '12px';
+            resultDiv.style.marginTop = '20px';
+            
+            if (score === total) {
+                resultDiv.style.background = '#d1fae5';
+                resultDiv.style.color = '#065f46';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">🎉 MashaAllah! Perfect score (${score}/${total})!</div>
+                    <div style="font-size: 16px;">You have excellent understanding of asset-backed trading principles!</div>
+                `;
+            } else if (score >= 8) {
+                resultDiv.style.background = '#fef3c7';
+                resultDiv.style.color = '#92400e';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">✅ Good job! You scored ${score}/${total}</div>
+                    <div style="font-size: 16px;">The correct answers are highlighted in green. Review the ones you missed.</div>
+                `;
+            } else {
+                resultDiv.style.background = '#fee2e2';
+                resultDiv.style.color = '#991b1b';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">📚 You scored ${score}/${total}</div>
+                    <div style="font-size: 16px;">Study the highlighted correct answers and try again.</div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

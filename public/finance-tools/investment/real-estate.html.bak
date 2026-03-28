@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Investment Calculator - ROI & Cash Flow</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container { max-width: 1600px; margin: 0 auto; }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        h1 { color: #4facfe; font-size: 2.5em; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 1.1em; }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: #4facfe;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #4facfe;
+            padding-bottom: 10px;
+        }
+
+        .form-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-section h3 {
+            color: #4facfe;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .form-group { margin-bottom: 15px; }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover { transform: translateY(-2px); }
+
+        .roi-card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .roi-card.good { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .roi-card.poor { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+
+        .roi-card h3 { font-size: 1.2em; margin-bottom: 10px; opacity: 0.9; }
+        .roi-card .value { font-size: 3.5em; font-weight: bold; margin: 10px 0; }
+        .roi-card .detail { font-size: 1.1em; opacity: 0.9; }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-top: 4px solid #4facfe;
+        }
+
+        .metric-card label { font-size: 0.85em; color: #666; margin-bottom: 8px; display: block; }
+        .metric-card .value { font-size: 1.6em; font-weight: bold; color: #333; }
+
+        .chart-container { height: 350px; margin: 30px 0; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: #f5f5f5;
+            color: #4facfe;
+            font-weight: 600;
+        }
+
+        tr:hover { background: #f9f9f9; }
+
+        .cash-flow-positive { color: #4caf50; font-weight: bold; }
+        .cash-flow-negative { color: #f44336; font-weight: bold; }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box h4 { color: #1976d2; margin-bottom: 10px; }
+
+        @media (max-width: 1400px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                <i class="fas fa-user" style="margin-right: 5px;"></i> Personal Finance
+            </span>
+        </div>
+    </div>
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="../personal/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Investment Hub</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333; font-weight: 500;">Real Estate Calculator</span>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 Real Estate Investment Calculator</h1>
+            <p class="subtitle">Analyze ROI, Cash Flow, Cap Rate, and Investment Returns</p>
+        </div>
+
+        <div class="main-grid">
+            <div class="card">
+                <h2>Property Details</h2>
+
+                <div class="form-section">
+                    <h3>Purchase Information</h3>
+                    
+                    <div class="form-group">
+                        <label>Purchase Price ($)</label>
+                        <input type="number" id="purchasePrice" value="300000" step="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Down Payment ($)</label>
+                        <input type="number" id="downPayment" value="60000" step="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Closing Costs ($)</label>
+                        <input type="number" id="closingCosts" value="9000" step="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Rehab/Repair Costs ($)</label>
+                        <input type="number" id="rehabCosts" value="15000" step="1000">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Financing</h3>
+                    
+                    <div class="form-group">
+                        <label>Interest Rate (%)</label>
+                        <input type="number" id="interestRate" value="6.5" step="0.1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Loan Term (years)</label>
+                        <input type="number" id="loanTerm" value="30" step="1">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Income & Expenses</h3>
+                    
+                    <div class="form-group">
+                        <label>Monthly Rent ($)</label>
+                        <input type="number" id="monthlyRent" value="2500" step="50">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vacancy Rate (%)</label>
+                        <input type="number" id="vacancyRate" value="5" step="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Property Tax (Annual $)</label>
+                        <input type="number" id="propertyTax" value="3600" step="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Insurance (Annual $)</label>
+                        <input type="number" id="insurance" value="1200" step="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Maintenance (Annual $)</label>
+                        <input type="number" id="maintenance" value="3000" step="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Property Management (%)</label>
+                        <input type="number" id="propertyManagement" value="10" step="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>HOA Fees (Monthly $)</label>
+                        <input type="number" id="hoaFees" value="0" step="50">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Annual Appreciation (%)</label>
+                        <input type="number" id="appreciation" value="3" step="0.5">
+                    </div>
+                </div>
+
+                <button onclick="calculateInvestment()">Analyze Investment</button>
+
+                <div class="info-box">
+                    <h4>💡 Key Metrics</h4>
+                    <p><strong>Cap Rate:</strong> NOI / Property Value</p>
+                    <p><strong>Cash-on-Cash:</strong> Annual Cash Flow / Initial Investment</p>
+                    <p><strong>1% Rule:</strong> Rent should be 1%+ of purchase price</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Investment Analysis</h2>
+
+                <div class="roi-card" id="roiCard">
+                    <h3>Cash-on-Cash Return</h3>
+                    <div class="value" id="cashOnCash">0%</div>
+                    <div class="detail">Annual return on invested capital</div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <label>Cap Rate</label>
+                        <div class="value" id="capRate">0%</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>Monthly Cash Flow</label>
+                        <div class="value" id="monthlyCashFlow">$0</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>Annual Cash Flow</label>
+                        <div class="value" id="annualCashFlow">$0</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>Total ROI (5yr)</label>
+                        <div class="value" id="totalROI">0%</div>
+                    </div>
+                </div>
+
+                <h3 style="color: #4facfe; margin-top: 30px;">Monthly Cash Flow Breakdown</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Monthly Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cashFlowTable"></tbody>
+                </table>
+
+                <h3 style="color: #4facfe; margin-top: 30px;">5-Year Investment Projection</h3>
+                <div class="chart-container">
+                    <canvas id="projectionChart"></canvas>
+                </div>
+
+                <h3 style="color: #4facfe; margin-top: 30px;">Year-by-Year Analysis</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Property Value</th>
+                            <th>Annual Cash Flow</th>
+                            <th>Equity Built</th>
+                            <th>Total Return</th>
+                        </tr>
+                    </thead>
+                    <tbody id="yearlyTable"></tbody>
+                </table>
+
+                <h3 style="color: #4facfe; margin-top: 30px;">Investment Quality Indicators</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <label>1% Rule</label>
+                        <div class="value" id="onePercentRule">❌</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>50% Rule</label>
+                        <div class="value" id="fiftyPercentRule">❌</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>Debt Coverage</label>
+                        <div class="value" id="debtCoverage">0.0</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>Break-Even Rate</label>
+                        <div class="value" id="breakEvenRate">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let projectionChart = null;
+
+        function calculateInvestment() {
+            // Get inputs
+            const purchasePrice = parseFloat(document.getElementById('purchasePrice').value);
+            const downPayment = parseFloat(document.getElementById('downPayment').value);
+            const closingCosts = parseFloat(document.getElementById('closingCosts').value);
+            const rehabCosts = parseFloat(document.getElementById('rehabCosts').value);
+            const interestRate = parseFloat(document.getElementById('interestRate').value) / 100;
+            const loanTerm = parseInt(document.getElementById('loanTerm').value);
+            const monthlyRent = parseFloat(document.getElementById('monthlyRent').value);
+            const vacancyRate = parseFloat(document.getElementById('vacancyRate').value) / 100;
+            const propertyTax = parseFloat(document.getElementById('propertyTax').value);
+            const insurance = parseFloat(document.getElementById('insurance').value);
+            const maintenance = parseFloat(document.getElementById('maintenance').value);
+            const propertyManagement = parseFloat(document.getElementById('propertyManagement').value) / 100;
+            const hoaFees = parseFloat(document.getElementById('hoaFees').value);
+            const appreciation = parseFloat(document.getElementById('appreciation').value) / 100;
+
+            // Calculate mortgage
+            const loanAmount = purchasePrice - downPayment;
+            const monthlyRate = interestRate / 12;
+            const numPayments = loanTerm * 12;
+            const monthlyMortgage = loanAmount * 
+                (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+                (Math.pow(1 + monthlyRate, numPayments) - 1);
+
+            // Income calculations
+            const grossMonthlyIncome = monthlyRent;
+            const effectiveMonthlyRent = monthlyRent * (1 - vacancyRate);
+
+            // Expense calculations
+            const monthlyPropertyTax = propertyTax / 12;
+            const monthlyInsurance = insurance / 12;
+            const monthlyMaintenance = maintenance / 12;
+            const monthlyManagement = effectiveMonthlyRent * propertyManagement;
+
+            const totalMonthlyExpenses = monthlyMortgage + monthlyPropertyTax + 
+                                        monthlyInsurance + monthlyMaintenance + 
+                                        monthlyManagement + hoaFees;
+
+            // Cash flow
+            const monthlyCashFlow = effectiveMonthlyRent - totalMonthlyExpenses;
+            const annualCashFlow = monthlyCashFlow * 12;
+
+            // Initial investment
+            const totalInitialInvestment = downPayment + closingCosts + rehabCosts;
+
+            // Key metrics
+            const cashOnCashReturn = (annualCashFlow / totalInitialInvestment) * 100;
+            
+            // Cap rate (NOI / Purchase Price)
+            const noi = (effectiveMonthlyRent * 12) - (propertyTax + insurance + maintenance + (effectiveMonthlyRent * 12 * propertyManagement) + (hoaFees * 12));
+            const capRate = (noi / purchasePrice) * 100;
+
+            // 5-year projection
+            const projection = calculate5YearProjection(
+                purchasePrice, totalInitialInvestment, annualCashFlow, 
+                appreciation, monthlyMortgage, interestRate
+            );
+
+            // Display results
+            displayResults(monthlyCashFlow, annualCashFlow, cashOnCashReturn, capRate, 
+                          monthlyRent, effectiveMonthlyRent, monthlyMortgage, 
+                          monthlyPropertyTax, monthlyInsurance, monthlyMaintenance, 
+                          monthlyManagement, hoaFees, projection, purchasePrice,
+                          totalMonthlyExpenses, noi);
+        }
+
+        function calculate5YearProjection(purchasePrice, initialInvestment, annualCashFlow, 
+                                         appreciation, monthlyMortgage, interestRate) {
+            const projection = [];
+            let propertyValue = purchasePrice;
+            let totalCashFlow = 0;
+            let principalPaid = 0;
+            let balance = purchasePrice - (initialInvestment - parseFloat(document.getElementById('closingCosts').value) - parseFloat(document.getElementById('rehabCosts').value));
+
+            for (let year = 1; year <= 5; year++) {
+                // Property appreciation
+                propertyValue *= (1 + appreciation);
+                totalCashFlow += annualCashFlow;
+
+                // Principal paydown
+                let yearlyPrincipal = 0;
+                for (let month = 1; month <= 12; month++) {
+                    const interest = balance * (interestRate / 12);
+                    const principal = monthlyMortgage - interest;
+                    balance -= principal;
+                    yearlyPrincipal += principal;
+                }
+                principalPaid += yearlyPrincipal;
+
+                // Equity
+                const equity = propertyValue - balance;
+                
+                // Total return
+                const totalReturn = ((propertyValue - purchasePrice + totalCashFlow) / initialInvestment) * 100;
+
+                projection.push({
+                    year: year,
+                    propertyValue: propertyValue,
+                    annualCashFlow: annualCashFlow,
+                    equity: equity,
+                    totalReturn: totalReturn,
+                    principalPaid: principalPaid
+                });
+            }
+
+            return projection;
+        }
+
+        function displayResults(monthlyCashFlow, annualCashFlow, cashOnCashReturn, capRate,
+                              monthlyRent, effectiveRent, mortgage, tax, insurance, 
+                              maintenance, management, hoa, projection, purchasePrice,
+                              totalExpenses, noi) {
+            // Main ROI card
+            const roiCard = document.getElementById('roiCard');
+            if (cashOnCashReturn > 8) {
+                roiCard.className = 'roi-card good';
+            } else if (cashOnCashReturn < 4) {
+                roiCard.className = 'roi-card poor';
+            } else {
+                roiCard.className = 'roi-card';
+            }
+
+            document.getElementById('cashOnCash').textContent = cashOnCashReturn.toFixed(2) + '%';
+            document.getElementById('capRate').textContent = capRate.toFixed(2) + '%';
+            document.getElementById('monthlyCashFlow').textContent = '$' + monthlyCashFlow.toFixed(2);
+            document.getElementById('annualCashFlow').textContent = '$' + annualCashFlow.toFixed(2);
+            document.getElementById('totalROI').textContent = projection[4].totalReturn.toFixed(1) + '%';
+
+            // Cash flow table
+            const cashFlowTable = document.getElementById('cashFlowTable');
+            const cashFlowItems = [
+                { label: 'Gross Rent', amount: monthlyRent, isIncome: true },
+                { label: 'Vacancy Loss', amount: -(monthlyRent - effectiveRent), isIncome: false },
+                { label: 'Effective Rent', amount: effectiveRent, isIncome: true, isBold: true },
+                { label: 'Mortgage Payment', amount: -mortgage, isIncome: false },
+                { label: 'Property Tax', amount: -tax, isIncome: false },
+                { label: 'Insurance', amount: -insurance, isIncome: false },
+                { label: 'Maintenance', amount: -maintenance, isIncome: false },
+                { label: 'Property Management', amount: -management, isIncome: false },
+                { label: 'HOA Fees', amount: -hoa, isIncome: false },
+                { label: 'Total Expenses', amount: -totalExpenses, isIncome: false, isBold: true },
+                { label: 'NET CASH FLOW', amount: monthlyCashFlow, isIncome: monthlyCashFlow > 0, isBold: true }
+            ];
+
+            cashFlowTable.innerHTML = cashFlowItems.map(item => `
+                <tr ${item.isBold ? 'style="font-weight: bold; background: #f5f5f5;"' : ''}>
+                    <td>${item.label}</td>
+                    <td class="${item.amount > 0 ? 'cash-flow-positive' : item.amount < 0 ? 'cash-flow-negative' : ''}">
+                        ${item.amount >= 0 ? '' : '-'}$${Math.abs(item.amount).toFixed(2)}
+                    </td>
+                </tr>
+            `).join('');
+
+            // Yearly table
+            const yearlyTable = document.getElementById('yearlyTable');
+            yearlyTable.innerHTML = projection.map(p => `
+                <tr>
+                    <td>Year ${p.year}</td>
+                    <td>$${p.propertyValue.toLocaleString('en-US', {minimumFractionDigits: 0})}</td>
+                    <td class="cash-flow-positive">$${p.annualCashFlow.toFixed(2)}</td>
+                    <td>$${p.equity.toFixed(2)}</td>
+                    <td class="cash-flow-positive">${p.totalReturn.toFixed(1)}%</td>
+                </tr>
+            `).join('');
+
+            // Investment quality indicators
+            const onePercentCheck = (monthlyRent / purchasePrice) >= 0.01;
+            const fiftyPercentCheck = (effectiveRent * 0.5) >= (totalExpenses - mortgage);
+            const debtCoverage = noi / (mortgage * 12);
+            const breakEvenOccupancy = (totalExpenses / monthlyRent) * 100;
+
+            document.getElementById('onePercentRule').textContent = onePercentCheck ? '✅' : '❌';
+            document.getElementById('fiftyPercentRule').textContent = fiftyPercentCheck ? '✅' : '❌';
+            document.getElementById('debtCoverage').textContent = debtCoverage.toFixed(2);
+            document.getElementById('breakEvenRate').textContent = breakEvenOccupancy.toFixed(1) + '%';
+
+            // Create chart
+            createProjectionChart(projection);
+        }
+
+        function createProjectionChart(projection) {
+            const ctx = document.getElementById('projectionChart').getContext('2d');
+            
+            if (projectionChart) projectionChart.destroy();
+
+            const years = projection.map(p => `Year ${p.year}`);
+            const values = projection.map(p => p.propertyValue);
+            const equity = projection.map(p => p.equity);
+            const cashFlow = projection.map(p => p.annualCashFlow * p.year);
+
+            projectionChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [
+                        {
+                            label: 'Property Value',
+                            data: values,
+                            borderColor: '#4facfe',
+                            backgroundColor: 'rgba(79, 172, 254, 0.1)',
+                            borderWidth: 3,
+                            fill: true
+                        },
+                        {
+                            label: 'Equity',
+                            data: equity,
+                            borderColor: '#43e97b',
+                            backgroundColor: 'rgba(67, 233, 123, 0.1)',
+                            borderWidth: 3,
+                            fill: true
+                        },
+                        {
+                            label: 'Cumulative Cash Flow',
+                            data: cashFlow,
+                            borderColor: '#f093fb',
+                            borderWidth: 2,
+                            borderDash: [5, 5]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Auto-calculate on load
+        window.onload = calculateInvestment;
+    </script>
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                </a>
+                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                </a>
+                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                </a>
+                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+                <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                </a>
+                <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                </a>
+                <span style="color: #718096; display: block; margin-bottom: 8px; padding: 3px 0;">
+                     <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics (Coming Soon)
+                </span>
+            </div>
+        </div>
+    
+        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+             <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+             <p style="margin-top: 10px; font-size: 0.9rem;">
+                <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+             </p>
+        </div>
+    </div>
+</body>
+</html>

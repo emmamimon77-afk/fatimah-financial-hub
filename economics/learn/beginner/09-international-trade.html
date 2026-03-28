@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Trade - Lesson 9 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th {
+            background: #312e81;
+            color: white;
+            padding: 12px;
+        }
+        .comparison-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+
+        .flag-icon {
+            font-size: 48px;
+            margin: 10px;
+        }
+
+        .trade-route {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 50px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/beginner">Beginner</a> › 
+                Lesson 9: International Trade
+            </div>
+            <div class="title-section">
+                <h1>International Trade</h1>
+                <span class="badge">Beginner • 35 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 12 Quiz Questions</span>
+                <span><i class="fas fa-globe"></i> Globalization</span>
+                <span><i class="fas fa-mosque"></i> Trade in Islam</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">يَا أَيُّهَا النَّاسُ إِنَّا خَلَقْنَاكُم مِّن ذَكَرٍ وَأُنثَىٰ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا</div>
+            <div class="translation">"O mankind, indeed We have created you from male and female and made you peoples and tribes that you may know one another."</div>
+            <div class="reference">— Quran 49:13</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Trade is one of the deepest forms of "knowing one another"—exchanging not just goods, but ideas, culture, and civilization.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-globe-asia"></i>
+                What is International Trade?
+            </div>
+            <p style="font-size: 18px;">International trade is the exchange of goods and services across national borders. It allows countries to specialize in what they do best and import what others do better.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 Simple Definition:</strong> Countries trade because they can't produce everything efficiently. Saudi Arabia has oil, Japan has electronics, Brazil has coffee—trade lets everyone benefit from each other's strengths.</p>
+            </div>
+
+            <div class="trade-route" style="text-align: center;">
+                <span class="flag-icon">🇸🇦</span> 
+                <i class="fas fa-long-arrow-alt-right"></i> 
+                <span class="flag-icon">🇯🇵</span> 
+                <i class="fas fa-long-arrow-alt-right"></i> 
+                <span class="flag-icon">🇺🇸</span>
+                <p style="margin-top: 10px;">Oil → Electronics → Wheat ← Global trade in action</p>
+            </div>
+        </div>
+
+        <!-- Why Countries Trade -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-question-circle"></i>
+                Why Do Countries Trade?
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>✅ Access to Resources</h4>
+                    <ul>
+                        <li>No country has everything</li>
+                        <li>Oil, minerals, climate advantages</li>
+                        <li>Technology and expertise</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>💰 Lower Costs</h4>
+                    <ul>
+                        <li>Cheaper labor abroad</li>
+                        <li>Economies of scale</li>
+                        <li>Specialization increases efficiency</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🎁 Consumer Benefits</h4>
+                    <ul>
+                        <li>More variety of goods</li>
+                        <li>Lower prices</li>
+                        <li>Higher quality through competition</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🕊️ Peace and Cooperation</h4>
+                    <ul>
+                        <li>Trade creates interdependence</li>
+                        <li>Countries less likely to fight trading partners</li>
+                        <li>Cultural exchange and understanding</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-mobile-alt"></i> Your Smartphone</h4>
+                <p><strong>Design:</strong> California (Apple)<br>
+                <strong>Screen:</strong> South Korea (Samsung)<br>
+                <strong>Camera:</strong> Japan (Sony)<br>
+                <strong>Assembly:</strong> China (Foxconn)<br>
+                <strong>Minerals:</strong> Congo (cobalt), Chile (lithium)</p>
+                <p>One product, many countries. This is globalization.</p>
+            </div>
+        </div>
+
+        <!-- Comparative Advantage -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-balance-scale"></i>
+                Comparative Advantage: The Foundation of Trade
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 David Ricardo • 1817</h4>
+                <p>British economist who developed the theory of comparative advantage—the most important concept in international trade. Even if one country is better at everything, both can still benefit from trade.</p>
+            </div>
+
+            <div class="definition-box">
+                <p><strong>Comparative Advantage:</strong> A country should specialize in producing goods where it has the lowest opportunity cost.</p>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-apple-alt"></i> <i class="fas fa-tshirt"></i> Simple Example: Two Countries, Two Goods</h4>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Country</th>
+                        <th>Hours to make 1 computer</th>
+                        <th>Hours to make 1 shirt</th>
+                    </tr>
+                    <tr>
+                        <td><strong>USA</strong></td>
+                        <td>10 hours</td>
+                        <td>20 hours</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bangladesh</strong></td>
+                        <td>30 hours</td>
+                        <td>15 hours</td>
+                    </tr>
+                </table>
+
+                <p style="margin-top: 15px;"><strong>Analysis:</strong></p>
+                <ul>
+                    <li>USA is better at computers (10 < 30)</li>
+                    <li>Bangladesh is better at shirts (15 < 20)</li>
+                    <li>Both benefit if USA specializes in computers, Bangladesh in shirts, and they trade</li>
+                </ul>
+                <p><strong>Even if USA was better at BOTH</strong> (absolute advantage), they'd still benefit from specializing in what they're relatively best at and trading for the rest.</p>
+            </div>
+        </div>
+
+        <!-- Balance of Trade -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-line"></i>
+                Balance of Trade: Surplus vs Deficit
+            </div>
+
+            <div class="formula-box">
+                Trade Balance = Exports - Imports
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background: #d1fae5;">
+                    <h4>✅ Trade Surplus</h4>
+                    <p>Exports > Imports</p>
+                    <p><strong>Example:</strong> China, Germany, Saudi Arabia</p>
+                    <p><em>Country sells more than it buys</em></p>
+                </div>
+                <div class="column-card" style="background: #fee2e2;">
+                    <h4>❌ Trade Deficit</h4>
+                    <p>Imports > Exports</p>
+                    <p><strong>Example:</strong> USA, UK, India</p>
+                    <p><em>Country buys more than it sells</em></p>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> Is Deficit Bad? Not necessarily!</h4>
+                <p>The US has run a trade deficit for decades but remains the world's largest economy. Why? Because the dollar is the global reserve currency—foreigners hold dollars and invest them in US assets (stocks, bonds, real estate). Trade deficit + capital surplus = stable system.</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Persistent deficits can be problematic if:</h4>
+                <ul>
+                    <li>They're used to finance consumption, not investment</li>
+                    <li>They lead to unsustainable foreign debt</li>
+                    <li>They cause job losses in key industries</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Trade Policy: Protectionism vs Free Trade -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-shield-alt"></i>
+                Trade Policy: Protectionism vs Free Trade
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🛡️ Protectionism</h4>
+                    <p><strong>Tools:</strong></p>
+                    <ul>
+                        <li><strong>Tariffs:</strong> Taxes on imports</li>
+                        <li><strong>Quotas:</strong> Limits on quantity</li>
+                        <li><strong>Subsidies:</strong> Help domestic industries</li>
+                        <li><strong>Regulations:</strong> Standards that favor locals</li>
+                    </ul>
+                    <p><strong>Goal:</strong> Protect domestic jobs and industries</p>
+                </div>
+                <div class="column-card">
+                    <h4>🌐 Free Trade</h4>
+                    <p><strong>Tools:</strong></p>
+                    <ul>
+                        <li><strong>Trade agreements:</strong> NAFTA, EU, etc.</li>
+                        <li><strong>WTO:</strong> Global trade rules</li>
+                        <li><strong>Reduced tariffs</strong></li>
+                        <li><strong>Open markets</strong></li>
+                    </ul>
+                    <p><strong>Goal:</strong> Efficiency, lower prices, growth</p>
+                </div>
+            </div>
+
+            <div class="two-column" style="margin-top: 20px;">
+                <div>
+                    <h4>✅ Arguments for Free Trade</h4>
+                    <ul>
+                        <li>Lower prices for consumers</li>
+                        <li>More variety and choice</li>
+                        <li>Efficiency and innovation</li>
+                        <li>Economic growth</li>
+                        <li>Peace through interdependence</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>✅ Arguments for Protectionism</h4>
+                    <ul>
+                        <li>Protect infant industries</li>
+                        <li>National security (don't rely on others for critical goods)</li>
+                        <li>Protect domestic jobs</li>
+                        <li>Prevent exploitation (labor, environmental)</li>
+                        <li>Retaliation against unfair trade</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-car"></i> Real-World Example: US-China Trade War (2018-2020)</h4>
+                <p>US imposed tariffs on Chinese goods to protect American manufacturing and address intellectual property concerns. China retaliated. Both economies suffered some damage, but US manufacturing saw some revival. A reminder that trade policy has real winners and losers.</p>
+            </div>
+        </div>
+
+        <!-- Exchange Rates -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exchange-alt"></i>
+                Exchange Rates: The Price of Money
+            </div>
+
+            <p>To trade, you need to exchange currencies. The exchange rate is the price of one currency in terms of another.</p>
+
+            <div class="two-column">
+                <div>
+                    <h4>📈 Factors Affecting Exchange Rates</h4>
+                    <ul>
+                        <li>Interest rates</li>
+                        <li>Inflation</li>
+                        <li>Trade balances</li>
+                        <li>Political stability</li>
+                        <li>Market speculation</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>💱 Current Rates (2026)</h4>
+                    <ul>
+                        <li>$1 USD = 0.92 EUR</li>
+                        <li>$1 USD = 150 JPY</li>
+                        <li>$1 USD = 3.75 SAR</li>
+                        <li>$1 USD = 85 INR</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-plane"></i> Travel Example</h4>
+                <p>You go from USA to Europe. If $1 = €1, your $1000 becomes €1000. If the dollar weakens to $1 = €0.8, your $1000 becomes only €800—your trip just got more expensive! Exchange rates affect everyone.</p>
+            </div>
+        </div>
+
+        <!-- Major Trade Agreements and Organizations -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-handshake"></i>
+                Major Trade Agreements & Organizations
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🌍 WTO</h4>
+                    <p><strong>World Trade Organization</strong> (164 members)</p>
+                    <ul>
+                        <li>Sets global trade rules</li>
+                        <li>Settles disputes</li>
+                        <li>Reduces trade barriers</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🇪🇺 European Union</h4>
+                    <p><strong>27 countries</strong></p>
+                    <ul>
+                        <li>Single market</li>
+                        <li>No tariffs between members</li>
+                        <li>Common external tariff</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🇺🇸 USMCA</h4>
+                    <p><strong>US-Mexico-Canada Agreement</strong></p>
+                    <ul>
+                        <li>Replaced NAFTA (2020)</li>
+                        <li>$1.5 trillion in trade</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🌏 RCEP</h4>
+                    <p><strong>Regional Comprehensive Economic Partnership</strong></p>
+                    <ul>
+                        <li>China, Japan, Korea, Australia, NZ + ASEAN</li>
+                        <li>Largest trade bloc by population</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Islamic Perspective on Trade -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Trade in Islamic Civilization
+            </div>
+
+            <div class="psychology-box">
+                <h4>📜 The Prophet Muhammad (ﷺ) - A Trader</h4>
+                <p>Before prophethood, the Prophet Muhammad (ﷺ) was known as "Al-Amin" (the trustworthy) for his honesty in trade. He worked for Khadija (RA) trading between Mecca and Syria. This teaches us that trade, when done ethically, is a noble profession.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>🕌 Islamic Trade Ethics</h4>
+                <ul>
+                    <li><strong>Honesty:</strong> No cheating in weights and measures</li>
+                    <li><strong>Transparency:</strong> Disclose defects in goods</li>
+                    <li><strong>No Riba:</strong> No interest in trade financing</li>
+                    <li><strong>No Gharar:</strong> No excessive uncertainty in contracts</li>
+                    <li><strong>Fair pricing:</strong> No price manipulation (hoarding)</li>
+                </ul>
+                <p style="margin-top: 10px;">The Quran commands: "Give full measure and weight, in justice." (6:152)</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>🕋 The Silk Road and Islamic Trade</h4>
+                <p>For centuries, Muslim traders dominated global trade routes—from Andalusia to China. They brought not just goods but also Islam, knowledge, and culture. Islamic law facilitated trade with clear contracts, trust, and dispute resolution.</p>
+                <p><strong>Ibn Battuta (1304-1369)</strong> traveled 75,000 miles across the Islamic world, facilitated by a common legal system and language (Arabic) that made trade possible across continents.</p>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-hand-holding-heart"></i> Modern Islamic Trade Finance</h4>
+                <p><strong>Murabaha:</strong> Cost-plus financing—bank buys goods and sells to customer at agreed markup (halal, no interest).</p>
+                <p><strong>Musharaka:</strong> Joint venture—partners share profits and losses.</p>
+                <p><strong>Wakala:</strong> Agency agreement for trade transactions.</p>
+                <p>These instruments allow Muslims to engage in international trade without violating Shariah.</p>
+            </div>
+        </div>
+
+        <!-- Globalization: Winners and Losers -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-globe"></i>
+                Globalization: Winners and Losers
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background: #d1fae5;">
+                    <h4>🏆 Winners</h4>
+                    <ul>
+                        <li>Consumers (lower prices, more choice)</li>
+                        <li>Multinational corporations</li>
+                        <li>Workers in export industries</li>
+                        <li>Developing countries with cheap labor</li>
+                        <li>Countries with strong education/infrastructure</li>
+                    </ul>
+                </div>
+                <div class="column-card" style="background: #fee2e2;">
+                    <h4>📉 Losers</h4>
+                    <ul>
+                        <li>Workers in industries that move overseas</li>
+                        <li>Unskilled labor in developed countries</li>
+                        <li>Local businesses competing with giants</li>
+                        <li>Environment (transport emissions, resource depletion)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-scale-balanced"></i> Islamic Perspective on Globalization</h4>
+                <p>Islam supports trade and cooperation but warns against exploitation. The Quran says: "O you who have believed, do not consume one another's wealth unjustly, but only [in lawful] business by mutual consent." (4:29)</p>
+                <p>Globalization must be just—fair wages, no exploitation, environmental responsibility, and mutual benefit. When trade becomes a tool for oppression or inequality, it violates Islamic principles.</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 12 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is comparative advantage?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">A. Being better at everything</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">B. Producing goods with lowest opportunity cost</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. Having the most natural resources</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. Having the largest population</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> Comparative advantage is about opportunity cost—what you give up to produce something. Specialize where you give up the least.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. Who developed the theory of comparative advantage?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">A. Adam Smith</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">B. David Ricardo</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. Karl Marx</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. John Maynard Keynes</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> David Ricardo (1772-1823) developed comparative advantage in 1817, showing why trade benefits all countries.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. What is a trade deficit?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">A. Imports > Exports</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. Exports > Imports</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. Imports = Exports</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. No trade at all</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Trade deficit means a country buys more from other countries than it sells to them.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. What is a tariff?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">A. Limit on quantity of imports</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">B. Tax on imported goods</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. Subsidy for domestic producers</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Trade agreement</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> A tariff is a tax on imports, making foreign goods more expensive and protecting domestic industries.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. Which organization sets global trade rules?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">A. IMF</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">B. World Bank</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">C. WTO</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. UN</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> The World Trade Organization (WTO) sets global trade rules and settles disputes between countries.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. What was the Prophet Muhammad's (ﷺ) profession before prophethood?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">A. Farmer</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">B. Trader/merchant</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. Carpenter</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Shepherd only</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> The Prophet (ﷺ) was a successful trader, known for his honesty and integrity, working for Khadija (RA) before their marriage.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What is Murabaha in Islamic finance?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">A. Interest-based loan</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">B. Cost-plus financing (bank buys and sells at markup)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. Insurance contract</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. Currency exchange</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> Murabaha is a common Islamic trade finance instrument where the bank buys goods and sells them to the customer at an agreed profit margin (halal, no interest).
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. Which country has the largest trade surplus?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">A. USA</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">B. China</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. Germany</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. Japan</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> China has the world's largest trade surplus, though Germany is also a major surplus country.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What Quranic principle is most relevant to fair trade?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">A. "Fight those who disbelieve"</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">B. "Give full measure and weight, in justice"</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. "The stars and trees prostrate"</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. "And the heaven He raised"</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> Quran 6:152 commands justice in weights and measures—the foundation of fair trade.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. What is the main argument FOR protectionism?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">A. Lower prices for consumers</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">B. Protect domestic jobs and infant industries</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. More variety of goods</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. Efficiency through specialization</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Protectionism aims to shield domestic industries from foreign competition to protect jobs and allow new industries to grow.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. What does an exchange rate tell you?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">A. The price of one currency in terms of another</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. The inflation rate</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. The interest rate</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. The stock market index</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Exchange rate is the value of one currency in terms of another—how many yen, euros, or riyals you can buy with one dollar.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. How does Islamic trade finance avoid riba (interest)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">A. Using profit-sharing and asset-backed transactions (Murabaha, Musharaka)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">B. Charging higher interest to cover risk</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. Not trading at all</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. Using conventional loans with verbal exceptions</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> Islamic finance uses real asset transactions, profit-sharing, and joint ventures—never pure interest-based lending.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"The Wealth of Nations" - Adam Smith</a></li>
+                        <li><a href="#">"Principles of Economics" - Mankiw (Ch. 3, 9, 31)</a></li>
+                        <li><a href="#">"When Globalization Fails" - James MacDonald</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🌐 Data Sources</h4>
+                    <ul>
+                        <li><a href="https://www.wto.org" target="_blank">World Trade Organization</a></li>
+                        <li><a href="https://data.worldbank.org" target="_blank">World Bank - Trade Statistics</a></li>
+                        <li><a href="https://oec.world" target="_blank">Observatory of Economic Complexity</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Trade History</h4>
+                    <ul>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Finance</a></li>
+                        <li><a href="#">"The Travels of Ibn Battuta"</a></li>
+                        <li><a href="https://isdb.org" target="_blank">Islamic Development Bank - Trade Finance</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/beginner/08-business-cycles.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Business Cycles</a>
+            <a href="/economics/learn/beginner/10-exchange-rates.html" class="nav-link">Next: Exchange Rates <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May your dealings be honest, your trade be fair, and your profits be blessed</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 9 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في العشر الأواخر من رمضان</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

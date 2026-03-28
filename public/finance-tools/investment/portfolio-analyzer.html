@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Diversification Analyzer | Fatimah Financial Hub</title>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: #C850C0;
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4158D0 0%, #C850C0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #C850C0;
+        }
+
+        .nav-links a.active {
+            color: #C850C0;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #4158D0 0%, #C850C0 100%);
+            border-radius: 2px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 0.5rem 0;
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.7rem 1.5rem;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: linear-gradient(135deg, #4158D010 0%, #C850C010 100%);
+            color: #C850C0;
+            padding-left: 2rem;
+        }
+
+        .bismillah {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1.5rem;
+            font-family: 'Traditional Arabic', serif;
+            letter-spacing: 2px;
+        }
+
+        /* Main Container */
+        .container {
+            flex: 1;
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            color: white;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+
+        /* Educational Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4158D0 0%, #C850C0 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .card h3 {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .insight-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .insight-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-list li i {
+            color: #10b981;
+            font-size: 0.8rem;
+        }
+
+        /* Main Content Cards */
+        .section-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .section-title {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: #C850C0;
+        }
+
+        /* Portfolio Input Section */
+        .input-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .input-row input, .input-row select {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .input-row button {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(135deg, #4158D0 0%, #C850C0 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .input-row button:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #666 0%, #888 100%) !important;
+        }
+
+        .holdings-list {
+            margin: 1.5rem 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .holding-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.3s ease;
+        }
+
+        .holding-item:hover {
+            background: #f8f9fa;
+        }
+
+        .holding-info {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .holding-symbol {
+            font-weight: 700;
+            color: #4158D0;
+            width: 60px;
+        }
+
+        .holding-details {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .holding-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .remove-btn {
+            color: #dc2626;
+            cursor: pointer;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: #fee2e2;
+        }
+
+        /* Tips Box */
+        .tips-box {
+            background: linear-gradient(135deg, #4158D010 0%, #C850C010 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #C850C0;
+        }
+
+        .tips-box h4 {
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .tip-item i {
+            color: #10b981;
+        }
+
+        /* Analysis Grid */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid #f0f0f0;
+        }
+
+        .metric-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4158D0;
+            line-height: 1.2;
+        }
+
+        .metric-desc {
+            color: #888;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .score-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .score-high {
+            background: #10b98120;
+            color: #10b981;
+        }
+
+        .score-medium {
+            background: #f59e0b20;
+            color: #f59e0b;
+        }
+
+        .score-low {
+            background: #ef444420;
+            color: #ef4444;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            color: #555;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #4158D0 0%, #C850C0 100%);
+            border-radius: 4px;
+        }
+
+        .status-badge {
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-overweight {
+            background: #f59e0b20;
+            color: #f59e0b;
+        }
+
+        .status-underweight {
+            background: #ef444420;
+            color: #ef4444;
+        }
+
+        .status-balanced {
+            background: #10b98120;
+            color: #10b981;
+        }
+
+        /* Risk Analysis */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .risk-item {
+            text-align: center;
+        }
+
+        .risk-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4158D0;
+        }
+
+        .risk-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3rem 5% 1rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #666;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #C850C0;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .alhamdulillah {
+            font-family: 'Traditional Arabic', serif;
+            font-size: 1.5rem;
+            color: #C850C0;
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .analysis-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .risk-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bismillah -->
+    <div class="bismillah">
+        ﷽
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-landmark"></i>
+            <span>Fatimah Financial Hub</span>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <div class="dropdown">
+                <a href="/finance-tools/index.html" class="active">Finance Tools</a>
+                <div class="dropdown-content">
+                    <a href="/finance-tools/personal/index.html">Personal Finance</a>
+                    <a href="/finance-tools/investment/index.html" class="active">Investment Hub</a>
+                    <a href="/finance-tools/business/index.html">Business Tools</a>
+                    <a href="/finance-tools/global/index.html">Global Calculators</a>
+                    <a href="/finance-tools/islamic/index.html">Islamic Finance</a>
+                </div>
+            </div>
+            <a href="/resources.html">Resources</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/">Home</a> › <a href="/finance-tools/index.html">Tools</a> › <a href="/finance-tools/investment/index.html">Investment Hub</a> › Portfolio Analyzer
+        </div>
+
+        <!-- Educational Cards -->
+        <div class="cards-grid">
+            <!-- Card 1: What it does -->
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3><i class="fas fa-chart-line" style="color: #C850C0;"></i> What it does</h3>
+                <p>This analyzer evaluates your portfolio's diversification across sectors, asset classes, and individual holdings. It calculates concentration risk, sector balance, and provides a diversification score.</p>
+            </div>
+
+            <!-- Card 2: Why it matters -->
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3><i class="fas fa-question-circle" style="color: #C850C0;"></i> Why it matters</h3>
+                <p>Proper diversification reduces risk without sacrificing returns. The goal is to avoid overconcentration in any single sector or holding, protecting your portfolio from sector-specific downturns.</p>
+            </div>
+
+            <!-- Card 3: Key Insights -->
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3><i class="fas fa-star" style="color: #C850C0;"></i> Key Insights</h3>
+                <ul class="insight-list">
+                    <li><i class="fas fa-check-circle"></i> Diversification Score > 75 = Well diversified</li>
+                    <li><i class="fas fa-check-circle"></i> No single holding should exceed 20% of portfolio</li>
+                    <li><i class="fas fa-check-circle"></i> Aim for exposure to 5+ different sectors</li>
+                    <li><i class="fas fa-check-circle"></i> Herfindahl Index below 0.15 indicates low concentration</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Analyzer Section -->
+        <div class="section-card">
+            <h2 class="section-title">
+                <i class="fas fa-chart-pie"></i>
+                Portfolio Diversification Analyzer
+            </h2>
+            <p style="color: #666; margin-bottom: 1.5rem;">Analyze asset allocation, sector exposure, and diversification quality</p>
+
+            <!-- Portfolio Input -->
+            <h3 style="margin-bottom: 1rem;">Portfolio Holdings</h3>
+            <div class="input-row">
+                <input type="text" id="symbol" placeholder="Symbol (e.g., AAPL)" value="AAPL">
+                <input type="number" id="shares" placeholder="Shares" value="50" min="1">
+                <input type="number" id="price" placeholder="Price ($)" value="175.00" step="0.01" min="0">
+                <select id="sector">
+                    <option value="Technology">Technology</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Energy">Energy</option>
+                    <option value="Consumer">Consumer</option>
+                    <option value="Bonds">Bonds</option>
+                    <option value="Real Estate">Real Estate</option>
+                </select>
+                <button onclick="addHolding()">
+                    <i class="fas fa-plus"></i> Add
+                </button>
+            </div>
+
+            <!-- Holdings List -->
+            <div class="holdings-list" id="holdingsList">
+                <!-- Will be populated by JavaScript -->
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; gap: 1rem; margin: 1.5rem 0;">
+                <button class="btn-secondary" onclick="analyzePortfolio()">
+                    <i class="fas fa-chart-bar"></i> Analyze Diversification
+                </button>
+                <button class="btn-secondary" onclick="loadSamplePortfolio()">
+                    <i class="fas fa-database"></i> Load Sample Portfolio
+                </button>
+            </div>
+
+            <!-- Tips Box -->
+            <div class="tips-box">
+                <h4>
+                    <i class="fas fa-lightbulb" style="color: #C850C0;"></i>
+                    💡 Diversification Tips
+                </h4>
+                <div class="tips-grid">
+                    <div class="tip-item">
+                        <i class="fas fa-check-circle"></i> Asset Classes: Mix stocks, bonds, real estate
+                    </div>
+                    <div class="tip-item">
+                        <i class="fas fa-check-circle"></i> Sectors: Don't overweight one industry
+                    </div>
+                    <div class="tip-item">
+                        <i class="fas fa-check-circle"></i> Geography: Include international exposure
+                    </div>
+                    <div class="tip-item">
+                        <i class="fas fa-check-circle"></i> Market Cap: Blend large, mid, small cap
+                    </div>
+                    <div class="tip-item">
+                        <i class="fas fa-check-circle"></i> Rebalance: Adjust quarterly or annually
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Results -->
+            <div id="analysisResults" style="display: block;">
+                <h3 style="margin: 2rem 0 1rem;">Diversification Analysis</h3>
+                
+                <!-- Summary Metrics -->
+                <div class="analysis-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Diversification Score</div>
+                        <div class="metric-value" id="diversityScore">87</div>
+                        <span class="score-badge score-high" id="scoreBadge">Well Diversified</span>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total Value</div>
+                        <div class="metric-value" id="totalValue">$62,725</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Holdings</div>
+                        <div class="metric-value" id="totalHoldings">10</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Sectors</div>
+                        <div class="metric-value" id="totalSectors">7</div>
+                        <div class="metric-desc" id="concentrationRisk">Concentration Risk: Medium</div>
+                    </div>
+                </div>
+
+                <!-- Top Holdings Table -->
+                <h4 style="margin: 1.5rem 0 1rem;">Top Holdings</h4>
+                <div class="table-container">
+                    <table id="holdingsTable">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Sector</th>
+                                <th>Value</th>
+                                <th>% of Portfolio</th>
+                                <th>Allocation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="holdingsTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Sector Distribution -->
+                <h4 style="margin: 1.5rem 0 1rem;">Sector Distribution</h4>
+                <div class="table-container">
+                    <table id="sectorTable">
+                        <thead>
+                            <tr>
+                                <th>Sector</th>
+                                <th>Value</th>
+                                <th>% of Portfolio</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sectorTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Risk Analysis -->
+                <h4 style="margin: 1.5rem 0 1rem;">Risk Analysis</h4>
+                <div class="risk-grid">
+                    <div class="risk-item">
+                        <div class="risk-value" id="herfindahl">0.133</div>
+                        <div class="risk-label">Herfindahl Index</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="risk-value" id="maxPosition">22.3%</div>
+                        <div class="risk-label">Max Position</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="risk-value" id="top5Concentration">72.6%</div>
+                        <div class="risk-label">Top 5 Concentration</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="risk-value" id="sectorBalance">70</div>
+                        <div class="risk-label">Sector Balance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Footer -->
+        <footer style="background: #2d3748; color: #fff; padding: 3rem 0 1.5rem; margin-top: 3rem;">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    
+                    <!-- About Section -->
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 1rem;">Fatimah Financial Hub</h4>
+                        <p style="color: #cbd5e0; font-size: 0.9rem; line-height: 1.6;">
+                            An educational platform dedicated to teaching finance, trading, and economics 
+                            through an Islamic lens. All content is for learning purposes only.
+                        </p>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 1rem;">Quick Links</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><a href="/" style="color: #cbd5e0; text-decoration: none;">Home</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/trading" style="color: #cbd5e0; text-decoration: none;">Trading</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/economics" style="color: #cbd5e0; text-decoration: none;">Economics</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/resources" style="color: #cbd5e0; text-decoration: none;">Resources</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/simulator/trade" style="color: #cbd5e0; text-decoration: none;">Simulator</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Legal & Disclaimer -->
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 1rem;">Disclaimer</h4>
+                        <p style="color: #cbd5e0; font-size: 0.85rem; line-height: 1.6;">
+                            This website is for <strong>educational and research purposes only</strong>. 
+                            It is not a financial advisory platform, does not provide professional investment advice, 
+                            and should not be used for real trading decisions. All information is for learning and 
+                            skill development. Users are responsible for their own financial decisions.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Copyright -->
+                <div style="text-align: center; padding-top: 2rem; border-top: 1px solid #4a5568;">
+                    <p style="color: #a0aec0; font-size: 0.85rem;">
+                        © 1447-1448 AH / 2026 CE Fatimah Financial Hub. All content for educational purposes.
+                    </p>
+                    <p style="color: #a0aec0; font-size: 0.85rem; margin-top: 0.5rem;">
+                        <i class="fas fa-mosque" style="color: #fbbf24;"></i> Built with intention for those seeking knowledge
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+
+    <script>
+        // Portfolio holdings array
+        let holdings = [];
+
+        // Sector mapping for common stocks
+        const sectorMap = {
+            'AAPL': 'Technology',
+            'MSFT': 'Technology',
+            'GOOGL': 'Technology',
+            'AMZN': 'Consumer',
+            'TSLA': 'Consumer',
+            'META': 'Technology',
+            'JNJ': 'Healthcare',
+            'PFE': 'Healthcare',
+            'JPM': 'Finance',
+            'BAC': 'Finance',
+            'XOM': 'Energy',
+            'CVX': 'Energy',
+            'PG': 'Consumer',
+            'KO': 'Consumer',
+            'VZ': 'Technology',
+            'T': 'Technology',
+            'DIS': 'Consumer',
+            'NFLX': 'Technology',
+            'BND': 'Bonds',
+            'AGG': 'Bonds',
+            'VNQ': 'Real Estate',
+            'SPY': 'Technology'
+        };
+
+        // Load sample portfolio
+        function loadSamplePortfolio() {
+            holdings = [
+                { symbol: 'AAPL', shares: 50, price: 175.00, sector: 'Technology' },
+                { symbol: 'MSFT', shares: 40, price: 350.00, sector: 'Technology' },
+                { symbol: 'JNJ', shares: 30, price: 160.00, sector: 'Healthcare' },
+                { symbol: 'JPM', shares: 25, price: 150.00, sector: 'Finance' },
+                { symbol: 'XOM', shares: 20, price: 110.00, sector: 'Energy' },
+                { symbol: 'PG', shares: 35, price: 145.00, sector: 'Consumer' },
+                { symbol: 'VZ', shares: 60, price: 40.00, sector: 'Technology' },
+                { symbol: 'DIS', shares: 45, price: 90.00, sector: 'Consumer' },
+                { symbol: 'AGG', shares: 100, price: 105.00, sector: 'Bonds' },
+                { symbol: 'VNQ', shares: 80, price: 90.00, sector: 'Real Estate' }
+            ];
+            renderHoldings();
+            analyzePortfolio();
+        }
+
+        // Add holding
+        function addHolding() {
+            const symbol = document.getElementById('symbol').value.toUpperCase();
+            const shares = parseFloat(document.getElementById('shares').value);
+            const price = parseFloat(document.getElementById('price').value);
+            const sector = document.getElementById('sector').value;
+
+            if (!symbol || !shares || !price) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            holdings.push({
+                symbol: symbol,
+                shares: shares,
+                price: price,
+                sector: sector
+            });
+
+            // Clear inputs
+            document.getElementById('symbol').value = '';
+            document.getElementById('shares').value = '';
+            document.getElementById('price').value = '';
+            
+            renderHoldings();
+            analyzePortfolio();
+        }
+
+        // Remove holding
+        function removeHolding(index) {
+            holdings.splice(index, 1);
+            renderHoldings();
+            analyzePortfolio();
+        }
+
+        // Render holdings list
+        function renderHoldings() {
+            const list = document.getElementById('holdingsList');
+            if (holdings.length === 0) {
+                list.innerHTML = '<p style="color: #666; text-align: center; padding: 2rem;">No holdings added. Add stocks or load sample portfolio.</p>';
+                return;
+            }
+
+            let html = '';
+            holdings.forEach((h, index) => {
+                const value = h.shares * h.price;
+                html += `
+                    <div class="holding-item">
+                        <div class="holding-info">
+                            <span class="holding-symbol">${h.symbol}</span>
+                            <span class="holding-details">Shares: ${h.shares} | Price: $${h.price.toFixed(2)}</span>
+                            <span class="holding-value">Value: $${value.toFixed(2)}</span>
+                            <span class="holding-details">Sector: ${h.sector}</span>
+                        </div>
+                        <div class="remove-btn" onclick="removeHolding(${index})">
+                            <i class="fas fa-times"></i> Remove
+                        </div>
+                    </div>
+                `;
+            });
+            list.innerHTML = html;
+        }
+
+        // Analyze portfolio
+        function analyzePortfolio() {
+            if (holdings.length === 0) return;
+
+            // Calculate total value and sector aggregates
+            let totalValue = 0;
+            const sectorValues = {};
+            const holdingValues = [];
+
+            holdings.forEach(h => {
+                const value = h.shares * h.price;
+                totalValue += value;
+                holdingValues.push({
+                    symbol: h.symbol,
+                    sector: h.sector,
+                    value: value
+                });
+
+                if (sectorValues[h.sector]) {
+                    sectorValues[h.sector] += value;
+                } else {
+                    sectorValues[h.sector] = value;
+                }
+            });
+
+            // Sort holdings by value
+            holdingValues.sort((a, b) => b.value - a.value);
+
+            // Update total value and counts
+            document.getElementById('totalValue').textContent = '$' + totalValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('totalHoldings').textContent = holdings.length;
+            document.getElementById('totalSectors').textContent = Object.keys(sectorValues).length;
+
+            // Calculate Herfindahl Index
+            let herfindahl = 0;
+            holdingValues.forEach(h => {
+                const pct = h.value / totalValue;
+                herfindahl += pct * pct;
+            });
+            document.getElementById('herfindahl').textContent = herfindahl.toFixed(3);
+
+            // Calculate max position
+            const maxPct = (holdingValues[0].value / totalValue * 100).toFixed(1);
+            document.getElementById('maxPosition').textContent = maxPct + '%';
+
+            // Calculate top 5 concentration
+            const top5Value = holdingValues.slice(0, 5).reduce((sum, h) => sum + h.value, 0);
+            const top5Pct = (top5Value / totalValue * 100).toFixed(1);
+            document.getElementById('top5Concentration').textContent = top5Pct + '%';
+
+            // Calculate diversification score
+            let score = 0;
+            
+            // Sector diversity (max 30 points)
+            const sectorCount = Object.keys(sectorValues).length;
+            score += Math.min(sectorCount * 6, 30);
+            
+            // Holdings count (max 20 points)
+            score += Math.min(holdings.length * 2, 20);
+            
+            // Concentration risk (max 30 points)
+            if (herfindahl < 0.1) score += 30;
+            else if (herfindahl < 0.15) score += 25;
+            else if (herfindahl < 0.2) score += 20;
+            else if (herfindahl < 0.25) score += 15;
+            else if (herfindahl < 0.3) score += 10;
+            else score += 5;
+            
+            // Max position (max 20 points)
+            const maxPos = parseFloat(maxPct);
+            if (maxPos < 15) score += 20;
+            else if (maxPos < 20) score += 15;
+            else if (maxPos < 25) score += 10;
+            else if (maxPos < 30) score += 5;
+            
+            document.getElementById('diversityScore').textContent = Math.min(Math.round(score), 100);
+
+            // Set score badge
+            const finalScore = Math.min(Math.round(score), 100);
+            const badge = document.getElementById('scoreBadge');
+            const riskEl = document.getElementById('concentrationRisk');
+            
+            if (finalScore >= 80) {
+                badge.textContent = 'Well Diversified';
+                badge.className = 'score-badge score-high';
+                riskEl.textContent = 'Concentration Risk: Low';
+            } else if (finalScore >= 60) {
+                badge.textContent = 'Moderately Diversified';
+                badge.className = 'score-badge score-medium';
+                riskEl.textContent = 'Concentration Risk: Medium';
+            } else {
+                badge.textContent = 'Needs Improvement';
+                badge.className = 'score-badge score-low';
+                riskEl.textContent = 'Concentration Risk: High';
+            }
+
+            // Calculate sector balance score
+            const idealSectorPct = 100 / Object.keys(sectorValues).length;
+            let sectorDeviation = 0;
+            Object.values(sectorValues).forEach(v => {
+                const pct = v / totalValue * 100;
+                sectorDeviation += Math.abs(pct - idealSectorPct);
+            });
+            const sectorBalance = Math.max(0, 100 - sectorDeviation);
+            document.getElementById('sectorBalance').textContent = Math.round(sectorBalance);
+
+            // Render holdings table
+            let holdingsHtml = '';
+            holdingValues.forEach(h => {
+                const pct = (h.value / totalValue * 100).toFixed(2);
+                holdingsHtml += `
+                    <tr>
+                        <td><strong>${h.symbol}</strong></td>
+                        <td>${h.sector}</td>
+                        <td>$${h.value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                        <td>${pct}%</td>
+                        <td><div class="progress-bar"><div class="progress-fill" style="width: ${pct}%"></div></div></td>
+                    </tr>
+                `;
+            });
+            document.getElementById('holdingsTableBody').innerHTML = holdingsHtml;
+
+            // Render sector table
+            const sortedSectors = Object.entries(sectorValues).sort((a, b) => b[1] - a[1]);
+            let sectorHtml = '';
+            sortedSectors.forEach(([sector, value]) => {
+                const pct = (value / totalValue * 100).toFixed(2);
+                let status = '✅ Balanced';
+                let statusClass = 'status-balanced';
+                
+                if (parseFloat(pct) > 25) {
+                    status = '⚠️ Overweight';
+                    statusClass = 'status-overweight';
+                } else if (parseFloat(pct) < 5) {
+                    status = '⚠️ Underweight';
+                    statusClass = 'status-underweight';
+                }
+                
+                sectorHtml += `
+                    <tr>
+                        <td><strong>${sector}</strong></td>
+                        <td>$${value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                        <td>${pct}%</td>
+                        <td><span class="status-badge ${statusClass}">${status}</span></td>
+                    </tr>
+                `;
+            });
+            document.getElementById('sectorTableBody').innerHTML = sectorHtml;
+        }
+
+        // Auto-analyze when holdings change
+        setInterval(analyzePortfolio, 1000);
+
+        // Load sample portfolio on page load
+        window.onload = function() {
+            loadSamplePortfolio();
+        };
+    </script>
+</body>
+</html>

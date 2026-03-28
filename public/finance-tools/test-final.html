@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html><body>
+<h1>Financial Calculators Test</h1>
+<div id="result" style="padding:20px;background:#e8f4fd;border-radius:5px;">
+    Loading...
+</div>
+
+<script src="config.js"></script>
+<script src="calculators.js"></script>
+<script>
+    const result = document.getElementById('result');
+    
+    if (!window.FinancialCalculators) {
+        result.innerHTML = '❌ Calculators not loaded';
+        return;
+    }
+    
+    const calc = new FinancialCalculators();
+    
+    // Test different countries
+    const tests = [
+        { name: 'USA', country: 'US', principal: 300000, years: 30 },
+        { name: 'China', country: 'CN', principal: 300000, years: 30 },
+        { name: 'Russia', country: 'RU', principal: 300000, years: 30 }
+    ];
+    
+    let html = '<h3>✅ Global Mortgage Calculator</h3>';
+    
+    tests.forEach(test => {
+        const mortgage = calc.calculateMortgage(test);
+        
+        html += `<div style="margin:10px;padding:10px;border:1px solid #ccc;border-radius:5px;">
+            <strong>${test.name}</strong><br>
+            ${mortgage.success ? 
+                `Monthly: ${mortgage.monthlyPayment}<br>Rate: ${mortgage.interestRate}` : 
+                `Error: ${mortgage.error}`}
+        </div>`;
+    });
+    
+    // Test investment calculator
+    const investment = calc.calculateInvestment({
+        initial: 10000,
+        monthly: 500,
+        years: 20,
+        country: 'US'
+    });
+    
+    html += `<h3>Investment Calculator (USA)</h3>`;
+    html += investment.success ? 
+        `Future Value: ${investment.futureValue}<br>Return: ${investment.returnRate}` :
+        `Error: ${investment.error}`;
+    
+    result.innerHTML = html;
+    console.log('All calculations working!');
+</script>
+</body></html>

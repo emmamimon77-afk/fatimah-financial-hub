@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elliott Wave Theory - The Rhythm of Human Psychology | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .title-section h1 {
+            font-size: 36px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 32px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        /* Wave Diagrams */
+        .wave-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .wave-diagram {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+        }
+        .impulse-wave {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 15px;
+            height: 200px;
+            margin: 30px 0;
+        }
+        .wave-bar {
+            width: 50px;
+            background: #312e81;
+            border-radius: 8px 8px 0 0;
+            transition: height 0.3s;
+            position: relative;
+        }
+        .wave-bar.wave1 { height: 60px; background: #94a3b8; }
+        .wave-bar.wave2 { height: 40px; background: #64748b; }
+        .wave-bar.wave3 { height: 120px; background: #fbbf24; }
+        .wave-bar.wave4 { height: 80px; background: #94a3b8; }
+        .wave-bar.wave5 { height: 100px; background: #10b981; }
+        .wave-bar::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .corrective-wave {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 15px;
+            height: 150px;
+            margin: 30px 0;
+        }
+        .cor-bar {
+            width: 40px;
+            background: #ef4444;
+            border-radius: 8px 8px 0 0;
+        }
+        .cor-bar.a { height: 80px; background: #ef4444; }
+        .cor-bar.b { height: 50px; background: #f87171; }
+        .cor-bar.c { height: 100px; background: #dc2626; }
+
+        .psychology-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .stage-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .stage-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        .stage-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .rule-box {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 4px solid #fbbf24;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-question {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/trading">Trading Hub</a> › 
+                <a href="/trading/learn">Learning Center</a> › 
+                <a href="/trading/learn/advanced-technical">Advanced Technical</a> › 
+                Lesson 4: Elliott Wave Theory
+            </div>
+            <div class="title-section">
+                <h1>Elliott Wave Theory: The Rhythm of Human Psychology</h1>
+                <span class="badge">Advanced • 45 min read</span>
+            </div>
+        </div>
+
+        <div class="quran-verse">
+            <div class="arabic">وَكُلَّ شَيْءٍ فَصَّلْنَاهُ تَفْصِيلًا</div>
+            <div class="translation">"And everything We have detailed with detail."</div>
+            <div class="reference">— Quran 17:12</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Ralph Nelson Elliott discovered in the 1930s that markets move in repetitive cycles. He didn't know it, but he was describing the rhythm Allah placed in the human soul—the pattern of hope, fear, greed, and despair that repeats across generations.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="wave-section">
+            <h2>🌊 The Basic Pattern: 5 Waves Forward, 3 Waves Back</h2>
+            <p style="font-size: 18px; margin: 20px 0;">Elliott observed that markets move in a natural rhythm: five waves in the direction of the trend, followed by three waves correcting it. This 5-3 pattern repeats at every scale—from 5-minute charts to century-long trends.</p>
+
+            <div class="wave-diagram">
+                <h3 style="text-align: center; margin-bottom: 30px;">Impulse Wave (5 Waves Up)</h3>
+                <div class="impulse-wave">
+                    <div class="wave-bar wave1" data-label="Wave 1" style="height: 60px;"></div>
+                    <div class="wave-bar wave2" data-label="Wave 2" style="height: 40px;"></div>
+                    <div class="wave-bar wave3" data-label="Wave 3" style="height: 120px;"></div>
+                    <div class="wave-bar wave4" data-label="Wave 4" style="height: 80px;"></div>
+                    <div class="wave-bar wave5" data-label="Wave 5" style="height: 100px;"></div>
+                </div>
+                <p style="text-align: center; margin-top: 30px;">Wave 3 is never the shortest. Wave 4 never overlaps Wave 1. These are the rules.</p>
+            </div>
+
+            <div class="wave-diagram">
+                <h3 style="text-align: center; margin-bottom: 30px;">Corrective Wave (3 Waves Down)</h3>
+                <div class="corrective-wave">
+                    <div class="cor-bar a" data-label="A" style="height: 80px;"></div>
+                    <div class="cor-bar b" data-label="B" style="height: 50px;"></div>
+                    <div class="cor-bar c" data-label="C" style="height: 100px;"></div>
+                </div>
+                <p style="text-align: center; margin-top: 30px;">The correction (A-B-C) retraces part of the impulse, often to Fibonacci levels.</p>
+            </div>
+        </div>
+
+        <!-- The Psychology of Each Wave -->
+        <h2 style="margin: 40px 0 20px;">🧠 The Psychology of Each Wave - The Story of Every Market Move</h2>
+
+        <div class="stage-grid">
+            <div class="stage-card">
+                <div class="stage-icon">🌱</div>
+                <h4>Wave 1</h4>
+                <p style="font-size: 14px;">The Pioneers</p>
+            </div>
+            <div class="stage-card">
+                <div class="stage-icon">😨</div>
+                <h4>Wave 2</h4>
+                <p style="font-size: 14px;">The Test</p>
+            </div>
+            <div class="stage-card">
+                <div class="stage-icon">🚀</div>
+                <h4>Wave 3</h4>
+                <p style="font-size: 14px;">The Masses</p>
+            </div>
+            <div class="stage-card">
+                <div class="stage-icon">😌</div>
+                <h4>Wave 4</h4>
+                <p style="font-size: 14px;">Profit-Taking</p>
+            </div>
+            <div class="stage-card">
+                <div class="stage-icon">🤩</div>
+                <h4>Wave 5</h4>
+                <p style="font-size: 14px;">Euphoria</p>
+            </div>
+            <div class="stage-card">
+                <div class="stage-icon">😱</div>
+                <h4>A-B-C</h4>
+                <p style="font-size: 14px;">The Reality</p>
+            </div>
+        </div>
+
+        <!-- Detailed Wave Psychology -->
+        <div class="wave-section">
+            <div class="psychology-box">
+                <h4>🌱 Wave 1: The Pioneers (The Early Believers)</h4>
+                <p><strong>Psychology:</strong> The market has been down for a long time. Everyone is pessimistic. But a few smart money investors notice value. They start buying quietly. The media still calls it a "dead cat bounce." Most traders ignore it.</p>
+                <p><strong>Volume:</strong> Low. The public isn't interested yet.</p>
+                <p><strong>Quranic Connection:</strong> "And there is no creature on earth but that upon Allah is its provision." (Quran 11:6) - The early believers trust in Allah's provision, not the crowd's opinion.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>😨 Wave 2: The Test (The Doubters)</h4>
+                <p><strong>Psychology:</strong> Profit-takers sell. The market drops sharply, often retracing 50-61.8% of Wave 1. The media says "I told you so. It was just a bear market rally." The early buyers question themselves. Many sell in fear.</p>
+                <p><strong>Volume:</strong> Higher than Wave 1 down, but lower than the previous downtrend.</p>
+                <p><strong>Quranic Connection:</strong> "Do the people think that they will be left to say, 'We believe' and they will not be tried?" (Quran 29:2) - Wave 2 tests the believers. Those who hold are rewarded.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>🚀 Wave 3: The Masses (The Crowd Arrives)</h4>
+                <p><strong>Psychology:</strong> This is the strongest wave. The news turns positive. Earnings improve. The media starts talking about a "new bull market." FOMO (Fear Of Missing Out) kicks in. Everyone wants in. Volume surges. Wave 3 is usually 1.618 times Wave 1.</p>
+                <p><strong>Volume:</strong> Highest of all waves. Euphoria builds.</p>
+                <p><strong>Rule:</strong> Wave 3 is never the shortest wave. It's almost always the longest.</p>
+                <p><strong>Quranic Connection:</strong> "And when the sea is set on fire." (Quran 81:6) - The market catches fire. Everyone wants a piece.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>😌 Wave 4: The Profit-Takers (The Cautious)</h4>
+                <p><strong>Psychology:</strong> Smart money starts taking profits. The market moves sideways or down slowly. The public thinks "just a dip, buy more!" But the institutions are quietly exiting.</p>
+                <p><strong>Rule:</strong> Wave 4 never overlaps Wave 1. This is the "sacred rule" of Elliott Wave.</p>
+                <p><strong>Quranic Connection:</strong> "And the worldly life is not but amusement and diversion." (Quran 57:20) - The smart money knows this party won't last forever.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>🤩 Wave 5: The Euphoria (The Peak)</h4>
+                <p><strong>Psychology:</strong> The final push. Everyone is bullish. Your taxi driver gives you stock tips. New issues sell out instantly. P/E ratios are astronomical. This is the "greater fool" stage—buyers hope to sell to someone even more foolish.</p>
+                <p><strong>Volume:</strong> Lower than Wave 3. Smart money has already left.</p>
+                <p><strong>Quranic Connection:</strong> "Leave them to eat and enjoy and be diverted by [false] hope, for they are going to know." (Quran 15:3) - A warning against the euphoria of Wave 5.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>😱 A-B-C: The Reality (The Hangover)</h4>
+                <p><strong>Psychology:</strong> The bubble bursts. Wave A: panic selling. Wave B: a dead cat bounce (hope springs eternal). Wave C: capitulation. The final washout. The media declares "the end of markets." This is where the next Wave 1 begins.</p>
+                <p><strong>Quranic Connection:</strong> "How many a generation have We destroyed before them, and they cried out when there was no time for escape." (Quran 38:3) - When the correction comes, it's too late for those who bought at the top.</p>
+            </div>
+        </div>
+
+        <!-- The Three Sacred Rules -->
+        <div class="wave-section">
+            <h2>📜 The Three Sacred Rules of Elliott Wave</h2>
+            
+            <div class="rule-box">
+                <strong>Rule 1: Wave 2 cannot retrace more than 100% of Wave 1</strong>
+                <p style="font-size: 14px; margin-top: 5px;">If it does, you're wrong. It's not an impulse wave; it's a different pattern.</p>
+            </div>
+            
+            <div class="rule-box">
+                <strong>Rule 2: Wave 3 is never the shortest</strong>
+                <p style="font-size: 14px; margin-top: 5px;">It's usually the longest, but it must be at least longer than either Wave 1 or Wave 5.</p>
+            </div>
+            
+            <div class="rule-box">
+                <strong>Rule 3: Wave 4 never overlaps Wave 1</strong>
+                <p style="font-size: 14px; margin-top: 5px;">This is the most important rule. If Wave 4 enters the price territory of Wave 1, it's not an impulse wave.</p>
+            </div>
+
+            <p style="margin-top: 20px;">These rules are like the pillars of Islam—they define the structure. Break them, and the pattern is invalid.</p>
+        </div>
+
+        <!-- Fibonacci Relationships -->
+        <div class="wave-section">
+            <h2>📐 Fibonacci Relationships Between Waves</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 20px;">
+                <div>
+                    <h4>Wave 2</h4>
+                    <p>Typically retraces 50%, 61.8%, or 76.4% of Wave 1</p>
+                </div>
+                <div>
+                    <h4>Wave 3</h4>
+                    <p>Often 1.618 or 2.618 times Wave 1</p>
+                </div>
+                <div>
+                    <h4>Wave 4</h4>
+                    <p>Typically retraces 38.2% of Wave 3</p>
+                </div>
+                <div>
+                    <h4>Wave 5</h4>
+                    <p>Often equals Wave 1 or 0.618 of Wave 1+3</p>
+                </div>
+            </div>
+
+            <div class="psychology-box" style="margin-top: 20px;">
+                <p><strong>The Spiritual Meaning:</strong> Just as Allah created everything in proportion, the waves relate to each other in perfect Fibonacci ratios. The market, made of humans, reflects the divine order of creation.</p>
+            </div>
+        </div>
+
+        <!-- Wave Degrees - The Fractal Nature -->
+        <div class="wave-section">
+            <h2>🔄 The Fractal Nature - Waves Within Waves</h2>
+            <p>Every wave contains smaller waves of the same pattern. A 5-wave move on the daily chart is itself a Wave 1 on the weekly chart. This fractal nature reflects the infinite depth of Allah's creation.</p>
+
+            <svg viewBox="0 0 400 150" style="width:100%; margin: 20px 0;">
+                <path d="M50,100 L100,50 L150,80 L200,30 L250,60 L300,20" stroke="#312e81" stroke-width="2" fill="none"/>
+                <path d="M50,120 L80,100 L110,110 L140,90 L170,100 L200,80" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+                <text x="10" y="100" fill="#312e81" font-size="10">Grand Supercycle</text>
+                <text x="10" y="130" fill="#94a3b8" font-size="8">Supercycle</text>
+            </svg>
+
+            <p><strong>Quranic Connection:</strong> "And it is He who spread the earth and placed therein firmly set mountains and rivers." (Quran 13:3) - From the smallest grain of sand to the largest mountain, the same patterns repeat at every scale.</p>
+        </div>
+
+        <!-- Common Corrective Patterns -->
+        <h2 style="margin: 40px 0 20px;">🔄 Common Corrective Patterns</h2>
+
+        <div class="stage-grid">
+            <div class="stage-card">
+                <h4>Zigzag (5-3-5)</h4>
+                <p style="font-size: 14px;">Sharp correction. Wave A has 5 waves, B has 3, C has 5. Typical in Wave 2.</p>
+            </div>
+            <div class="stage-card">
+                <h4>Flat (3-3-5)</h4>
+                <p style="font-size: 14px;">Sideways correction. Wave A has 3 waves, B often exceeds start of A, C ends near A.</p>
+            </div>
+            <div class="stage-card">
+                <h4>Triangle (3-3-3-3-3)</h4>
+                <p style="font-size: 14px;">Contracting range. Common in Wave 4. The calm before the final storm.</p>
+            </div>
+        </div>
+
+        <!-- Practical Application -->
+        <div class="wave-section">
+            <h2>📝 How to Trade with Elliott Wave</h2>
+
+            <div class="rule-box">
+                <h4>Entry Strategy 1: Wave 3 Breakout</h4>
+                <p>Wait for Wave 1 and Wave 2 to complete. Enter when price breaks above the Wave 1 high with volume. Target Fibonacci extensions of Wave 1 (1.618, 2.618).</p>
+                <p><strong>Stop:</strong> Below Wave 2 low.</p>
+            </div>
+
+            <div class="rule-box">
+                <h4>Entry Strategy 2: Wave 4 Pullback</h4>
+                <p>After Wave 3 completes, wait for Wave 4 to retrace to Fibonacci levels (38.2% typical). Enter with stop below Wave 4, target Wave 5 extension.</p>
+            </div>
+
+            <div class="rule-box">
+                <h4>Exit Strategy: End of Wave 5</h4>
+                <p>Look for divergences (price makes new high but RSI doesn't). Watch for bearish candlestick patterns. This is the time to take profits before the A-B-C correction.</p>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Warning:</strong> Elliott Wave is subjective. Different analysts may count waves differently. Always use with other tools (Fibonacci, candlesticks, volume) for confirmation.</p>
+        </div>
+
+        <!-- The Deeper Wisdom -->
+        <div class="wave-section" style="background: linear-gradient(135deg, #f1f5f9, #e2e8f0);">
+            <h2>🕯️ The Spiritual Meaning of Elliott Waves</h2>
+            
+            <p>The 5-3 pattern mirrors the human experience:</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; margin: 30px 0;">
+                <div>
+                    <h4>Wave 1 - Faith</h4>
+                    <p>The early believers who trust before seeing.</p>
+                </div>
+                <div>
+                    <h4>Wave 2 - Trial</h4>
+                    <p>Testing of faith. Those who endure are strengthened.</p>
+                </div>
+                <div>
+                    <h4>Wave 3 - Victory</h4>
+                    <p>The community grows. Success becomes visible.</p>
+                </div>
+                <div>
+                    <h4>Wave 4 - Consolidation</h4>
+                    <p>Taking stock, reflecting, preparing for what's next.</p>
+                </div>
+                <div>
+                    <h4>Wave 5 - Peak</h4>
+                    <p>The height of achievement. But beware of arrogance.</p>
+                </div>
+                <div>
+                    <h4>A-B-C - Return</h4>
+                    <p>All things return to their origin. "To Allah we belong and to Him we return."</p>
+                </div>
+            </div>
+
+            <p style="font-style: italic; text-align: center;">"Every soul will taste death. And you will only be given your [full] compensation on the Day of Resurrection." (Quran 3:185)</p>
+            <p style="text-align: center;">The market's cycles remind us that nothing in this world is permanent. Peaks are followed by valleys. Wealth comes and goes. Only the Hereafter is eternal.</p>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-section">
+            <h2>📝 Test Your Understanding</h2>
+
+            <div class="quiz-question">
+                <p><strong>1. What is the basic Elliott Wave pattern?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">A. 5 waves forward, 3 waves back</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">B. 3 waves forward, 5 waves back</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">C. 4 waves forward, 4 waves back</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. 7 waves forward, 1 wave back</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>2. Which wave is typically the strongest and longest?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. Wave 1</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">B. Wave 2</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">C. Wave 3</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. Wave 5</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>3. What is the "sacred rule" that Wave 4 must follow?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. It must be longer than Wave 3</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">B. It must retrace exactly 50%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">C. It cannot overlap Wave 1</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. It must have higher volume</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>4. Which wave represents "euphoria" and the final peak before a correction?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. Wave 1</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">B. Wave 3</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">C. Wave 5</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. Wave A</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>5. What Quranic concept best reflects the corrective A-B-C waves?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. "And We made your sleep a rest" - rest before continuation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">B. "To Allah we belong and to Him we return" - all things return</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">C. "Indeed, with hardship comes ease" - hope after despair</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. "And do not walk upon the earth exultantly" - humility</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <button onclick="checkAllAnswers()" style="background: #312e81; color: white; border: none; padding: 12px 30px; border-radius: 50px; font-weight: 600; cursor: pointer;">Check All Answers</button>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div style="background: #f1f5f9; border-radius: 20px; padding: 30px; margin: 40px 0;">
+            <h3 style="margin-bottom: 20px;">📋 Key Takeaways</h3>
+            <ul style="margin-left: 20px;">
+                <li><strong>Markets move in rhythmic cycles</strong> - 5 waves forward, 3 waves back, repeating at every scale</li>
+                <li><strong>Each wave has a distinct psychology</strong> - From the pioneers of Wave 1 to the euphoria of Wave 5</li>
+                <li><strong>Three sacred rules</strong> - Wave 2 < 100% of Wave 1, Wave 3 never shortest, Wave 4 never overlaps Wave 1</li>
+                <li><strong>Fibonacci relationships</strong> - Waves relate to each other in divine proportion</li>
+                <li><strong>The pattern is fractal</strong> - Waves within waves, like the infinite depth of creation</li>
+                <li><strong>Spiritual lesson</strong> - Markets remind us of the transient nature of worldly wealth</li>
+            </ul>
+        </div>
+
+        <!-- 📚 REFERENCES & FURTHER STUDY -->
+        <div style="background: #f8fafc; border-radius: 20px; padding: 30px; margin: 40px 0;">
+            <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: #1e293b;">
+                <i class="fas fa-book" style="color: #312e81;"></i> References & Further Study
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div>
+                    <h4 style="color: #312e81; margin-bottom: 10px; font-size: 16px;">📖 Recommended Books</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0; font-size: 14px; color: #475569;">• "Technical Analysis of Financial Markets" - John Murphy</li>
+                        <li style="margin: 8px 0; font-size: 14px; color: #475569;">• "Japanese Candlestick Charting Techniques" - Steve Nison</li>
+                        <li style="margin: 8px 0; font-size: 14px; color: #475569;">• "Trading for a Living" - Dr. Alexander Elder</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #312e81; margin-bottom: 10px; font-size: 16px;">🌐 Online Resources</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.investopedia.com" target="_blank" style="color: #312e81; text-decoration: none;">Investopedia</a>
+                            <span style="color: #64748b; font-size: 12px; margin-left: 5px;">(Free tutorials)</span>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.tradingview.com" target="_blank" style="color: #312e81; text-decoration: none;">TradingView</a>
+                            <span style="color: #64748b; font-size: 12px; margin-left: 5px;">(Charting platform)</span>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.stockcharts.com" target="_blank" style="color: #312e81; text-decoration: none;">StockCharts.com</a>
+                            <span style="color: #64748b; font-size: 12px; margin-left: 5px;">(Chart school)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #312e81; margin-bottom: 10px; font-size: 16px;">🕌 Islamic Finance</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="/resources/islamic-vs-conventional.html" style="color: #312e81; text-decoration: none;">Islamic vs Conventional Finance</a>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.aaoifi.com" target="_blank" style="color: #312e81; text-decoration: none;">AAOIFI Standards</a>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="/resources/references/islamic-finance/" style="color: #312e81; text-decoration: none;">More Islamic Resources →</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-size: 13px; color: #64748b; text-align: center;">
+                <i class="fas fa-link"></i> For a complete list of resources, visit our 
+                <a href="/resources" style="color: #312e81; text-decoration: none; font-weight: 500;">Learning Resources Hub</a>
+            </p>
+        </div>
+
+        <!-- Navigation -->
+        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+            <a href="/trading/learn/advanced-technical/03-fibonacci-trading.html" style="color: #312e81; text-decoration: none;">← Previous: Fibonacci Trading</a>
+            <a href="/trading/learn/advanced-technical/05-ichimoku-cloud.html" style="color: #312e81; text-decoration: none;">Next: Ichimoku Cloud →</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May you ride the waves of the market with wisdom, patience, and faith</p>
+        <p style="margin-top: 10px;">© 2026 Fatimah Financial Hub • Lesson 4 of 5 (Advanced Technical Series)</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, result) {
+            const parent = element.parentNode;
+            Array.from(parent.children).forEach(child => {
+                child.classList.remove('correct', 'incorrect');
+            });
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+        }
+
+        function checkAllAnswers() {
+            alert('Check your answers above! Green = correct, Red = incorrect. Each question has one correct answer.');
+        }
+    </script>
+</body>
+</html>

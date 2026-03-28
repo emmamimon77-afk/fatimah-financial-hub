@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Development - Lesson 18 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #7c3aed;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .debate-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            margin: 15px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .country-card {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 15px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .country-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/advanced">Advanced</a> › 
+                Lesson 18: Economic Development & Growth Theory
+            </div>
+            <div class="title-section">
+                <h1>Economic Development</h1>
+                <span class="badge">Advanced • 60 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 16 Quiz Questions</span>
+                <span><i class="fas fa-chart-line"></i> Growth Models</span>
+                <span><i class="fas fa-mosque"></i> Islamic Development</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ</div>
+            <div class="translation">"Indeed, Allah will not change the condition of a people until they change what is in themselves."</div>
+            <div class="reference">— Quran 13:11</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Development begins within. External aid matters, but true transformation requires inner change—in values, institutions, and human character.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-line"></i>
+                Growth vs. Development
+            </div>
+            <p style="font-size: 18px;"><strong>Economic growth</strong> is about quantity—more GDP, more output. <strong>Economic development</strong> is about quality—better health, education, freedom, and dignity for all people.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 Amartya Sen's Definition:</strong> Development is "the expansion of human capabilities"—the freedom to live a life one has reason to value. Not just what you have, but what you can DO and BE.</p>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Amartya Sen • Nobel Prize 1998</h4>
+                <p>Indian economist who revolutionized development thinking. Argued that development should be measured by capabilities (health, education, freedom) not just income. His work transformed how we think about poverty.</p>
+            </div>
+        </div>
+
+        <!-- The Great Theories -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-scale-balanced"></i>
+                The Great Development Theories
+            </div>
+
+            <div class="timeline-item">
+                <h4>📈 1950s-60s: Modernization Theory</h4>
+                <p><strong>Rostow's Stages:</strong> Traditional → Preconditions → Take-off → Drive to Maturity → High Mass Consumption.</p>
+                <p>All countries follow same path as West. Heavy industry, infrastructure, foreign capital. Criticized as ethnocentric.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>📉 1970s: Dependency Theory</h4>
+                <p><strong>Andre Gunder Frank:</strong> Rich countries "underdevelop" poor countries through exploitation. Core (West) extracts surplus from periphery (Global South). Development of one requires underdevelopment of other.</p>
+                <p>Solution: Break free, socialist revolution, import substitution.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>📊 1980s-90s: Washington Consensus</h4>
+                <p><strong>Neoliberal prescription:</strong> Privatization, deregulation, free trade, fiscal discipline. IMF/World Bank imposed these as conditions for loans. Results mixed—some success, many failures.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>🌍 2000s-Present: Multiple Paths</h4>
+                <p>China's state-led capitalism, East Asian developmental state, Islamic development models. No single formula. Context matters.</p>
+            </div>
+        </div>
+
+        <!-- Growth Models -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-calculator"></i>
+                Classic Growth Models
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Robert Solow • Nobel Prize 1987</h4>
+                <p><strong>Solow-Swan Model:</strong> Y = A × F(K, L)</p>
+                <p>Output = Technology × function(Capital, Labor)</p>
+                <p>Diminishing returns to capital. In long run, growth comes only from technology. Poor countries grow faster (catch-up effect).</p>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Catch-up Effect</h4>
+                <p>If you invest $100 in a poor country with little capital, you get huge returns (first tractor). Same $100 in rich country with abundant capital, small returns. Poor countries can grow faster—if they have right institutions.</p>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Paul Romer • Nobel Prize 2018</h4>
+                <p><strong>Endogenous Growth Theory:</strong> Technology isn't external—it's created by people. Investment in knowledge, research, education drives growth. Ideas have increasing returns.</p>
+            </div>
+        </div>
+
+        <!-- What Actually Causes Growth? -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-question-circle"></i>
+                What Actually Causes Growth?
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>✅ Proximate Causes</h4>
+                    <ul>
+                        <li><strong>Capital accumulation:</strong> Machines, factories, infrastructure</li>
+                        <li><strong>Human capital:</strong> Education, health, skills</li>
+                        <li><strong>Technology:</strong> Innovation, adoption</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>✅ Fundamental Causes</h4>
+                    <ul>
+                        <li><strong>Institutions:</strong> Property rights, rule of law, honest government</li>
+                        <li><strong>Culture:</strong> Values, trust, work ethic</li>
+                        <li><strong>Geography:</strong> Climate, resources, trade access</li>
+                        <li><strong>History:</strong> Colonial legacy, path dependence</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ Acemoglu & Robinson: "Why Nations Fail"</h4>
+                <p><strong>Inclusive institutions</strong> (protect property, allow participation) → prosperity.</p>
+                <p><strong>Extractive institutions</strong> (elites take from rest) → poverty.</p>
+                <p>Example: North and South Korea—same geography, culture, history until 1945. Different institutions → different outcomes.</p>
+            </div>
+        </div>
+
+        <!-- The Geography Debate -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-globe-asia"></i>
+                Is It Geography?
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>🌍 Jeffrey Sachs</h4>
+                    <p>Geography matters: tropics have disease, poor soils; landlocked countries struggle. Aid can overcome these barriers.</p>
+                </div>
+                <div>
+                    <h4>📊 Daron Acemoglu</h4>
+                    <p>Institutions matter more. Botswana (landlocked, resource-dependent) grew fast with good institutions. Nigeria (oil-rich) failed with bad institutions.</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-map-marker-alt"></i> The Tropical Development Trap</h4>
+                <p>Most tropical countries are poor. Is it climate? Disease burden (malaria)? Colonial history? Or institutions that colonizers created? Evidence suggests institutions dominate, but geography still matters.</p>
+            </div>
+        </div>
+
+        <!-- Case Studies -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Success Stories
+            </div>
+
+            <div class="country-card">
+                <div class="country-name">🇰🇷 South Korea</div>
+                <p>1960: Poorer than Ghana. 2026: Advanced economy. Export-oriented industrialization, chaebols (Samsung, Hyundai), strong state guidance, massive education investment. "Miracle on the Han River."</p>
+            </div>
+
+            <div class="country-card">
+                <div class="country-name">🇸🇬 Singapore</div>
+                <p>1965: Tiny island, no resources. Today: 3rd highest GDP per capita. Strategic location, honest government, education, foreign investment, state-owned enterprises.</p>
+            </div>
+
+            <div class="country-card">
+                <div class="country-name">🇨🇳 China</div>
+                <p>1978: Poor, isolated. 2026: World's largest economy (PPP). Gradual reforms, export-led growth, infrastructure, 800M lifted from poverty. But also authoritarian, environmental costs, inequality.</p>
+            </div>
+
+            <div class="country-card">
+                <div class="country-name">🇧🇩 Bangladesh</div>
+                <p>Once considered hopeless basket case. Garment industry, microfinance (Grameen Bank), NGOs, resilience. Per capita income now higher than Pakistan.</p>
+            </div>
+        </div>
+
+        <!-- The Middle Income Trap -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                The Middle Income Trap
+            </div>
+
+            <div class="definition-box">
+                <p>Many countries grow from poor to middle income, then get stuck. Can't compete with low-wage countries in cheap goods, nor with advanced countries in high-tech. Need new strategy: innovation, education, institutions.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>❌ Trapped Examples</h4>
+                    <ul>
+                        <li>Brazil</li>
+                        <li>Mexico</li>
+                        <li>Malaysia</li>
+                        <li>South Africa</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>✅ Escaped</h4>
+                    <ul>
+                        <li>South Korea</li>
+                        <li>Singapore</li>
+                        <li>Taiwan</li>
+                        <li>Israel</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Key to Escape</h4>
+                <ul>
+                    <li>Investment in R&D (2-3% of GDP)</li>
+                    <li>High-quality education (especially STEM)</li>
+                    <li>Strong institutions, rule of law</li>
+                    <li>Openness to trade and ideas</li>
+                    <li>Strategic industrial policy</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Poverty Traps -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-traffic-light"></i>
+                Poverty Traps
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Why Some Countries Can't Escape</h4>
+                <ul>
+                    <li><strong>Conflict trap:</strong> War destroys, creates more war</li>
+                    <li><strong>Natural resource trap:</strong> Oil curse, Dutch disease</li>
+                    <li><strong>Landlocked with bad neighbors:</strong> No trade access</li>
+                    <li><strong>Bad governance trap:</strong> Corruption prevents investment</li>
+                    <li><strong>Demographic trap:</strong> High fertility, low education</li>
+                </ul>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Esther Duflo, Abhijit Banerjee, Michael Kremer • Nobel 2019</h4>
+                <p>Pioneered randomized controlled trials in development economics. Test what actually works: deworming, free textbooks, mosquito nets. Evidence-based policy revolution.</p>
+            </div>
+        </div>
+
+        <!-- Foreign Aid -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-hand-holding-heart"></i>
+                Does Foreign Aid Work?
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ The Great Aid Debate</h4>
+                <p><strong>Jeffrey Sachs:</strong> Aid works—with enough money and good plans. Marshall Plan rebuilt Europe. Need "big push" to escape poverty traps.</p>
+                <p><strong>William Easterly:</strong> Aid often fails. Planners vs. searchers. Top-down doesn't work. Local solutions, accountability matter.</p>
+                <p><strong>Dambisa Moyo:</strong> Aid is toxic. Creates dependency, corruption, undermines institutions. Africa needs trade, not aid.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>✅ Successes</h4>
+                    <ul>
+                        <li>Green Revolution (agriculture)</li>
+                        <li>Smallpox eradication</li>
+                        <li>HIV/AIDS treatment (PEPFAR)</li>
+                        <li>Disaster relief</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>❌ Failures</h4>
+                    <ul>
+                        <li>Zambia: $2B in aid → same poverty</li>
+                        <li>Haiti: $13B after earthquake → still poor</li>
+                        <li>Many African countries: decades of aid, little growth</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Islamic Development Model -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islamic Development Model
+            </div>
+
+            <div class="psychology-box">
+                <h4>📜 Principles of Islamic Development</h4>
+                <ul>
+                    <li><strong>Tawhid (Unity):</strong> Economy serves God's purpose, not just material gain</li>
+                    <li><strong>Adl (Justice):</strong> Fair distribution, no exploitation</li>
+                    <li><strong>Ihsan (Excellence):</strong> Quality work, productivity</li>
+                    <li><strong>Maslaha (Public interest):</strong> Policies benefit society, not elites</li>
+                    <li><strong>Maqasid al-Shariah:</strong> Protect faith, life, intellect, lineage, property</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🕌 Key Features</h4>
+                    <ul>
+                        <li><strong>No riba:</strong> Interest-free finance</li>
+                        <li><strong>Zakat:</strong> Mandatory wealth redistribution</li>
+                        <li><strong>Waqf:</strong> Endowments for public goods</li>
+                        <li><strong>Profit-sharing:</strong> Mudaraba, Musharaka</li>
+                        <li><strong>Real economy focus:</strong> Asset-backed transactions</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🌍 Islamic Development Bank</h4>
+                    <ul>
+                        <li>57 member countries</li>
+                        <li>Provides Shariah-compliant development finance</li>
+                        <li>Infrastructure, education, agriculture</li>
+                        <li>Issues Sukuk for project funding</li>
+                        <li>Promotes Islamic financial inclusion</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Malaysia as Model?</h4>
+                <p>Malaysia has pursued Islamic development alongside conventional. Islamic banking now 30% of market. Sukuk dominates global Islamic bonds. Strong growth with attention to equity. Not perfect, but shows compatibility of Islam and development.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-balance-scale"></i> Human Development in Islam</h4>
+                <p>The <strong>Maqasid al-Shariah Index</strong> (Islamic Development Bank) measures:</p>
+                <ul>
+                    <li><strong>Faith (Din):</strong> Religious freedom, mosque access</li>
+                    <li><strong>Life (Nafs):</strong> Healthcare, safety, nutrition</li>
+                    <li><strong>Intellect (Aql):</strong> Education, research</li>
+                    <li><strong>Lineage (Nasl):</strong> Family stability, child welfare</li>
+                    <li><strong>Wealth (Mal):</strong> Poverty reduction, economic justice</li>
+                </ul>
+                <p>This offers an alternative to purely GDP-based measures.</p>
+            </div>
+        </div>
+
+        <!-- Contemporary Issues -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-cloud"></i>
+                Development in the 21st Century
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🌡️ Climate Change</h4>
+                    <p>Poorest countries contribute least but suffer most. Development must be green. Loss and damage financing now critical.</p>
+                </div>
+                <div class="column-card">
+                    <h4>🤖 Automation</h4>
+                    <p>Robots threaten manufacturing-led development. What replaces the export-led model that worked for Asia?</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🦠 Pandemics</h4>
+                    <p>COVID exposed health system weakness. Vaccine inequality slowed global recovery. Need pandemic preparedness.</p>
+                </div>
+                <div class="column-card">
+                    <h4>💳 Digital Revolution</h4>
+                    <p>Mobile money (M-Pesa in Kenya) leapfrogs banking. Digital IDs, online education offer new paths. But digital divide threatens exclusion.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 16 Questions (Randomized Correct Answers) -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 - Correct Answer: D -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is the difference between economic growth and economic development?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">A. Growth is about GDP; development is about stock market</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">B. They are the same thing</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. Growth is about quality; development is about quantity</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">D. Growth is quantitative (more GDP); development is qualitative (health, education, freedom)</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> Growth is about quantity; development is about human capabilities (Amartya Sen).
+                </div>
+            </div>
+
+            <!-- Question 2 - Correct Answer: B -->
+            <div class="quiz-question" id="q2">
+                <p>2. Who won the Nobel Prize for the "capabilities approach" to development?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">A. Robert Solow</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">B. Amartya Sen</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. Paul Romer</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Esther Duflo</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> Amartya Sen won in 1998 for his work on welfare economics and development.
+                </div>
+            </div>
+
+            <!-- Question 3 - Correct Answer: C -->
+            <div class="quiz-question" id="q3">
+                <p>3. According to Dependency Theory, why are poor countries poor?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">A. They lack natural resources</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. They have bad geography</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">C. Rich countries exploit them through unequal trade</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. They don't work hard enough</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Dependency theorists argue the global system keeps poor countries underdeveloped.
+                </div>
+            </div>
+
+            <!-- Question 4 - Correct Answer: A -->
+            <div class="quiz-question" id="q4">
+                <p>4. What does the Solow Model say is the only source of long-run growth?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">A. Technology</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">B. Capital accumulation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. More workers</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Natural resources</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> In Solow model, diminishing returns mean only technology sustains long-run growth.
+                </div>
+            </div>
+
+            <!-- Question 5 - Correct Answer: B -->
+            <div class="quiz-question" id="q5">
+                <p>5. Which country is an example of escaping the middle-income trap?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">A. Brazil</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">B. South Korea</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">C. Mexico</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. Malaysia</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> South Korea successfully transitioned from middle-income to high-income through innovation.
+                </div>
+            </div>
+
+            <!-- Question 6 - Correct Answer: D -->
+            <div class="quiz-question" id="q6">
+                <p>6. Who won the 2019 Nobel Prize for randomized trials in development?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">A. Jeffrey Sachs</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. William Easterly</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. Dambisa Moyo</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">D. Esther Duflo, Abhijit Banerjee, Michael Kremer</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> They pioneered using randomized controlled trials to test development interventions.
+                </div>
+            </div>
+
+            <!-- Question 7 - Correct Answer: C -->
+            <div class="quiz-question" id="q7">
+                <p>7. What does Acemoglu and Robinson argue is the key to prosperity?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">A. Abundant natural resources</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. Favorable geography</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">C. Inclusive institutions</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. Foreign aid</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> "Why Nations Fail" argues inclusive institutions (property rights, rule of law) determine prosperity.
+                </div>
+            </div>
+
+            <!-- Question 8 - Correct Answer: B -->
+            <div class="quiz-question" id="q8">
+                <p>8. What is the "catch-up effect"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">A. Rich countries grow faster</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">B. Poor countries can grow faster due to diminishing returns</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. Everyone grows at same rate</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. Growth stops at middle income</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> Diminishing returns mean each unit of capital adds more in poor countries—if institutions allow.
+                </div>
+            </div>
+
+            <!-- Question 9 - Correct Answer: A -->
+            <div class="quiz-question" id="q9">
+                <p>9. What is the Maqasid al-Shariah Index?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">A. Islamic measure of development based on faith, life, intellect, lineage, property</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. GDP per capita in Muslim countries</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. Index of Islamic banking</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. Measure of mosque attendance</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> The Maqasid Index measures development according to Islamic objectives, not just GDP.
+                </div>
+            </div>
+
+            <!-- Question 10 - Correct Answer: C -->
+            <div class="quiz-question" id="q10">
+                <p>10. Which country lifted 800 million people from poverty since 1978?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">A. India</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Brazil</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">C. China</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. Indonesia</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> China's reforms since 1978 have lifted more people from poverty than any country in history.
+                </div>
+            </div>
+
+            <!-- Question 11 - Correct Answer: D -->
+            <div class="quiz-question" id="q11">
+                <p>11. What is the "Washington Consensus"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">A. Agreement between US and Europe</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. Trade deal</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. Climate accord</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">D. Neoliberal policy package: privatization, deregulation, free trade</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Washington Consensus policies dominated 1980s-90s development thinking.
+                </div>
+            </div>
+
+            <!-- Question 12 - Correct Answer: B -->
+            <div class="quiz-question" id="q12">
+                <p>12. Who argued that "aid is toxic" and Africa needs trade, not aid?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">A. Jeffrey Sachs</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">B. Dambisa Moyo</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. William Easterly</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. Paul Collier</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> Moyo's "Dead Aid" argued aid creates dependency and corruption.
+                </div>
+            </div>
+
+            <!-- Question 13 - Correct Answer: A -->
+            <div class="quiz-question" id="q13">
+                <p>13. What is the Islamic Development Bank's approach to financing?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'correct')">A. Shariah-compliant finance (Sukuk, profit-sharing)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">B. Interest-based loans</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">C. Only grants</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">D. Venture capital only</div>
+                </div>
+                <div class="explanation" id="exp-q13">
+                    <strong>✅ Correct!</strong> IsDB uses Islamic finance instruments to fund development in member countries.
+                </div>
+            </div>
+
+            <!-- Question 14 - Correct Answer: C -->
+            <div class="quiz-question" id="q14">
+                <p>14. What was Rostow's final stage of development?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">A. Traditional society</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">B. Take-off</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'correct')">C. High mass consumption</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">D. Drive to maturity</div>
+                </div>
+                <div class="explanation" id="exp-q14">
+                    <strong>✅ Correct!</strong> Rostow's stages ended with "high mass consumption" (American dream).
+                </div>
+            </div>
+
+            <!-- Question 15 - Correct Answer: D -->
+            <div class="quiz-question" id="q15">
+                <p>15. What does the Quran verse 13:11 teach about development?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">A. Allah changes people without their effort</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">B. Development is impossible</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">C. Only rich countries develop</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'correct')">D. Change must begin within people themselves</div>
+                </div>
+                <div class="explanation" id="exp-q15">
+                    <strong>✅ Correct!</strong> "Allah will not change a people until they change what is in themselves" — inner transformation precedes external development.
+                </div>
+            </div>
+
+            <!-- Question 16 - Correct Answer: B -->
+            <div class="quiz-question" id="q16">
+                <p>16. Which mobile money service leapfrogged banking in Kenya?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q16', 'incorrect')">A. PayPal</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q16', 'correct')">B. M-Pesa</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q16', 'incorrect')">C. Alipay</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q16', 'incorrect')">D. Venmo</div>
+                </div>
+                <div class="explanation" id="exp-q16">
+                    <strong>✅ Correct!</strong> M-Pesa revolutionized financial inclusion, reaching millions without traditional banks.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"Development as Freedom" - Amartya Sen</a></li>
+                        <li><a href="#">"Why Nations Fail" - Acemoglu & Robinson</a></li>
+                        <li><a href="#">"The End of Poverty" - Jeffrey Sachs</a></li>
+                        <li><a href="#">"Dead Aid" - Dambisa Moyo</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>📊 Academic Papers</h4>
+                    <ul>
+                        <li><a href="#">"A Contribution to the Theory of Economic Growth" - Solow (1956)</a></li>
+                        <li><a href="#">"Endogenous Technological Change" - Romer (1990)</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Development</h4>
+                    <ul>
+                        <li><a href="#">"Islam and the Economic Challenge" - M. Umer Chapra</a></li>
+                        <li><a href="https://isdb.org" target="_blank">Islamic Development Bank - Maqasid Framework</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/advanced/17-international-finance.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: International Finance</a>
+            <a href="/economics/learn/advanced/19-behavioral-economics.html" class="nav-link">Next: Behavioral Economics <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May true development reach all people—body, mind, and soul</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 18 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في العشر الأواخر من رمضان</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

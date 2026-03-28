@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Diversification Analyzer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container { max-width: 1600px; margin: 0 auto; }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        h1 { color: #667eea; font-size: 2.5em; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 1.1em; }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .add-holding {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: end;
+        }
+
+        .add-holding input, .add-holding select {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95em;
+        }
+
+        .add-holding button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .holdings-list { margin-bottom: 20px; }
+
+        .holding-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .holding-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .holding-name {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .holding-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            font-size: 0.9em;
+        }
+
+        .remove-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover { transform: translateY(-2px); }
+
+        .score-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .score-card.good { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .score-card.poor { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+
+        .score-card h3 { font-size: 1.2em; margin-bottom: 10px; opacity: 0.9; }
+        .score-card .score { font-size: 4em; font-weight: bold; margin: 10px 0; }
+        .score-card .detail { font-size: 1.1em; opacity: 0.9; }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border-top: 4px solid #667eea;
+        }
+
+        .metric-card label { font-size: 0.85em; color: #666; margin-bottom: 8px; display: block; }
+        .metric-card .value { font-size: 1.6em; font-weight: bold; color: #333; }
+
+        .chart-container { height: 350px; margin: 30px 0; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: #f5f5f5;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        tr:hover { background: #f9f9f9; }
+
+        .progress-bar {
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+        }
+
+        .info-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box h4 { color: #2e7d32; margin-bottom: 10px; }
+        .info-box ul { margin-left: 20px; line-height: 1.8; }
+
+        @media (max-width: 1400px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .add-holding { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                <i class="fas fa-user" style="margin-right: 5px;"></i> Personal Finance
+            </span>
+        </div>
+    </div>
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="../personal/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Investment Hub</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333; font-weight: 500;">Portfolio Analyser</span>
+    </div> 
+    <div class="container">
+        <div class="header">
+            <h1>📊 Portfolio Diversification Analyzer</h1>
+            <p class="subtitle">Analyze asset allocation, sector exposure, and diversification quality</p>
+        </div>
+
+        <div class="main-grid">
+            <div class="card">
+                <h2>Portfolio Holdings</h2>
+
+                <div class="add-holding">
+                    <input type="text" id="symbol" placeholder="Symbol (e.g., AAPL)" />
+                    <input type="number" id="shares" placeholder="Shares" step="1" />
+                    <input type="number" id="price" placeholder="Price" step="0.01" />
+                    <select id="sector">
+                        <option value="Technology">Technology</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Consumer">Consumer</option>
+                        <option value="Energy">Energy</option>
+                        <option value="Industrials">Industrials</option>
+                        <option value="Materials">Materials</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Real Estate">Real Estate</option>
+                        <option value="Bonds">Bonds</option>
+                        <option value="Commodities">Commodities</option>
+                    </select>
+                    <button onclick="addHolding()" style="background: #4caf50; padding: 10px 15px;">Add</button>
+                </div>
+
+                <div class="holdings-list" id="holdingsList"></div>
+
+                <button onclick="analyzePortfolio()" style="width: 100%;">Analyze Diversification</button>
+
+                <button onclick="loadSamplePortfolio()" 
+                        style="width: 100%; background: #2196f3; margin-top: 10px;">
+                    Load Sample Portfolio
+                </button>
+
+                <div class="info-box">
+                    <h4>💡 Diversification Tips</h4>
+                    <ul>
+                        <li><strong>Asset Classes:</strong> Mix stocks, bonds, real estate</li>
+                        <li><strong>Sectors:</strong> Don't overweight one industry</li>
+                        <li><strong>Geography:</strong> Include international exposure</li>
+                        <li><strong>Market Cap:</strong> Blend large, mid, small cap</li>
+                        <li><strong>Rebalance:</strong> Adjust quarterly or annually</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Diversification Analysis</h2>
+
+                <div class="score-card" id="scoreCard">
+                    <h3>Diversification Score</h3>
+                    <div class="score" id="diversificationScore">-</div>
+                    <div class="detail">
+                        <span id="scoreInterpretation">Add holdings to analyze</span>
+                    </div>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <label>Total Value</label>
+                        <div class="value" id="totalValue">$0</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>Holdings</label>
+                        <div class="value" id="numHoldings">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>Sectors</label>
+                        <div class="value" id="numSectors">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>Concentration Risk</label>
+                        <div class="value" id="concentrationRisk">-</div>
+                    </div>
+                </div>
+
+                <h3 style="color: #667eea; margin-top: 30px;">Sector Allocation</h3>
+                <div class="chart-container">
+                    <canvas id="sectorChart"></canvas>
+                </div>
+
+                <h3 style="color: #667eea; margin-top: 30px;">Top Holdings</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Sector</th>
+                            <th>Value</th>
+                            <th>% of Portfolio</th>
+                            <th>Allocation</th>
+                        </tr>
+                    </thead>
+                    <tbody id="holdingsTable"></tbody>
+                </table>
+
+                <h3 style="color: #667eea; margin-top: 30px;">Sector Distribution</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sector</th>
+                            <th>Value</th>
+                            <th>% of Portfolio</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sectorTable"></tbody>
+                </table>
+
+                <h3 style="color: #667eea; margin-top: 30px;">Risk Analysis</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <label>Herfindahl Index</label>
+                        <div class="value" id="herfindahlIndex">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>Max Position</label>
+                        <div class="value" id="maxPosition">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>Top 5 Concentration</label>
+                        <div class="value" id="top5Concentration">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <label>Sector Balance</label>
+                        <div class="value" id="sectorBalance">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let holdings = [];
+        let sectorChart = null;
+
+        function addHolding() {
+            const symbol = document.getElementById('symbol').value.trim().toUpperCase();
+            const shares = parseFloat(document.getElementById('shares').value);
+            const price = parseFloat(document.getElementById('price').value);
+            const sector = document.getElementById('sector').value;
+
+            if (!symbol || isNaN(shares) || isNaN(price) || shares <= 0 || price <= 0) {
+                alert('Please enter valid holding information');
+                return;
+            }
+
+            const value = shares * price;
+
+            holdings.push({
+                id: Date.now(),
+                symbol: symbol,
+                shares: shares,
+                price: price,
+                value: value,
+                sector: sector
+            });
+
+            updateHoldingsList();
+
+            // Clear inputs
+            document.getElementById('symbol').value = '';
+            document.getElementById('shares').value = '';
+            document.getElementById('price').value = '';
+        }
+
+        function removeHolding(id) {
+            holdings = holdings.filter(h => h.id !== id);
+            updateHoldingsList();
+        }
+
+        function updateHoldingsList() {
+            const list = document.getElementById('holdingsList');
+            
+            if (holdings.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #999;">No holdings added yet</p>';
+                return;
+            }
+
+            list.innerHTML = holdings.map(h => `
+                <div class="holding-item">
+                    <div class="holding-header">
+                        <span class="holding-name">${h.symbol}</span>
+                        <button class="remove-btn" onclick="removeHolding(${h.id})">Remove</button>
+                    </div>
+                    <div class="holding-details">
+                        <div><strong>Shares:</strong> ${h.shares}</div>
+                        <div><strong>Price:</strong> $${h.price.toFixed(2)}</div>
+                        <div><strong>Value:</strong> $${h.value.toFixed(2)}</div>
+                        <div><strong>Sector:</strong> ${h.sector}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadSamplePortfolio() {
+            holdings = [
+                { id: 1, symbol: 'AAPL', shares: 50, price: 175, value: 8750, sector: 'Technology' },
+                { id: 2, symbol: 'MSFT', shares: 40, price: 350, value: 14000, sector: 'Technology' },
+                { id: 3, symbol: 'JNJ', shares: 30, price: 160, value: 4800, sector: 'Healthcare' },
+                { id: 4, symbol: 'JPM', shares: 25, price: 150, value: 3750, sector: 'Finance' },
+                { id: 5, symbol: 'XOM', shares: 20, price: 110, value: 2200, sector: 'Energy' },
+                { id: 6, symbol: 'PG', shares: 35, price: 145, value: 5075, sector: 'Consumer' },
+                { id: 7, symbol: 'VZ', shares: 60, price: 40, value: 2400, sector: 'Technology' },
+                { id: 8, symbol: 'DIS', shares: 45, price: 90, value: 4050, sector: 'Consumer' },
+                { id: 9, symbol: 'AGG', shares: 100, price: 105, value: 10500, sector: 'Bonds' },
+                { id: 10, symbol: 'VNQ', shares: 80, price: 90, value: 7200, sector: 'Real Estate' }
+            ];
+            updateHoldingsList();
+            analyzePortfolio();
+        }
+
+        function analyzePortfolio() {
+            if (holdings.length === 0) {
+                alert('Please add some holdings first');
+                return;
+            }
+
+            const totalValue = holdings.reduce((sum, h) => sum + h.value, 0);
+
+            // Calculate sector allocation
+            const sectorAllocation = {};
+            holdings.forEach(h => {
+                sectorAllocation[h.sector] = (sectorAllocation[h.sector] || 0) + h.value;
+            });
+
+            // Calculate diversification score (Herfindahl-Hirschman Index inverted)
+            let herfindahlIndex = 0;
+            holdings.forEach(h => {
+                const percentage = h.value / totalValue;
+                herfindahlIndex += percentage * percentage;
+            });
+
+            const diversificationScore = ((1 - herfindahlIndex) * 100);
+
+            // Concentration metrics
+            const sortedHoldings = [...holdings].sort((a, b) => b.value - a.value);
+            const maxPosition = (sortedHoldings[0].value / totalValue) * 100;
+            const top5Value = sortedHoldings.slice(0, 5).reduce((sum, h) => sum + h.value, 0);
+            const top5Concentration = (top5Value / totalValue) * 100;
+
+            // Sector balance (ideal is equal distribution)
+            const numSectors = Object.keys(sectorAllocation).length;
+            const idealPercentage = 100 / numSectors;
+            let sectorVariance = 0;
+            Object.values(sectorAllocation).forEach(value => {
+                const percentage = (value / totalValue) * 100;
+                sectorVariance += Math.pow(percentage - idealPercentage, 2);
+            });
+            const sectorBalance = Math.max(0, 100 - Math.sqrt(sectorVariance));
+
+            displayResults(totalValue, diversificationScore, sectorAllocation, 
+                          herfindahlIndex, maxPosition, top5Concentration, 
+                          sectorBalance, numSectors);
+        }
+
+        function displayResults(totalValue, score, sectorAllocation, herfindahl, 
+                               maxPos, top5, sectorBalance, numSectors) {
+            // Score card
+            const scoreCard = document.getElementById('scoreCard');
+            if (score > 75) {
+                scoreCard.className = 'score-card good';
+                document.getElementById('scoreInterpretation').textContent = 'Well Diversified Portfolio';
+            } else if (score < 50) {
+                scoreCard.className = 'score-card poor';
+                document.getElementById('scoreInterpretation').textContent = 'Poor Diversification - High Risk';
+            } else {
+                scoreCard.className = 'score-card';
+                document.getElementById('scoreInterpretation').textContent = 'Moderate Diversification';
+            }
+
+            document.getElementById('diversificationScore').textContent = score.toFixed(0);
+
+            // Metrics
+            document.getElementById('totalValue').textContent = '$' + totalValue.toLocaleString('en-US', {minimumFractionDigits: 0});
+            document.getElementById('numHoldings').textContent = holdings.length;
+            document.getElementById('numSectors').textContent = numSectors;
+            document.getElementById('concentrationRisk').textContent = maxPos > 25 ? 'High' : maxPos > 15 ? 'Medium' : 'Low';
+
+            // Risk metrics
+            document.getElementById('herfindahlIndex').textContent = herfindahl.toFixed(3);
+            document.getElementById('maxPosition').textContent = maxPos.toFixed(1) + '%';
+            document.getElementById('top5Concentration').textContent = top5.toFixed(1) + '%';
+            document.getElementById('sectorBalance').textContent = sectorBalance.toFixed(0);
+
+            // Holdings table
+            const holdingsTable = document.getElementById('holdingsTable');
+            const sortedHoldings = [...holdings].sort((a, b) => b.value - a.value);
+            
+            holdingsTable.innerHTML = sortedHoldings.map(h => {
+                const percentage = (h.value / totalValue) * 100;
+                return `
+                    <tr>
+                        <td><strong>${h.symbol}</strong></td>
+                        <td>${h.sector}</td>
+                        <td>$${h.value.toLocaleString('en-US', {minimumFractionDigits: 0})}</td>
+                        <td>${percentage.toFixed(2)}%</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${percentage}%"></div>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Sector table
+            const sectorTable = document.getElementById('sectorTable');
+            const sectorEntries = Object.entries(sectorAllocation)
+                .map(([sector, value]) => ({
+                    sector,
+                    value,
+                    percentage: (value / totalValue) * 100
+                }))
+                .sort((a, b) => b.value - a.value);
+
+            sectorTable.innerHTML = sectorEntries.map(s => {
+                let status;
+                if (s.percentage > 30) status = '⚠️ Overweight';
+                else if (s.percentage < 5) status = '⚠️ Underweight';
+                else status = '✅ Balanced';
+
+                return `
+                    <tr>
+                        <td><strong>${s.sector}</strong></td>
+                        <td>$${s.value.toLocaleString('en-US', {minimumFractionDigits: 0})}</td>
+                        <td>${s.percentage.toFixed(2)}%</td>
+                        <td>${status}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Create chart
+            createSectorChart(sectorAllocation);
+        }
+
+        function createSectorChart(sectorAllocation) {
+            const ctx = document.getElementById('sectorChart').getContext('2d');
+            
+            if (sectorChart) sectorChart.destroy();
+
+            const labels = Object.keys(sectorAllocation);
+            const data = Object.values(sectorAllocation);
+            const colors = [
+                '#667eea', '#764ba2', '#f093fb', '#4facfe',
+                '#43e97b', '#ff9a56', '#fa709a', '#30cfd0',
+                '#feca57', '#48dbfb', '#ff6b6b', '#5f27cd'
+            ];
+
+            sectorChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors.slice(0, labels.length)
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                    return `${context.label}: $${context.parsed.toLocaleString()} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Load sample on start
+        window.onload = function() {
+            loadSamplePortfolio();
+        };
+    </script>
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+             <div>
+                 <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                 <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                 </a>
+                 <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                 </a>
+             </div>
+        
+             <div>
+                 <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                 <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                 </a>
+                 <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                 </a>
+                 <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                 </a>
+             </div>
+        
+             <div>
+                 <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+                 <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                 </a>
+                 <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                    <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                 </a>
+                 <span style="color: #718096; display: block; margin-bottom: 8px; padding: 3px 0;">
+                      <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics (Coming Soon)
+                 </span>
+             </div>
+        </div>
+    
+        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+            <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+               <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+            </p>
+        </div>
+    </div>
+</body>
+</html>

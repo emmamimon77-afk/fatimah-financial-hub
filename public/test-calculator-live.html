@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator Live Rates Test</title>
+    <link rel="stylesheet" href="finance-tools/shared/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🧮 Calculator with Live Rates Test</h1>
+        
+        <div class="calculator-card">
+            <h2>US Mortgage Calculator with Live Rate</h2>
+            
+            <div id="rate-display">
+                <p>Loading current mortgage rate...</p>
+            </div>
+            
+            <div class="input-group">
+                <label for="loan-amount">Loan Amount ($)</label>
+                <input type="number" id="loan-amount" value="300000" class="form-input">
+            </div>
+            
+            <div class="input-group">
+                <label for="loan-term">Loan Term (years)</label>
+                <input type="number" id="loan-term" value="30" class="form-input">
+            </div>
+            
+            <div class="input-group">
+                <label for="interest-rate">Interest Rate (%)</label>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="number" id="interest-rate" class="form-input" style="flex: 1;">
+                    <button id="use-live-rate" class="calculate-btn" style="padding: 8px 15px; font-size: 0.9em;">
+                        Use Live Rate
+                    </button>
+                </div>
+                <div class="input-hint">Click "Use Live Rate" to get current market rate</div>
+            </div>
+            
+            <button id="calculate" class="calculate-btn">Calculate Monthly Payment</button>
+            
+            <div id="results" class="results">
+                Results will appear here
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+            <h3>Live Rate Status</h3>
+            <p id="live-status">Checking live rate availability...</p>
+            <button onclick="checkLiveRates()">Refresh Live Rates</button>
+        </div>
+    </div>
+    
+    <!-- Include the scripts -->
+    <script src="finance-tools/shared/api-keys.js"></script>
+    <script src="finance-tools/shared/real-time-rates.js"></script>
+    <script src="finance-tools/shared/config.js"></script>
+    <script src="finance-tools/shared/calculators.js"></script>
+    
+    <script>
+    // DOM elements
+    const rateDisplay = document.getElementById('rate-display');
+    const interestRateInput = document.getElementById('interest-rate');
+    const useLiveRateBtn = document.getElementById('use-live-rate');
+    const liveStatus = document.getElementById('live-status');
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', async function() {
+        console.log('DOM loaded, checking live rates...');
+        
+        // Check if live rates are available
+        await checkLiveRates();
+        
+        // Set up button to fetch live rate
+        useLiveRateBtn.addEventListener('click', async function() {
+            await fetchAndApplyLiveRate();
+        });
+        
+        // Set up calculator
+        document.getElementById('calculate').addEventListener('click', calculateMortgage);
+    });
+    
+    async function checkLiveRates() {
+        liveStatus.innerHTML = '<span style="color: orange;">⏳ Fetching live rates...</span>';
+        
+        try {
+            // Check if real-time rates system is available
+            if (!window.RealTimeRates) {
+                liveStatus.innerHTML = '<span style="color: red;">❌ RealTimeRates not loaded</span>';
+                return;
+            }
+            
+            // Test fetching US mortgage rate
+            const rateInfo = await window.RealTimeRates.getUSRate('mortgage30yr');
+            
+            if (rateInfo && rateInfo.value) {
+                const isLive = rateInfo.isLive ? '✅ LIVE' : '⚠️ MOCK';
+                const date = rateInfo.date || 'Unknown date';
+                
+                liveStatus.innerHTML = `
+                    <span style="color: green;"><strong>${isLive} RATES AVAILABLE</strong></span>
+                    <br>
+                    <small>Current 30-year mortgage: <strong>${rateInfo.value}%</strong> (${date})</small>
+                    <br>
+                    <small>Source: ${rateInfo.source}</small>
+                `;
+                
+                // Update the rate display
+                rateDisplay.innerHTML = `
+                    <div style="background: #e8f5e8; padding: 10px; border-radius: 5px; border-left: 4px solid #4CAF50;">
+                        <strong>📈 Current US Mortgage Rate: ${rateInfo.value}%</strong>
+                        <br>
+                        <small>${rateInfo.source} • Updated: ${rateInfo.date}</small>
+                        ${rateInfo.isLive ? '<br><small style="color: green;">✅ Live market data</small>' : ''}
+                    </div>
+                `;
+                
+            } else {
+                liveStatus.innerHTML = '<span style="color: orange;">⚠️ Could not fetch rate data</span>';
+            }
+            
+        } catch (error) {
+            console.error('Error checking live rates:', error);
+            liveStatus.innerHTML = `<span style="color: red;">❌ Error: ${error.message}</span>`;
+        }
+    }
+    
+    async function fetchAndApplyLiveRate() {
+        useLiveRateBtn.disabled = true;
+        useLiveRateBtn.textContent = 'Fetching...';
+        
+        try {
+            const rateInfo = await window.RealTimeRates.getUSRate('mortgage30yr');
+            
+            if (rateInfo && rateInfo.value) {
+                interestRateInput.value = rateInfo.value.toFixed(2);
+                
+                // Show success message
+                const originalText = useLiveRateBtn.textContent;
+                useLiveRateBtn.textContent = '✓ Live Rate Applied!';
+                useLiveRateBtn.style.background = '#4CAF50';
+                
+                setTimeout(() => {
+                    useLiveRateBtn.textContent = 'Use Live Rate';
+                    useLiveRateBtn.style.background = '';
+                    useLiveRateBtn.disabled = false;
+                }, 2000);
+                
+            } else {
+                alert('Could not fetch live rate. Using default rate.');
+            }
+            
+        } catch (error) {
+            console.error('Error fetching live rate:', error);
+            alert('Error fetching live rate: ' + error.message);
+            useLiveRateBtn.disabled = false;
+            useLiveRateBtn.textContent = 'Use Live Rate';
+        }
+    }
+    
+    function calculateMortgage() {
+        const amount = parseFloat(document.getElementById('loan-amount').value) || 300000;
+        const years = parseFloat(document.getElementById('loan-term').value) || 30;
+        const rate = parseFloat(document.getElementById('interest-rate').value) || 6.1;
+        
+        if (!window.FinancialCalculators) {
+            document.getElementById('results').innerHTML = '<div class="error">Calculators not available</div>';
+            return;
+        }
+        
+        const calc = new FinancialCalculators();
+        const monthlyRate = rate / 100 / 12;
+        const payments = years * 12;
+        
+        // Calculate monthly payment
+        const monthlyPayment = amount * monthlyRate * Math.pow(1 + monthlyRate, payments) / 
+                              (Math.pow(1 + monthlyRate, payments) - 1);
+        
+        const totalPayment = monthlyPayment * payments;
+        const totalInterest = totalPayment - amount;
+        
+        document.getElementById('results').innerHTML = `
+            <div class="success">
+                <h4>Mortgage Calculation</h4>
+                <div class="result-item">
+                    <strong>Monthly Payment:</strong> $${monthlyPayment.toFixed(2)}
+                </div>
+                <div class="result-item">
+                    <strong>Total Payments:</strong> $${totalPayment.toFixed(2)}
+                </div>
+                <div class="result-item">
+                    <strong>Total Interest:</strong> $${totalInterest.toFixed(2)}
+                </div>
+                <div class="result-item">
+                    <strong>Interest Rate:</strong> ${rate}% ${rate === 6.1 ? '(Live Rate)' : '(Custom Rate)'}
+                </div>
+            </div>
+        `;
+    }
+    </script>
+</body>
+</html>

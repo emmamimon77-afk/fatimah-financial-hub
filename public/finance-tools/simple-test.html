@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Config Test</title></head>
+<body>
+<h1>Config.js Test</h1>
+<div id="output">Loading...</div>
+<script src="config.js"></script>
+<script>
+    const output = document.getElementById('output');
+    
+    if (typeof FinancialConfig === 'undefined') {
+        output.innerHTML = '❌ Config not loaded';
+    } else {
+        const countries = Object.keys(FinancialConfig.countryData);
+        output.innerHTML = `
+            ✅ Config loaded!<br>
+            Countries: ${countries.join(', ')}<br>
+            China: ${FinancialConfig.countryData['CN'] ? '✓' : '✗'}<br>
+            Russia: ${FinancialConfig.countryData['RU'] ? '✓' : '✗'}
+        `;
+        console.log('Full config:', FinancialConfig);
+    }
+</script>
+</body>
+</html>

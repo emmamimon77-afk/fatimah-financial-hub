@@ -1,0 +1,356 @@
+/**
+ * Global Financial Configuration
+ * Country-specific rates and defaults
+ * Updated: Q1 2024
+ */
+
+class FinancialConfig {
+    constructor() {
+        this.countryData = {
+            'US': {
+                name: 'United States',
+                currency: 'USD',
+                symbol: '$',
+                centralBankRate: 5.50, // Federal Reserve
+                inflation: 3.4,
+                tax: {
+                    income: [10, 12, 22, 24, 32, 35, 37],
+                    capitalGains: 15,
+                    corporate: 21,
+                    vat: 0 // No VAT in US
+                },
+                mortgage: {
+                    avg30yrFixed: 7.23,
+                    avg15yrFixed: 6.49,
+                    avg5yrARM: 6.35
+                },
+                retirement: {
+                    socialSecurity: true,
+                    avgReturn: 7.0,
+                    safeWithdrawalRate: 4.0
+                }
+            },
+            'UK': {
+                name: 'United Kingdom',
+                currency: 'GBP',
+                symbol: '£',
+                centralBankRate: 5.25, // Bank of England
+                inflation: 4.0,
+                tax: {
+                    income: [20, 40, 45],
+                    capitalGains: 20,
+                    corporate: 25,
+                    vat: 20
+                },
+                mortgage: {
+                    avg30yrFixed: 5.5,
+                    avg15yrFixed: 5.0,
+                    avg5yrARM: 4.8
+                },
+                retirement: {
+                    socialSecurity: true,
+                    avgReturn: 6.5,
+                    safeWithdrawalRate: 3.5
+                }
+            },
+            'EU': {
+                name: 'European Union',
+                currency: 'EUR',
+                symbol: '€',
+                centralBankRate: 4.50, // ECB
+                inflation: 2.9,
+                tax: {
+                    income: [25, 40, 50], // Average
+                    capitalGains: 25,
+                    corporate: 21,
+                    vat: 21
+                },
+                mortgage: {
+                    avg30yrFixed: 4.2,
+                    avg15yrFixed: 3.8,
+                    avg5yrARM: 3.5
+                },
+                retirement: {
+                    socialSecurity: true,
+                    avgReturn: 5.5,
+                    safeWithdrawalRate: 3.0
+                }
+            },
+            'JP': {
+                name: 'Japan',
+                currency: 'JPY',
+                symbol: '¥',
+                centralBankRate: 0.10, // Bank of Japan
+                inflation: 2.8,
+                tax: {
+                    income: [5, 10, 20, 23, 33, 40, 45],
+                    capitalGains: 20,
+                    corporate: 30,
+                    vat: 10
+                },
+                mortgage: {
+                    avg30yrFixed: 1.5,
+                    avg15yrFixed: 1.2,
+                    avg5yrARM: 1.0
+                },
+                retirement: {
+                    socialSecurity: true,
+                    avgReturn: 4.0,
+                    safeWithdrawalRate: 2.5
+                }
+            },
+            'IN': {
+                name: 'India',
+                currency: 'INR',
+                symbol: '₹',
+                centralBankRate: 6.50, // RBI
+                inflation: 5.6,
+                tax: {
+                    income: [5, 10, 20, 30],
+                    capitalGains: 15,
+                    corporate: 30,
+                    vat: 18
+                },
+                mortgage: {
+                    avg30yrFixed: 8.5,
+                    avg15yrFixed: 8.0,
+                    avg5yrARM: 7.5
+                },
+                retirement: {
+                    socialSecurity: false,
+                    avgReturn: 10.0,
+                    safeWithdrawalRate: 5.0
+                }
+            },
+
+            'AU': {
+                name: 'Australia',
+                currency: 'AUD',
+                symbol: 'A$',
+                centralBankRate: 4.35, // RBA
+                inflation: 4.1,
+                tax: {
+                    income: [19, 32.5, 37, 45],
+                    capitalGains: 25,
+                    corporate: 30,
+                    vat: 10
+                },
+                mortgage: {
+                    avg30yrFixed: 6.5,
+                    avg15yrFixed: 6.0,
+                    avg5yrARM: 5.8
+                },
+                retirement: {
+                    socialSecurity: true,
+                    avgReturn: 7.5,
+                    safeWithdrawalRate: 4.0
+                }
+           },
+    
+
+        'CN': {
+             name: 'China',
+             currency: 'CNY',
+             symbol: '¥',
+             centralBankRate: 3.45, // People's Bank of China LPR
+             inflation: 2.5,
+             tax: {
+                 income: [3, 10, 20, 25, 30, 35, 45], // Progressive tax brackets
+                 capitalGains: 20,
+                 corporate: 25,
+                 vat: 13
+             },
+             mortgage: {
+                 avg30yrFixed: 4.2, // Lower due to government control
+                 avg15yrFixed: 3.9,
+                 avg5yrARM: 3.7
+             },
+             retirement: {
+                 socialSecurity: true, // Basic pension system
+                 avgReturn: 6.0,       // Lower due to capital controls
+                 safeWithdrawalRate: 3.0
+             },
+             specialFeatures: {
+                 capitalControls: true,
+                 stateOwnedBanks: true,
+                 yuanInternationalization: true
+             }
+        },
+
+        'RU': {
+            name: 'Russia',
+            currency: 'RUB',
+            symbol: '₽',
+            centralBankRate: 16.00, // High due to sanctions/inflation
+            inflation: 7.8,
+            tax: {
+                income: [13],        // Flat tax rate
+                capitalGains: 13,
+                corporate: 20,
+                vat: 20
+        },
+        mortgage: {
+            avg30yrFixed: 15.5,  // Very high due to sanctions
+            avg15yrFixed: 14.0,
+            avg5yrARM: 13.5
+        },
+        retirement: {
+            socialSecurity: true,
+            avgReturn: 12.0,     // High nominal returns due to inflation
+            safeWithdrawalRate: 6.0
+        },
+        specialFeatures: {
+            sanctionsImpact: true,
+            rubleVolatility: true,
+            sovereignWealthFund: true
+        }
+     }
+   };
+
+ 
+        // Investment asset class expected returns (global averages)
+        this.assetReturns = {
+            'stocks': {
+                'US': 9.8,
+                'global': 8.5,
+                'emerging': 11.0
+            },
+            'bonds': {
+                'government': 4.5,
+                'corporate': 5.8,
+                'highYield': 7.2
+            },
+            'realEstate': 6.5,
+            'commodities': 7.0,
+            'crypto': 15.0, // Highly volatile
+            'cash': 3.5
+        };
+
+        // Tax brackets by income level (simplified)
+        this.taxBrackets = {
+            'low': { rate: 10, threshold: 20000 },
+            'medium': { rate: 22, threshold: 50000 },
+            'high': { rate: 35, threshold: 100000 },
+            'veryHigh': { rate: 45, threshold: 200000 }
+        };
+
+        // Initialize user settings
+        this.userSettings = {
+            country: 'US',
+            currency: 'USD',
+            customRates: {},
+            taxProfile: 'medium',
+            riskTolerance: 'moderate'
+        };
+     }
+
+    // Get country-specific rate
+    getRate(rateType, countryCode = null) {
+        const country = countryCode || this.userSettings.country;
+        const countryInfo = this.countryData[country];
+        
+        if (!countryInfo) return this.getDefaultRate(rateType);
+        
+        switch(rateType) {
+            case 'inflation': return countryInfo.inflation;
+            case 'centralBank': return countryInfo.centralBankRate;
+            case 'mortgage30yr': return countryInfo.mortgage.avg30yrFixed;
+            case 'mortgage15yr': return countryInfo.mortgage.avg15yrFixed;
+            case 'mortgageARM': return countryInfo.mortgage.avg5yrARM;
+            case 'taxIncome': return countryInfo.tax.income[1]; // Middle bracket
+            case 'taxCapitalGains': return countryInfo.tax.capitalGains;
+            case 'retirementReturn': return countryInfo.retirement.avgReturn;
+            case 'withdrawalRate': return countryInfo.retirement.safeWithdrawalRate;
+            default: return this.getDefaultRate(rateType);
+        }
+    }
+
+    getDefaultRate(rateType) {
+        const defaults = {
+            'inflation': 3.0,
+            'centralBank': 4.0,
+            'mortgage30yr': 6.0,
+            'mortgage15yr': 5.5,
+            'mortgageARM': 5.0,
+            'taxIncome': 22,
+            'taxCapitalGains': 15,
+            'retirementReturn': 7.0,
+            'withdrawalRate': 4.0,
+            'stockReturn': 9.0,
+            'bondReturn': 4.5,
+            'realEstateReturn': 6.0
+        };
+        return defaults[rateType] || 5.0;
+    }
+
+    // Get currency symbol
+    getCurrencySymbol(currencyCode = null) {
+        const currency = currencyCode || this.userSettings.currency;
+        const country = Object.values(this.countryData).find(c => c.currency === currency);
+        return country ? country.symbol : '$';
+    }
+
+    // Get all countries for dropdown
+    getCountries() {
+        return Object.entries(this.countryData).map(([code, data]) => ({
+            code,
+            name: data.name,
+            currency: data.currency,
+            symbol: data.symbol
+        }));
+    }
+
+    // Update user settings
+    updateSettings(settings) {
+        this.userSettings = { ...this.userSettings, ...settings };
+        this.saveToLocalStorage();
+    }
+
+    // Load from localStorage
+    loadFromLocalStorage() {
+        const saved = localStorage.getItem('financialConfig');
+        if (saved) {
+            this.userSettings = JSON.parse(saved);
+        }
+    }
+
+    // Save to localStorage
+    saveToLocalStorage() {
+        localStorage.setItem('financialConfig', JSON.stringify(this.userSettings));
+    }
+
+    // Get user's custom rate or default
+    getUserRate(rateType) {
+        return this.userSettings.customRates[rateType] || this.getRate(rateType);
+    }
+
+    // Calculate tax based on income and country
+    calculateTax(income, countryCode = null) {
+        const country = countryCode || this.userSettings.country;
+        const brackets = this.countryData[country]?.tax?.income;
+        
+        if (!brackets || brackets.length === 0) {
+            return income * (this.getRate('taxIncome', country) / 100);
+        }
+        
+        // Simplified progressive tax calculation
+        let tax = 0;
+        let remainingIncome = income;
+        
+        for (let i = brackets.length - 1; i >= 0; i--) {
+            const bracketRate = brackets[i];
+            const bracketThreshold = 10000 * (i + 1); // Simplified thresholds
+            
+            if (remainingIncome > bracketThreshold) {
+                const taxableInBracket = remainingIncome - bracketThreshold;
+                tax += taxableInBracket * (bracketRate / 100);
+                remainingIncome = bracketThreshold;
+            }
+        }
+        
+        return tax;
+    }
+}
+
+// Create global instance
+window.FinancialConfig = new FinancialConfig();

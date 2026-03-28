@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musharaka Calculator - Islamic Joint Venture | Fatimah Financial Hub</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Musharaka Specific Styles - Purple & Gold Theme */
+        :root {
+            --musharaka-purple: #6A1B9A;
+            --musharaka-purple-light: #F3E5F5;
+            --musharaka-gold: #FF8F00;
+            --musharaka-gold-light: #FFF8E1;
+            --partnership-teal: #00897B;
+            --conventional-orange: #E65100;
+            --conventional-orange-light: #FFF3E0;
+        }
+        
+        .musharaka-card {
+            border-left: 5px solid var(--musharaka-purple);
+            background: linear-gradient(135deg, #F9F3FF 0%, #F3E5F5 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .musharaka-card::before {
+            content: "⚖️";
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            font-size: 60px;
+            opacity: 0.1;
+            transform: rotate(-10deg);
+        }
+        
+        .partnership-card {
+            border-left: 5px solid var(--partnership-teal);
+            background: linear-gradient(135deg, #E0F2F1 0%, #B2DFDB 100%);
+        }
+        
+        .conventional-partner-card {
+            border-left: 5px solid var(--conventional-orange);
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+        }
+        
+        .musharaka-badge {
+            background: rgba(106, 27, 154, 0.1);
+            color: var(--musharaka-purple);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .partnership-badge {
+            background: rgba(0, 137, 123, 0.1);
+            color: var(--partnership-teal);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .gold-badge {
+            background: rgba(255, 143, 0, 0.1);
+            color: var(--musharaka-gold);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .capital-slider {
+            width: 100%;
+            margin: 15px 0;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 4px;
+            background: #E0E0E0;
+            outline: none;
+        }
+        
+        .capital-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--musharaka-purple);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .partner-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(106, 27, 154, 0.08);
+            border: 1px solid rgba(106, 27, 154, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        .partner-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(106, 27, 154, 0.12);
+        }
+        
+        .profit-positive {
+            color: var(--partnership-teal);
+            font-weight: 700;
+        }
+        
+        .profit-negative {
+            color: #C62828;
+            font-weight: 700;
+        }
+        
+        .ratio-visualization {
+            display: flex;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+        
+        .ratio-partner-a {
+            background: linear-gradient(90deg, var(--musharaka-purple), #8E24AA);
+            height: 100%;
+        }
+        
+        .ratio-partner-b {
+            background: linear-gradient(90deg, var(--musharaka-gold), #FFB300);
+            height: 100%;
+        }
+        
+        .insight-box {
+            background: #EDE7F6;
+            border-left: 4px solid var(--musharaka-purple);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                <i class="fas fa-islam" style="margin-right: 5px;"></i> Islamic Finance
+            </span>
+        </div>
+    </div>
+    
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="../index.html" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Islamic Finance</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333; font-weight: 500;">Musharaka Calculator</span>
+    </div>
+
+    <div class="container">
+        <!-- ============ HEADER ============ -->
+        <div class="header">
+            <h1><i class="fas fa-hand-holding-heart"></i> Islamic Finance: Musharaka Calculator</h1>
+            <p>Compare Sharia-compliant joint venture partnership with conventional business partnership</p>
+        </div>
+        
+        <!-- ============ NAVIGATION ============ -->
+        <div style="margin-bottom: 25px; display: flex; gap: 10px; flex-wrap: wrap;">
+            <a href="../global/index.html" class="btn" style="background: var(--musharaka-purple); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center;">
+                <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Global Calculators
+            </a>
+            <a href="index.html" class="btn" style="background: var(--partnership-teal); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center;">
+                <i class="fas fa-mosque" style="margin-right: 8px;"></i> Islamic Finance Hub
+            </a>
+            
+            <!-- ============ NEW: CALCULATOR QUICK LINKS ============ -->
+            <div style="display: flex; gap: 5px; margin-left: 10px;">
+                <a href="murabaha-calculator.html" class="btn" style="background: #2E7D32; color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; font-size: 0.9rem;">
+                      <i class="fas fa-tag" style="margin-right: 5px;"></i> Murabaha
+                </a>
+                <a href="ijara-calculator.html" class="btn" style="background: #1565C0; color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; font-size: 0.9rem;">
+                      <i class="fas fa-car" style="margin-right: 5px;"></i> Ijara
+                </a>
+                <a href="mudaraba-calculator.html" class="btn" style="background: #B8860B; color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; font-size: 0.9rem;">
+                      <i class="fas fa-handshake" style="margin-right: 5px;"></i> Mudaraba
+                </a>
+                <a href="musharaka-calculator.html" class="btn" style="background: var(--musharaka-purple); color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; font-size: 0.9rem;">
+                      <i class="fas fa-hand-holding-heart" style="margin-right: 5px;"></i> Musharaka
+                </a>
+            </div> 
+            
+            <span style="margin-left: auto; color: #666; font-size: 0.9rem; display: flex; align-items: center;">
+                <i class="fas fa-info-circle" style="margin-right: 5px;"></i> Part of Fatimah Financial Hub
+            </span>
+        </div>
+     
+
+        <!-- ============ COUNTRY SELECTOR ============ -->
+        <div style="margin-bottom: 20px; padding: 15px; background: #F5F5F5; border-radius: 8px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <div>
+                    <strong style="color: #37474F;">
+                        <i class="fas fa-globe-americas" style="margin-right: 8px;"></i> Select Market:
+                    </strong>
+                    <select id="countrySelect" style="margin-left: 10px; padding: 8px 15px; border-radius: 5px; border: 1px solid #DDD; background: white;">
+                        <option value="UAE" selected>United Arab Emirates</option>
+                        <option value="SAUDI_ARABIA">Saudi Arabia</option>
+                        <option value="QATAR">Qatar</option>
+                        <option value="KUWAIT">Kuwait</option>
+                        <option value="MALAYSIA">Malaysia</option>
+                        <option value="INDONESIA">Indonesia</option>
+                        <option value="TURKEY">Turkey</option>
+                        <option value="PAKISTAN">Pakistan</option>
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                    </select>
+                </div>
+                <div style="font-size: 0.9rem; color: #666;">
+                    <i class="fas fa-info-circle" style="margin-right: 5px;"></i>
+                    Country affects currency and expected returns
+                </div>
+            </div>
+        </div>
+        
+        <!-- ============ MAIN CALCULATOR SECTION ============ -->
+        <div class="calculator-card musharaka-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap;">
+                <h2 style="margin: 0; color: var(--musharaka-purple);">
+                    <i class="fas fa-hand-holding-heart" style="margin-right: 10px;"></i> Musharaka Joint Venture Calculator
+                </h2>
+                <div style="display: flex; gap: 10px;">
+                    <span class="musharaka-badge">
+                        <i class="fas fa-mosque" style="margin-right: 5px;"></i> Sharia Compliant
+                    </span>
+                    <span class="partnership-badge">
+                        <i class="fas fa-handshake" style="margin-right: 5px;"></i> Joint Venture
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Partner Capital Contribution Section -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
+                <!-- Partner A (Islamic) -->
+                <div class="partner-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div style="background: var(--musharaka-purple); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                            <i class="fas fa-user-tie" style="color: white; font-size: 1.2rem;"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin: 0; color: var(--musharaka-purple);">Partner A</h3>
+                            <span class="musharaka-badge">Islamic Investor</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="partnerACapital">
+                            <i class="fas fa-coins" style="margin-right: 5px; color: var(--musharaka-purple);"></i>
+                            Capital Contribution (<span class="currency-label">د.إ</span>)
+                        </label>
+                        <input type="number" id="partnerACapital" value="150000" step="1000" min="0">
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="partnerAProfitRatio">
+                            <i class="fas fa-chart-line" style="margin-right: 5px; color: var(--musharaka-purple);"></i>
+                            Profit Sharing Ratio (%)
+                        </label>
+                        <input type="range" id="partnerAProfitRatio" class="capital-slider" min="10" max="90" value="60" step="1">
+                        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                            <span style="font-size: 0.85rem; color: #666;">10%</span>
+                            <span style="font-size: 1rem; font-weight: 600; color: var(--musharaka-purple);" id="partnerARatioDisplay">60%</span>
+                            <span style="font-size: 0.85rem; color: #666;">90%</span>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #F3E5F5; padding: 12px; border-radius: 6px; margin-top: 10px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: #4A4A4A;">Capital %:</span>
+                            <span style="font-weight: 600; color: var(--musharaka-purple);" id="partnerACapitalPercent">60%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Partner B (Islamic) -->
+                <div class="partner-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div style="background: var(--musharaka-gold); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                            <i class="fas fa-user-tie" style="color: white; font-size: 1.2rem;"></i>
+                        </div>
+                        <div>
+                            <h3 style="margin: 0; color: var(--musharaka-gold);">Partner B</h3>
+                            <span class="gold-badge">Islamic Partner</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="partnerBCapital">
+                            <i class="fas fa-coins" style="margin-right: 5px; color: var(--musharaka-gold);"></i>
+                            Capital Contribution (<span class="currency-label">د.إ</span>)
+                        </label>
+                        <input type="number" id="partnerBCapital" value="100000" step="1000" min="0">
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="partnerBProfitRatio">
+                            <i class="fas fa-chart-line" style="margin-right: 5px; color: var(--musharaka-gold);"></i>
+                            Profit Sharing Ratio (%)
+                        </label>
+                        <input type="range" id="partnerBProfitRatio" class="capital-slider" min="10" max="90" value="40" step="1">
+                        <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                            <span style="font-size: 0.85rem; color: #666;">10%</span>
+                            <span style="font-size: 1rem; font-weight: 600; color: var(--musharaka-gold);" id="partnerBRatioDisplay">40%</span>
+                            <span style="font-size: 0.85rem; color: #666;">90%</span>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #FFF8E1; padding: 12px; border-radius: 6px; margin-top: 10px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: #4A4A4A;">Capital %:</span>
+                            <span style="font-weight: 600; color: var(--musharaka-gold);" id="partnerBCapitalPercent">40%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Capital Ratio Visualization -->
+            <div style="margin: 20px 0 30px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                    <span style="font-weight: 600; color: var(--musharaka-purple);">Partner A Capital</span>
+                    <span style="font-weight: 600; color: var(--musharaka-gold);">Partner B Capital</span>
+                </div>
+                <div class="ratio-visualization">
+                    <div id="capitalRatioBarA" class="ratio-partner-a" style="width: 60%;"></div>
+                    <div id="capitalRatioBarB" class="ratio-partner-b" style="width: 40%;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                    <span id="totalCapitalDisplay" style="font-size: 0.9rem; color: #666;">Total Capital: د.إ250,000</span>
+                    <span style="font-size: 0.9rem; color: #666;">50:50 partnership ideal</span>
+                </div>
+            </div>
+            
+            <!-- Venture Details -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 20px;">
+                <div class="input-group-enhanced">
+                    <label for="venturePeriod">
+                        <i class="fas fa-calendar-alt"></i> Venture Period (Years)
+                    </label>
+                    <input type="number" id="venturePeriod" value="3" min="1" max="10" step="0.5">
+                </div>
+                
+                <div class="input-group-enhanced">
+                    <label for="expectedReturn">
+                        <i class="fas fa-chart-pie"></i> Expected Annual Return (%)
+                    </label>
+                    <input type="number" id="expectedReturn" value="12" min="1" max="30" step="0.5">
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 5px;">
+                        <span id="marketReturnRate">Market average: 12%</span>
+                    </div>
+                </div>
+                
+                <div class="input-group-enhanced">
+                    <label for="riskScenario">
+                        <i class="fas fa-exclamation-triangle"></i> Risk Scenario
+                    </label>
+                    <select id="riskScenario" style="width: 100%; padding: 12px; border-radius: 6px; border: 2px solid #E0E0E0;">
+                        <option value="profit">Profit Only (Best Case)</option>
+                        <option value="loss-10">10% Loss</option>
+                        <option value="loss-25">25% Loss</option>
+                        <option value="loss-50">50% Loss (Worst Case)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Calculate Button -->
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="calculateMusharakaBtn" class="calculate-btn" style="background: linear-gradient(135deg, var(--musharaka-purple) 0%, var(--partnership-teal) 100%); color: white; padding: 16px 50px; font-size: 1.2rem; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 12px rgba(106, 27, 154, 0.3);">
+                    <i class="fas fa-calculator" style="margin-right: 10px;"></i> Calculate Musharaka Partnership
+                </button>
+            </div>
+        </div>
+
+        <!-- Compare Both Button -->
+        <div style="text-align: center; margin-top: 20px;">
+             <button id="compareBothBtn" class="btn" style="background: linear-gradient(135deg, #E65100 0%, #FFB74D 100%); color: white; padding: 12px 40px; font-size: 1.1rem; border: none; border-radius: 50px; cursor: pointer; display: inline-flex; align-items: center; margin-left: 15px;">
+                  <i class="fas fa-balance-scale" style="margin-right: 8px;"></i> Compare with Conventional Partnership
+             </button>
+        </div>
+        
+        <!-- ============ RESULTS SECTION ============ -->
+        <div id="resultsSection" style="display: none;">
+            <div class="results-panel" style="border-top: 5px solid var(--musharaka-purple);">
+                <h2 class="results-header" style="color: var(--musharaka-purple); border-bottom-color: #E1BEE7;">
+                    <i class="fas fa-chart-pie" style="margin-right: 10px;"></i> Musharaka Partnership Results
+                </h2>
+                
+                <!-- Summary Cards -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 30px;">
+                    <!-- Partner A Result -->
+                    <div style="background: linear-gradient(135deg, #F3E5F5 0%, #EDE7F6 100%); padding: 25px; border-radius: 16px; border-left: 6px solid var(--musharaka-purple);">
+                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <div style="background: var(--musharaka-purple); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <i class="fas fa-user-tie" style="color: white; font-size: 1.3rem;"></i>
+                            </div>
+                            <div>
+                                <h3 style="margin: 0; color: var(--musharaka-purple);">Partner A</h3>
+                                <span style="font-size: 0.85rem; color: #666;">Capital: <span id="resultPartnerACapital">د.إ150,000</span></span>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <div style="font-size: 0.85rem; color: #666;">Profit Share</div>
+                                <div id="resultPartnerAProfit" style="font-size: 1.6rem; font-weight: 700; color: var(--partnership-teal);">د.إ0</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: #666;">Loss Share</div>
+                                <div id="resultPartnerALoss" style="font-size: 1.6rem; font-weight: 700; color: #C62828;">د.إ0</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(106, 27, 154, 0.2);">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Final Capital:</span>
+                                <span id="resultPartnerAFinal" style="font-weight: 700; color: var(--musharaka-purple);">د.إ150,000</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                                <span>Return on Capital:</span>
+                                <span id="resultPartnerAROC" style="font-weight: 700; color: var(--partnership-teal);">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Partner B Result -->
+                    <div style="background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%); padding: 25px; border-radius: 16px; border-left: 6px solid var(--musharaka-gold);">
+                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <div style="background: var(--musharaka-gold); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                                <i class="fas fa-user-tie" style="color: white; font-size: 1.3rem;"></i>
+                            </div>
+                            <div>
+                                <h3 style="margin: 0; color: var(--musharaka-gold);">Partner B</h3>
+                                <span style="font-size: 0.85rem; color: #666;">Capital: <span id="resultPartnerBCapital">د.إ100,000</span></span>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div>
+                                <div style="font-size: 0.85rem; color: #666;">Profit Share</div>
+                                <div id="resultPartnerBProfit" style="font-size: 1.6rem; font-weight: 700; color: var(--partnership-teal);">د.إ0</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.85rem; color: #666;">Loss Share</div>
+                                <div id="resultPartnerBLoss" style="font-size: 1.6rem; font-weight: 700; color: #C62828;">د.إ0</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255, 143, 0, 0.2);">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Final Capital:</span>
+                                <span id="resultPartnerBFinal" style="font-weight: 700; color: var(--musharaka-gold);">د.إ100,000</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                                <span>Return on Capital:</span>
+                                <span id="resultPartnerBROC" style="font-weight: 700; color: var(--partnership-teal);">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Venture Summary -->
+                <div class="insight-box">
+                    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                        <i class="fas fa-lightbulb" style="font-size: 1.5rem; color: var(--musharaka-purple); margin-right: 12px;"></i>
+                        <h3 style="margin: 0; color: var(--musharaka-purple);">Venture Summary</h3>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+                        <div>
+                            <div style="font-size: 0.85rem; color: #666;">Total Capital</div>
+                            <div id="summaryTotalCapital" style="font-size: 1.3rem; font-weight: 700; color: #37474F;">د.إ250,000</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.85rem; color: #666;">Total Profit/Loss</div>
+                            <div id="summaryTotalProfit" style="font-size: 1.3rem; font-weight: 700; color: var(--partnership-teal);">د.إ0</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.85rem; color: #666;">ROI (Total)</div>
+                            <div id="summaryTotalROI" style="font-size: 1.3rem; font-weight: 700; color: #37474F;">0%</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.85rem; color: #666;">Scenario</div>
+                            <div id="summaryScenario" style="font-size: 1.1rem; font-weight: 600; color: var(--musharaka-gold);">Profit</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Profit/Loss Distribution Visualization -->
+                <div style="margin-top: 30px;">
+                    <h3 style="color: #37474F; margin-bottom: 15px;">
+                        <i class="fas fa-chart-pie" style="margin-right: 8px;"></i> Profit/Loss Distribution
+                    </h3>
+                    <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #E0E0E0;">
+                        <canvas id="distributionChart" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ============ HOW IT WORKS TOGGLE ============ -->
+<div style="margin: 30px 0 20px; display: flex; justify-content: space-between; align-items: center;">
+    <h2 style="margin: 0; color: #37474F; font-size: 1.5rem;">
+        <i class="fas fa-calculator" style="margin-right: 10px;"></i> How The Calculations Work
+    </h2>
+    <button id="toggleCalculationDetails" class="btn" style="background: var(--musharaka-purple); color: white; padding: 10px 25px; border-radius: 30px; border: none; cursor: pointer; display: flex; align-items: center;">
+        <i class="fas fa-chevron-down" style="margin-right: 8px;"></i> Show Calculation Details
+    </button>
+</div>
+
+<!-- ============ CALCULATION DETAILS (HIDDEN) ============ -->
+<div id="calculationDetails" style="display: none; background: #F8F9FA; padding: 25px; border-radius: 12px; margin-bottom: 30px; border-left: 5px solid var(--musharaka-purple);">
+    <h3 style="color: var(--musharaka-purple); margin-top: 0; margin-bottom: 20px;">Musharaka Calculation Formulas</h3>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+        <div style="background: white; padding: 20px; border-radius: 8px;">
+            <h4 style="color: #00695C; margin-top: 0;">Total Venture Value</h4>
+            <p style="font-family: monospace; font-size: 1.1rem; background: #F5F5F5; padding: 10px; border-radius: 4px;">
+                Total = Capital × (1 + r)<sup>n</sup>
+            </p>
+            <p><strong>Where:</strong><br>
+            Capital = Total partner contributions<br>
+            r = Expected annual return<br>
+            n = Venture period (years)</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px;">
+            <h4 style="color: #00695C; margin-top: 0;">Profit Distribution</h4>
+            <p style="font-family: monospace; font-size: 1.1rem; background: #F5F5F5; padding: 10px; border-radius: 4px;">
+                Partner A = Profit × Ratio A<br>
+                Partner B = Profit × Ratio B
+            </p>
+            <p><strong>Note:</strong> Profit ratio can be different from capital ratio (agreed upfront)</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px;">
+            <h4 style="color: #C62828; margin-top: 0;">Loss Distribution</h4>
+            <p style="font-family: monospace; font-size: 1.1rem; background: #F5F5F5; padding: 10px; border-radius: 4px;">
+                Loss A = Loss × (Capital A ÷ Total)<br>
+                Loss B = Loss × (Capital B ÷ Total)
+            </p>
+            <p><strong style="color: #C62828;">Sharia Requirement:</strong> Losses MUST be shared by capital ratio</p>
+        </div>
+        
+        <div style="background: white; padding: 20px; border-radius: 8px;">
+            <h4 style="color: #6A1B9A; margin-top: 0;">Example Calculation</h4>
+            <p><strong>Capital:</strong> A=150,000, B=100,000 (60:40)<br>
+            <strong>Profit:</strong> 101,232 @ 60:40 ratio<br>
+            <strong>Result:</strong> A=60,739, B=40,493<br>
+            <strong>ROI:</strong> Both 40.5% (same return %)</p>
+        </div>
+    </div>
+</div>
+
+        <!-- ============ EDUCATIONAL CONTENT - MUSHARAKA ============ -->
+        <div class="calculator-card" style="margin-top: 40px; border-left: 5px solid var(--partnership-teal); background: linear-gradient(135deg, #E0F2F1 0%, #B2DFDB 100%);">
+            <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                <div style="background: var(--partnership-teal); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                    <i class="fas fa-graduation-cap" style="font-size: 1.5rem;"></i>
+                </div>
+                <h3 style="margin: 0; color: #00695C; font-size: 1.5rem;">Understanding Musharaka: Islamic Joint Venture Partnership</h3>
+            </div>
+            
+            <div style="padding: 0 10px;">
+                <!-- What is Musharaka -->
+                <div style="margin-bottom: 30px; padding: 25px; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                    <h4 style="color: #00695C; margin-bottom: 15px; font-size: 1.2rem; border-bottom: 2px solid #B2DFDB; padding-bottom: 8px;">
+                        <i class="fas fa-info-circle" style="margin-right: 8px;"></i> What is Musharaka?
+                    </h4>
+                    <p style="line-height: 1.7; color: #37474F; font-size: 1.05rem; margin-bottom: 15px;">
+                        <strong>Musharaka</strong> (مشاركة) is an Islamic joint venture partnership where two or more parties contribute capital to a business venture. Unlike Mudaraba, <strong>all partners contribute capital</strong> and <strong>all may participate in management</strong>. Profits are shared according to a pre-agreed ratio, while <strong>losses are shared strictly in proportion to capital contribution</strong>.
+                    </p>
+                    <div style="background: #E0F2F1; padding: 15px; border-radius: 8px; border-left: 4px solid #00897B; margin-top: 10px;">
+                        <p style="margin: 0; font-style: italic; color: #004D40;">
+                            <i class="fas fa-quote-right" style="color: #00897B; margin-right: 8px;"></i>
+                            "Profit is shared as agreed, loss is borne according to capital contribution." - AAOIFI Sharia Standard
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Key Musharaka Principles -->
+                <div style="margin-bottom: 30px; padding: 25px; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                    <h4 style="color: #00695C; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid #B2DFDB; padding-bottom: 8px;">
+                        <i class="fas fa-star" style="margin-right: 8px;"></i> Key Musharaka Principles
+                    </h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div style="background: #E0F2F1; padding: 18px; border-radius: 8px; border-left: 4px solid #00897B;">
+                            <div style="color: #00695C; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-coins" style="margin-right: 8px;"></i> Capital Contribution
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                All partners contribute capital (cash or kind). Capital can be unequal.
+                            </div>
+                        </div>
+                        <div style="background: #E0F2F1; padding: 18px; border-radius: 8px; border-left: 4px solid #00897B;">
+                            <div style="color: #00695C; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-chart-pie" style="margin-right: 8px;"></i> Profit Sharing
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Profit ratio can be different from capital ratio (agreed upfront).
+                            </div>
+                        </div>
+                        <div style="background: #E0F2F1; padding: 18px; border-radius: 8px; border-left: 4px solid #00897B;">
+                            <div style="color: #00695C; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i> Loss Sharing
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Losses are shared <strong>strictly by capital ratio</strong> (not by profit ratio).
+                            </div>
+                        </div>
+                        <div style="background: #E0F2F1; padding: 18px; border-radius: 8px; border-left: 4px solid #00897B;">
+                            <div style="color: #00695C; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-user-tie" style="margin-right: 8px;"></i> Management
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                All partners can participate in management, or some can be sleeping partners.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Musharaka Formulas -->
+                <div style="margin-bottom: 30px; padding: 25px; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                    <h4 style="color: #00695C; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid #B2DFDB; padding-bottom: 8px;">
+                        <i class="fas fa-calculator" style="margin-right: 8px;"></i> Musharaka Calculation Formulas
+                    </h4>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <div style="background: #F5F5F5; padding: 18px; border-radius: 8px; margin-bottom: 20px;">
+                                <p style="font-weight: 700; color: #00695C; margin-bottom: 12px;">Total Venture Value:</p>
+                                <p style="font-size: 1.1rem; background: white; padding: 12px; border-radius: 6px; font-family: monospace;">
+                                    Total = Capital × (1 + Return Rate)<sup>Years</sup>
+                                </p>
+                                <p style="font-size: 0.95rem; color: #37474F; margin-top: 8px;">
+                                    <strong>Example:</strong> 250,000 × (1.12)<sup>3</sup> = 351,232
+                                </p>
+                            </div>
+                            
+                            <div style="background: #F5F5F5; padding: 18px; border-radius: 8px;">
+                                <p style="font-weight: 700; color: #00695C; margin-bottom: 12px;">Total Profit/Loss:</p>
+                                <p style="font-size: 1.1rem; background: white; padding: 12px; border-radius: 6px; font-family: monospace;">
+                                    Profit = Total - Total Capital
+                                </p>
+                                <p style="font-size: 0.95rem; color: #37474F; margin-top: 8px;">
+                                    <strong>Example:</strong> 351,232 - 250,000 = 101,232 profit
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="background: #F5F5F5; padding: 18px; border-radius: 8px; margin-bottom: 20px;">
+                                <p style="font-weight: 700; color: #00695C; margin-bottom: 12px;">Profit Distribution:</p>
+                                <p style="font-size: 1.1rem; background: white; padding: 12px; border-radius: 6px; font-family: monospace;">
+                                    Partner A = Total Profit × Profit Ratio A<br>
+                                    Partner B = Total Profit × Profit Ratio B
+                                </p>
+                                <p style="font-size: 0.95rem; color: #37474F; margin-top: 8px;">
+                                    <strong>Example (60:40):</strong> 101,232 × 60% = 60,739<br>
+                                    101,232 × 40% = 40,493
+                                </p>
+                            </div>
+                            
+                            <div style="background: #F5F5F5; padding: 18px; border-radius: 8px;">
+                                <p style="font-weight: 700; color: #C62828; margin-bottom: 12px;">Loss Distribution (Mandatory):</p>
+                                <p style="font-size: 1.1rem; background: white; padding: 12px; border-radius: 6px; font-family: monospace;">
+                                    Loss A = Total Loss × (Capital A ÷ Total Capital)<br>
+                                    Loss B = Total Loss × (Capital B ÷ Total Capital)
+                                </p>
+                                <p style="font-size: 0.95rem; color: #37474F; margin-top: 8px;">
+                                    <strong>Example (150k:100k):</strong> 50,000 × 60% = 30,000<br>
+                                    50,000 × 40% = 20,000
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Musharaka vs Conventional Partnership -->
+                <div style="padding: 25px; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                    <h4 style="color: #00695C; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid #B2DFDB; padding-bottom: 8px;">
+                        <i class="fas fa-balance-scale" style="margin-right: 8px;"></i> Musharaka vs Conventional Partnership
+                    </h4>
+                    
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+                            <thead>
+                                <tr>
+                                    <th style="background: #f8f9fa; padding: 15px; text-align: left;">Aspect</th>
+                                    <th style="background: #E0F2F1; padding: 15px; text-align: left; color: #00695C;">
+                                        <i class="fas fa-handshake" style="margin-right: 8px;"></i> Musharaka (Islamic)
+                                    </th>
+                                    <th style="background: #FFF3E0; padding: 15px; text-align: left; color: #E65100;">
+                                        <i class="fas fa-file-signature" style="margin-right: 8px;"></i> Conventional Partnership
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500;">Loss Sharing</td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F5F5F5;">
+                                        <span style="font-weight: 600; color: #00897B;">Strictly by capital ratio</span><br>
+                                        <span style="font-size: 0.9rem;">Cannot be altered by agreement</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F5F5F5;">
+                                        <span style="font-weight: 600;">Can be allocated arbitrarily</span><br>
+                                        <span style="font-size: 0.9rem;">Partners can agree any loss ratio</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500;">Interest</td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F5F5F5;">
+                                        <span style="font-weight: 600; color: #00897B;">✅ Completely prohibited</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F5F5F5;">
+                                        <span style="font-weight: 600;">May involve interest on capital</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500;">Capital Guarantee</td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F5F5F5;">
+                                        <span style="font-weight: 600; color: #00897B;">❌ Not permitted</span><br>
+                                        <span style="font-size: 0.9rem;">Partners must share risk</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F5F5F5;">
+                                        <span style="font-weight: 600;">Can guarantee partner capital</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; font-weight: 500;">Management</td>
+                                    <td style="padding: 14px 15px; background: #F5F5F5;">
+                                        <span style="font-weight: 600; color: #00897B;">Flexible</span><br>
+                                        <span style="font-size: 0.9rem;">Can appoint managing partner</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; background: #F5F5F5;">
+                                        <span style="font-weight: 600;">Flexible</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="insight-box" style="margin-top: 25px; background: #EDE7F6; border-left-color: var(--musharaka-purple);">
+                        <div style="display: flex; align-items: flex-start;">
+                            <i class="fas fa-lightbulb" style="color: var(--musharaka-purple); font-size: 1.3rem; margin-right: 15px;"></i>
+                            <div>
+                                <div style="color: #4A148C; font-weight: 600; margin-bottom: 8px;">Critical Insight:</div>
+                                <div style="color: #4A148C; font-size: 0.95rem;">
+                                    In Musharaka, <strong>losses must be shared strictly in proportion to capital contribution</strong> — this is a binding Sharia principle. Profits can be shared in any ratio agreed by the partners. This protects all partners from unfair loss allocation.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ============ SCRIPTS ============ -->
+    <script src="../shared/api-keys.js"></script>
+    <script src="../shared/config.js"></script>
+    <script src="../shared/calculators.js"></script>
+    <script src="../modules/ui-controls.js"></script>
+    <script src="../modules/islamic-calculators.js"></script>
+    
+    <script>
+        // ============================================
+        // MUSHARAKA CALCULATOR - FRESH BUILD
+        // Joint Venture Partnership
+        // ============================================
+        
+        // Currency mapping (same as other calculators)
+        const currencyMap = {
+            'UAE': 'د.إ',
+            'SAUDI_ARABIA': 'ر.س',
+            'QATAR': 'ر.ق',
+            'KUWAIT': 'د.ك',
+            'MALAYSIA': 'RM',
+            'INDONESIA': 'Rp',
+            'TURKEY': '₺',
+            'PAKISTAN': '₨',
+            'US': '$',
+            'UK': '£'
+        };
+        
+        // ============ REAL MARKET RATES FROM FRED API ============
+        async function getMarketRate(countryCode) {
+            try {
+                const rateDisplay = document.getElementById('marketReturnRate');
+                if (rateDisplay) {
+                    rateDisplay.innerHTML = '<span style="color: #666;"><i class="fas fa-spinner fa-spin"></i> Loading real-time rates...</span>';
+                }
+        
+                let rate = 12.0; // Default fallback
+                let source = 'Default';
+        
+                // Use FRED API for US rates
+                if (countryCode === 'US' && window.RealTimeRates) {
+                    try {
+                        const usRates = await window.RealTimeRates.fetchUSRates();
+                        if (usRates && usRates.mortgage30yr) {
+                            rate = usRates.mortgage30yr + 4.5;
+                            source = 'FRED API (Real-time)';
+                        }
+                } catch (error) {
+                    console.log('FRED API error:', error);
+                }
+            }
+        
+            // Try FinancialConfig for all countries
+            if (window.FinancialConfig && window.FinancialConfig.getRate) {
+                try {
+                    const countryMap = {
+                        'UAE': 'AE',
+                        'SAUDI_ARABIA': 'SA',
+                        'QATAR': 'QA',
+                        'KUWAIT': 'KW',
+                        'MALAYSIA': 'MY',
+                        'INDONESIA': 'ID',
+                        'TURKEY': 'TR',
+                        'PAKISTAN': 'PK',
+                        'US': 'US',
+                        'UK': 'GB'
+                    };
+                
+                    const configCode = countryMap[countryCode] || countryCode;
+                    const baseRate = await window.FinancialConfig.getRate('mortgage30yr', configCode);
+                
+                    if (baseRate && typeof baseRate === 'number') {
+                        const equityPremium = countryCode === 'TURKEY' ? 8 : 
+                                        countryCode === 'PAKISTAN' ? 7 : 
+                                        countryCode === 'INDONESIA' ? 6 : 5;
+                        rate = baseRate + equityPremium;
+                        source = 'FRED + Equity Premium';
+                    }
+                } catch (error) {
+                     console.log('Config rate error:', error);
+                }
+            }
+        
+            // Country-specific fallbacks
+            const fallbackRates = {
+                'UAE': 12.0,
+                'SAUDI_ARABIA': 10.5,
+                'QATAR': 11.0,
+                'KUWAIT': 10.0,
+                'MALAYSIA': 9.5,
+                'INDONESIA': 14.0,
+                'TURKEY': 18.0,
+                'PAKISTAN': 16.0,
+                'US': 11.0,
+                'UK': 10.5
+            };
+        
+            if (!rate || rate === 12.0) {
+                rate = fallbackRates[countryCode] || 12.0;
+                source = 'Economic Data';
+            }
+        
+            // Update display
+            if (rateDisplay) {
+                rateDisplay.innerHTML = `
+                    <span style="color: var(--musharaka-purple);">
+                        <i class="fas fa-chart-line"></i> Market return: <strong>${rate.toFixed(1)}%</strong>
+                    </span>
+                    <br>
+                    <span style="font-size: 0.8rem; color: #666;">
+                        <i class="fas fa-database"></i> ${source} | ${countryCode} Venture Premium
+                    </span>
+               `;
+            }
+        
+            return rate;
+        
+         } catch (error) {
+             console.error('Rate error:', error);
+             return 12.0;
+         }
+      }
+
+      // Update market rate and set input value
+      async function updateMarketRate(countryCode) {
+          const rate = await getMarketRate(countryCode);
+          const expectedReturn = document.getElementById('expectedReturn');
+          if (expectedReturn) {
+              expectedReturn.value = rate.toFixed(1);
+          }
+          return rate;
+      }
+
+      document.addEventListener('DOMContentLoaded', async function() {
+          console.log('✅ Musharaka calculator loaded - Fresh build');
+    
+          // Initialize
+          initializeMusharaka();
+          setupEventListeners();
+          updateCapitalRatio();
+          updateRatioDisplays();
+    
+          // Initial currency and rate update
+          const countrySelect = document.getElementById('countrySelect');
+          if (countrySelect) {
+              updateCurrencyLabels(countrySelect.value);
+              await updateMarketRate(countrySelect.value);
+          }
+    
+          // Setup toggle details button
+          setupToggleDetails();
+      });
+
+      function initializeMusharaka() {
+           // Set default values
+           const partnerA = document.getElementById('partnerACapital');
+           const partnerB = document.getElementById('partnerBCapital');
+           const profitA = document.getElementById('partnerAProfitRatio');
+           const profitB = document.getElementById('partnerBProfitRatio');
+           const period = document.getElementById('venturePeriod');
+           const expectedReturn = document.getElementById('expectedReturn');
+    
+           if (partnerA) partnerA.value = 150000;
+           if (partnerB) partnerB.value = 100000;
+           if (profitA) profitA.value = 60;
+           if (profitB) profitB.value = 40;
+           if (period) period.value = 3;
+           if (expectedReturn) expectedReturn.value = 12;
+      }
+
+      function setupEventListeners() {
+          // Partner A capital change
+          const partnerA = document.getElementById('partnerACapital');
+          const partnerB = document.getElementById('partnerBCapital');
+          const profitA = document.getElementById('partnerAProfitRatio');
+          const profitB = document.getElementById('partnerBProfitRatio');
+    
+          if (partnerA) {
+              partnerA.addEventListener('input', function() {
+                  updateCapitalRatio();
+              });
+          }
+    
+          if (partnerB) {
+              partnerB.addEventListener('input', function() {
+              updateCapitalRatio();
+             });
+          }
+    
+          // Profit ratio sliders
+          if (profitA && profitB) {
+              profitA.addEventListener('input', function() {
+                  const valA = parseInt(this.value) || 60;
+                  const valB = 100 - valA;
+                  profitB.value = valB;
+                  updateRatioDisplays();
+              });
+        
+              profitB.addEventListener('input', function() {
+                   const valB = parseInt(this.value) || 40;
+                   const valA = 100 - valB;
+                   profitA.value = valA;
+                   updateRatioDisplays();
+              });
+          }
+    
+          // Country change
+          const countrySelect = document.getElementById('countrySelect');
+          if (countrySelect) {
+              countrySelect.addEventListener('change', async function() {
+                  updateCurrencyLabels(this.value);
+                  await updateMarketRate(this.value);
+             });
+          }
+    
+          // Calculate button
+          const calcBtn = document.getElementById('calculateMusharakaBtn');
+          if (calcBtn) {
+              calcBtn.addEventListener('click', calculateMusharaka);
+          }
+    
+          // Compare button (if exists)
+          const compareBtn = document.getElementById('compareBothBtn');
+          if (compareBtn) {
+              compareBtn.addEventListener('click', compareBoth);
+          }
+      }
+
+      function setupToggleDetails() {
+          const toggleBtn = document.getElementById('toggleCalculationDetails');
+          const details = document.getElementById('calculationDetails');
+    
+          if (toggleBtn && details) {
+              toggleBtn.addEventListener('click', function() {
+                  const icon = this.querySelector('i');
+                  if (details.style.display === 'none' || details.style.display === '') {
+                      details.style.display = 'block';
+                      icon.className = 'fas fa-chevron-up';
+                      this.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Calculation Details';
+                  } else {
+                      details.style.display = 'none';
+                      icon.className = 'fas fa-chevron-down';
+                      this.innerHTML = '<i class="fas fa-chevron-down"></i> Show Calculation Details';
+                  }
+             });
+          }
+      }
+
+      function updateCapitalRatio() {
+          const capitalA = parseFloat(document.getElementById('partnerACapital')?.value) || 0;
+          const capitalB = parseFloat(document.getElementById('partnerBCapital')?.value) || 0;
+          const totalCapital = capitalA + capitalB;
+    
+          if (totalCapital > 0) {
+              const percentA = (capitalA / totalCapital * 100).toFixed(0);
+              const percentB = (capitalB / totalCapital * 100).toFixed(0);
+        
+              const capPercentA = document.getElementById('partnerACapitalPercent');
+              const capPercentB = document.getElementById('partnerBCapitalPercent');
+              const barA = document.getElementById('capitalRatioBarA');
+              const barB = document.getElementById('capitalRatioBarB');
+              const totalDisplay = document.getElementById('totalCapitalDisplay');
+        
+              if (capPercentA) capPercentA.textContent = percentA + '%';
+              if (capPercentB) capPercentB.textContent = percentB + '%';
+              if (barA) barA.style.width = percentA + '%';
+              if (barB) barB.style.width = percentB + '%';
+        
+              const symbol = getCurrentCurrencySymbol();
+              if (totalDisplay) {
+                  totalDisplay.innerHTML = `Total Capital: ${symbol}${totalCapital.toLocaleString()}`;
+              }
+          }
+      }
+
+      function updateRatioDisplays() {
+          const ratioA = document.getElementById('partnerAProfitRatio')?.value || 60;
+          const ratioB = document.getElementById('partnerBProfitRatio')?.value || 40;
+    
+          const displayA = document.getElementById('partnerARatioDisplay');
+          const displayB = document.getElementById('partnerBRatioDisplay');
+    
+          if (displayA) displayA.textContent = ratioA + '%';
+          if (displayB) displayB.textContent = ratioB + '%';
+      }
+
+      function getCurrentCurrencySymbol() {
+          const countrySelect = document.getElementById('countrySelect');
+          const country = countrySelect ? countrySelect.value : 'UAE';
+          return currencyMap[country] || 'د.إ';
+      }
+
+      function updateCurrencyLabels(countryCode) {
+          const symbol = currencyMap[countryCode] || 'د.إ';
+          document.querySelectorAll('.currency-label').forEach(el => {
+              if (el) el.textContent = symbol;
+          });
+      }
+
+      // ============ MAIN MUSHARAKA CALCULATION ============
+      function calculateMusharaka() {
+          console.log('🔢 Calculating Musharaka partnership...');
+    
+          // Get input values with null checks
+          const capitalA = parseFloat(document.getElementById('partnerACapital')?.value) || 0;
+          const capitalB = parseFloat(document.getElementById('partnerBCapital')?.value) || 0;
+          const profitRatioA = parseFloat(document.getElementById('partnerAProfitRatio')?.value) / 100 || 0.6;
+          const profitRatioB = parseFloat(document.getElementById('partnerBProfitRatio')?.value) / 100 || 0.4;
+          const years = parseFloat(document.getElementById('venturePeriod')?.value) || 3;
+          const returnRate = parseFloat(document.getElementById('expectedReturn')?.value) / 100 || 0.12;
+          const riskScenario = document.getElementById('riskScenario')?.value || 'profit';
+    
+          const totalCapital = capitalA + capitalB;
+          const capitalRatioA = capitalA / totalCapital;
+          const capitalRatioB = capitalB / totalCapital;
+    
+          // Calculate venture outcome based on scenario
+          let totalValue, totalProfit, isProfit;
+    
+          if (riskScenario === 'profit') {
+              totalValue = totalCapital * Math.pow(1 + returnRate, years);
+              totalProfit = totalValue - totalCapital;
+              isProfit = true;
+          } else {
+              const lossPercent = parseFloat(riskScenario.split('-')[1]) / 100 || 0;
+              totalValue = totalCapital * (1 - lossPercent);
+              totalProfit = totalValue - totalCapital;
+              isProfit = totalProfit >= 0;
+          }
+    
+          // Profit/Loss distribution
+          let profitA = 0, profitB = 0, lossA = 0, lossB = 0, finalA, finalB, rocA, rocB;
+    
+          if (isProfit) {
+              profitA = totalProfit * profitRatioA;
+              profitB = totalProfit * profitRatioB;
+              finalA = capitalA + profitA;
+              finalB = capitalB + profitB;
+          } else {
+              const totalLoss = Math.abs(totalProfit);
+              lossA = totalLoss * capitalRatioA;
+              lossB = totalLoss * capitalRatioB;
+              finalA = capitalA - lossA;
+              finalB = capitalB - lossB;
+          }
+    
+          rocA = capitalA > 0 ? ((finalA - capitalA) / capitalA * 100) : 0;
+          rocB = capitalB > 0 ? ((finalB - capitalB) / capitalB * 100) : 0;
+          const totalROI = totalCapital > 0 ? ((totalValue - totalCapital) / totalCapital * 100) : 0;
+    
+          // Format currency
+          const symbol = getCurrentCurrencySymbol();
+    
+          // ============ UPDATE UI ============
+          const resultPartnerACapital = document.getElementById('resultPartnerACapital');
+          const resultPartnerAProfit = document.getElementById('resultPartnerAProfit');
+          const resultPartnerALoss = document.getElementById('resultPartnerALoss');
+          const resultPartnerAFinal = document.getElementById('resultPartnerAFinal');
+          const resultPartnerAROC = document.getElementById('resultPartnerAROC');
+    
+          const resultPartnerBCapital = document.getElementById('resultPartnerBCapital');
+          const resultPartnerBProfit = document.getElementById('resultPartnerBProfit');
+          const resultPartnerBLoss = document.getElementById('resultPartnerBLoss');
+          const resultPartnerBFinal = document.getElementById('resultPartnerBFinal');
+          const resultPartnerBROC = document.getElementById('resultPartnerBROC');
+    
+          const summaryTotalCapital = document.getElementById('summaryTotalCapital');
+          const summaryTotalProfit = document.getElementById('summaryTotalProfit');
+          const summaryTotalROI = document.getElementById('summaryTotalROI');
+          const summaryScenario = document.getElementById('summaryScenario');
+    
+          if (resultPartnerACapital) resultPartnerACapital.innerHTML = `${symbol}${capitalA.toLocaleString()}`;
+          if (resultPartnerAProfit) resultPartnerAProfit.innerHTML = `${symbol}${profitA.toFixed(0)}`;
+          if (resultPartnerALoss) resultPartnerALoss.innerHTML = `${symbol}${lossA.toFixed(0)}`;
+          if (resultPartnerAFinal) resultPartnerAFinal.innerHTML = `${symbol}${finalA.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+          if (resultPartnerAROC) resultPartnerAROC.textContent = rocA.toFixed(1) + '%';
+    
+          if (resultPartnerBCapital) resultPartnerBCapital.innerHTML = `${symbol}${capitalB.toLocaleString()}`;
+          if (resultPartnerBProfit) resultPartnerBProfit.innerHTML = `${symbol}${profitB.toFixed(0)}`;
+          if (resultPartnerBLoss) resultPartnerBLoss.innerHTML = `${symbol}${lossB.toFixed(0)}`;
+          if (resultPartnerBFinal) resultPartnerBFinal.innerHTML = `${symbol}${finalB.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+          if (resultPartnerBROC) resultPartnerBROC.textContent = rocB.toFixed(1) + '%';
+    
+          if (summaryTotalCapital) summaryTotalCapital.innerHTML = `${symbol}${totalCapital.toLocaleString()}`;
+          if (summaryTotalProfit) summaryTotalProfit.innerHTML = `${symbol}${Math.abs(totalProfit).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+          if (summaryTotalROI) summaryTotalROI.textContent = totalROI.toFixed(1) + '%';
+    
+          let scenarioText = 'Profit';
+          if (!isProfit) {
+              const lossPercent = riskScenario.split('-')[1];
+              scenarioText = `${lossPercent}% Loss`;
+          }
+          if (summaryScenario) summaryScenario.textContent = scenarioText;
+    
+          // Color coding
+          if (summaryTotalProfit) {
+              if (isProfit) {
+                  summaryTotalProfit.style.color = '#00897B';
+                  summaryTotalROI.style.color = '#00897B';
+              } else {
+                  summaryTotalProfit.style.color = '#C62828';
+                  summaryTotalROI.style.color = '#C62828';
+              }
+          }
+    
+          // Show results section
+          const resultsSection = document.getElementById('resultsSection');
+          if (resultsSection) {
+              resultsSection.style.display = 'block';
+              resultsSection.scrollIntoView({ behavior: 'smooth' });
+          }
+    
+          console.log('✅ Musharaka calculation complete');
+      }
+
+      // ============ COMPARISON WITH CONVENTIONAL PARTNERSHIP ============
+      function compareBoth() {
+          // First calculate Musharaka
+          calculateMusharaka();
+    
+          // TODO: Add conventional partnership calculation
+          alert('Conventional partnership comparison coming soon!');
+      }
+
+    </script>
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                </a>
+                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                </a>
+                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                </a>
+                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+                <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                </a>
+                <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                </a>
+                <span style="color: #718096; display: block; margin-bottom: 8px; padding: 3px 0;">
+                    <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics (Coming Soon)
+                </span>
+            </div>
+        </div>
+    
+        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+            <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+               <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

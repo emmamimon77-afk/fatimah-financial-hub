@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Murabaha Calculator - Islamic Finance | Fatimah Financial Hub</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Add your custom styles from the draft here */
+        /* I recommend moving most CSS to a separate styles.css file in the islamic directory */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-balance-scale"></i> Islamic Finance: Murabaha vs Conventional Loan</h1>
+            <p>Compare Islamic cost-plus financing with Western interest-based loans</p>
+        </div>
+        
+        <!-- Navigation back to main hub -->
+        <div style="margin-bottom: 20px;">
+            <a href="../global/index.html" class="btn" style="background: #4CAF50; color: white; padding: 10px 15px; border-radius: 5px; text-decoration: none;">
+                <i class="fas fa-arrow-left"></i> Back to Global Calculators
+            </a>
+        </div>
+        
+        <!-- Main Calculator Content -->
+        <!-- We'll use your existing beautiful HTML structure here -->
+        <!-- But simplified to integrate with our system -->
+        
+        <div id="calculator-container">
+            <!-- Your calculator HTML will be loaded here -->
+            <div style="text-align: center; padding: 40px;">
+                <div class="loading">Loading Murabaha Calculator...</div>
+            </div>
+        </div>
+
+        
+        <!-- Educational Content - PROFESSIONAL VERSION -->
+        <div class="calculator-card" style="margin-top: 40px; border-left: 5px solid #2E7D32; background: linear-gradient(135deg, #f8fdf9 0%, #f0f9f3 100%);">
+            <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                <div style="background: #2E7D32; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                    <i class="fas fa-graduation-cap" style="font-size: 1.5rem;"></i>
+                </div>
+                <h3 style="margin: 0; color: #1B5E20; font-size: 1.5rem;">Understanding Murabaha: Islamic Finance Principles</h3>
+            </div>
+            
+            <div class="educational-content" style="padding: 0 10px;">
+                
+                <!-- What is Murabaha -->
+                <div style="margin-bottom: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <h4 style="color: #2E7D32; margin-bottom: 15px; font-size: 1.2rem; border-bottom: 2px solid #E8F5E9; padding-bottom: 8px;">
+                        <i class="fas fa-info-circle" style="margin-right: 8px;"></i> What is Murabaha?
+                    </h4>
+                    <p style="line-height: 1.7; color: #37474F; font-size: 1.05rem; margin-bottom: 15px;">
+                        <strong>Murabaha</strong> (مُرَابَحَة) is an Islamic financing structure where a financial institution purchases an asset and sells it to the customer at a cost-plus-profit margin. Unlike conventional loans, there is no interest (riba) charged, making it Sharia-compliant.
+                    </p>
+                    <p style="line-height: 1.7; color: #37474F; font-size: 1.05rem;">
+                        The term comes from the Arabic root "رَبْح" (profit), emphasizing transparent profit-sharing rather than interest-based lending.
+                    </p>
+                </div>
+                
+                <!-- Key Principles -->
+                <div style="margin-bottom: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <h4 style="color: #2E7D32; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid #E8F5E9; padding-bottom: 8px;">
+                        <i class="fas fa-star" style="margin-right: 8px;"></i> Key Islamic Finance Principles
+                    </h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                        <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                            <div style="color: #2E7D32; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-ban" style="margin-right: 8px;"></i> No Riba (Interest)
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Fixed profit margin disclosed upfront, no compound interest
+                            </div>
+                        </div>
+                        <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                            <div style="color: #2E7D32; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-home" style="margin-right: 8px;"></i> Asset-Backed
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Financing tied to real, tangible assets
+                            </div>
+                        </div>
+                        <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                            <div style="color: #2E7D32; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-eye" style="margin-right: 8px;"></i> Transparency
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                All costs, risks, and profits disclosed upfront
+                            </div>
+                        </div>
+                        <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                            <div style="color: #2E7D32; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-handshake" style="margin-right: 8px;"></i> Risk-Sharing
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Bank bears ownership risk until sale completion
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Professional Comparison Table -->
+                <div style="padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <h4 style="color: #2E7D32; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid #E8F5E9; padding-bottom: 8px;">
+                        <i class="fas fa-balance-scale" style="margin-right: 8px;"></i> Side-by-Side Comparison: Murabaha vs Conventional Loans
+                    </h4>
+                    
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+                            <thead>
+                                <tr>
+                                    <th style="background: #f8f9fa; padding: 15px; text-align: left; font-weight: 600; color: #37474F; border-bottom: 2px solid #E0E0E0;">
+                                        Aspect
+                                    </th>
+                                    <th style="background: #E8F5E9; padding: 15px; text-align: left; font-weight: 600; color: #2E7D32; border-bottom: 2px solid #4CAF50;">
+                                        <i class="fas fa-mosque" style="margin-right: 8px;"></i> Murabaha (Islamic)
+                                    </th>
+                                    <th style="background: #E3F2FD; padding: 15px; text-align: left; font-weight: 600; color: #1565C0; border-bottom: 2px solid #2196F3;">
+                                        <i class="fas fa-university" style="margin-right: 8px;"></i> Conventional Loan
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500; color: #455A64;">
+                                        Interest Mechanism
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F9FDF9;">
+                                        <span style="color: #2E7D32; font-weight: 600;">Fixed profit margin</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">No compound interest</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F8FBFF;">
+                                        <span style="color: #1565C0; font-weight: 600;">Compound interest</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Interest on interest</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500; color: #455A64;">
+                                        Risk Distribution
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F9FDF9;">
+                                        <span style="color: #2E7D32; font-weight: 600;">Bank owns asset</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Bears ownership risk</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F8FBFF;">
+                                        <span style="color: #1565C0; font-weight: 600;">Collateral-based</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Customer bears default risk</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500; color: #455A64;">
+                                        Cost Transparency
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F9FDF9;">
+                                        <span style="color: #2E7D32; font-weight: 600;">Fully transparent</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">All costs known upfront</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F8FBFF;">
+                                        <span style="color: #1565C0; font-weight: 600;">Variable interest</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Rates can change</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500; color: #455A64;">
+                                        Ethical Foundation
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F9FDF9;">
+                                        <span style="color: #2E7D32; font-weight: 600;">Sharia-compliant</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">No exploitation (riba)</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F8FBFF;">
+                                        <span style="color: #1565C0; font-weight: 600;">Profit-maximizing</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Market-driven rates</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; font-weight: 500; color: #455A64;">
+                                        Economic Impact
+                                    </td>
+                                    <td style="padding: 14px 15px; background: #F9FDF9;">
+                                        <span style="color: #2E7D32; font-weight: 600;">Wealth distribution</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Promotes real economy</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; background: #F8FBFF;">
+                                        <span style="color: #1565C0; font-weight: 600;">Wealth concentration</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Can fuel debt cycles</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div style="margin-top: 25px; padding: 15px; background: #FFF8E1; border-radius: 8px; border-left: 4px solid #FFB300;">
+                        <div style="display: flex; align-items: flex-start;">
+                            <i class="fas fa-lightbulb" style="color: #FF8F00; font-size: 1.2rem; margin-right: 12px; margin-top: 2px;"></i>
+                            <div>
+                                <div style="color: #5D4037; font-weight: 600; margin-bottom: 5px;">Key Insight:</div>
+                                <div style="color: #5D4037; font-size: 0.95rem;">
+                                    While Murabaha may appear similar to conventional loans, its prohibition of interest (riba) and emphasis on asset-backed, transparent transactions create fundamentally different economic and ethical outcomes.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Include your scripts -->
+    <script src="../shared/api-keys.js"></script>
+    <script src="../shared/config.js"></script>
+    <script src="../shared/calculators.js"></script>
+    <script src="../modules/ui-controls.js"></script>
+    <script src="../modules/islamic-calculators.js"></script>
+    
+    <script>
+    // Main initialization
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Murabaha calculator page loaded');
+        
+        // Initialize Islamic calculators
+        window.islamicCalculators = new IslamicCalculators();
+        
+        // Load your calculator HTML
+        loadCalculatorHTML();
+    });
+    
+    function loadCalculatorHTML() {
+        // This would load your calculator HTML structure
+        // For now, we'll use a simplified version
+        const container = document.getElementById('calculator-container');
+        container.innerHTML = `
+            <div style="text-align: center;">
+                <h2>Murabaha Calculator Integration</h2>
+                <p>Your beautiful calculator will be integrated here.</p>
+                <button onclick="testMurabaha()" class="calculate-btn" style="margin-top: 20px;">
+                    Test Murabaha Calculation
+                </button>
+                <div id="test-result" style="margin-top: 20px;"></div>
+            </div>
+        `;
+    }
+    
+    function testMurabaha() {
+        const result = window.islamicCalculators.calculateMurabaha({
+            costPrice: 250000,
+            profitMargin: 12,
+            tenureMonths: 60,
+            downPayment: 50000
+        });
+        
+        const display = document.getElementById('test-result');
+        if (result.success) {
+            display.innerHTML = `
+                <div class="success">
+                    <h4>Murabaha Calculation Successful!</h4>
+                    <p>Monthly Payment: ${result.monthlyPayment}</p>
+                    <p>Total Paid: ${result.totalPaid}</p>
+                </div>
+            `;
+        } else {
+            display.innerHTML = `<div class="error">Error: ${result.error}</div>`;
+        }
+    }
+    </script>
+</body>
+</html>

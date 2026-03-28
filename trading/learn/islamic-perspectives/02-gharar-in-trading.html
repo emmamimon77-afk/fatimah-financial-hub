@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gharar in Trading - Islamic Perspectives | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+
+        /* Lesson Header */
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        /* Quran Verse */
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 32px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .reference {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Cards */
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Example Boxes */
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        /* Lists */
+        .styled-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        .styled-list li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .styled-list li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #312e81;
+            text-align: center;
+        }
+        .quiz-question {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-question p {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Quiz answer highlighting */
+        .quiz-option.correct-answer {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.wrong-answer {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .quiz-option.show-correct {
+            background: #d1fae5;
+            border-color: #10b981;
+            border-width: 3px;
+            position: relative;
+        }
+        .quiz-option.show-correct::after {
+            content: "✓ Correct Answer";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 60px 20px 30px;
+            margin-top: 60px;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .footer-logo i {
+            color: #fbbf24;
+        }
+        .footer-about {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .footer-links ul {
+            list-style: none;
+        }
+        .footer-links li {
+            margin: 10px 0;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            .title-section h1 {
+                font-size: 32px;
+            }
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/trading">Trading Hub</a> › 
+            <a href="/trading/learn">Learning Center</a> › 
+            <a href="/trading/learn/islamic-perspectives">Islamic Perspectives</a> › 
+            Lesson 2: Gharar in Trading
+        </div>
+
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="title-section">
+                <h1>Gharar in Trading</h1>
+                <span class="badge">Islamic Finance • 25 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="fas fa-star"></i> Core Principle</span>
+                <span><i class="fas fa-gavel"></i> Prohibition of Uncertainty</span>
+                <span><i class="fas fa-question-circle"></i> 10 Quiz Questions</span>
+            </div>
+        </div>
+
+        <!-- Quran Verse -->
+        <div class="quran-verse">
+            <div class="arabic">يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ</div>
+            <div class="translation">"O you who have believed, do not consume one another's wealth unjustly but only [in lawful] business by mutual consent."</div>
+            <div class="reference">— Quran 4:29</div>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <h2 class="section-title">🎯 Understanding Gharar</h2>
+            <p>Gharar (غرر) means uncertainty, ambiguity, or excessive risk. In Islamic finance, transactions with excessive uncertainty are prohibited because they resemble gambling (maisir).</p>
+        </div>
+
+        <!-- The Three Levels of Gharar -->
+        <div class="concept-card">
+            <h2 class="section-title">🔍 The Three Levels of Gharar</h2>
+            
+            <div class="two-column">
+                <div class="warning-box">
+                    <h4 style="color: #991b1b;">⛔ Excessive Gharar (Haram)</h4>
+                    <p>When uncertainty is so great that it makes the contract similar to gambling. Examples: Selling a fish in the sea, a bird in the sky, or futures contracts without intention of delivery.</p>
+                </div>
+                
+                <div class="psychology-box">
+                    <h4 style="color: #92400e;">⚠️ Moderate Gharar (Makruh)</h4>
+                    <p>Minor uncertainty that doesn't affect the contract's validity but should be avoided. Examples: Slight variations in weight or measurement in commodity trading.</p>
+                </div>
+                
+                <div class="example-box">
+                    <h4 style="color: #065f46;">✅ Negligible Gharar (Halal)</h4>
+                    <p>Uncertainty that cannot be avoided in normal transactions. Examples: Not knowing exact future price movements, slight variations in produce quality.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Examples in Modern Trading -->
+        <div class="concept-card">
+            <h2 class="section-title">📊 Examples of Gharar in Modern Trading</h2>
+            
+            <div class="two-column">
+                <div>
+                    <div class="warning-box">
+                        <h4>❌ Futures Contracts</h4>
+                        <p><strong>Problem:</strong> Selling something you don't own with delayed delivery. Most futures traders close positions before delivery, making it pure speculation on price.</p>
+                        <p><strong>Ruling:</strong> Prohibited due to gharar and lack of asset ownership.</p>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <h4>❌ Options Trading</h4>
+                        <p><strong>Problem:</strong> The right but not obligation to buy/sell creates uncertainty. The premium paid has no corresponding asset value.</p>
+                        <p><strong>Ruling:</strong> Prohibited by majority of scholars.</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="warning-box">
+                        <h4>❌ Short Selling</h4>
+                        <p><strong>Problem:</strong> Selling borrowed shares you don't own. If the lender demands shares back, you may be forced to buy at unfavorable prices.</p>
+                        <p><strong>Ruling:</strong> Prohibited due to selling what you don't possess.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>✅ Spot Forex</h4>
+                        <p><strong>Solution:</strong> Immediate exchange of currencies with hand-to-hand transaction.</p>
+                        <p><strong>Ruling:</strong> Permitted if done on spot basis with no delayed settlement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case Studies -->
+        <div class="concept-card">
+            <h2 class="section-title">🧪 Case Studies</h2>
+            
+            <div class="psychology-box">
+                <h4>Case 1: CFD Trading</h4>
+                <p><strong>Scenario:</strong> Ahmed wants to trade CFDs on oil. He never owns the oil, only bets on price movements.</p>
+                <p><strong>Gharar Test:</strong> Does he have ownership or control? NO. This is prohibited gharar.</p>
+                <p><strong>Halal Alternative:</strong> Trade actual oil ETFs or commodity stocks.</p>
+            </div>
+            
+            <div class="psychology-box">
+                <h4>Case 2: Pre-IPO Investing</h4>
+                <p><strong>Scenario:</strong> Fatimah invests in a company planning to IPO in 6 months at an estimated price.</p>
+                <p><strong>Gharar Test:</strong> Is the price and timing certain? NO. If the IPO is delayed or priced differently, there's uncertainty.</p>
+                <p><strong>Halal Alternative:</strong> Wait for the IPO or invest through proper private placement with clear terms.</p>
+            </div>
+            
+            <div class="psychology-box">
+                <h4>Case 3: Cryptocurrency Trading</h4>
+                <p><strong>Scenario:</strong> Buying Bitcoin on an exchange with immediate settlement.</p>
+                <p><strong>Gharar Test:</strong> Do you own the actual asset? YES, if transferred to your wallet.</p>
+                <p><strong>Note:</strong> Scholars differ on crypto due to volatility, but ownership itself isn't gharar.</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 10 Questions -->
+        <div class="quiz-section">
+            <h3><i class="fas fa-pencil-alt"></i> Test Your Understanding</h3>
+            <p style="text-align: center; margin-bottom: 30px;">Answer all 10 questions to test your knowledge of gharar.</p>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is gharar in Islamic finance?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q1" value="a"> Interest charged on loans</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="b"> Gambling</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="c"> Excessive uncertainty or ambiguity</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="d"> Charitable giving</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. Which type of gharar is completely prohibited?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q2" value="a"> Negligible gharar</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="b"> Moderate gharar</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="c"> Excessive gharar</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="d"> All types of gharar</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. Why are futures contracts considered to have excessive gharar?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q3" value="a"> They have fixed prices</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="b"> Most traders don't take delivery, making it pure speculation</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="c"> They are regulated by governments</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="d"> They have high liquidity</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. What is the key question to identify gharar in a transaction?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q4" value="a"> Will I make money?</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="b"> Do I have clear ownership and control?</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="c"> Is the price low?</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="d"> Is the broker reputable?</label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. Which of these is a Halal alternative to derivatives?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q5" value="a"> Options trading</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="b"> Futures contracts</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="c"> Spot trading of actual assets</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="d"> Short selling</label>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. What is the ruling on short selling in Islam?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q6" value="a"> Permitted</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="b"> Makruh (discouraged)</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="c"> Prohibited (haram) due to selling what you don't own</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="d"> Permitted only for institutional investors</label>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What does the Quran 4:29 teach about transactions?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q7" value="a"> They must be based on mutual consent</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="b"> They must involve interest</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="c"> They can be forced upon people</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="d"> They require government approval</label>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. Why do scholars differ on cryptocurrency?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q8" value="a"> It's too new</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="b"> Volatility concerns (gharar)</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="c"> Lack of intrinsic value</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="d"> All of the above</label>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. Which of the following has the LEAST gharar?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q9" value="a"> Buying a car with known specifications</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="b"> Buying a "mystery box" with unknown contents</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="c"> Futures contract on wheat</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="d"> Binary options</label>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. What is the relationship between gharar and gambling (maisir)?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q10" value="a"> They are completely different</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="b"> Gharar is permitted, maisir is not</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="c"> Excessive gharar resembles gambling</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="d"> Only maisir is prohibited</label>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="checkGhararQuiz()" style="background: #312e81; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 600; cursor: pointer;">
+                    <i class="fas fa-check-circle"></i> Check My Answers
+                </button>
+            </div>
+            <div id="quizResult" style="margin-top: 20px; text-align: center; font-size: 18px;"></div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/trading/learn/islamic-perspectives/01-riba-explained.html" class="nav-link">
+                <i class="fas fa-arrow-left"></i> Previous: Riba Explained
+            </a>
+            <a href="/trading/learn/islamic-perspectives/03-haram-industries.html" class="nav-link">
+                Next: Haram Industries <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">
+                    <i class="fas fa-mosque"></i>
+                    Fatimah Financial Hub
+                </div>
+                <p class="footer-about">Building ethical traders with Islamic principles at the core. Learn, practice, and grow with confidence.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/trading">Trading</a></li>
+                    <li><a href="/simulator/trade">Simulator</a></li>
+                    <li><a href="/resources">Resources</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Learn</h4>
+                <ul>
+                    <li><a href="/trading/learn/fundamentals/01-order-types.html">Fundamentals</a></li>
+                    <li><a href="/trading/learn/islamic-perspectives/01-riba-explained.html">Islamic Perspectives</a></li>
+                    <li><a href="/economics">Economics</a></li>
+                    <li><a href="/finance-tools">Tools</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/resources">Contact</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="arabic-footer">الحمد لله</div>
+            <p>May this knowledge help you make informed and ethical investment decisions</p>
+            <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Lesson 2 of 4 (Islamic Series)</p>
+        </div>
+    </footer>
+
+    <script>
+        function checkGhararQuiz() {
+            const answers = {
+                q1: 'c',
+                q2: 'c',
+                q3: 'b',
+                q4: 'b',
+                q5: 'c',
+                q6: 'c',
+                q7: 'a',
+                q8: 'd',
+                q9: 'a',
+                q10: 'c'
+            };
+            
+            let score = 0;
+            let total = 10;
+            
+            // Clear previous highlights
+            for (let i = 1; i <= total; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(radio => {
+                    radio.parentElement.classList.remove('correct-answer', 'wrong-answer', 'show-correct');
+                });
+            }
+            
+            // Check each question
+            for (let i = 1; i <= total; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                let answered = false;
+                
+                for (let radio of radios) {
+                    if (radio.checked) {
+                        answered = true;
+                        if (radio.value === answers[`q${i}`]) {
+                            score++;
+                            radio.parentElement.classList.add('correct-answer');
+                        } else {
+                            radio.parentElement.classList.add('wrong-answer');
+                            
+                            // Highlight the correct answer
+                            for (let r of radios) {
+                                if (r.value === answers[`q${i}`]) {
+                                    r.parentElement.classList.add('show-correct');
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+                
+                if (!answered) {
+                    // Highlight correct answer even if not answered
+                    for (let radio of radios) {
+                        if (radio.value === answers[`q${i}`]) {
+                            radio.parentElement.classList.add('show-correct');
+                        }
+                    }
+                }
+            }
+            
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.style.padding = '20px';
+            resultDiv.style.borderRadius = '12px';
+            resultDiv.style.marginTop = '20px';
+            
+            if (score === total) {
+                resultDiv.style.background = '#d1fae5';
+                resultDiv.style.color = '#065f46';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">🎉 MashaAllah! Perfect score (${score}/${total})!</div>
+                    <div style="font-size: 16px;">You have excellent understanding of gharar in Islamic finance.</div>
+                `;
+            } else if (score >= 8) {
+                resultDiv.style.background = '#fef3c7';
+                resultDiv.style.color = '#92400e';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">✅ Good job! You scored ${score}/${total}</div>
+                    <div style="font-size: 16px;">The correct answers are highlighted in green. Review the ones you missed.</div>
+                `;
+            } else {
+                resultDiv.style.background = '#fee2e2';
+                resultDiv.style.color = '#991b1b';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">📚 You scored ${score}/${total}</div>
+                    <div style="font-size: 16px;">Study the highlighted correct answers and try again.</div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

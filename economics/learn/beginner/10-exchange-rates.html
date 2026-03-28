@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange Rates - Lesson 10 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th {
+            background: #312e81;
+            color: white;
+            padding: 12px;
+        }
+        .comparison-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .rate-display {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #312e81;
+            margin: 20px 0;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+
+        .currency-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .currency-item {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .currency-symbol {
+            font-size: 24px;
+            font-weight: bold;
+            color: #312e81;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/beginner">Beginner</a> › 
+                Lesson 10: Exchange Rates
+            </div>
+            <div class="title-section">
+                <h1>Exchange Rates</h1>
+                <span class="badge">Beginner • 35 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 12 Quiz Questions</span>
+                <span><i class="fas fa-money-bill-wave"></i> Currency Markets</span>
+                <span><i class="fas fa-mosque"></i> Islamic Finance</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">وَآتُوا الْيَتَامَىٰ أَمْوَالَهُمْ ۖ وَلَا تَتَبَدَّلُوا الْخَبِيثَ بِالطَّيِّبِ</div>
+            <div class="translation">"And give to the orphans their property, and do not substitute the bad [of yours] for the good [of theirs]."</div>
+            <div class="reference">— Quran 4:2</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Exchange rates remind us that the value of things changes. In all transactions, justice and fairness must prevail.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exchange-alt"></i>
+                What is an Exchange Rate?
+            </div>
+            <p style="font-size: 18px;">An exchange rate is simply the price of one currency in terms of another. Just as apples have a price in dollars, currencies have prices in other currencies.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 Simple Definition:</strong> If 1 US Dollar buys 3.75 Saudi Riyals, the exchange rate is 3.75 SAR/USD. If you travel from USA to Saudi Arabia, each of your dollars becomes 3.75 riyals to spend.</p>
+            </div>
+
+            <div class="rate-display">
+                $1 USD = 3.75 SAR 🇸🇦<br>
+                $1 USD = 0.92 EUR 🇪🇺<br>
+                $1 USD = 150 JPY 🇯🇵<br>
+                $1 USD = 1.35 CAD 🇨🇦
+            </div>
+
+            <p>These rates change constantly—sometimes by the second! In 2026, approximately $6.6 trillion worth of currencies are traded every single day.</p>
+        </div>
+
+        <!-- How Exchange Rates Are Quoted -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-quote-right"></i>
+                How Exchange Rates Are Quoted
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🇺🇸 Direct Quote</h4>
+                    <p><strong>USD/currency</strong> - How much foreign currency per dollar</p>
+                    <p>Example: USD/EUR = 0.92 means $1 = €0.92</p>
+                </div>
+                <div class="column-card">
+                    <h4>🇪🇺 Indirect Quote</h4>
+                    <p><strong>currency/USD</strong> - How many dollars per foreign currency</p>
+                    <p>Example: EUR/USD = 1.09 means €1 = $1.09</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Cross Rates</h4>
+                <p>You can also calculate rates between two non-dollar currencies:</p>
+                <p>If $1 = €0.92 and $1 = ¥150, then €1 = ¥150 ÷ 0.92 = ¥163.04</p>
+            </div>
+        </div>
+
+        <!-- Types of Exchange Rate Systems -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-cog"></i>
+                Types of Exchange Rate Systems
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📈 Floating (Market-Based)</h4>
+                    <p><strong>Value determined by supply and demand</strong></p>
+                    <ul>
+                        <li>USA, Eurozone, Japan, UK</li>
+                        <li>Changes constantly</li>
+                        <li>Central banks may occasionally intervene</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>⚓ Fixed (Pegged)</h4>
+                    <p><strong>Value tied to another currency or gold</strong></p>
+                    <ul>
+                        <li>Saudi Arabia (3.75 to USD)</li>
+                        <li>Hong Kong (7.8 to USD)</li>
+                        <li>Denmark (to Euro)</li>
+                        <li>Provides stability for trade</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🔄 Crawling Peg</h4>
+                    <p>Regularly adjusted fixed rate</p>
+                    <p>China used this for years—gradually letting currency appreciate</p>
+                </div>
+                <div class="column-card">
+                    <h4>💱 Managed Float</h4>
+                    <p>Mostly market-driven but with central bank intervention</p>
+                    <p>Many emerging markets use this</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-gulf"></i> Gulf Currencies</h4>
+                <p>Saudi Riyal: Pegged at 3.75 to USD since 1986<br>
+                UAE Dirham: Pegged at 3.67 to USD<br>
+                Qatari Riyal: Pegged at 3.64 to USD<br>
+                Kuwaiti Dinar: Pegged to a basket of currencies (strongest currency in the world!)</p>
+            </div>
+        </div>
+
+        <!-- What Determines Exchange Rates? -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-balance-scale"></i>
+                What Determines Exchange Rates?
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📊 Economic Factors</h4>
+                    <ul>
+                        <li><strong>Interest rates:</strong> Higher rates attract foreign investment → currency strengthens</li>
+                        <li><strong>Inflation:</strong> Higher inflation weakens currency (goods more expensive)</li>
+                        <li><strong>Trade balance:</strong> Surplus strengthens currency (foreigners need your currency to buy your goods)</li>
+                        <li><strong>Economic growth:</strong> Strong growth attracts investment → currency strengthens</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🧠 Psychological Factors</h4>
+                    <ul>
+                        <li><strong>Political stability:</strong> Safe havens (USD, CHF, gold) strengthen during uncertainty</li>
+                        <li><strong>Market sentiment:</strong> "Risk-on" vs "risk-off"</li>
+                        <li><strong>Speculation:</strong> Traders betting on future movements</li>
+                        <li><strong>News and events:</strong> Elections, wars, natural disasters</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Robert Mundell • Nobel Prize 1999</h4>
+                <p>Father of the theory of optimum currency areas. His work on exchange rates and monetary policy laid the foundation for the euro. The "Mundell-Fleming model" explains how monetary and fiscal policy work under different exchange rate regimes.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> The Carry Trade - A Famous Strategy</h4>
+                <p>Borrow in a currency with low interest rates (like Japanese Yen, near 0%), invest in a currency with high rates (like Australian Dollar, 4-5%). Profit from the difference. But if exchange rates move against you, losses can be massive—as many learned in 2008.</p>
+            </div>
+        </div>
+
+        <!-- Effects of Exchange Rate Changes -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-line"></i>
+                Effects of Exchange Rate Changes
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background: #d1fae5;">
+                    <h4>📈 Strong Currency (Appreciation)</h4>
+                    <p>$1 buys more foreign currency</p>
+                    <p><strong>Good for:</strong> Importers, travelers, foreign debt payers</p>
+                    <p><strong>Bad for:</strong> Exporters (goods expensive abroad), tourism industry</p>
+                </div>
+                <div class="column-card" style="background: #fee2e2;">
+                    <h4>📉 Weak Currency (Depreciation)</h4>
+                    <p>$1 buys less foreign currency</p>
+                    <p><strong>Good for:</strong> Exporters, tourism, domestic industries competing with imports</p>
+                    <p><strong>Bad for:</strong> Importers, travelers, those with foreign debt</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-plane"></i> Travel Example</h4>
+                <p><strong>2024:</strong> $1 = €1.10 → Your $5000 trip costs €5500 in Europe</p>
+                <p><strong>2026:</strong> $1 = €0.92 → Your $5000 trip costs only €4600</p>
+                <p>You saved €900! A weaker dollar makes European travel more expensive for Americans; a stronger dollar makes it cheaper.</p>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-car"></i> Business Example</h4>
+                <p><strong>BMW (German carmaker):</strong> When euro strengthens against dollar, BMW's cars become more expensive in America. Sales may fall. When euro weakens, BMW becomes more competitive.</p>
+            </div>
+        </div>
+
+        <!-- The World's Major Currencies -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-globe"></i>
+                Major Currencies of the World
+            </div>
+
+            <div class="currency-list">
+                <div class="currency-item">
+                    <div class="currency-symbol">$</div>
+                    <div>USD</div>
+                    <div style="font-size:12px;">US Dollar</div>
+                </div>
+                <div class="currency-item">
+                    <div class="currency-symbol">€</div>
+                    <div>EUR</div>
+                    <div style="font-size:12px;">Euro</div>
+                </div>
+                <div class="currency-item">
+                    <div class="currency-symbol">¥</div>
+                    <div>JPY</div>
+                    <div style="font-size:12px;">Japanese Yen</div>
+                </div>
+                <div class="currency-item">
+                    <div class="currency-symbol">£</div>
+                    <div>GBP</div>
+                    <div style="font-size:12px;">British Pound</div>
+                </div>
+                <div class="currency-item">
+                    <div class="currency-symbol">CHF</div>
+                    <div>CHF</div>
+                    <div style="font-size:12px;">Swiss Franc</div>
+                </div>
+                <div class="currency-item">
+                    <div class="currency-symbol">C$</div>
+                    <div>CAD</div>
+                    <div style="font-size:12px;">Canadian Dollar</div>
+                </div>
+                <div class="currency-item">
+                    <div class="currency-symbol">A$</div>
+                    <div>AUD</div>
+                    <div style="font-size:12px;">Australian Dollar</div>
+                </div>
+                <div class="currency-item">
+                    <div class="currency-symbol">¥</div>
+                    <div>CNY</div>
+                    <div style="font-size:12px;">Chinese Yuan</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <h4>💵 Islamic World Currencies</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <span style="background:#f1f5f9; padding:5px 10px; border-radius:20px;">🇸🇦 SAR (Saudi Riyal)</span>
+                    <span style="background:#f1f5f9; padding:5px 10px; border-radius:20px;">🇦🇪 AED (UAE Dirham)</span>
+                    <span style="background:#f1f5f9; padding:5px 10px; border-radius:20px;">🇶🇦 QAR (Qatari Riyal)</span>
+                    <span style="background:#f1f5f9; padding:5px 10px; border-radius:20px;">🇰🇼 KWD (Kuwaiti Dinar)</span>
+                    <span style="background:#f1f5f9; padding:5px 10px; border-radius:20px;">🇹🇷 TRY (Turkish Lira)</span>
+                    <span style="background:#f1f5f9; padding:5px 10px; border-radius:20px;">🇲🇾 MYR (Malaysian Ringgit)</span>
+                    <span style="background:#f1f5f9; padding:5px 10px; border-radius:20px;">🇮🇩 IDR (Indonesian Rupiah)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Historical Examples -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Famous Exchange Rate Events
+            </div>
+
+            <div style="margin: 20px 0;">
+                <div style="background:#f1f5f9; padding:20px; border-radius:16px; margin:15px 0;">
+                    <h4>🇬🇧 1992: Black Wednesday</h4>
+                    <p>George Soros "broke the Bank of England." He bet £10 billion that the pound would fall. The UK was forced to withdraw from the European Exchange Rate Mechanism. Soros made $1 billion in one day.</p>
+                </div>
+
+                <div style="background:#f1f5f9; padding:20px; border-radius:16px; margin:15px 0;">
+                    <h4>🇦🇷 2001: Argentine Peso Collapse</h4>
+                    <p>After years of pegging 1 peso = 1 dollar, Argentina's economy collapsed. The peg broke, peso lost 70% of its value, causing widespread poverty and riots.</p>
+                </div>
+
+                <div style="background:#f1f5f9; padding:20px; border-radius:16px; margin:15px 0;">
+                    <h4>🇨🇭 2015: Swiss Franc Shock</h4>
+                    <p>Swiss National Bank suddenly removed its cap on franc versus euro. Franc surged 30% in minutes. Many brokers and traders bankrupted.</p>
+                </div>
+
+                <div style="background:#f1f5f9; padding:20px; border-radius:16px; margin:15px 0;">
+                    <h4>🇹🇷 2020-2025: Turkish Lira Crisis</h4>
+                    <p>Unconventional monetary policy (cutting rates despite high inflation) caused lira to lose 80% of its value against dollar. Turks' savings devastated.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Dollar's Special Role -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-dollar-sign"></i>
+                The US Dollar: Global Reserve Currency
+            </div>
+
+            <div class="psychology-box">
+                <p>Since 1944 (Bretton Woods), the US dollar has been the world's primary reserve currency. About 60% of global central bank reserves are in dollars. Most international trade (especially oil) is priced in dollars.</p>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>✅ Benefits to USA</h4>
+                    <ul>
+                        <li>Can borrow cheaply (everyone wants dollars)</li>
+                        <li>No exchange rate risk for US companies</li>
+                        <li>Political power (sanctions possible)</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>⚠️ Costs to USA</h4>
+                    <ul>
+                        <li>Overvalued dollar hurts manufacturing</li>
+                        <li>Must run trade deficits to supply dollars</li>
+                        <li>Responsibility to maintain stability</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>🌍 De-dollarization?</h4>
+                <p>Countries like China, Russia, and some Muslim nations are exploring alternatives—trading in yuan, rubles, or gold. The rise of digital currencies and geopolitical shifts may slowly reduce dollar dominance over coming decades.</p>
+            </div>
+        </div>
+
+        <!-- Islamic Perspective on Currency Exchange -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islamic Perspective on Currency Exchange
+            </div>
+
+            <div class="psychology-box">
+                <h4>📜 Fiqh of Currency Exchange (Al-Sarf)</h4>
+                <p>Islamic law has detailed rules for currency exchange to prevent riba and gharar:</p>
+                <ul>
+                    <li><strong>Hand-to-hand (spot):</strong> Exchange must be completed immediately (no delayed settlement)</li>
+                    <li><strong>Equal if same currency:</strong> Exchanging dollars for dollars must be at par (no profit on same currency)</li>
+                    <li><strong>Different currencies:</strong> Can be at different rates, but must be spot transaction</li>
+                </ul>
+            </div>
+
+            <div class="psychology-box">
+                <h4>⚠️ What's Prohibited</h4>
+                <ul>
+                    <li><strong>Forex speculation:</strong> Trading currencies with leverage, interest, or delayed settlement (common in conventional forex trading)</li>
+                    <li><strong>Currency futures/options:</strong> Most scholars consider them haram due to gharar and lack of asset backing</li>
+                    <li><strong>Interest-bearing accounts:</strong> Holding foreign currency in interest-bearing accounts</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-check-circle"></i> Halal Currency Exchange</h4>
+                <p><strong>✅ Travel exchange:</strong> You go to an exchange bureau, pay dollars, receive euros immediately. Halal.</p>
+                <p><strong>✅ Islamic forex accounts:</strong> Some brokers offer "Islamic accounts" with no interest (swap-free) and spot-only trading. Permissible if no other violations.</p>
+                <p><strong>✅ Currency as payment:</strong> Accepting different currencies for goods/services is fine.</p>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-times-circle"></i> Haram Currency Trading</h4>
+                <p><strong>❌ Speculative forex:</strong> Borrowing 100x leverage, paying interest on overnight positions, betting on price movements without any intention of actual currency use—this resembles gambling and involves riba.</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 12 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is an exchange rate?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">A. The interest rate set by central banks</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">B. The price of one currency in terms of another</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. The inflation rate</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. The stock market index</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> Exchange rate is simply the price of one currency measured in another currency.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. If 1 USD = 0.92 EUR, what is the EUR/USD rate?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">A. 0.92</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">B. 1.09 (1 ÷ 0.92)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. 1.00</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. 0.85</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> If $1 = €0.92, then €1 = $1 ÷ 0.92 = $1.09. The reciprocal gives the other quote.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. Which Gulf currency is pegged to the US dollar at approximately 3.75?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">A. UAE Dirham</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. Qatari Riyal</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">C. Saudi Riyal</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. Kuwaiti Dinar</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Saudi Riyal has been pegged at 3.75 to USD since 1986, providing stability for oil trade.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. What happens to a country's exports when its currency weakens?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">A. Exports become cheaper for foreigners, so they increase</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">B. Exports become more expensive, so they decrease</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. Exports are unchanged</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Exports stop completely</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> A weaker currency makes your goods cheaper for foreigners to buy, boosting exports.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What is a "fixed" or "pegged" exchange rate?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">A. Rate set by market supply and demand</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">B. Rate officially tied to another currency or gold</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">C. Rate that changes every minute</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. Rate set by the IMF</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> Fixed rates are officially set and maintained by central banks, often tied to a major currency like USD.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. Who won the Nobel Prize for work on optimum currency areas?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">A. Milton Friedman</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. Paul Krugman</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">C. Robert Mundell</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Joseph Stiglitz</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> Robert Mundell won the Nobel Prize in 1999 for his work on exchange rates and optimum currency areas, laying the foundation for the euro.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What happened on "Black Wednesday" (1992)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">A. US stock market crashed</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">B. George Soros forced UK out of ERM, pound collapsed</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. Japanese yen hit record high</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. Euro was introduced</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> George Soros famously "broke the Bank of England," forcing the UK out of the European Exchange Rate Mechanism and making $1 billion profit.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. What is the Islamic ruling on currency exchange (Al-Sarf)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">A. Must be spot (hand-to-hand), no interest, equal if same currency</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">B. Any type of forex trading is allowed</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. Only gold can be exchanged</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. Delayed settlement is fine</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> Islamic law requires spot (immediate) exchange, prohibits interest, and requires equal value when exchanging same currency.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. Which currency is the world's primary reserve currency?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">A. US Dollar</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. Euro</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. Japanese Yen</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. British Pound</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> The US dollar is the world's primary reserve currency, with about 60% of central bank reserves held in dollars.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. What does a "strong" currency mean for travelers?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. Their money buys more abroad (cheaper travel)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Their money buys less abroad (expensive travel)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. No change</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. They cannot travel</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> A strong currency means each unit buys more foreign currency, making travel and imports cheaper.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. What happened to Turkish Lira between 2020-2025?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">A. Lost about 80% of its value due to unconventional policy</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. Became the world's strongest currency</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. Was pegged to euro</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. No change</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Turkey's experiment with low interest rates despite high inflation caused the lira to crash, devastating savings.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. What is "de-dollarization"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">A. Countries reducing reliance on US dollar in trade and reserves</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">B. Abolishing the dollar completely</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. Dollar becoming stronger</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. Printing more dollars</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> De-dollarization refers to countries (like China, Russia, some Muslim nations) trying to trade in other currencies to reduce dollar dependence.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"The Alchemists: Three Central Bankers and a World on Fire" - Neil Irwin</a></li>
+                        <li><a href="#">"Currency Wars" - James Rickards</a></li>
+                        <li><a href="#">"Principles of Economics" - Mankiw (Ch. 31)</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🌐 Data Sources</h4>
+                    <ul>
+                        <li><a href="https://www.xe.com" target="_blank">XE.com - Live Exchange Rates</a></li>
+                        <li><a href="https://www.bis.org" target="_blank">Bank for International Settlements</a></li>
+                        <li><a href="https://www.imf.org/en/Data" target="_blank">IMF - Exchange Rate Data</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Finance</h4>
+                    <ul>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Finance</a></li>
+                        <li><a href="#">"Islamic Economics: Theory and Practice" - M. Umer Chapra</a></li>
+                        <li><a href="https://isdb.org" target="_blank">Islamic Development Bank</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/beginner/09-international-trade.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: International Trade</a>
+            <a href="/economics/learn/intermediate/11-economic-indicators.html" class="nav-link">Next: Economic Indicators <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May your wealth be blessed in every currency and your dealings be just in every land</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 10 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في العشر الأواخر من رمضان</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

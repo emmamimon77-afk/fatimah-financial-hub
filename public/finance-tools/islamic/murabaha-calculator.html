@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Murabaha Calculator - Islamic Finance | Fatimah Financial Hub</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Islamic Finance Specific Styles */
+        :root {
+            --islamic-green: #2E7D32;
+            --islamic-green-light: #E8F5E9;
+            --islamic-gold: #D4A017;
+            --western-blue: #1565C0;
+            --western-blue-light: #E3F2FD;
+        }
+        
+        .islamic-card {
+            border-left: 5px solid var(--islamic-green);
+            background: linear-gradient(135deg, #f8fdf9 0%, #f0f9f3 100%);
+        }
+        
+        .western-card {
+            border-left: 5px solid var(--western-blue);
+            background: linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%);
+        }
+        
+        .islamic-badge {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--islamic-green);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .western-badge {
+            background: rgba(21, 101, 192, 0.1);
+            color: var(--western-blue);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .comparison-highlight {
+            background: #FFF8E1;
+            border-left: 4px solid #FFB300;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .input-group-enhanced {
+            margin-bottom: 20px;
+        }
+        
+        .input-group-enhanced label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #37474F;
+        }
+        
+        .input-group-enhanced input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group-enhanced input:focus {
+            border-color: var(--islamic-green);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+        
+        .results-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-top: 20px;
+        }
+        
+        .results-header {
+            font-size: 1.3rem;
+            color: var(--islamic-green);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--islamic-green-light);
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .profit-margin-slider {
+            width: 100%;
+            margin: 15px 0;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 4px;
+            background: #E0E0E0;
+            outline: none;
+        }
+        
+        .profit-margin-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--islamic-green);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem;">
+                <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; opacity: 0.9;">
+                <i class="fas fa-calculator"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; opacity: 0.9;">
+               <i class="fas fa-phone-alt"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px;">
+                 <span style="font-size: 1.2rem;">﷽</span> Islamic Finance
+            </span>
+        </div>
+    </div>
+    
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+         <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none;">Home</a>
+         <span style="margin: 0 8px; color: #999;">›</span>
+         <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none;">Tools</a>
+         <span style="margin: 0 8px; color: #999;">›</span>
+         <a href="../index.html" style="color: #667eea; text-decoration: none;">Islamic Finance</a>
+         <span style="margin: 0 8px; color: #999;">›</span>
+         <span style="color: #333;">Murabaha Calculator</span>
+    </div>
+ 
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-balance-scale"></i> Islamic Finance: Murabaha Calculator</h1>
+            <p>Compare Sharia-compliant cost-plus financing with conventional interest-based loans</p>
+        </div>
+        
+        <!-- Navigation -->
+        <div style="margin-bottom: 25px;">
+            <a href="../global/index.html" class="btn" style="background: var(--islamic-green); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center;">
+                <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Back to Global Calculators
+            </a>
+            <span style="margin-left: 15px; color: #666; font-size: 0.9rem;">
+                <i class="fas fa-info-circle" style="margin-right: 5px;"></i> Part of Fatimah Financial Hub
+            </span>
+        </div>
+
+        <!-- Country Selector for Islamic Finance -->
+        <div style="margin-bottom: 20px; padding: 15px; background: #F5F5F5; border-radius: 8px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <div>
+                    <strong style="color: #37474F;">
+                        <i class="fas fa-globe-americas" style="margin-right: 8px;"></i> Select Market:
+                    </strong>
+                    <select id="countrySelect" style="margin-left: 10px; padding: 8px 15px; border-radius: 5px; border: 1px solid #DDD; background: white;">
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="UAE">United Arab Emirates</option>
+                        <option value="SAUDI_ARABIA">Saudi Arabia</option>
+                        <option value="MALAYSIA">Malaysia</option>
+                        <option value="TURKEY">Turkey</option>
+                        <option value="INDONESIA">Indonesia</option>
+                        <option value="PAKISTAN">Pakistan</option>
+                    </select>
+                </div>
+                <div style="font-size: 0.9rem; color: #666;">
+                    <i class="fas fa-info-circle" style="margin-right: 5px;"></i>
+                    Country affects profit margins and interest rates
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Main Calculator Section -->
+        <div class="calculator-card islamic-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h2 style="margin: 0; color: var(--islamic-green);">
+                    <i class="fas fa-calculator" style="margin-right: 10px;"></i> Murabaha Financing Calculator
+                </h2>
+                <div class="islamic-badge">
+                    <i class="fas fa-mosque" style="margin-right: 5px;"></i> Sharia Compliant
+                </div>
+            </div>
+            
+            <!-- Input Section -->
+            <div class="comparison-grid">
+                <!-- Islamic Murabaha Inputs -->
+                <div>
+                    <h3 style="color: var(--islamic-green); margin-bottom: 20px;">
+                        <i class="fas fa-mosque" style="margin-right: 8px;"></i> Islamic Murabaha
+                    </h3>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="mCostPrice">Asset Cost Price (<span class="currency-label">$</span>)</label>
+                        <input type="number" id="mCostPrice" value="250000" step="1000" min="1000">
+                        <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">
+                            Actual price bank pays for the asset
+                        </div>
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="mProfitMargin">Profit Margin: <span id="profitMarginValue">12%</span></label>
+                        <input type="range" id="mProfitMargin" class="profit-margin-slider" min="1" max="30" value="12" step="0.5">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #666;">
+                            <span>1%</span>
+                            <span>Typical: 8-15%</span>
+                            <span>30%</span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="input-group-enhanced">
+                            <label for="mTenure">Tenure (Months)</label>
+                            <input type="number" id="mTenure" value="60" min="12" max="360">
+                        </div>
+                        <div class="input-group-enhanced">
+                            <label for="mDownPayment">Down Payment (<span class="currency-label">$</span>)</label>
+                            <input type="number" id="mDownPayment" value="50000" step="1000">
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px;">
+                        <div class="input-group-enhanced">
+                            <label for="mProcessingFee" style="font-size: 0.9rem;">Processing Fee (<span class="currency-label">$</span>)</label>
+                            <input type="number" id="mProcessingFee" value="1500" step="100">
+                        </div>
+                        <div class="input-group-enhanced">
+                            <label for="mInsurance" style="font-size: 0.9rem;">Insurance/Year (<span class="currency-label">$</span>)</label>
+                            <input type="number" id="mInsurance" value="1200" step="100">
+                        </div>
+                        <div class="input-group-enhanced">
+                            <label for="mStampDuty" style="font-size: 0.9rem;">Stamp Duty (<span class="currency-label">$</span>)</label>
+                            <input type="number" id="mStampDuty" value="800" step="100">
+                        </div>
+                    </div>
+                    
+                    <button id="calcMurabahaBtn" class="calculate-btn" style="background: var(--islamic-green); margin-top: 20px; width: 100%; padding: 15px; font-size: 1.1rem;">
+                        <i class="fas fa-calculator" style="margin-right: 10px;"></i> Calculate Murabaha
+                    </button>
+                </div>
+                
+                <!-- Western Loan Inputs -->
+                <div>
+                    <h3 style="color: var(--western-blue); margin-bottom: 20px;">
+                        <i class="fas fa-university" style="margin-right: 8px;"></i> Conventional Loan
+                    </h3>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="wPrincipal">Loan Principal (<span class="currency-label">$</span>)</label>
+                        <input type="number" id="wPrincipal" value="250000" step="1000" min="1000">
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="wRate">Annual Interest Rate (%)</label>
+                        <input type="number" id="wRate" value="7.5" step="0.1" min="1" max="30">
+                        <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">
+                            <span id="currentMarketRate">Current market rate: Loading...</span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="input-group-enhanced">
+                            <label for="wTenure">Tenure (Months)</label>
+                            <input type="number" id="wTenure" value="60" min="12" max="360">
+                        </div>
+                        <div class="input-group-enhanced">
+                            <label for="wDownPayment">Down Payment (<span class="currency-symbol">$</span>)</label>
+                            <input type="number" id="wDownPayment" value="50000" step="1000">
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px;">
+                        <div class="input-group-enhanced">
+                            <label for="wOriginationFee" style="font-size: 0.9rem;">Origination Fee (<span class="currency-label">$</span>)</label>
+                            <input type="number" id="wOriginationFee" value="2000" step="100">
+                        </div>
+                        <div class="input-group-enhanced">
+                            <label for="wInsurance" style="font-size: 0.9rem;">Insurance/Year (<span class="currency-label">$</span>)</label>
+                            <input type="number" id="wInsurance" value="1200" step="100">
+                        </div>
+                        <div class="input-group-enhanced">
+                            <label for="wStampDuty" style="font-size: 0.9rem;">Stamp Duty (<span class="currency-label">$</span>)</label>
+                            <input type="number" id="wStampDuty" value="800" step="100">
+                        </div>
+                    </div>
+                    
+                    <button id="calcWesternBtn" class="calculate-btn" style="background: var(--western-blue); margin-top: 20px; width: 100%; padding: 15px; font-size: 1.1rem;">
+                        <i class="fas fa-calculator" style="margin-right: 10px;"></i> Calculate Conventional Loan
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Sync Note -->
+            <div style="text-align: center; margin: 20px 0; padding: 10px; background: #F5F5F5; border-radius: 8px; font-size: 0.9rem; color: #666;">
+                <i class="fas fa-sync-alt" style="margin-right: 5px;"></i> Asset cost and loan principal are synced for fair comparison
+            </div>
+            
+            <!-- Calculate Both Button -->
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="compareBothBtn" class="calculate-btn" style="background: linear-gradient(135deg, var(--islamic-green) 0%, var(--western-blue) 100%); color: white; padding: 15px 40px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer;">
+                    <i class="fas fa-balance-scale" style="margin-right: 10px;"></i> Compare Both Financing Methods
+                </button>
+            </div>
+        </div>
+        
+        <!-- Results Section (Initially Hidden) -->
+        <div id="resultsSection" style="display: none;">
+            <div class="results-panel">
+                <h2 class="results-header">
+                    <i class="fas fa-chart-bar" style="margin-right: 10px;"></i> Comparison Results
+                </h2>
+                
+                <!-- Quick Comparison -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                    <div style="text-align: center; padding: 20px; background: var(--islamic-green-light); border-radius: 10px;">
+                        <div style="font-size: 0.9rem; color: var(--islamic-green); margin-bottom: 10px;">
+                            <i class="fas fa-mosque"></i> Murabaha Total
+                        </div>
+                        <div id="murabahaTotal" style="font-size: 2rem; font-weight: bold; color: var(--islamic-green);">
+                            $0
+                        </div>
+                        <div id="murabahaMonthly" style="font-size: 1rem; color: #666; margin-top: 5px;">
+                            $0/month
+                        </div>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: var(--western-blue-light); border-radius: 10px;">
+                        <div style="font-size: 0.9rem; color: var(--western-blue); margin-bottom: 10px;">
+                            <i class="fas fa-university"></i> Conventional Total
+                        </div>
+                        <div id="westernTotal" style="font-size: 2rem; font-weight: bold; color: var(--western-blue);">
+                            $0
+                        </div>
+                        <div id="westernMonthly" style="font-size: 1rem; color: #666; margin-top: 5px;">
+                            $0/month
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Winner Box -->
+                <div id="winnerBox" style="text-align: center; padding: 15px; background: #FFF8E1; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #FFB300;">
+                    <i class="fas fa-trophy" style="color: #FF8F00; font-size: 1.2rem; margin-right: 10px;"></i>
+                    <span id="winnerText" style="font-weight: bold; color: #5D4037;">Calculate to see which option is better</span>
+                    <div id="savingsText" style="font-size: 0.9rem; color: #666; margin-top: 5px;"></div>
+                </div>
+                
+                <!-- Detailed Results -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div>
+                        <h3 style="color: var(--islamic-green); margin-bottom: 15px;">
+                            <i class="fas fa-list-alt" style="margin-right: 8px;"></i> Murabaha Breakdown
+                        </h3>
+                        <div id="murabahaDetails" style="font-size: 0.95rem;">
+                            <!-- Filled by JavaScript -->
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--western-blue); margin-bottom: 15px;">
+                            <i class="fas fa-list-alt" style="margin-right: 8px;"></i> Conventional Loan Breakdown
+                        </h3>
+                        <div id="westernDetails" style="font-size: 0.95rem;">
+                            <!-- Filled by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chart Container -->
+                <div style="margin-top: 40px;">
+                    <h3 style="color: #37474F; margin-bottom: 20px;">
+                        <i class="fas fa-chart-line" style="margin-right: 8px;"></i> Cost Comparison Over Time
+                    </h3>
+                    <div style="background: white; padding: 20px; border-radius: 10px; border: 1px solid #E0E0E0;">
+                        <canvas id="costChart" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How It Works - Calculation Details -->
+        <div class="education-section" style="margin-top: 30px;">
+            <h2><i class="fas fa-calculator"></i> How The Calculations Work</h2>
+            
+            <button id="toggleMurabahaCalculations" class="btn-secondary" style="margin-bottom: 20px;">
+                <i class="fas fa-chevron-down"></i> Show Calculation Details
+            </button>
+            
+            <div id="murabahaCalculationDetails" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #2E7D32;">
+                <h3>Murabaha (Islamic Cost-Plus) Formula:</h3>
+                <div style="background: white; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>Bank Profit = Asset Cost × Profit Margin</strong></p>
+                    <p>Example: 250,000 × 9% = <strong>د.إ22,500</strong></p>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>Sale Price = Asset Cost + Bank Profit</strong></p>
+                    <p>Example: 250,000 + 22,500 = <strong>د.إ272,500</strong></p>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>Financed Amount = Sale Price - Down Payment</strong></p>
+                    <p>Example: 272,500 - 50,000 = <strong>د.إ222,500</strong></p>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>Monthly Payment = Financed Amount ÷ Number of Months</strong></p>
+                    <p>Example: 222,500 ÷ 60 = <strong>د.إ3,708.33/month</strong></p>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>Total Fees = Processing Fee + Insurance + Stamp Duty</strong></p>
+                    <p>Example: 1,500 + (1,200 × 5 years) + 800 = <strong>د.إ8,300</strong></p>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>Total Murabaha Cost = Sale Price + Total Fees</strong></p>
+                    <p>Example: 272,500 + 8,300 = <strong>د.إ280,800</strong></p>
+                    <p><em>Net Cost to Buyer = Total Cost - Down Payment = د.إ230,800</em></p>
+                </div>
+                
+                <h3>Conventional Loan Formula:</h3>
+                <div style="background: white; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>Monthly Payment Formula (PMT):</strong></p>
+                    <p>PMT = P × [r(1+r)^n] ÷ [(1+r)^n - 1]</p>
+                    <p>Where:<br>
+                    P = Loan Principal (250,000 - 50,000 down = 200,000)<br>
+                    r = Monthly Interest Rate (4.5% ÷ 12 = 0.375%)<br>
+                    n = Number of Payments (60 months)</p>
+                    <p>Example: 200,000 × [0.00375(1.00375)^60] ÷ [(1.00375)^60 - 1] = <strong>د.إ3,727.57/month</strong></p>
+                    <p><em>Note: Actually shows د.إ4,660.75 because includes insurance & fees in monthly</em></p>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>Total Interest = (Monthly Payment × Months) - Principal</strong></p>
+                    <p>Example: (4,660.75 × 60) - 200,000 = <strong>د.إ79,645</strong> interest</p>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>Total Conventional Cost = Total Payments + Fees</strong></p>
+                    <p>Example: 279,645 + 8,800 = <strong>د.إ288,445</strong> total</p>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 5px; margin: 10px 0;">
+                    <p><strong>Key Difference:</strong></p>
+                    <p>Murabaha: Fixed profit known upfront, no compound interest</p>
+                    <p>Conventional: Compound interest, rate can change</p>
+                    <p><strong>In this example: Conventional saves د.إ1,154.71 (0.4%)</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Make sure to include everything until the closing </div> -->
+        <!-- Educational Content - PROFESSIONAL VERSION -->
+        <div class="calculator-card" style="margin-top: 40px; border-left: 5px solid #2E7D32; background: linear-gradient(135deg, #f8fdf9 0%, #f0f9f3 100%);">
+            <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                <div style="background: #2E7D32; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                    <i class="fas fa-graduation-cap" style="font-size: 1.5rem;"></i>
+                </div>
+                <h3 style="margin: 0; color: #1B5E20; font-size: 1.5rem;">Understanding Murabaha: Islamic Finance Principles</h3>
+            </div>
+            
+            <div class="educational-content" style="padding: 0 10px;">
+                
+                <!-- What is Murabaha -->
+                <div style="margin-bottom: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <h4 style="color: #2E7D32; margin-bottom: 15px; font-size: 1.2rem; border-bottom: 2px solid #E8F5E9; padding-bottom: 8px;">
+                        <i class="fas fa-info-circle" style="margin-right: 8px;"></i> What is Murabaha?
+                    </h4>
+                    <p style="line-height: 1.7; color: #37474F; font-size: 1.05rem; margin-bottom: 15px;">
+                        <strong>Murabaha</strong> (مُرَابَحَة) is an Islamic financing structure where a financial institution purchases an asset and sells it to the customer at a cost-plus-profit margin. Unlike conventional loans, there is no interest (riba) charged, making it Sharia-compliant.
+                    </p>
+                    <p style="line-height: 1.7; color: #37474F; font-size: 1.05rem;">
+                        The term comes from the Arabic root "رَبْح" (profit), emphasizing transparent profit-sharing rather than interest-based lending.
+                    </p>
+                </div>
+                
+                <!-- Key Principles -->
+                <div style="margin-bottom: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <h4 style="color: #2E7D32; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid #E8F5E9; padding-bottom: 8px;">
+                        <i class="fas fa-star" style="margin-right: 8px;"></i> Key Islamic Finance Principles
+                    </h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                        <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                            <div style="color: #2E7D32; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-ban" style="margin-right: 8px;"></i> No Riba (Interest)
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Fixed profit margin disclosed upfront, no compound interest
+                            </div>
+                        </div>
+                        <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                            <div style="color: #2E7D32; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-home" style="margin-right: 8px;"></i> Asset-Backed
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Financing tied to real, tangible assets
+                            </div>
+                        </div>
+                        <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                            <div style="color: #2E7D32; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-eye" style="margin-right: 8px;"></i> Transparency
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                All costs, risks, and profits disclosed upfront
+                            </div>
+                        </div>
+                        <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                            <div style="color: #2E7D32; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-handshake" style="margin-right: 8px;"></i> Risk-Sharing
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Bank bears ownership risk until sale completion
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Professional Comparison Table -->
+                <div style="padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <h4 style="color: #2E7D32; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid #E8F5E9; padding-bottom: 8px;">
+                        <i class="fas fa-balance-scale" style="margin-right: 8px;"></i> Side-by-Side Comparison: Murabaha vs Conventional Loans
+                    </h4>
+                    
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+                            <thead>
+                                <tr>
+                                    <th style="background: #f8f9fa; padding: 15px; text-align: left; font-weight: 600; color: #37474F; border-bottom: 2px solid #E0E0E0;">
+                                        Aspect
+                                    </th>
+                                    <th style="background: #E8F5E9; padding: 15px; text-align: left; font-weight: 600; color: #2E7D32; border-bottom: 2px solid #4CAF50;">
+                                        <i class="fas fa-mosque" style="margin-right: 8px;"></i> Murabaha (Islamic)
+                                    </th>
+                                    <th style="background: #E3F2FD; padding: 15px; text-align: left; font-weight: 600; color: #1565C0; border-bottom: 2px solid #2196F3;">
+                                        <i class="fas fa-university" style="margin-right: 8px;"></i> Conventional Loan
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500; color: #455A64;">
+                                        Interest Mechanism
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F9FDF9;">
+                                        <span style="color: #2E7D32; font-weight: 600;">Fixed profit margin</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">No compound interest</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F8FBFF;">
+                                        <span style="color: #1565C0; font-weight: 600;">Compound interest</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Interest on interest</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500; color: #455A64;">
+                                        Risk Distribution
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F9FDF9;">
+                                        <span style="color: #2E7D32; font-weight: 600;">Bank owns asset</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Bears ownership risk</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F8FBFF;">
+                                        <span style="color: #1565C0; font-weight: 600;">Collateral-based</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Customer bears default risk</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500; color: #455A64;">
+                                        Cost Transparency
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F9FDF9;">
+                                        <span style="color: #2E7D32; font-weight: 600;">Fully transparent</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">All costs known upfront</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F8FBFF;">
+                                        <span style="color: #1565C0; font-weight: 600;">Variable interest</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Rates can change</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500; color: #455A64;">
+                                        Ethical Foundation
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F9FDF9;">
+                                        <span style="color: #2E7D32; font-weight: 600;">Sharia-compliant</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">No exploitation (riba)</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F8FBFF;">
+                                        <span style="color: #1565C0; font-weight: 600;">Profit-maximizing</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Market-driven rates</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; font-weight: 500; color: #455A64;">
+                                        Economic Impact
+                                    </td>
+                                    <td style="padding: 14px 15px; background: #F9FDF9;">
+                                        <span style="color: #2E7D32; font-weight: 600;">Wealth distribution</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Promotes real economy</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; background: #F8FBFF;">
+                                        <span style="color: #1565C0; font-weight: 600;">Wealth concentration</span><br>
+                                        <span style="color: #666; font-size: 0.9rem;">Can fuel debt cycles</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div style="margin-top: 25px; padding: 15px; background: #FFF8E1; border-radius: 8px; border-left: 4px solid #FFB300;">
+                        <div style="display: flex; align-items: flex-start;">
+                            <i class="fas fa-lightbulb" style="color: #FF8F00; font-size: 1.2rem; margin-right: 12px; margin-top: 2px;"></i>
+                            <div>
+                                <div style="color: #5D4037; font-weight: 600; margin-bottom: 5px;">Key Insight:</div>
+                                <div style="color: #5D4037; font-size: 0.95rem;">
+                                    While Murabaha may appear similar to conventional loans, its prohibition of interest (riba) and emphasis on asset-backed, transparent transactions create fundamentally different economic and ethical outcomes.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+    
+    <!-- Include your scripts -->
+    <script src="../shared/api-keys.js"></script>
+    <script src="../shared/config.js"></script>
+    <script src="../shared/calculators.js"></script>
+    <script src="../modules/ui-controls.js"></script>
+    <script src="../modules/islamic-calculators.js"></script>
+    
+    <script>
+    // Main JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Murabaha calculator page loaded');
+        
+        // Initialize
+        window.islamicCalculators = new IslamicCalculators();
+        
+        // Setup event listeners
+        setupEventListeners();
+
+        // Country select
+        document.getElementById('countrySelect').addEventListener('change', async function() {
+            const country = this.value;
+            console.log('Country changed to:', country);
+            
+            // Update profit margins and currency
+            const countryData = await loadIslamicProfitMargins();
+            
+            // Update interest rate for selected country
+            await loadMarketRate(country);
+
+            // ADD THIS LINE: Update currency labels
+            updateCurrencyLabels(country);
+            
+            // Update currency in results if they exist
+            if (countryData && document.getElementById('resultsSection').style.display !== 'none') {
+                updateCurrencyDisplay(countryData);
+                // Recalculate with new rates
+                compareBoth();
+            }
+        });
+
+        
+        // Load real-time data
+        Promise.all([
+            loadMarketRate(),
+            loadIslamicProfitMargins()
+        ]).then(() => {
+            console.log('All market data loaded successfully');
+        }).catch(error => {
+            console.error('Error loading market data:', error);
+        });   
+
+        // ADD THIS: Update currency labels on initial load
+        const countrySelect = document.getElementById('countrySelect');
+        const initialCountry = countrySelect ? countrySelect.value : 'US';
+        updateCurrencyLabels(initialCountry);
+        
+        // Update profit margin display
+        updateProfitMarginDisplay();
+    });
+    
+    function setupEventListeners() {
+        // Sync inputs
+        document.getElementById('mCostPrice').addEventListener('input', function() {
+            document.getElementById('wPrincipal').value = this.value;
+        });
+        
+        document.getElementById('wPrincipal').addEventListener('input', function() {
+            document.getElementById('mCostPrice').value = this.value;
+        });
+        
+        // Profit margin slider
+        document.getElementById('mProfitMargin').addEventListener('input', updateProfitMarginDisplay);
+        
+        // Calculate buttons
+        document.getElementById('calcMurabahaBtn').addEventListener('click', calculateMurabaha);
+        document.getElementById('calcWesternBtn').addEventListener('click', calculateWestern);
+        document.getElementById('compareBothBtn').addEventListener('click', compareBoth);
+    }
+    
+    function updateProfitMarginDisplay() {
+        const slider = document.getElementById('mProfitMargin');
+        const display = document.getElementById('profitMarginValue');
+        display.textContent = slider.value + '%';
+    }
+
+
+    // Update all currency labels on the page
+    async function updateCurrencyLabels(countryCode) {
+        try {
+            console.log('updateCurrencyLabels called for:', countryCode);
+            
+            let symbol = '$';
+            
+            // Try to get from FinancialConfig first
+            if (window.FinancialConfig && window.FinancialConfig.countryData) {
+                // Map full country names to config codes
+                const countryMap = {
+                    'SAUDI_ARABIA': 'SA',
+                    'MALAYSIA': 'MY',
+                    'INDONESIA': 'ID',
+                    'PAKISTAN': 'PK',
+                    'TURKEY': 'TR',
+                    'UAE': 'UAE',
+                    'US': 'US',
+                    'UK': 'UK',
+                    'EU': 'EU',
+                    'JP': 'JP',
+                    'IN': 'IN',
+                    'AU': 'AU',
+                    'CN': 'CN',
+                    'RU': 'RU'
+                };
+                
+                const configCode = countryMap[countryCode] || countryCode;
+                const countryInfo = window.FinancialConfig.countryData[configCode];
+                
+                if (countryInfo && countryInfo.symbol) {
+                    symbol = countryInfo.symbol;
+                    console.log('Got symbol from config:', symbol, 'for', countryCode, '(config code:', configCode, ')');
+                } else {
+                    // Fallback symbols for common Islamic countries
+                    const fallbackSymbols = {
+                        'SAUDI_ARABIA': 'ر.س',
+                        'SA': 'ر.س',
+                        'UAE': 'د.إ',
+                        'QATAR': 'ر.ق',
+                        'KUWAIT': 'د.ك',
+                        'BAHRAIN': '.د.ب',
+                        'OMAN': 'ر.ع.',
+                        'INDONESIA': 'Rp',
+                        'ID': 'Rp',
+                        'MALAYSIA': 'RM',
+                        'MY': 'RM',
+                        'PAKISTAN': '₨',
+                        'PK': '₨',
+                        'TURKEY': '₺',
+                        'TR': '₺',
+                        'UK': '£',
+                        'EU': '€',
+                        'JP': '¥',
+                        'CN': '¥',
+                        'IN': '₹',
+                        'AU': 'A$',
+                        'RU': '₽',
+                        'US': '$'
+                    };
+                    
+                    symbol = fallbackSymbols[countryCode] || fallbackSymbols[configCode] || '$';
+                    console.log('Using fallback symbol:', symbol, 'for', countryCode, '(config code:', configCode, ')');
+                }
+            } else {
+                console.error('FinancialConfig not available');
+            }
+            
+            // Update all currency-label spans
+            document.querySelectorAll('.currency-label').forEach(span => {
+                span.textContent = symbol;
+            });
+            
+            // Update currency-symbol spans
+            document.querySelectorAll('.currency-symbol').forEach(span => {
+                span.textContent = symbol;
+            });
+            
+            console.log('✅ Updated currency labels to:', symbol, 'for', countryCode);
+        } catch (error) {
+            console.log('Error updating currency labels:', error);
+        }
+    }
+    
+    async function loadMarketRate(countryCode = null) {
+        try {
+            const countrySelect = document.getElementById('countrySelect');
+            const country = countryCode || (countrySelect ? countrySelect.value : 'US');
+            
+            const rateDisplay = document.getElementById('currentMarketRate');
+            rateDisplay.innerHTML = '<span style="color: #666;"><i class="fas fa-spinner fa-spin"></i> Loading market rate...</span>';
+            
+            // Default fallback rates by country
+            const defaultRates = {
+                'US': 7.23,
+                'UK': 5.5,
+                'UAE': 4.5,
+                'SAUDI_ARABIA': 3.0,
+                'MALAYSIA': 3.8,
+                'TURKEY': 12.5,
+                'INDONESIA': 8.2,
+                'PAKISTAN': 13.0
+            };
+            
+            let currentRate = defaultRates[country] || 7.5;
+            let source = 'Country default';
+            
+            // For US, try to get live rates
+            if (country === 'US' && window.RealTimeRates) {
+                try {
+                    const usRates = await window.RealTimeRates.fetchUSRates();
+                    if (usRates && usRates.mortgage30yr) {
+                        currentRate = usRates.mortgage30yr;
+                        source = 'Live market data';
+                    }
+                } catch (error) {
+                    console.log('Live rates failed:', error);
+                }
+            }
+            
+            // Try config for all countries
+            if (window.FinancialConfig && window.FinancialConfig.getRate) {
+                try {
+                    // Try to get country-specific rate from config
+                    const configRate = await window.FinancialConfig.getRate('mortgage30yr', country);
+                    if (configRate && typeof configRate === 'number') {
+                        currentRate = configRate;
+                        source = 'Financial config';
+                    }
+                } catch (error) {
+                    console.log('Config rate failed:', error);
+                }
+            }
+            
+            // Update display
+            rateDisplay.innerHTML = `
+                <span style="color: #2E7D32;">
+                    <i class="fas fa-chart-line"></i> Current market rate: <strong>${currentRate.toFixed(2)}%</strong>
+                </span>
+                <br>
+                <span style="font-size: 0.8rem; color: #666;">
+                    <i class="fas fa-database"></i> Source: ${source} | <i class="fas fa-globe"></i> ${country}
+                </span>
+            `;
+            
+            // Set as default value
+            document.getElementById('wRate').value = currentRate.toFixed(2);
+            
+            return currentRate;
+            
+        } catch (error) {
+            console.error('Error loading market rate:', error);
+            document.getElementById('currentMarketRate').textContent = 
+                'Current market rate: Error loading';
+            document.getElementById('wRate').value = 7.5;
+            return 7.5;
+        }
+    }
+
+
+
+    async function loadIslamicProfitMargins() {
+        try {
+            const countrySelect = document.getElementById('countrySelect');
+            const country = countrySelect ? countrySelect.value : 'US';
+            
+            // Islamic profit margin database by country/asset type
+            const profitMargins = {
+                'US': {
+                    name: 'United States',
+                    currency: 'USD',
+                    symbol: '$',
+                    residential: { min: 8, max: 15, typical: 12 },
+                    commercial: { min: 10, max: 20, typical: 15 },
+                    automotive: { min: 5, max: 12, typical: 8 }
+                },
+                'UK': {
+                    name: 'United Kingdom',
+                    currency: 'GBP',
+                    symbol: '£',
+                    residential: { min: 7, max: 14, typical: 10 },
+                    commercial: { min: 9, max: 18, typical: 13 },
+                    automotive: { min: 4, max: 10, typical: 7 }
+                },
+                'UAE': {
+                    name: 'United Arab Emirates',
+                    currency: 'AED',
+                    symbol: 'د.إ',
+                    residential: { min: 6, max: 12, typical: 9 },
+                    commercial: { min: 8, max: 16, typical: 12 },
+                    automotive: { min: 3, max: 8, typical: 6 }
+                },
+                'SAUDI_ARABIA': {
+                    name: 'Saudi Arabia',
+                    currency: 'SAR',
+                    symbol: 'ر.س',
+                    residential: { min: 5, max: 11, typical: 8 },
+                    commercial: { min: 7, max: 15, typical: 11 },
+                    automotive: { min: 3, max: 7, typical: 5 }
+                },
+                'MALAYSIA': {
+                    name: 'Malaysia',
+                    currency: 'MYR',
+                    symbol: 'RM',
+                    residential: { min: 4, max: 10, typical: 7 },
+                    commercial: { min: 6, max: 14, typical: 10 },
+                    automotive: { min: 2, max: 6, typical: 4 }
+                }
+            };
+            
+            const countryData = profitMargins[country] || profitMargins['US'];
+            const assetType = 'residential';
+            const margins = countryData[assetType] || countryData.residential;
+            
+            // Update slider
+            const slider = document.getElementById('mProfitMargin');
+            slider.min = margins.min;
+            slider.max = margins.max;
+            slider.value = margins.typical;
+            
+            // Update display
+            updateProfitMarginDisplay();
+            
+            // Update range display (fix duplication)
+            const rangeDisplay = slider.parentNode.querySelector('.range-display');
+            if (!rangeDisplay) {
+                // Create if doesn't exist
+                const newRangeDisplay = document.createElement('div');
+                newRangeDisplay.className = 'range-display';
+                newRangeDisplay.style.cssText = 'display: flex; justify-content: space-between; font-size: 0.85rem; color: #666; margin-top: 5px;';
+                slider.parentNode.insertBefore(newRangeDisplay, slider.nextSibling);
+            }
+            
+            const display = slider.parentNode.querySelector('.range-display');
+            display.innerHTML = `
+                <span>${margins.min}%</span>
+                <span>Typical: ${margins.min}-${margins.max}%</span>
+                <span>${margins.max}%</span>
+            `;
+            
+            // Update country info
+            const infoDiv = slider.parentNode.querySelector('.country-info') || document.createElement('div');
+            infoDiv.className = 'country-info';
+            infoDiv.style.cssText = 'font-size: 0.8rem; color: #666; margin-top: 5px;';
+            infoDiv.innerHTML = `
+                <i class="fas fa-info-circle"></i> Based on ${countryData.name} ${assetType} financing norms
+            `;
+            
+            // Remove old info if exists, add new
+            const oldInfo = slider.parentNode.querySelector('.country-info');
+            if (oldInfo && oldInfo !== infoDiv) {
+                oldInfo.remove();
+            }
+            if (!slider.parentNode.querySelector('.country-info')) {
+                slider.parentNode.insertBefore(infoDiv, display.nextSibling);
+            }
+            
+            // Update currency displays
+            updateCurrencyDisplay(countryData);
+            
+            // Return country data for other functions
+            return countryData;
+            
+        } catch (error) {
+            console.error('Error loading Islamic profit margins:', error);
+            return null;
+        }
+    }
+
+    function updateCurrencyDisplay(countryData) {
+        if (!countryData) return;
+        
+        // Update currency symbol in labels
+        const currencyLabels = document.querySelectorAll('.currency-label');
+        currencyLabels.forEach(label => {
+            label.textContent = countryData.symbol;
+        });
+        
+        // Update input placeholders
+        const inputs = document.querySelectorAll('input[type="number"]');
+        inputs.forEach(input => {
+            const id = input.id;
+            if (id.includes('CostPrice') || id.includes('Principal') || 
+                id.includes('Payment') || id.includes('Fee') || 
+                id.includes('Insurance') || id.includes('Duty')) {
+                // Keep the value, just note currency changed
+                const currentValue = input.value;
+                input.dataset.originalValue = currentValue;
+            }
+        });
+        
+        // Update results display currency
+        const results = document.querySelectorAll('#murabahaTotal, #westernTotal');
+        results.forEach(result => {
+            if (result.textContent.includes('$')) {
+                result.textContent = result.textContent.replace('$', countryData.symbol);
+            }
+        });
+    }   
+
+
+    function calculateMurabaha() {
+        // Get current country from selector
+        const countrySelect = document.getElementById('countrySelect');
+        const country = countrySelect ? countrySelect.value : 'US';
+       
+        // Safer element access with error handling
+        const getValue = (id, defaultValue = 0) => {
+            const element = document.getElementById(id);
+            if (!element) {
+                console.error('❌ Element not found:', id);
+                return defaultValue;
+            }
+            const value = parseFloat(element.value);
+            return isNaN(value) ? defaultValue : value;
+        };
+        
+        const params = {
+            costPrice: getValue('mCostPrice', 250000),
+            profitMargin: getValue('mProfitMargin', 12),
+            tenureMonths: getValue('mTenure', 60),
+            downPayment: getValue('mDownPayment', 50000),
+            processingFee: getValue('mProcessingFee', 1500),
+            insurancePerYear: getValue('mInsurance', 1200),
+            stampDuty: getValue('mStampDuty', 800),
+            country: country
+        };
+        
+        console.log('🔄 Calculating Murabaha with params:', params);
+        
+        try {
+            const result = window.islamicCalculators.calculateMurabaha(params);
+            displayMurabahaResult(result);
+        } catch (error) {
+            console.error('❌ Error in calculateMurabaha:', error);
+            alert('Error calculating Murabaha. Check console for details.');
+        }
+    }
+ 
+    
+    function calculateWestern() {
+        // Get current country from selector
+        const countrySelect = document.getElementById('countrySelect');
+        const country = countrySelect ? countrySelect.value : 'US';
+        
+        // Get default rate for this country
+        let defaultRate = 7.23;
+        if (window.FinancialConfig && window.FinancialConfig.countryData && window.FinancialConfig.countryData[country]) {
+            defaultRate = window.FinancialConfig.countryData[country].mortgage?.avg30yrFixed || 7.23;
+        }
+        
+        // Safer element access with error handling
+        const getValue = (id, defaultValue = 0) => {
+            const element = document.getElementById(id);
+            if (!element) {
+                console.error('❌ Element not found:', id);
+                return defaultValue;
+            }
+            const value = parseFloat(element.value);
+            return isNaN(value) ? defaultValue : value;
+        };
+        
+        const params = {
+            principal: getValue('wPrincipal', 250000),
+            interestRate: getValue('wRate', defaultRate),  // Use country-specific default
+            tenureMonths: getValue('wTenure', 60),
+            downPayment: getValue('wDownPayment', 50000),
+            originationFee: getValue('wOriginationFee', 2000),
+            insurancePerYear: getValue('wInsurance', 1200),
+            stampDuty: getValue('wStampDuty', 800),
+            country: country
+        };
+        
+        console.log('🔄 Calculating Western loan with params:', params);
+        
+        try {
+            const result = window.islamicCalculators.calculateWesternLoan(params);
+            displayWesternResult(result);
+        } catch (error) {
+            console.error('❌ Error in calculateWestern:', error);
+            alert('Error calculating conventional loan. Check console for details.');
+        }
+    }
+
+
+    function compareBoth() {
+        calculateMurabaha();
+        calculateWestern();
+        
+        // Show results section
+        document.getElementById('resultsSection').style.display = 'block';
+        
+        // Scroll to results
+        document.getElementById('resultsSection').scrollIntoView({ 
+            behavior: 'smooth' 
+        });
+    }
+    
+    function displayMurabahaResult(result) {
+        console.log('Displaying Murabaha result:', result);
+        
+        // Save to global for comparison
+        window.murabahaResult = result;
+
+        if (!result.success) {
+            alert('Error calculating Murabaha: ' + result.error);
+            return;
+        }
+        
+        // Update totals
+        document.getElementById('murabahaTotal').textContent = result.totalPaid;
+        document.getElementById('murabahaMonthly').textContent = result.monthlyPayment + '/month';
+        
+        // Update details
+        const details = document.getElementById('murabahaDetails');
+        details.innerHTML = `
+            <div style="margin-bottom: 10px;">
+                <strong>Asset Cost:</strong> ${result.costPrice}
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>Bank Profit:</strong> ${result.bankProfit}
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>Total Sale Price:</strong> ${result.totalPrice}
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>Financed Amount:</strong> ${result.financedAmount}
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>Monthly Payment:</strong> ${result.monthlyPayment}
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>Total Fees:</strong> ${result.totalFees}
+            </div>
+            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #E0E0E0;">
+                <strong style="color: ${result.netCostToBuyer.includes('-') ? '#2E7D32' : '#D32F2F'}">
+                    Net Cost to Buyer: ${result.netCostToBuyer}
+                </strong>
+            </div>
+        `;
+    }
+    
+    function displayWesternResult(result) {
+        console.log('Displaying Western result:', result);
+        
+        // Save to global for comparison
+        window.westernResult = result;
+
+        if (!result.success) {
+            alert('Error calculating conventional loan: ' + result.error);
+            return;
+        }
+        
+        // Update totals
+        document.getElementById('westernTotal').textContent = result.totalPaid;
+        document.getElementById('westernMonthly').textContent = result.monthlyPayment + '/month';
+        
+        // Update details
+        const details = document.getElementById('westernDetails');
+        details.innerHTML = `
+            <div style="margin-bottom: 10px;">
+                <strong>Loan Principal:</strong> ${result.principal}
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>Interest Rate:</strong> ${result.interestRate}
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>Monthly Payment:</strong> ${result.monthlyPayment}
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>Total Interest:</strong> ${result.totalInterest}
+            </div>
+            <div style="margin-bottom: 10px;">
+                <strong>Total Fees:</strong> ${result.totalFees}
+            </div>
+            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #E0E0E0;">
+                <strong style="color: #1565C0">
+                    Total Cost: ${result.totalPaid}
+                </strong>
+            </div>
+        `;
+        
+        // Update winner comparison if both calculated
+        updateComparison();
+    }
+
+    
+    function updateComparison() {
+        console.log('Updating comparison...', {
+            murabaha: window.murabahaResult,
+            western: window.westernResult
+        });
+        
+        // Check if both results exist
+        if (!window.murabahaResult || !window.westernResult) {
+            console.log('Waiting for both results...');
+            return;
+        }
+        
+       
+        // Use totalPaid if available, otherwise totalCost
+        const murabahaCost = window.murabahaResult.totalPaid ? 
+            parseFloat(window.murabahaResult.totalPaid.replace(/[^0-9.-]+/g, "")) :
+            parseFloat(window.murabahaResult.totalCost.replace(/[^0-9.-]+/g, ""));
+        
+        const westernCost = window.westernResult.totalPaid ?
+            parseFloat(window.westernResult.totalPaid.replace(/[^0-9.-]+/g, "")) :
+            parseFloat(window.westernResult.totalCost.replace(/[^0-9.-]+/g, ""));
+
+
+        const difference = murabahaCost - westernCost;
+        const percentage = Math.abs((difference / Math.max(murabahaCost, westernCost)) * 100).toFixed(1);
+        
+        // Get currency symbol from formatted string
+        const currencySymbol = window.murabahaResult.totalPaid ? 
+            window.murabahaResult.totalPaid.charAt(0) :
+            window.murabahaResult.totalCost.charAt(0);
+        
+        // Update comparison text
+        const comparisonText = document.getElementById('comparisonText');
+        if (!comparisonText) return;
+        
+        if (difference > 0) {
+            // Murabaha is more expensive
+            comparisonText.innerHTML = `
+                <h3 style="color: #1565C0">
+                    <i class="fas fa-hand-holding-usd"></i> Conventional Loan is More Affordable
+                </h3>
+                <p>Saves ${currencySymbol}${Math.abs(difference).toLocaleString('en-US', {minimumFractionDigits: 2})} (${percentage}%) compared to Murabaha</p>
+            `;
+        } else if (difference < 0) {
+            // Western loan is more expensive
+            comparisonText.innerHTML = `
+                <h3 style="color: #2E7D32">
+                    <i class="fas fa-mosque"></i> Murabaha is More Affordable
+                </h3>
+                <p>Saves ${currencySymbol}${Math.abs(difference).toLocaleString('en-US', {minimumFractionDigits: 2})} (${percentage}%) compared to conventional loan</p>
+            `;
+        } else {
+            // Equal cost
+            comparisonText.innerHTML = `
+                <h3 style="color: #666">
+                    <i class="fas fa-balance-scale"></i> Both Options Have Same Cost
+                </h3>
+                <p>Murabaha and conventional loan have identical total cost</p>
+            `;
+        }
+    }
+
+        // Toggle Murabaha calculation details
+        document.getElementById('toggleMurabahaCalculations').addEventListener('click', function() {
+            const details = document.getElementById('murabahaCalculationDetails');
+            const icon = this.querySelector('i');
+            
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+                icon.className = 'fas fa-chevron-up';
+                this.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Calculation Details';
+            } else {
+                details.style.display = 'none';
+                icon.className = 'fas fa-chevron-down';
+                this.innerHTML = '<i class="fas fa-chevron-down"></i> Show Calculation Details';
+            }
+        });
+    </script>
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+         <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+              <div>
+                  <h4 style="color: #cbd5e0; margin-bottom: 15px;">Fatimah Financial Hub</h4>
+                  <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                      <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                  </a>
+                  <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                     <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                  </a>
+              </div>
+        
+         <div>
+             <h4 style="color: #cbd5e0; margin-bottom: 15px;">Calculators</h4>
+             <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+             </a>
+             <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                 <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+             </a>
+             <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+             </a>
+         </div>
+        
+         <div>
+            <h4 style="color: #cbd5e0; margin-bottom: 15px;">Other Modules</h4>
+            <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+            </a>
+            <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+            </a>
+            <span style="color: #718096; display: block; margin-bottom: 8px;">
+                <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics (Coming Soon)
+            </span>
+         </div>
+        </div>
+    
+        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+             <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+             <p style="margin-top: 10px; font-size: 0.9rem;">
+             <span style="font-size: 1rem; margin-right: 5px;"> !الحمد لله, Shariah-Compliant • FRED API • Real-Time Data
+             </p>
+        </div>
+    </div>
+
+</body>
+</html>

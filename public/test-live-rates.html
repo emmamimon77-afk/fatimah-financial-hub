@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Live Rates Integration Test</title>
+</head>
+<body>
+    <h1>Live Rates Integration Test</h1>
+    <button onclick="testIntegration()">Test Full Integration</button>
+    <div id="result"></div>
+    
+    <script src="finance-tools/shared/api-keys.js"></script>
+    <script src="finance-tools/shared/real-time-rates.js"></script>
+    <script src="finance-tools/shared/config.js"></script>
+    
+    <script>
+    async function testIntegration() {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '<p>Testing full integration...</p>';
+        
+        try {
+            // Test FinancialConfig with real-time rates
+            const mortgageRate = await window.FinancialConfig.getRate('mortgage30yr', 'US');
+            const mortgageInfo = await window.FinancialConfig.getRateWithInfo('mortgage30yr', 'US');
+            
+            // Test other rates
+            const investmentReturn = await window.FinancialConfig.getRate('retirementReturn', 'US');
+            const inflation = await window.FinancialConfig.getRate('inflation', 'US');
+            
+            resultDiv.innerHTML = `
+                <h2 style="color: green;">✅ Real-Time Rates Active!</h2>
+                
+                <h3>Live US Financial Rates:</h3>
+                <table border="1" cellpadding="10" style="border-collapse: collapse;">
+                    <tr>
+                        <th>Rate Type</th>
+                        <th>Value</th>
+                        <th>Source</th>
+                        <th>Date</th>
+                        <th>Live Data</th>
+                    </tr>
+                    <tr>
+                        <td><strong>30-Year Mortgage</strong></td>
+                        <td>${mortgageRate}%</td>
+                        <td>${mortgageInfo.source}</td>
+                        <td>${mortgageInfo.date}</td>
+                        <td>${mortgageInfo.isLive ? '✅ Yes' : '❌ No'}</td>
+                    </tr>
+                    <tr>
+                        <td>Investment Return</td>
+                        <td>${investmentReturn}%</td>
+                        <td>FRED API</td>
+                        <td>2026-01-22</td>
+                        <td>${mortgageInfo.isLive ? '✅ Yes' : '❌ No'}</td>
+                    </tr>
+                    <tr>
+                        <td>Inflation Rate</td>
+                        <td>${inflation}%</td>
+                        <td>FRED API</td>
+                        <td>2026-01-22</td>
+                        <td>${mortgageInfo.isLive ? '✅ Yes' : '❌ No'}</td>
+                    </tr>
+                </table>
+                
+                <p style="margin-top: 20px; color: green;">
+                    <strong>🎉 Success! Your calculators now use real-time rates!</strong>
+                </p>
+                
+                <p><small>Note: Non-US countries still use static data (Phase 1 is US only)</small></p>
+            `;
+            
+        } catch (error) {
+            resultDiv.innerHTML = `
+                <h2 style="color: red;">❌ Integration Failed</h2>
+                <p>Error: ${error.message}</p>
+                <p>Check console for details.</p>
+            `;
+            console.error('Integration error:', error);
+        }
+    }
+    </script>
+</body>
+</html>

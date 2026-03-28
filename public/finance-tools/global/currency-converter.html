@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .rate-inputs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .rate-input {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .rate-input label {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .rate-input input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        .toggle-rates {
+            background: #f0f7ff;
+            border: 1px solid #4a6fa5;
+            color: #4a6fa5;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .toggle-rates:hover {
+            background: #e3efff;
+        }
+    </style>
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a>  
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                <i class="fas fa-globe" style="margin-right: 5px;"></i> Global Tools
+            </span>
+        </div>
+    </div>
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="../global/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Global Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333; font-weight: 500;">Currency Converter</span>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-globe-americas"></i> Currency Converter</h1>
+            <p>Convert between currencies with custom or default rates</p>
+            <a href="index.html" class="back-link">← Back to Global Calculators</a>
+        </div>
+        
+        <div class="calculator-card">
+            <!-- Main Conversion Inputs -->
+            <div class="input-group">
+                <label>Amount</label>
+                <input type="number" id="amount" value="100" class="form-input" step="0.01">
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="input-group">
+                    <label>From Currency</label>
+                    <select id="fromCurrency" class="form-input">
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="GBP">GBP - British Pound</option>
+                        <option value="JPY">JPY - Japanese Yen</option>
+                        <option value="CAD">CAD - Canadian Dollar</option>
+                        <option value="AUD">AUD - Australian Dollar</option>
+                        <option value="CHF">CHF - Swiss Franc</option>
+                        <option value="CNY">CNY - Chinese Yuan</option>
+                        <option value="INR">INR - Indian Rupee</option>
+                        <option value="BRL">BRL - Brazilian Real</option>
+                        <option value="MXN">MXN - Mexican Peso</option>
+                        <option value="ZAR">ZAR - South African Rand</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label>To Currency</label>
+                    <select id="toCurrency" class="form-input">
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="USD" selected>USD - US Dollar</option>
+                        <option value="GBP">GBP - British Pound</option>
+                        <option value="JPY">JPY - Japanese Yen</option>
+                        <option value="CAD">CAD - Canadian Dollar</option>
+                        <option value="AUD">AUD - Australian Dollar</option>
+                        <option value="CHF">CHF - Swiss Franc</option>
+                        <option value="CNY">CNY - Chinese Yuan</option>
+                        <option value="INR">INR - Indian Rupee</option>
+                        <option value="BRL">BRL - Brazilian Real</option>
+                        <option value="MXN">MXN - Mexican Peso</option>
+                        <option value="ZAR">ZAR - South African Rand</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Toggle for custom rates -->
+            <div class="toggle-rates" onclick="toggleCustomRates()">
+                <i class="fas fa-sliders-h"></i>
+                <span>Customize Exchange Rates</span>
+            </div>
+            
+            <!-- Custom Rate Inputs (hidden by default) -->
+            <div id="customRates" class="rate-inputs" style="display: none;">
+                <div class="rate-input">
+                    <label>USD Rate</label>
+                    <input type="number" id="rateUSD" value="1.000000" step="0.000001" disabled>
+                </div>
+                <div class="rate-input">
+                    <label>EUR Rate</label>
+                    <input type="number" id="rateEUR" value="0.850000" step="0.000001">
+                </div>
+                <div class="rate-input">
+                    <label>GBP Rate</label>
+                    <input type="number" id="rateGBP" value="0.730000" step="0.000001">
+                </div>
+                <div class="rate-input">
+                    <label>JPY Rate</label>
+                    <input type="number" id="rateJPY" value="110.000000" step="0.001">
+                </div>
+                <div class="rate-input">
+                    <label>CAD Rate</label>
+                    <input type="number" id="rateCAD" value="1.250000" step="0.000001">
+                </div>
+                <div class="rate-input">
+                    <label>AUD Rate</label>
+                    <input type="number" id="rateAUD" value="1.350000" step="0.000001">
+                </div>
+                <div class="rate-input">
+                    <label>CHF Rate</label>
+                    <input type="number" id="rateCHF" value="0.920000" step="0.000001">
+                </div>
+                <div class="rate-input">
+                    <label>CNY Rate</label>
+                    <input type="number" id="rateCNY" value="6.450000" step="0.000001">
+                </div>
+                <div style="grid-column: span 2; font-size: 0.85em; color: #666; padding: 10px;">
+                    <i class="fas fa-info-circle"></i> Enter custom rates (relative to USD). USD is fixed at 1.0.
+                </div>
+            </div>
+            
+            <button id="convertBtn" class="calculate-btn">
+                Convert Currency <i class="fas fa-exchange-alt"></i>
+            </button>
+            
+            <div id="result" class="results">
+                Enter amount and select currencies
+            </div>
+        </div>
+    </div>
+    
+    <script src="../shared/config.js"></script>
+    <script src="../shared/calculators.js"></script>
+    <script>
+    let showCustomRates = false;
+    
+    function toggleCustomRates() {
+        showCustomRates = !showCustomRates;
+        const ratesDiv = document.getElementById('customRates');
+        const toggleBtn = document.querySelector('.toggle-rates');
+        
+        if (showCustomRates) {
+            ratesDiv.style.display = 'grid';
+            toggleBtn.innerHTML = '<i class="fas fa-times"></i> <span>Hide Custom Rates</span>';
+            toggleBtn.style.background = '#ffeaea';
+            toggleBtn.style.borderColor = '#ff6b6b';
+            toggleBtn.style.color = '#ff6b6b';
+        } else {
+            ratesDiv.style.display = 'none';
+            toggleBtn.innerHTML = '<i class="fas fa-sliders-h"></i> <span>Customize Exchange Rates</span>';
+            toggleBtn.style.background = '#f0f7ff';
+            toggleBtn.style.borderColor = '#4a6fa5';
+            toggleBtn.style.color = '#4a6fa5';
+        }
+        
+        // Trigger conversion with new rates
+        document.getElementById('convertBtn').click();
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const convertBtn = document.getElementById('convertBtn');
+        
+        function performConversion() {
+            const amount = parseFloat(document.getElementById('amount').value) || 0;
+            const fromCurrency = document.getElementById('fromCurrency').value;
+            const toCurrency = document.getElementById('toCurrency').value;
+            
+            // Prepare exchange rates
+            let exchangeRates = null;
+            
+            if (showCustomRates) {
+                // Collect user custom rates
+                exchangeRates = {
+                    'USD': 1.0,
+                    'EUR': parseFloat(document.getElementById('rateEUR').value) || 0.85,
+                    'GBP': parseFloat(document.getElementById('rateGBP').value) || 0.73,
+                    'JPY': parseFloat(document.getElementById('rateJPY').value) || 110.0,
+                    'CAD': parseFloat(document.getElementById('rateCAD').value) || 1.25,
+                    'AUD': parseFloat(document.getElementById('rateAUD').value) || 1.35,
+                    'CHF': parseFloat(document.getElementById('rateCHF').value) || 0.92,
+                    'CNY': parseFloat(document.getElementById('rateCNY').value) || 6.45
+                };
+                
+                // Add other currencies with default values
+                exchangeRates['INR'] = 74.5;
+                exchangeRates['BRL'] = 5.25;
+                exchangeRates['MXN'] = 20.0;
+                exchangeRates['ZAR'] = 15.0;
+            }
+            
+            if (!window.FinancialCalculators) {
+                document.getElementById('result').innerHTML = 
+                    '<div class="error">Calculators not loaded</div>';
+                return;
+            }
+            
+            const calc = new FinancialCalculators();
+            const result = calc.convertCurrency({
+                amount: amount,
+                fromCurrency: fromCurrency,
+                toCurrency: toCurrency,
+                exchangeRates: exchangeRates
+            });
+            
+            const resultDiv = document.getElementById('result');
+            
+            if (result.success) {
+                const rateSource = exchangeRates ? 'Custom Rates' : 'Default Rates';
+                
+                resultDiv.innerHTML = `
+                    <div class="result-card">
+                        <h3><i class="fas fa-money-bill-wave"></i> Conversion Result</h3>
+                        <div style="font-size: 2em; font-weight: bold; color: #4a6fa5; margin: 15px 0;">
+                            ${amount} ${fromCurrency} = ${result.convertedAmount} ${toCurrency}
+                        </div>
+                        <div class="result-grid">
+                            <div class="result-item">
+                                <span class="label">Exchange Rate:</span>
+                                <span class="value">${result.exchangeRate}</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">From:</span>
+                                <span class="value">${amount} ${fromCurrency}</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">To:</span>
+                                <span class="value">${result.convertedAmount} ${toCurrency}</span>
+                            </div>
+                            <div class="result-item">
+                                <span class="label">Rate Source:</span>
+                                <span class="value ${exchangeRates ? 'success' : 'info'}">${rateSource}</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; padding: 10px; background: #f0f7ff; border-radius: 8px;">
+                            <i class="fas fa-info-circle"></i> ${result.message}
+                        </div>
+                        ${exchangeRates ? 
+                            `<div style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                                <i class="fas fa-edit"></i> Using custom exchange rates
+                            </div>` : ''
+                        }
+                    </div>
+                `;
+            } else {
+                resultDiv.innerHTML = `<div class="error">Error: ${result.error}</div>`;
+            }
+        }
+        
+        convertBtn.addEventListener('click', performConversion);
+        
+        // Auto-convert on changes
+        ['amount', 'fromCurrency', 'toCurrency'].forEach(id => {
+            document.getElementById(id).addEventListener('change', performConversion);
+            document.getElementById(id).addEventListener('input', performConversion);
+        });
+        
+        // Auto-convert on custom rate changes
+        ['rateEUR', 'rateGBP', 'rateJPY', 'rateCAD', 'rateAUD', 'rateCHF', 'rateCNY'].forEach(id => {
+            document.getElementById(id).addEventListener('input', performConversion);
+        });
+        
+        // Initial conversion
+        performConversion();
+    });
+    </script>
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                </a>
+                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                </a>
+                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                </a>
+                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+                <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                </a>
+                <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                </a>
+                <span style="color: #718096; display: block; margin-bottom: 8px; padding: 3px 0;">
+                    <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics (Coming Soon)
+                </span>
+            </div>
+        </div>
+    
+        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+            <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+               <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+            </p>
+        </div>
+    </div>
+</body>
+</html>

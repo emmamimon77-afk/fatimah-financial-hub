@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inflation Basics - Lesson 4 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/beginner">Beginner</a> › 
+                Lesson 4: Inflation Basics
+            </div>
+            <div class="title-section">
+                <h1>Understanding Inflation</h1>
+                <span class="badge">Beginner • 35 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 12 Quiz Questions</span>
+                <span><i class="fas fa-chart-line"></i> CPI & PPI</span>
+                <span><i class="fas fa-mosque"></i> Islamic Perspective</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">وَلَا تَبْخَسُوا النَّاسَ أَشْيَاءَهُمْ</div>
+            <div class="translation">"And do not deprive people of their due."</div>
+            <div class="reference">— Quran 7:85</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Inflation silently deprives people of their money's value. Understanding it helps us protect our wealth and fulfill our duties justly.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-line"></i>
+                What is Inflation?
+            </div>
+            <p style="font-size: 18px;">Inflation is the rate at which the general level of prices for goods and services rises, causing purchasing power to fall. Simply put, your money buys less tomorrow than it does today.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 Simple Definition:</strong> If a sandwich costs $5 today and inflation is 5%, that same sandwich will cost $5.25 next year. Your $5 lost 5% of its purchasing power.</p>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-coffee"></i> The Coffee Example</h4>
+                <p><strong>20 years ago:</strong> A cup of coffee cost $1.00<br>
+                <strong>Today:</strong> That same coffee costs $3.50<br>
+                <strong>That's inflation!</strong> Your dollar today buys much less than it used to.</p>
+            </div>
+        </div>
+
+        <!-- How Inflation is Measured -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-calculator"></i>
+                How is Inflation Measured?
+            </div>
+
+            <div class="formula-box">
+                Inflation Rate = (CPI₂ - CPI₁) / CPI₁ × 100
+            </div>
+
+            <p><strong>CPI (Consumer Price Index):</strong> Measures the average change in prices paid by consumers for a basket of goods and services.</p>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h3>📦 CPI Basket Includes:</h3>
+                    <ul>
+                        <li>Food and beverages</li>
+                        <li>Housing (rent, utilities)</li>
+                        <li>Apparel (clothing)</li>
+                        <li>Transportation (cars, gas)</li>
+                        <li>Medical care</li>
+                        <li>Education and communication</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h3>📊 Other Measures:</h3>
+                    <ul>
+                        <li><strong>PPI:</strong> Producer Price Index (wholesale prices)</li>
+                        <li><strong>Core CPI:</strong> CPI minus food and energy (less volatile)</li>
+                        <li><strong>GDP Deflator:</strong> Price index for all goods in GDP</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-shopping-cart"></i> How CPI Works</h4>
+                <p><strong>Step 1:</strong> Government surveys 24,000 households to see what they buy</p>
+                <p><strong>Step 2:</strong> Creates a "basket" of typical goods (80,000 items!)</p>
+                <p><strong>Step 3:</strong> Price checkers visit stores monthly to record prices</p>
+                <p><strong>Step 4:</strong> Calculate: (Cost of basket now) / (Cost of basket in base year) × 100</p>
+            </div>
+        </div>
+
+        <!-- Causes of Inflation -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-cogs"></i>
+                What Causes Inflation?
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h3>📈 Demand-Pull Inflation</h3>
+                    <p>"Too much money chasing too few goods"</p>
+                    <ul>
+                        <li>Strong economy, high consumer spending</li>
+                        <li>Government stimulus</li>
+                        <li>Low interest rates encouraging borrowing</li>
+                        <li>Population growth</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h3>📉 Cost-Push Inflation</h3>
+                    <p>When production costs increase</p>
+                    <ul>
+                        <li>Higher oil/energy prices</li>
+                        <li>Rising wages</li>
+                        <li>Raw material shortages</li>
+                        <li>Supply chain disruptions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-gas-pump"></i> Real-World Example: Oil Prices</h4>
+                <p>When oil prices rise:</p>
+                <p>1. Transport costs increase → 2. Goods cost more to ship → 3. Stores raise prices → 4. Everything gets more expensive (cost-push inflation)</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ The Wage-Price Spiral</h4>
+                <p>Prices rise → Workers demand higher wages → Businesses raise prices further to pay wages → Cycle continues. This is dangerous and hard to stop once started.</p>
+            </div>
+        </div>
+
+        <!-- Effects of Inflation -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-balance-scale"></i>
+                Who Wins? Who Loses?
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background: #fee2e2;">
+                    <h3>❌ Losers</h3>
+                    <ul>
+                        <li><strong>Savers:</strong> Cash loses value</li>
+                        <li><strong>Fixed-income retirees:</strong> Pension buys less each year</li>
+                        <li><strong>Lenders:</strong> Get paid back with cheaper money</li>
+                        <li><strong>Workers with fixed wages:</strong> Real income falls</li>
+                    </ul>
+                </div>
+                <div class="column-card" style="background: #d1fae5;">
+                    <h3>✅ Winners</h3>
+                    <ul>
+                        <li><strong>Borrowers:</strong> Pay back loans with cheaper money</li>
+                        <li><strong>Homeowners:</strong> Property values rise</li>
+                        <li><strong>Stock investors:</strong> Companies raise prices, profits may increase</li>
+                        <li><strong>Governments:</strong> Tax revenues rise, debt becomes cheaper</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> The Psychology of Inflation</h4>
+                <p>Inflation creates uncertainty. When people expect prices to rise, they buy now rather than later, which actually drives prices up further (self-fulfilling prophecy). This is why central banks work hard to manage inflation expectations.</p>
+            </div>
+        </div>
+
+        <!-- Types of Inflation -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-bar"></i>
+                Types of Inflation by Rate
+            </div>
+
+            <div style="margin: 20px 0;">
+                <div style="background: #d1fae5; padding: 20px; border-radius: 16px; margin: 10px 0;">
+                    <h4 style="color: #065f46;">🟢 Creeping Inflation (1-3%)</h4>
+                    <p>Ideal for economic growth. Encourages spending and investment without causing economic distortion. Central banks target this level.</p>
+                </div>
+                <div style="background: #fef3c7; padding: 20px; border-radius: 16px; margin: 10px 0;">
+                    <h4 style="color: #92400e;">🟡 Walking Inflation (3-10%)</h4>
+                    <p>Warning sign. Money loses value noticeably. Can lead to hoarding of goods and speculative behavior.</p>
+                </div>
+                <div style="background: #fee2e2; padding: 20px; border-radius: 16px; margin: 10px 0;">
+                    <h4 style="color: #991b1b;">🔴 Running Inflation (10-100%)</h4>
+                    <p>Severe economic distortion. People spend immediately, businesses can't plan, savings destroyed.</p>
+                </div>
+                <div style="background: #1e293b; padding: 20px; border-radius: 16px; margin: 10px 0; color: white;">
+                    <h4 style="color: #fbbf24;">💀 Hyperinflation (>50% per month)</h4>
+                    <p>Economic collapse. Money becomes worthless. Zimbabwe (2008): 79.6 billion % inflation. Germany (1923): Prices doubled every 3.7 days.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inflation Around the World -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-globe"></i>
+                Inflation Around the World
+            </div>
+
+            <div style="margin: 20px 0;">
+                <table style="width:100%; border-collapse: collapse;">
+                    <tr style="background: #312e81; color: white;">
+                        <th style="padding: 10px;">Country</th>
+                        <th style="padding: 10px;">Inflation Rate</th>
+                        <th style="padding: 10px;">Status</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 10px;">Japan</td>
+                        <td style="padding: 10px;">~0.5%</td>
+                        <td style="padding: 10px; color: #10b981;">Low</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 10px;">USA/EU</td>
+                        <td style="padding: 10px;">2-3%</td>
+                        <td style="padding: 10px; color: #10b981;">Target</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 10px;">Turkey</td>
+                        <td style="padding: 10px;">~60%</td>
+                        <td style="padding: 10px; color: #ef4444;">Crisis</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Venezuela</td>
+                        <td style="padding: 10px;">~400%</td>
+                        <td style="padding: 10px; color: #ef4444;">Hyperinflation</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Controlling Inflation -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-bank"></i>
+                How Central Banks Control Inflation
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📈 Raise Interest Rates</h4>
+                    <p>Higher rates → borrowing costs more → people spend less → demand falls → prices stabilize</p>
+                </div>
+                <div class="column-card">
+                    <h4>📉 Reduce Money Supply</h4>
+                    <p>Sell government bonds → take money out of economy → less money chasing goods → lower inflation</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Fed's Dual Mandate</h4>
+                <p>The US Federal Reserve targets:<br>
+                <strong>1.</strong> Maximum employment<br>
+                <strong>2.</strong> Stable prices (2% inflation target)<br>
+                If inflation exceeds 2%, they raise rates to cool the economy.</p>
+            </div>
+        </div>
+
+        <!-- Inflation and Islam -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islamic Perspective on Inflation
+            </div>
+
+            <div class="psychology-box">
+                <h4>💰 Zakat and Inflation</h4>
+                <p>Inflation poses a challenge for Zakat calculation. Scholars debate: Should Zakat be based on original purchase price or current market value? Most agree: Zakat should be paid on current value to fulfill the obligation properly.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>📈 Riba and Inflation</h4>
+                <p>Conventional loans charge interest partly to compensate for inflation. In Islamic finance, inflation is not a justification for riba. Instead, Islamic contracts use profit-sharing (Mudaraba) or asset-backed financing (Murabaha) where returns are based on real economic activity, not just inflation compensation.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>⚖️ Justice in Transactions</h4>
+                <p>"Give full measure and weight, in justice." (Quran 6:152). Inflation that erodes the value of money can be seen as a form of injustice if contracts don't account for it. Modern Islamic scholars discuss whether contracts should include inflation adjustments to maintain fairness.</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>🛡️ Protecting Wealth in Islam</h4>
+                <p>The Prophet (ﷺ) said: "The believer is like a bee: it eats that which is pure and wholesome, and produces that which is pure and wholesome." Muslims are encouraged to protect their wealth through halal means—investing in assets (gold, real estate, productive business) rather than leaving cash to be eroded by inflation.</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 12 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is inflation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">A. When the economy grows too fast</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">B. A general rise in prices and fall in purchasing power</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. When unemployment increases</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. When the government prints too much money only</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> Inflation is the sustained increase in the general price level, meaning each unit of currency buys fewer goods and services.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. Which index is most commonly used to measure inflation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">A. GDP Deflator</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">B. Consumer Price Index (CPI)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. Producer Price Index (PPI)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Stock Market Index</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> The Consumer Price Index (CPI) is the most widely used measure, tracking prices of a basket of typical consumer goods.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. What is considered a "healthy" inflation rate for most economies?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">A. 0%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">B. 2-3%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. 5-6%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. 10%</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Most central banks target 2-3% inflation—high enough to encourage spending but low enough to maintain currency value.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. Who typically benefits from unexpected inflation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">A. Savers with cash in the bank</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">B. Borrowers with fixed-rate loans</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. People on fixed pensions</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Workers with fixed wages</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> Borrowers benefit because they repay loans with money that's worth less than when they borrowed it.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What is demand-pull inflation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">A. When production costs increase</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">B. When demand exceeds supply</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">C. When oil prices rise</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. When wages rise</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> Demand-pull inflation occurs when aggregate demand in an economy outpaces aggregate supply—"too much money chasing too few goods."
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. What is hyperinflation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">A. 10% annual inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. 20% annual inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">C. >50% monthly inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. 100% annual inflation</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> Hyperinflation is extremely rapid inflation—often exceeding 50% per month. Money becomes virtually worthless.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. How do central banks typically fight high inflation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">A. Raise interest rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. Lower interest rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. Print more money</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. Increase government spending</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> Raising interest rates makes borrowing more expensive, cooling spending and reducing inflationary pressure.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. What is the "wage-price spiral"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">A. Prices rise → workers demand higher wages → businesses raise prices further</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">B. Wages fall → prices fall</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. Prices and wages move in opposite directions</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. Government controls both prices and wages</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> The wage-price spiral is a dangerous cycle where rising prices lead to wage demands, which lead to further price increases.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What does "Core CPI" exclude?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">A. Housing costs</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">B. Food and energy</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. Healthcare costs</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. Education costs</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> Core CPI excludes food and energy because their prices are volatile and can obscure underlying inflation trends.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. How does inflation affect Zakat calculation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. Most scholars say Zakat should be on current market value</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Inflation doesn't matter for Zakat</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. Zakat should be on original purchase price only</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. Inflation means you don't pay Zakat</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Most scholars agree Zakat should be calculated based on current market value to fulfill the obligation justly.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. Which country experienced famous hyperinflation in the 1920s?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">A. United States</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. United Kingdom</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">C. Germany</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. France</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Weimar Germany (1923) experienced hyperinflation where prices doubled every few days. People needed wheelbarrows of cash to buy bread.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. What Islamic principle relates to protecting wealth from inflation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">A. Riba (interest)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">B. Gharar (uncertainty)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">C. Investing in productive assets (real estate, business, gold)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. Hoarding cash</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> Islam encourages productive investment in real assets (gold, real estate, business) rather than letting cash sit idle and lose value to inflation.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"The Great Inflation and Its Aftermath" - Robert J. Samuelson</a></li>
+                        <li><a href="#">"This Time is Different" - Carmen Reinhart & Kenneth Rogoff</a></li>
+                        <li><a href="#">"Principles of Economics" - Mankiw (Ch. 24)</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🌐 Data Sources</h4>
+                    <ul>
+                        <li><a href="https://fred.stlouisfed.org" target="_blank">FRED - CPI Data</a></li>
+                        <li><a href="https://www.bls.gov/cpi/" target="_blank">Bureau of Labor Statistics - CPI</a></li>
+                        <li><a href="https://tradingeconomics.com/inflation-rates" target="_blank">Trading Economics - Global Inflation</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Finance</h4>
+                    <ul>
+                        <li><a href="/resources/zakat-calculator.html">Zakat Calculator</a></li>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Finance</a></li>
+                        <li><a href="https://isdb.org" target="_blank">Islamic Development Bank - Research</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/beginner/03-gdp-explained.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: GDP Explained</a>
+            <a href="/economics/learn/beginner/05-unemployment.html" class="nav-link">Next: Unemployment <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May your wealth be protected and your transactions be just</p>
+        <p>© 2026 Fatimah Financial Hub • Economics Lesson 4 of 20</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

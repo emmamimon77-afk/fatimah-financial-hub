@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Learning Center | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+        .page-header h1 {
+            font-size: 36px;
+            color: #1e293b;
+            margin-bottom: 10px;
+        }
+        .page-header p {
+            color: #64748b;
+            font-size: 18px;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0 50px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 32px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .path-section {
+            margin: 50px 0;
+        }
+        .path-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .lesson-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+        .lesson-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .badge-fundamental {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        .badge-islamic {
+            background: #d1fae5;
+            color: #10b981;
+        }
+        .badge-advanced {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .lesson-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .lesson-desc {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .lesson-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+        }
+        .lesson-time {
+            color: #64748b;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .lesson-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .lesson-link:hover {
+            color: #1e1b4b;
+        }
+
+        .progress-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .progress-header h3 {
+            font-size: 24px;
+        }
+        .progress-stats {
+            display: flex;
+            gap: 30px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #312e81;
+        }
+        .stat-label {
+            color: #64748b;
+            font-size: 12px;
+        }
+        .progress-bars {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #312e81, #10b981);
+            border-radius: 4px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1>📚 Trading Learning Center</h1>
+            <p>Master the art of ethical trading with our comprehensive lessons. Each lesson combines technical analysis with Islamic wisdom.</p>
+        </div>
+
+        <div class="quran-verse">
+            <div class="arabic">وَقُل رَّبِّ زِدْنِي عِلْمًا</div>
+            <div class="translation">"And say, 'My Lord, increase me in knowledge.'"</div>
+            <div class="reference">— Quran 20:114</div>
+        </div>
+
+        <!-- Fundamentals Section -->
+        <div class="path-section">
+            <div class="path-title">
+                <span>📘</span> Fundamentals (4 Lessons)
+            </div>
+            <div class="lesson-grid">
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-fundamental">Lesson 1</span>
+                    <h3>Order Types</h3>
+                    <p class="lesson-desc">Market, limit, stop orders and their Islamic rulings. Learn how to execute trades effectively.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 20 min</span>
+                        <a href="/trading/learn/fundamentals/01-order-types.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-fundamental">Lesson 2</span>
+                    <h3>Technical Analysis</h3>
+                    <p class="lesson-desc">Support, resistance, trends, and chart patterns. Learn to read the language of markets.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 25 min</span>
+                        <a href="/trading/learn/fundamentals/02-technical-analysis.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-fundamental">Lesson 3</span>
+                    <h3>Key Indicators</h3>
+                    <p class="lesson-desc">RSI, MACD, moving averages. Understand momentum and trend strength.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 25 min</span>
+                        <a href="/trading/learn/fundamentals/03-indicators.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-fundamental">Lesson 4</span>
+                    <h3>Risk Management</h3>
+                    <p class="lesson-desc">Position sizing, risk/reward ratios, and protecting your capital with Islamic principles.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 20 min</span>
+                        <a href="/trading/learn/fundamentals/04-risk-management.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Islamic Perspectives Section -->
+        <div class="path-section">
+            <div class="path-title">
+                <span>🕌</span> Islamic Perspectives (4 Lessons)
+            </div>
+            <div class="lesson-grid">
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-islamic">Lesson 1</span>
+                    <h3>Riba Explained</h3>
+                    <p class="lesson-desc">Understanding interest, its prohibition in Islam, and how it appears in modern trading.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 20 min</span>
+                        <a href="/trading/learn/islamic-perspectives/01-riba-explained.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-islamic">Lesson 2</span>
+                    <h3>Gharar in Trading</h3>
+                    <p class="lesson-desc">Uncertainty, speculation, and prohibited transactions. Understanding what makes a trade valid.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 25 min</span>
+                        <a href="/trading/learn/islamic-perspectives/02-gharar-in-trading.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-islamic">Lesson 3</span>
+                    <h3>Haram Industries</h3>
+                    <p class="lesson-desc">Screening companies for prohibited activities: alcohol, gambling, weapons, and more.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 20 min</span>
+                        <a href="/trading/learn/islamic-perspectives/03-haram-industries.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-islamic">Lesson 4</span>
+                    <h3>Asset-Backed Trading</h3>
+                    <p class="lesson-desc">Why real ownership matters. Understanding the difference between investing and speculation.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 20 min</span>
+                        <a href="/trading/learn/islamic-perspectives/04-asset-backed-trading.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Technical Section -->
+        <div class="path-section">
+            <div class="path-title">
+                <span>📊</span> Advanced Technical Analysis (5 Lessons)
+            </div>
+            <div class="lesson-grid">
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-advanced">Lesson 1</span>
+                    <h3>Chart Patterns</h3>
+                    <p class="lesson-desc">Head & Shoulders, Double Tops/Bottoms, Triangles, Flags - the psychology of market formations.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 35 min</span>
+                        <a href="/trading/learn/advanced-technical/01-chart-patterns.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-advanced">Lesson 2</span>
+                    <h3>Candlestick Patterns</h3>
+                    <p class="lesson-desc">Doji, Hammer, Engulfing, Morning/Evening Star - the daily battle of buyers and sellers.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 35 min</span>
+                        <a href="/trading/learn/advanced-technical/02-candlestick-patterns.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-advanced">Lesson 3</span>
+                    <h3>Fibonacci Trading</h3>
+                    <p class="lesson-desc">The divine proportion in markets. Retracements, extensions, and the golden ratio.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 40 min</span>
+                        <a href="/trading/learn/advanced-technical/03-fibonacci-trading.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-advanced">Lesson 4</span>
+                    <h3>Elliott Wave Theory</h3>
+                    <p class="lesson-desc">The rhythm of human psychology in markets. 5 waves forward, 3 waves back.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 45 min</span>
+                        <a href="/trading/learn/advanced-technical/04-elliott-wave.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+
+                <div class="lesson-card">
+                    <span class="lesson-badge badge-advanced">Lesson 5</span>
+                    <h3>Ichimoku Cloud</h3>
+                    <p class="lesson-desc">The complete trading system. Five lines, one glance - see support, resistance, trend, and momentum.</p>
+                    <div class="lesson-meta">
+                        <span class="lesson-time"><i class="far fa-clock"></i> 40 min</span>
+                        <a href="/trading/learn/advanced-technical/05-ichimoku-cloud.html" class="lesson-link">Read Lesson →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Tracking -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <h3>📈 Your Learning Journey</h3>
+                <div class="progress-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">13</div>
+                        <div class="stat-label">Total Lessons</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bars">
+                <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; color: #64748b; font-size: 14px; margin-top: 10px;">
+                <span>Fundamentals</span>
+                <span>Islamic</span>
+                <span>Advanced</span>
+                <span>Practice</span>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div style="text-align: center; margin: 50px 0;">
+            <p style="font-size: 18px; color: #64748b; margin-bottom: 20px;">Ready to practice what you've learned?</p>
+            <a href="/simulator/trade" style="background: linear-gradient(135deg, #312e81, #1e1b4b); color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block;">🚀 Launch Simulator</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May knowledge illuminate your path and guide your decisions</p>
+        <p style="margin-top: 10px;">© 2026 Fatimah Financial Hub • 13 Complete Lessons</p>
+    </footer>
+</body>
+</html>

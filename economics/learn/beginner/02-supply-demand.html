@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supply and Demand - Lesson 2 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+            line-height: 1.2;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+            line-height: 1.4;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        .reference {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title i {
+            font-size: 24px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+        .concept-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+        .definition-box p {
+            font-size: 18px;
+            font-style: italic;
+        }
+
+        /* Chart Styles */
+        .chart-container {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        .supply-demand-chart {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            margin: 0 auto;
+        }
+        .chart-labels {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .equation {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 12px;
+            font-family: monospace;
+            font-size: 18px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+        .example-box h4 {
+            color: #065f46;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+        .psychology-box h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .market-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .market-table th {
+            background: #312e81;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        .market-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .market-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        .market-table .equilibrium {
+            background: #d1fae5;
+            font-weight: bold;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-question p {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+            font-size: 15px;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #475569;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-section h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 12px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+        .ref-card a:hover {
+            color: #312e81;
+        }
+        .ref-card .description {
+            font-size: 12px;
+            color: #64748b;
+            margin-left: 24px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: background 0.2s;
+        }
+        .nav-link:hover {
+            background: #f1f5f9;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .footer-links a:hover {
+            color: #312e81;
+        }
+
+        @media (max-width: 768px) {
+            .title-section h1 {
+                font-size: 32px;
+            }
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/beginner">Beginner</a> › 
+                Lesson 2: Supply and Demand
+            </div>
+            <div class="title-section">
+                <h1>Supply and Demand</h1>
+                <span class="badge">Beginner • 35 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 12 Quiz Questions</span>
+                <span><i class="fas fa-book"></i> Lesson 2 of 20</span>
+                <span><i class="fas fa-mosque"></i> Includes Islamic Perspective</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا</div>
+            <div class="translation">"And Allah has permitted trade and forbidden interest."</div>
+            <div class="reference">— Quran 2:275</div>
+            <p style="margin-top: 20px; color: #cbd5e1; font-size: 16px;">Trade (al-bay') is the exchange of goods based on mutual consent. Supply and demand is simply the study of how this exchange happens in markets.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-balance-scale"></i>
+                The Heart of Market Economics
+            </div>
+            <p style="font-size: 18px; margin-bottom: 20px;">Supply and demand is the most fundamental concept in economics. It explains how prices are determined, how resources are allocated, and why some goods are expensive while others are cheap.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 The Law of Supply and Demand:</strong> Prices are determined by the interaction between how much of a good is available (supply) and how much people want it (demand). When demand exceeds supply, prices rise. When supply exceeds demand, prices fall.</p>
+            </div>
+        </div>
+
+        <!-- The Demand Side -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-users" style="color: #10b981;"></i>
+                Demand: The Consumer's Side
+            </div>
+            
+            <p><strong>Demand</strong> refers to how much of a good or service consumers are willing and able to buy at different prices.</p>
+
+            <div class="chart-container">
+                <svg viewBox="0 0 400 250" style="width:100%; max-width:400px;">
+                    <!-- Axes -->
+                    <line x1="50" y1="200" x2="350" y2="200" stroke="#312e81" stroke-width="2"/>
+                    <line x1="50" y1="200" x2="50" y2="50" stroke="#312e81" stroke-width="2"/>
+                    
+                    <!-- Demand Curve (downward sloping) -->
+                    <path d="M70,80 L330,180" stroke="#10b981" stroke-width="3" fill="none"/>
+                    
+                    <!-- Labels -->
+                    <text x="360" y="190" fill="#312e81" font-size="12">Quantity</text>
+                    <text x="30" y="40" fill="#312e81" font-size="12">Price</text>
+                    <text x="200" y="60" fill="#10b981" font-size="14">Demand</text>
+                    
+                    <!-- Points -->
+                    <circle cx="70" cy="80" r="4" fill="#10b981"/>
+                    <circle cx="330" cy="180" r="4" fill="#10b981"/>
+                </svg>
+                <div class="chart-labels">
+                    <span>High Price → Low Demand</span>
+                    <span>Low Price → High Demand</span>
+                </div>
+            </div>
+
+            <p><strong>The Law of Demand:</strong> When prices go <strong>up</strong>, quantity demanded goes <strong>down</strong>. When prices go <strong>down</strong>, quantity demanded goes <strong>up</strong>.</p>
+
+            <div class="example-box">
+                <h4><i class="fas fa-coffee"></i> Example: Coffee Shop</h4>
+                <p>If a cup of coffee costs $5, you might buy one cup per day. If it costs $10, you might buy only on special occasions. If it costs $1, you might buy two cups. This is the law of demand in action.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> Psychology of Demand</h4>
+                <p>Demand reflects human <strong>desire</strong> and <strong>utility</strong>. We want things that give us satisfaction (utility). But we're limited by our budget. The downward slope of demand represents our diminishing enthusiasm—the first cup of coffee is wonderful, the fourth cup much less so.</p>
+                <p><strong>Islamic Insight:</strong> Islam encourages moderation in consumption. "Eat and drink, but be not excessive." (Quran 7:31). Demand should reflect genuine need, not wasteful extravagance.</p>
+            </div>
+        </div>
+
+        <!-- The Supply Side -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-factory" style="color: #f59e0b;"></i>
+                Supply: The Producer's Side
+            </div>
+            
+            <p><strong>Supply</strong> refers to how much of a good or service producers are willing and able to sell at different prices.</p>
+
+            <div class="chart-container">
+                <svg viewBox="0 0 400 250" style="width:100%; max-width:400px;">
+                    <!-- Axes -->
+                    <line x1="50" y1="200" x2="350" y2="200" stroke="#312e81" stroke-width="2"/>
+                    <line x1="50" y1="200" x2="50" y2="50" stroke="#312e81" stroke-width="2"/>
+                    
+                    <!-- Supply Curve (upward sloping) -->
+                    <path d="M70,180 L330,80" stroke="#f59e0b" stroke-width="3" fill="none"/>
+                    
+                    <!-- Labels -->
+                    <text x="360" y="190" fill="#312e81" font-size="12">Quantity</text>
+                    <text x="30" y="40" fill="#312e81" font-size="12">Price</text>
+                    <text x="200" y="140" fill="#f59e0b" font-size="14">Supply</text>
+                    
+                    <!-- Points -->
+                    <circle cx="70" cy="180" r="4" fill="#f59e0b"/>
+                    <circle cx="330" cy="80" r="4" fill="#f59e0b"/>
+                </svg>
+                <div class="chart-labels">
+                    <span>Low Price → Low Supply</span>
+                    <span>High Price → High Supply</span>
+                </div>
+            </div>
+
+            <p><strong>The Law of Supply:</strong> When prices go <strong>up</strong>, quantity supplied goes <strong>up</strong>. When prices go <strong>down</strong>, quantity supplied goes <strong>down</strong>.</p>
+
+            <div class="example-box">
+                <h4><i class="fas fa-bread-slice"></i> Example: Baker</h4>
+                <p>A baker can sell bread for $2 per loaf and makes 100 loaves. If the price rises to $4 per loaf, it's worth hiring extra help and working longer hours to make 200 loaves. Higher prices incentivize more production.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> Psychology of Supply</h4>
+                <p>Supply reflects producer <strong>motivation</strong>. Higher prices mean higher potential profits, which motivates producers to work harder, invest more, and take more risks. The upward slope represents increasing costs—producing the 100th loaf costs more than the first due to overtime, machine wear, etc.</p>
+                <p><strong>Islamic Insight:</strong> The Prophet Muhammad (ﷺ) said: "The truthful and honest merchant will be with the prophets, the truthful, and the martyrs." (Tirmidhi). Supply should be honest—accurate weights, fair prices, transparent quality.</p>
+            </div>
+        </div>
+
+        <!-- Market Equilibrium -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-balance-scale"></i>
+                Market Equilibrium: When Supply Meets Demand
+            </div>
+
+            <div class="chart-container">
+                <svg viewBox="0 0 400 250" style="width:100%; max-width:400px;">
+                    <!-- Axes -->
+                    <line x1="50" y1="200" x2="350" y2="200" stroke="#312e81" stroke-width="2"/>
+                    <line x1="50" y1="200" x2="50" y2="50" stroke="#312e81" stroke-width="2"/>
+                    
+                    <!-- Demand Curve -->
+                    <path d="M70,80 L330,180" stroke="#10b981" stroke-width="3" fill="none"/>
+                    
+                    <!-- Supply Curve -->
+                    <path d="M70,180 L330,80" stroke="#f59e0b" stroke-width="3" fill="none"/>
+                    
+                    <!-- Equilibrium Point -->
+                    <circle cx="200" cy="130" r="6" fill="#312e81"/>
+                    
+                    <!-- Labels -->
+                    <text x="360" y="190" fill="#312e81" font-size="12">Quantity</text>
+                    <text x="30" y="40" fill="#312e81" font-size="12">Price</text>
+                    <text x="220" cy="110" fill="#312e81" font-size="14">Equilibrium</text>
+                </svg>
+                <div class="chart-labels">
+                    <span style="color:#10b981;">Demand</span>
+                    <span style="color:#f59e0b;">Supply</span>
+                    <span style="color:#312e81;">Equilibrium</span>
+                </div>
+            </div>
+
+            <p><strong>Equilibrium</strong> is the price where the quantity consumers want to buy exactly equals the quantity producers want to sell. At this price, there is no shortage and no surplus.</p>
+
+            <table class="market-table">
+                <tr>
+                    <th>Price ($)</th>
+                    <th>Quantity Demanded</th>
+                    <th>Quantity Supplied</th>
+                    <th>Market Condition</th>
+                </tr>
+                <tr>
+                    <td>$10</td>
+                    <td>50</td>
+                    <td>150</td>
+                    <td>Surplus (excess supply)</td>
+                </tr>
+                <tr class="equilibrium">
+                    <td>$7</td>
+                    <td>100</td>
+                    <td>100</td>
+                    <td>⚖️ EQUILIBRIUM</td>
+                </tr>
+                <tr>
+                    <td>$5</td>
+                    <td>150</td>
+                    <td>60</td>
+                    <td>Shortage (excess demand)</td>
+                </tr>
+            </table>
+
+            <div class="example-box">
+                <h4><i class="fas fa-store"></i> How Markets Reach Equilibrium</h4>
+                <p><strong>If price is too high ($10):</strong> Sellers have 150 items but buyers only want 50. Surplus! Sellers lower prices to attract buyers. Price falls toward $7.</p>
+                <p><strong>If price is too low ($5):</strong> Buyers want 150 items but sellers only have 60. Shortage! Buyers bid prices up. Price rises toward $7.</p>
+                <p><strong>At equilibrium ($7):</strong> Buyers get what they want, sellers sell what they make. No pressure to change price.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-mosque"></i> Islamic Perspective on Pricing</h4>
+                <p>The Prophet Muhammad (ﷺ) was asked to fix prices when they rose in Medina. He refused, saying: "Allah is the One Who fixes prices, Who withholds, Who gives lavishly, and Who provides. I hope to meet my Lord with none of you having a claim against me for an injustice concerning blood or property." (Abu Dawud)</p>
+                <p>This teaches us that market prices should be determined by natural supply and demand, not artificial controls—as long as there's no manipulation, hoarding, or fraud. Prices are a trust from Allah.</p>
+            </div>
+        </div>
+
+        <!-- Shifts vs Movements -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-arrows-alt"></i>
+                Movements vs Shifts
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h3>📉 Movement Along the Curve</h3>
+                    <p><strong>Caused by:</strong> Change in price</p>
+                    <ul>
+                        <li>Price goes up → move up the demand curve (buy less)</li>
+                        <li>Price goes down → move down the demand curve (buy more)</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h3>📈 Shift of the Curve</h3>
+                    <p><strong>Caused by:</strong> Change in other factors</p>
+                    <ul>
+                        <li>Income changes</li>
+                        <li>Preferences change</li>
+                        <li>Population changes</li>
+                        <li>Price of related goods</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Understanding the Difference</h4>
+                <p><strong>Movement:</strong> Coffee price rises from $3 to $4 → you buy less coffee. You're moving along the same demand curve.</p>
+                <p><strong>Shift:</strong> You get a promotion and higher salary → you buy more coffee at every price. The entire demand curve shifts right.</p>
+            </div>
+        </div>
+
+        <!-- Factors Affecting Demand -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-arrow-right"></i>
+                What Shifts Demand?
+            </div>
+
+            <div style="margin: 20px 0;">
+                <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; margin: 10px 0;">
+                    <strong>💰 Income:</strong> Higher income → more demand for normal goods (restaurants, travel). Lower income → more demand for inferior goods (instant noodles, public transport).
+                </div>
+                <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; margin: 10px 0;">
+                    <strong>❤️ Preferences/Tastes:</strong> Health trends increase demand for organic food, decrease demand for sugary drinks.
+                </div>
+                <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; margin: 10px 0;">
+                    <strong>👥 Population:</strong> More people → more demand for everything.
+                </div>
+                <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; margin: 10px 0;">
+                    <strong>🔄 Price of Related Goods:</strong> 
+                    <ul style="margin-left: 20px;">
+                        <li><strong>Substitutes:</strong> Tea price rises → demand for coffee rises (people switch)</li>
+                        <li><strong>Complements:</strong> Phone price rises → demand for phone cases falls (used together)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Factors Affecting Supply -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-arrow-left"></i>
+                What Shifts Supply?
+            </div>
+
+            <div style="margin: 20px 0;">
+                <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; margin: 10px 0;">
+                    <strong>🏭 Technology:</strong> Better machines → can produce more at same cost → supply shifts right.
+                </div>
+                <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; margin: 10px 0;">
+                    <strong>💰 Input Prices:</strong> Cheaper materials → more profitable → supply shifts right. Higher wages → less profitable → supply shifts left.
+                </div>
+                <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; margin: 10px 0;">
+                    <strong>👥 Number of Sellers:</strong> More firms enter market → supply shifts right.
+                </div>
+                <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; margin: 10px 0;">
+                    <strong>🌧️ Natural Conditions:</strong> Good weather → crop supply increases. Bad weather → supply decreases.
+                </div>
+                <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; margin: 10px 0;">
+                    <strong>⚖️ Government Policy:</strong> Taxes decrease supply, subsidies increase supply.
+                </div>
+            </div>
+        </div>
+
+        <!-- Real World Examples -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-globe"></i>
+                Real-World Examples
+            </div>
+
+            <div class="example-box">
+                <h4>📱 iPhone Launch</h4>
+                <p><strong>Demand:</strong> High (fans want new phone). <strong>Supply:</strong> Limited initially. Result: High prices, long lines, scalpers.</p>
+            </div>
+
+            <div class="example-box">
+                <h4>🌾 Crop Harvest</h4>
+                <p><strong>Good harvest:</strong> Supply increases → prices fall. <strong>Bad harvest:</strong> Supply decreases → prices rise.</p>
+            </div>
+
+            <div class="example-box">
+                <h4>⛽ Oil Prices</h4>
+                <p>Political instability in oil-producing countries → supply decreases → prices rise worldwide.</p>
+            </div>
+
+            <div class="example-box">
+                <h4>🏠 Housing Market</h4>
+                <p>Population grows in a city → demand increases → prices rise. Builders see opportunity → supply increases over time.</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 12 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+            <p style="margin-bottom: 30px; color: #64748b;">Answer these 12 questions to check your understanding. Click on the correct answer to see feedback.</p>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. According to the law of demand, when price increases, quantity demanded:</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">A. Increases</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">B. Decreases</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. Stays the same</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. Doubles</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> The law of demand states an inverse relationship between price and quantity demanded. Higher price → lower demand.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. What happens at the equilibrium price?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">A. There is a shortage</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">B. There is a surplus</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">C. Quantity demanded equals quantity supplied</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Price is at its maximum</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> At equilibrium, the market clears—buyers want exactly what sellers are offering. No shortage, no surplus.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. If the price is set below equilibrium, what results?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">A. Surplus</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">B. Shortage</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. Perfect balance</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. Increased supply</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Below equilibrium, quantity demanded exceeds quantity supplied, creating a shortage. Think of concert tickets sold too cheap—long lines and scalpers.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. Which factor would cause a shift in the demand curve (not just a movement along it)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">A. The price of the good changes</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">B. Consumer income increases</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. The price goes up</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. The price goes down</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> Income changes shift the entire demand curve. Price changes only cause movement along the curve.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. If coffee and tea are substitutes, what happens when coffee prices rise?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">A. Demand for tea increases</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">B. Demand for tea decreases</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">C. Demand for coffee increases</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. No change</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> Substitutes are alternatives. When coffee gets expensive, people switch to tea, increasing tea demand.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. What does the law of supply state?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">A. Price and quantity supplied are inversely related</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">B. Price and quantity supplied are directly related</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. Supply is fixed regardless of price</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Higher prices reduce supply</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> Higher prices incentivize producers to supply more. Supply curve slopes upward.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. A new technology makes smartphones cheaper to produce. What happens to supply?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">A. Supply decreases (shifts left)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">B. Supply increases (shifts right)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. Supply stays the same</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. Price increases</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> Better technology reduces costs, making production more profitable at every price. Supply curve shifts right.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. What did the Prophet Muhammad (ﷺ) say when people asked him to fix rising prices?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">A. He immediately set price controls</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">B. He blamed the merchants</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">C. He refused, saying Allah alone fixes prices</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. He lowered taxes</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> The Prophet refused to fix prices, teaching that market prices should reflect natural supply and demand without artificial interference.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. If the population of a city grows rapidly, what happens to the demand for housing?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">A. Demand increases (shifts right)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. Demand decreases (shifts left)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. Demand stays the same</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. Supply increases</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> More people means more housing needed at every price point. The entire demand curve shifts right.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. Which is an example of complementary goods?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">A. Coffee and tea</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Pepsi and Coke</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">C. Printers and ink cartridges</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. Beef and chicken</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Complements are goods used together. If printer prices rise, demand for ink falls because fewer people buy printers.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. If a drought destroys wheat crops, what happens to the price of bread?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">A. Price increases</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. Price decreases</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. Price stays the same</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. Price becomes zero</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Drought reduces supply of wheat (shift left), which increases the price of bread made from wheat.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. In Islamic economics, what is the ruling on hoarding goods to drive up prices?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">A. Permissible - it's good business</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">B. Encouraged - maximizes profit</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">C. Prohibited (haram) - it manipulates supply</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. Neutral - no ruling</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> Hoarding (ihtikar) to manipulate prices is prohibited in Islam. The Prophet (ﷺ) said: "Whoever hoards food for forty days, he has disassociated himself from Allah and Allah has disassociated from him." (Ahmad)
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; color: #1e293b; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: 500;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4><i class="fas fa-book-open"></i> Recommended Books</h4>
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> "Principles of Economics" - N. Gregory Mankiw</a>
+                            <div class="description">Chapter 4: The Market Forces of Supply and Demand</div>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> "Economics in One Lesson" - Henry Hazlitt</a>
+                            <div class="description">Classic introduction to market economics.</div>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-external-link-alt"></i> "The Islamic Economy" - M. Umer Chapra</a>
+                            <div class="description">Islamic perspective on markets and pricing.</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4><i class="fas fa-globe"></i> Online Resources</h4>
+                    <ul>
+                        <li>
+                            <a href="https://www.khanacademy.org/economics-finance-domain/microeconomics/supply-demand-equilibrium" target="_blank"><i class="fas fa-external-link-alt"></i> Khan Academy - Supply and Demand</a>
+                            <div class="description">Video lessons and practice exercises.</div>
+                        </li>
+                        <li>
+                            <a href="https://fred.stlouisfed.org" target="_blank"><i class="fas fa-external-link-alt"></i> FRED Economic Data</a>
+                            <div class="description">See real supply and demand in action with actual market data.</div>
+                        </li>
+                        <li>
+                            <a href="https://www.investopedia.com/terms/s/supply.asp" target="_blank"><i class="fas fa-external-link-alt"></i> Investopedia - Supply & Demand</a>
+                            <div class="description">Detailed articles with examples.</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4><i class="fas fa-mosque"></i> Islamic Economics</h4>
+                    <ul>
+                        <li>
+                            <a href="/resources/islamic-market-ethics.html"><i class="fas fa-link"></i> Market Ethics in Islam</a>
+                            <div class="description">Fair pricing, honest trading, and prohibition of hoarding.</div>
+                        </li>
+                        <li>
+                            <a href="https://islamicmarkets.com" target="_blank"><i class="fas fa-external-link-alt"></i> Islamic Markets</a>
+                            <div class="description">News and analysis on Islamic finance.</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 30px; font-size: 14px; color: #64748b;">
+                <i class="fas fa-link"></i> For more resources, visit our <a href="/resources" style="color: #312e81;">Learning Resources Hub</a>
+            </p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/beginner/01-what-is-economics.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: What is Economics?</a>
+            <a href="/economics/learn/beginner/03-gdp-explained.html" class="nav-link">Next Lesson: GDP Explained <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <div class="footer-links">
+            <a href="/economics">Economics Hub</a>
+            <a href="/trading/learn">Trading Lessons</a>
+            <a href="/resources">Resources</a>
+            <a href="/simulator/trade">Simulator</a>
+        </div>
+        <p style="color: #64748b; font-size: 14px; margin-top: 20px;">May your understanding of markets lead to wise and ethical decisions</p>
+        <p style="color: #94a3b8; font-size: 12px; margin-top: 10px;">© 2026 Fatimah Financial Hub • Economics Lesson 2 of 20</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            // Get all options for this question
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            // Remove previous correct/incorrect classes
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            // Add class to clicked element
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            // Show explanation
+            if (explanation) {
+                explanation.classList.add('show');
+            }
+            
+            // If incorrect, also highlight the correct answer
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            const explanations = document.querySelectorAll('.explanation');
+            explanations.forEach(exp => {
+                exp.classList.remove('show');
+            });
+            
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+        }
+    </script>
+</body>
+</html>

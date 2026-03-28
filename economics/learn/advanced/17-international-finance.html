@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International Finance - Lesson 17 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #7c3aed;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .debate-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            margin: 15px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .country-card {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 15px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .country-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/advanced">Advanced</a> › 
+                Lesson 17: International Finance & Exchange Rate Systems
+            </div>
+            <div class="title-section">
+                <h1>International Finance</h1>
+                <span class="badge">Advanced • 60 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 15 Quiz Questions</span>
+                <span><i class="fas fa-globe"></i> Global Monetary Order</span>
+                <span><i class="fas fa-mosque"></i> Justice in Exchange</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">يَا أَيُّهَا النَّاسُ إِنَّا خَلَقْنَاكُم مِّن ذَكَرٍ وَأُنثَىٰ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا ۚ إِنَّ أَكْرَمَكُمْ عِندَ اللَّهِ أَتْقَاكُمْ</div>
+            <div class="translation">"O mankind, indeed We have created you from male and female and made you peoples and tribes that you may know one another. Indeed, the most noble of you in the sight of Allah is the most righteous."</div>
+            <div class="reference">— Quran 49:13</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Nations trade and exchange currencies not to dominate, but to know one another. The current global financial system, however, often enables domination rather than mutual benefit.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-globe"></i>
+                The Global Financial Order
+            </div>
+            <p style="font-size: 18px;">International finance studies how money, credit, and investment flow across borders. It determines the price of your currency, the cost of your imports, and the value of your country's debt. At its core, it's about power—who controls the global monetary system and who benefits.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 Daily Reality:</strong> When you buy a phone made in China, pay for oil priced in dollars, or send remittances home—you're participating in international finance.</p>
+            </div>
+        </div>
+
+        <!-- The International Monetary System -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-clock"></i>
+                A Brief History: From Gold to Dollars
+            </div>
+
+            <div class="timeline-item">
+                <h4>📅 1870-1914: Classical Gold Standard</h4>
+                <p>Currencies backed by gold. Fixed exchange rates. Automatic adjustment: trade deficits → gold outflows → money supply ↓ → prices ↓ → exports ↑ → balance restored. Worked well until WWI broke it.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>📅 1944: Bretton Woods</h4>
+                <p>44 countries met in New Hampshire. Pegged currencies to dollar; dollar pegged to gold ($35/oz). US promised to convert dollars to gold. Created IMF and World Bank.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>📅 1971: Nixon Shock</h4>
+                <p>US suspended gold convertibility. Dollar became fiat money. Currencies began floating. Birth of modern forex markets. Dollar remained reserve currency by inertia and military power.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>📅 1999: Euro Launched</h4>
+                <p>11 European countries adopted single currency. Challenge to dollar dominance, but euro still second.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>📅 2020s: De-dollarization?</h4>
+                <p>China, Russia, BRICS exploring alternatives. Digital currencies, bilateral trade in local currencies, gold accumulation. Dollar still dominant but face challenges.</p>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Robert Mundell • Nobel Prize 1999</h4>
+                <p>Father of optimum currency areas. His work laid foundation for the euro. Showed conditions under which countries should share currency: labor mobility, trade integration, similar business cycles.</p>
+            </div>
+        </div>
+
+        <!-- Exchange Rate Regimes -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exchange-alt"></i>
+                Exchange Rate Regimes: A Spectrum of Choices
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>💱 Fixed (Pegged)</h4>
+                    <p><strong>Example:</strong> Saudi Riyal (3.75 to USD)</p>
+                    <p><strong>Pros:</strong> Trade stability, low inflation credibility</p>
+                    <p><strong>Cons:</strong> Lose independent monetary policy, must hold reserves</p>
+                </div>
+                <div class="column-card">
+                    <h4>📈 Floating</h4>
+                    <p><strong>Example:</strong> USD, EUR, JPY</p>
+                    <p><strong>Pros:</strong> Automatic adjustment, independent policy</p>
+                    <p><strong>Cons:</strong> Volatility, uncertainty for trade</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>⚓ Crawling Peg</h4>
+                    <p><strong>Example:</strong> China (used to)</p>
+                    <p>Regularly adjusted fixed rate. Allows gradual appreciation/depreciation.</p>
+                </div>
+                <div class="column-card">
+                    <h4>🌊 Managed Float</h4>
+                    <p><strong>Example:</strong> India, Singapore</p>
+                    <p>Mostly market-driven but central bank intervenes to smooth volatility.</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> The Impossible Trinity (Mundell-Fleming)</h4>
+                <p>A country cannot have all three simultaneously:</p>
+                <ul>
+                    <li><strong>1. Fixed exchange rate</strong></li>
+                    <li><strong>2. Free capital movement</strong></li>
+                    <li><strong>3. Independent monetary policy</strong></li>
+                </ul>
+                <p>You can only pick two. Hong Kong: fixed rate + free capital → no independent monetary policy (follows US rates). US: floating rate + free capital → independent policy.</p>
+            </div>
+        </div>
+
+        <!-- The Dollar's Special Role -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-dollar-sign"></i>
+                The US Dollar: Global Reserve Currency
+            </div>
+
+            <div class="chart-container">
+                <canvas id="reserveChart"></canvas>
+            </div>
+
+            <p style="text-align:center; margin:10px 0; font-size:14px; color:#64748b;">Dollar still dominates, but share is slowly declining</p>
+
+            <div class="two-column">
+                <div>
+                    <h4>✅ Benefits to USA</h4>
+                    <ul>
+                        <li><strong>Exorbitant privilege:</strong> Can borrow cheaply (everyone wants dollars)</li>
+                        <li><strong>No exchange rate risk:</strong> US companies pay in dollars</li>
+                        <li><strong>Sanctions power:</strong> Cut countries from dollar system</li>
+                        <li><strong>Seigniorage:</strong> Profit from printing money others hold</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>⚠️ Costs to USA</h4>
+                    <ul>
+                        <li><strong>Overvalued dollar:</strong> Hurts manufacturing</li>
+                        <li><strong>Must run deficits:</strong> To supply dollars to world</li>
+                        <li><strong>Triffin dilemma:</strong> Conflict between domestic and global needs</li>
+                        <li><strong>Responsibility:</strong> Must maintain stability</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ The Triffin Dilemma (1960s)</h4>
+                <p>Belgian economist Robert Triffin identified the contradiction: To supply the world with dollars, US must run trade deficits. But persistent deficits undermine confidence in dollar. The system contains seeds of its own destruction.</p>
+            </div>
+        </div>
+
+        <!-- Balance of Payments -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-balance-scale"></i>
+                Balance of Payments: A Nation's Accounting
+            </div>
+
+            <div class="formula-box">
+                Current Account + Capital Account = 0
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📦 Current Account</h4>
+                    <p>Trade in goods + services + investment income + transfers</p>
+                    <p><strong>US (2025):</strong> Deficit -$800B</p>
+                    <p>🇨🇳 China: Surplus +$400B</p>
+                </div>
+                <div class="column-card">
+                    <h4>💰 Capital Account</h4>
+                    <p>Foreign investment in US (stocks, bonds, real estate) minus US investment abroad</p>
+                    <p><strong>US:</strong> Surplus +$800B</p>
+                    <p>🇨🇳 China: Deficit -$400B</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-sync-alt"></i> How They Balance</h4>
+                <p>US buys $100B of Chinese goods (current account deficit). China takes those dollars and buys US Treasury bonds (capital account surplus). They always match.</p>
+                <p>This is why the US can run persistent deficits—other countries recycle dollars back into US assets.</p>
+            </div>
+        </div>
+
+        <!-- Currency Crises -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                When It Fails: Currency Crises
+            </div>
+
+            <div class="country-card">
+                <div class="country-name">🇲🇽 Mexico 1994 (Tequila Crisis)</div>
+                <p>Pegged to dollar, ran deficits. Investors fled, reserves depleted. Forced to float, peso lost 50%. US bailout via IMF. Lesson: Don't maintain overvalued peg with low reserves.</p>
+            </div>
+
+            <div class="country-card">
+                <div class="country-name">🇹🇭🇮🇩🇰🇷 1997 Asian Financial Crisis</div>
+                <p>Fixed rates + hot money inflows. When sentiment turned, currencies collapsed. Thailand lost 50%, Indonesia 80%, Korea 50%. IMF bailouts with harsh conditions. Birth of "contagion" concept.</p>
+            </div>
+
+            <div class="country-card">
+                <div class="country-name">🇦🇷 Argentina 2001</div>
+                <p>Currency board: 1 peso = 1 dollar. Lost competitiveness, debt unsustainable. Collapse led to 5 presidents in 2 weeks, largest default in history, poverty 50%.</p>
+            </div>
+
+            <div class="country-card">
+                <div class="country-name">🇹🇷 Turkey 2018-2025</div>
+                <p>Unconventional policy (cutting rates despite inflation). Lira lost 80% of value. Savings destroyed, inflation peaked >80%.</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Common Warning Signs</h4>
+                <ul>
+                    <li>Overvalued real exchange rate</li>
+                    <li>Persistent current account deficits</li>
+                    <li>Short-term foreign currency debt</li>
+                    <li>Low reserves relative to imports</li>
+                    <li>Banking system weakness</li>
+                    <li>Political instability</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- The IMF and World Bank -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-university"></i>
+                The Bretton Woods Institutions
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>💰 International Monetary Fund</h4>
+                    <p><strong>Purpose:</strong> Maintain global financial stability</p>
+                    <p><strong>Tools:</strong> Lending to countries in crisis, surveillance, technical assistance</p>
+                    <p><strong>Criticism:</strong> Conditionality (austerity) often worsens crises</p>
+                </div>
+                <div class="column-card">
+                    <h4>🏗️ World Bank</h4>
+                    <p><strong>Purpose:</strong> Development lending (long-term)</p>
+                    <p><strong>Tools:</strong> Loans for infrastructure, education, health</p>
+                    <p><strong>Criticism:</strong> Western-dominated, environmental/social impacts</p>
+                </div>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ Are They Part of the Problem?</h4>
+                <p><strong>Critics:</strong> IMF imposes neoliberal policies (privatization, deregulation) that benefit Western corporations. Structural adjustment programs (SAPs) of 1980s-90s are blamed for poverty increases.</p>
+                <p><strong>Defenders:</strong> Provide emergency funding when no one else will. Have learned from past mistakes, now emphasize social protection.</p>
+                <p><strong>Islamic countries:</strong> Malaysia rejected IMF in 1998, imposed capital controls, recovered faster than IMF-bailed-out countries. Islamic Development Bank offers alternative.</p>
+            </div>
+        </div>
+
+        <!-- De-dollarization Movement -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-dollar-sign"></i>
+                The De-dollarization Movement
+            </div>
+
+            <div class="timeline-item">
+                <h4>🌍 Why Countries Want Alternatives</h4>
+                <ul>
+                    <li><strong>Sanctions:</strong> Russia, Iran cut from SWIFT. Any country could be next.</li>
+                    <li><strong>US debt:</strong> $35T and growing—concerns about long-term dollar value.</li>
+                    <li><strong>Political leverage:</strong> Dollar as weapon creates resentment.</li>
+                    <li><strong>National pride:</strong> China wants yuan as global currency.</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>🇨🇳 China's Push</h4>
+                    <ul>
+                        <li>Bilateral trade in yuan (Russia, Brazil, Saudi Arabia)</li>
+                        <li>Digital yuan (e-CNY)</li>
+                        <li>Swap lines with 40+ countries</li>
+                        <li>BRICS currency discussions</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🇷🇺 Russia's Move</h4>
+                    <ul>
+                        <li>Forced de-dollarization after 2022 sanctions</li>
+                        <li>Gas sales in rubles, yuan</li>
+                        <li>Building alternative payment system</li>
+                        <li>Gold accumulation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> BRICS Currency?</h4>
+                <p>BRICS (Brazil, Russia, India, China, South Africa) have discussed a common currency for trade. Challenges: different economic structures, political rivalries, no central bank. More likely: bilateral trade in local currencies and a digital settlement system.</p>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ Will Dollar Lose Reserve Status?</h4>
+                <p><strong>Yes (eventually):</strong> No currency lasts forever. Pound lost dominance after WWII. US share of global GDP is falling. Digital currencies offer alternatives.</p>
+                <p><strong>No (anytime soon):</strong> No alternative exists. Euro has problems, yuan not convertible, no deep bond markets. Network effects are powerful—dollar used in 88% of forex trades.</p>
+                <p><strong>Likely:</strong> Slow decline over decades, not sudden collapse. Multipolar system with dollar, euro, yuan, gold.</p>
+            </div>
+        </div>
+
+        <!-- Islamic Perspective -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islamic Perspective: Justice in International Finance
+            </div>
+
+            <div class="psychology-box">
+                <h4>📜 Quranic Principles</h4>
+                <ul>
+                    <li><strong>"Do not consume one another's wealth unjustly" (2:188):</strong> Currency manipulation, unfair exchange rates, and predatory lending violate this.</li>
+                    <li><strong>"Give full measure and weight" (6:152):</strong> Exchange rates should be fair and transparent.</li>
+                    <li><strong>"So that it will not be a perpetual distribution among the rich" (59:7):</strong> The current system concentrates benefits in reserve currency countries.</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>⚠️ Problems with Current System</h4>
+                    <ul>
+                        <li><strong>Riba:</strong> International debt involves interest</li>
+                        <li><strong>Gharar:</strong> Forex speculation (90%+ of daily $6.6T is speculative)</li>
+                        <li><strong>Injustice:</strong> Reserve currency privilege benefits rich nations</li>
+                        <li><strong>Instability:</strong> Currency crises devastate poor countries</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🕌 Islamic Alternatives</h4>
+                    <ul>
+                        <li><strong>Gold dinar, silver dirham:</strong> Commodity money, stable and just</li>
+                        <li><strong>Bilateral trade in local currencies:</strong> Malaysia-China, Russia-India</li>
+                        <li><strong>Islamic monetary union:</strong> Potential for Muslim countries</li>
+                        <li><strong>Sukuk:</strong> Asset-backed cross-border financing</li>
+                        <li><strong>Shariah-compliant forex:</strong> Spot only, no interest, no speculation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> The Gold Dinar Revival</h4>
+                <p>Malaysia's former Prime Minister Mahathir Mohamad advocated for gold dinar in Islamic trade. Turkey and Iran have discussed gold-based settlements. While not widely adopted, commodity money addresses many Islamic concerns: no riba, real value, stable, fair.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-balance-scale"></i> Justice in Exchange</h4>
+                <p>Imam Abu Yusuf (8th century) wrote in <em>Kitab al-Kharaj</em>: "The value of money should be stable so that people can transact with confidence." Modern Islamic economists argue for:</p>
+                <ul>
+                    <li>Reforming IMF to give developing countries more voice</li>
+                    <li>Creating regional payment systems (e.g., Islamic Development Bank's trade financing)</li>
+                    <li>Linking currencies to commodity baskets rather than a single nation's currency</li>
+                    <li>Prohibiting speculative forex trading (which is 95% of volume)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Digital Currencies and Crypto -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-bitcoin"></i>
+                Digital Currencies: A New Frontier
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>🏦 Central Bank Digital Currencies (CBDCs)</h4>
+                    <ul>
+                        <li>China: e-CNY (350M users)</li>
+                        <li>Sweden: e-krona pilot</li>
+                        <li>Bahamas: Sand Dollar launched</li>
+                        <li>Potential: Faster cross-border payments, less dollar dependence</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🪙 Cryptocurrencies</h4>
+                    <ul>
+                        <li>Bitcoin: Decentralized, fixed supply</li>
+                        <li>Islamic scholars divided: Some say halal (asset-like), others haram (volatility, speculation, energy waste)</li>
+                        <li>Stablecoins: Pegged to dollar—but then dollar dependent!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ Islamic Ruling on Crypto</h4>
+                <p><strong>Permitted (some scholars):</strong> If treated as asset, not currency, with proper safeguards, can be halal.</p>
+                <p><strong>Prohibited (others):</strong> Extreme volatility (gharar), speculation (maysir), no intrinsic value, use in crime.</p>
+                <p><strong>Mainstream view:</strong> Exercise extreme caution. Many crypto activities are clearly haram (interest-bearing accounts, margin trading).</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 15 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What was the Bretton Woods system?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">A. Currencies pegged to dollar, dollar pegged to gold (1944-1971)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">B. Gold standard (1870-1914)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. Floating exchange rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. The euro launch</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> Bretton Woods pegged currencies to the dollar, and the dollar to gold at $35/oz, lasting from 1944 to 1971.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. What is the "Impossible Trinity"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">A. Can't have fixed rates, free capital, and independent policy simultaneously</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">B. Three ways to fix currency crises</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. Three types of exchange rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Three global currencies</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> The Mundell-Fleming trilemma: a country can only choose two of three: fixed rates, free capital movement, independent monetary policy.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. What happened in 1971 (Nixon Shock)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">A. US suspended gold convertibility, ending Bretton Woods</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. Euro launched</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. IMF created</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. Gold standard began</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Nixon closed the gold window, making dollar pure fiat currency and starting floating exchange rates.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. What is the "exorbitant privilege" of the US dollar?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">A. Ability to borrow cheaply because everyone needs dollars</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">B. Higher interest rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. No trade deficits</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Unlimited gold reserves</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> The US benefits from dollar dominance by borrowing cheaply and avoiding exchange rate risk.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What is the Triffin Dilemma?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">A. To supply dollars, US must run deficits, which undermine confidence</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">B. Fixed vs floating rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">C. Gold vs paper money</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. Trade surplus vs deficit</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> Triffin identified the contradiction: supplying dollars requires deficits, which eventually undermine confidence in the dollar.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. Which country suffered a currency crisis in 2001 after a currency board collapsed?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">A. Argentina</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. Mexico</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. Thailand</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Turkey</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> Argentina's currency board (1 peso = 1 dollar) collapsed in 2001, causing massive crisis.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What is the main Islamic criticism of the current international financial system?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">A. It's based on riba (interest), speculation (gharar), and benefits rich nations</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. It's too stable</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. It helps poor countries too much</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. It's based on gold</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> The system relies on interest, enables massive speculation, and concentrates benefits in reserve currency countries.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. Who won the Nobel Prize for work on optimum currency areas, laying foundation for euro?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">A. Robert Mundell</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">B. Milton Friedman</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. Paul Krugman</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. Ben Bernanke</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> Robert Mundell won in 1999 for his work on optimum currency areas and the Mundell-Fleming model.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What percentage of global forex trading is estimated to be speculative (not trade-related)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">A. Over 90%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. About 50%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. About 25%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. About 10%</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> Over 90% of the $6.6 trillion daily forex volume is speculative, not related to trade or investment.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. What is the balance of payments identity?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. Current Account + Capital Account = 0</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Exports = Imports</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. GDP = C + I + G</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. Savings = Investment</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Current account surplus/deficit must be exactly offset by capital account deficit/surplus.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. Why do some countries want de-dollarization?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">A. Sanctions risk, US debt concerns, desire for monetary sovereignty</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. They like inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. They want more volatility</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. They have too many dollars</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Sanctions, US debt, and desire for independence drive de-dollarization efforts.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. What was the Asian Financial Crisis (1997)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">A. Currency collapses in Thailand, Indonesia, Korea due to hot money outflows</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">B. US stock market crash</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. European debt crisis</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. Japanese banking crisis</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> The 1997 crisis swept through Asia as currencies collapsed after hot money fled.
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="quiz-question" id="q13">
+                <p>13. What is the Islamic alternative to interest-based international finance?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'correct')">A. Sukuk (asset-backed securities), Mudaraba (profit-sharing), local currency trade</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">B. Higher interest rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">C. More speculation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">D. Eliminate all trade</div>
+                </div>
+                <div class="explanation" id="exp-q13">
+                    <strong>✅ Correct!</strong> Islamic alternatives include asset-backed Sukuk, profit-sharing partnerships, and bilateral trade in local currencies.
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="quiz-question" id="q14">
+                <p>14. What does the Quran say about wealth circulation that applies to global finance?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'correct')">A. "So that it will not be a perpetual distribution among the rich" (59:7)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">B. "And establish prayer" (2:43)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">C. "Fight in the way of Allah" (2:190)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">D. "And speak kindly" (2:83)</div>
+                </div>
+                <div class="explanation" id="exp-q14">
+                    <strong>✅ Correct!</strong> Quran 59:7 warns against wealth concentrating among the rich—a critique of the current system where reserve currency countries benefit disproportionately.
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="quiz-question" id="q15">
+                <p>15. What is the current dollar share of global reserves?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'correct')">A. About 58-60%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">B. About 80%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">C. About 40%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">D. About 95%</div>
+                </div>
+                <div class="explanation" id="exp-q15">
+                    <strong>✅ Correct!</strong> Dollar share has declined from 70% to about 58-60% as countries diversify, but it remains dominant.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"This Time is Different" - Reinhart & Rogoff</a></li>
+                        <li><a href="#">"The Dollar Trap" - Eswar Prasad</a></li>
+                        <li><a href="#">"Globalizing Capital" - Barry Eichengreen</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>📊 Academic Papers</h4>
+                    <ul>
+                        <li><a href="#">"A Theory of Optimum Currency Areas" - Robert Mundell</a></li>
+                        <li><a href="#">"The Triffin Dilemma" - Robert Triffin</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Economics</h4>
+                    <ul>
+                        <li><a href="#">"Gold Dinar in Islamic Trade" - Mahathir Mohamad</a></li>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Finance</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/advanced/16-quantitative-easing.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Quantitative Easing</a>
+            <a href="/economics/learn/advanced/18-economic-development.html" class="nav-link">Next: Economic Development <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May the nations deal with one another in justice, not domination</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 17 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في العشر الأواخر من رمضان</p>
+    </footer>
+
+    <script>
+        // Initialize Reserve Currency Chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('reserveChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['US Dollar', 'Euro', 'Yen', 'Pound', 'Others'],
+                    datasets: [{
+                        data: [59, 20, 6, 5, 10],
+                        backgroundColor: [
+                            '#312e81',
+                            '#10b981',
+                            '#f59e0b',
+                            '#ef4444',
+                            '#94a3b8'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        });
+
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

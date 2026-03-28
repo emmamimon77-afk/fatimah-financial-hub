@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Resources - Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .page-header h1 {
+            font-size: 42px;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+        .page-header p {
+            color: #64748b;
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0 50px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 32px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 30px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: #f1f5f9;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #312e81;
+        }
+        .card-header h3 {
+            font-size: 20px;
+            color: #1e293b;
+        }
+        .resource-list {
+            list-style: none;
+        }
+        .resource-list li {
+            margin: 12px 0;
+            padding-left: 20px;
+            border-left: 2px solid #e2e8f0;
+        }
+        .resource-list a {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .resource-list a:hover {
+            color: #1e1b4b;
+            text-decoration: underline;
+        }
+        .resource-list .description {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        .badge-free {
+            background: #d1fae5;
+            color: #10b981;
+        }
+        .badge-premium {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .reference-block {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 4px solid #312e81;
+        }
+        .reference-block h4 {
+            margin-bottom: 15px;
+            color: #312e81;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources" style="color: #fbbf24;">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1>📚 Learning Resources Hub</h1>
+            <p>A curated collection of the best books, courses, data sources, and references for trading, economics, and Islamic finance.</p>
+        </div>
+
+        <div class="quran-verse">
+            <div class="arabic">اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ</div>
+            <div class="translation">"Read! In the name of your Lord who created."</div>
+            <div class="reference">— Quran 96:1</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">The first word revealed was "Read" - seeking knowledge is the foundation of our faith.</p>
+        </div>
+
+        <!-- Trading Resources -->
+        <h2 class="section-title">
+            <i class="fas fa-chart-line"></i> Trading Resources
+        </h2>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="card-header">
+                    <div class="card-icon">📘</div>
+                    <h3>Essential Books</h3>
+                </div>
+                <ul class="resource-list">
+                    <li>
+                        <a href="#"><i class="fas fa-book"></i> "Technical Analysis of Financial Markets" - John Murphy</a>
+                        <div class="description">The bible of technical analysis. Covers all major patterns and indicators.</div>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-book"></i> "Japanese Candlestick Charting Techniques" - Steve Nison</a>
+                        <div class="description">The definitive guide to candlestick patterns and their psychology.</div>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-book"></i> "Elliott Wave Principle" - Frost & Prechter</a>
+                        <div class="description">Master the wave theory and market psychology.</div>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-book"></i> "Trading for a Living" - Dr. Alexander Elder</a>
+                        <div class="description">Psychology, risk management, and trading systems.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="resource-card">
+                <div class="card-header">
+                    <div class="card-icon">🌐</div>
+                    <h3>Online Platforms</h3>
+                </div>
+                <ul class="resource-list">
+                    <li>
+                        <a href="https://www.investopedia.com" target="_blank"><i class="fas fa-external-link-alt"></i> Investopedia</a>
+                        <div class="description">The #1 financial education website. Free tutorials and articles.</div>
+                    </li>
+                    <li>
+                        <a href="https://www.tradingview.com" target="_blank"><i class="fas fa-external-link-alt"></i> TradingView</a>
+                        <div class="description">Professional charting platform. Free tier available.</div>
+                    </li>
+                    <li>
+                        <a href="https://www.stockcharts.com" target="_blank"><i class="fas fa-external-link-alt"></i> StockCharts.com</a>
+                        <div class="description">Excellent charting tools and educational resources.</div>
+                    </li>
+                    <li>
+                        <a href="https://www.babypips.com" target="_blank"><i class="fas fa-external-link-alt"></i> BabyPips</a>
+                        <div class="description">Best free forex education for beginners.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="resource-card">
+                <div class="card-header">
+                    <div class="card-icon">🎓</div>
+                    <h3>Free Courses</h3>
+                </div>
+                <ul class="resource-list">
+                    <li>
+                        <a href="https://www.khanacademy.org/economics-finance-domain" target="_blank"><i class="fas fa-external-link-alt"></i> Khan Academy - Economics</a>
+                        <div class="description">Complete free course on economics and finance.</div>
+                    </li>
+                    <li>
+                        <a href="https://www.coursera.org/learn/financial-markets-global" target="_blank"><i class="fas fa-external-link-alt"></i> Yale Financial Markets</a>
+                        <div class="description">Professor Robert Shiller's Nobel-winning course.</div>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu" target="_blank"><i class="fas fa-external-link-alt"></i> MIT OpenCourseWare</a>
+                        <div class="description">Free university-level economics courses.</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Economics Resources -->
+        <h2 class="section-title">
+            <i class="fas fa-chart-bar"></i> Economics Resources
+        </h2>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <h3>Data Sources</h3>
+                </div>
+                <ul class="resource-list">
+                    <li>
+                        <a href="https://fred.stlouisfed.org" target="_blank"><i class="fas fa-external-link-alt"></i> FRED (St. Louis Fed)</a>
+                        <div class="description">800,000+ economic time series. Free API access.</div>
+                    </li>
+                    <li>
+                        <a href="https://data.worldbank.org" target="_blank"><i class="fas fa-external-link-alt"></i> World Bank Open Data</a>
+                        <div class="description">Global development data and indicators.</div>
+                    </li>
+                    <li>
+                        <a href="https://www.imf.org/en/Data" target="_blank"><i class="fas fa-external-link-alt"></i> IMF Data</a>
+                        <div class="description">International financial statistics and economic outlooks.</div>
+                    </li>
+                    <li>
+                        <a href="https://www.bls.gov/data" target="_blank"><i class="fas fa-external-link-alt"></i> Bureau of Labor Statistics</a>
+                        <div class="description">US employment, inflation, and productivity data.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="resource-card">
+                <div class="card-header">
+                    <div class="card-icon">📚</div>
+                    <h3>Essential Economics Books</h3>
+                </div>
+                <ul class="resource-list">
+                    <li>
+                        <a href="#"><i class="fas fa-book"></i> "Principles of Economics" - N. Gregory Mankiw</a>
+                        <div class="description">The most popular economics textbook worldwide.</div>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-book"></i> "The General Theory" - John Maynard Keynes</a>
+                        <div class="description">Foundational work on macroeconomics.</div>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-book"></i> "Capital in the Twenty-First Century" - Thomas Piketty</a>
+                        <div class="description">Modern analysis of wealth and inequality.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="resource-card">
+                <div class="card-header">
+                    <div class="card-icon">📈</div>
+                    <h3>Economic Indicators</h3>
+                </div>
+                <ul class="resource-list">
+                    <li>
+                        <a href="/economics"><i class="fas fa-link"></i> Our Economics Module</a>
+                        <div class="description">Real-time FRED data with Nobel formulas.</div>
+                    </li>
+                    <li>
+                        <a href="https://tradingeconomics.com" target="_blank"><i class="fas fa-external-link-alt"></i> Trading Economics</a>
+                        <div class="description">Global economic indicators and forecasts.</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Islamic Finance Resources -->
+        <h2 class="section-title">
+            <i class="fas fa-mosque"></i> Islamic Finance Resources
+        </h2>
+        <div class="resources-grid">
+            <div class="resource-card">
+                <div class="card-header">
+                    <div class="card-icon">📜</div>
+                    <h3>Standards & Bodies</h3>
+                </div>
+                <ul class="resource-list">
+                    <li>
+                        <a href="https://www.aaoifi.com" target="_blank"><i class="fas fa-external-link-alt"></i> AAOIFI</a>
+                        <div class="description">Accounting and Auditing Organization for Islamic Financial Institutions.</div>
+                    </li>
+                    <li>
+                        <a href="https://www.isdb.org" target="_blank"><i class="fas fa-external-link-alt"></i> Islamic Development Bank</a>
+                        <div class="description">Reports, research, and data on Islamic finance.</div>
+                    </li>
+                    <li>
+                        <a href="https://www.ifsb.org" target="_blank"><i class="fas fa-external-link-alt"></i> IFSB</a>
+                        <div class="description">Islamic Financial Services Board - prudential standards.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="resource-card">
+                <div class="card-header">
+                    <div class="card-icon">📚</div>
+                    <h3>Islamic Economics Books</h3>
+                </div>
+                <ul class="resource-list">
+                    <li>
+                        <a href="#"><i class="fas fa-book"></i> "Introduction to Islamic Finance" - Mufti Taqi Usmani</a>
+                        <div class="description">The definitive introduction by a leading scholar.</div>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-book"></i> "Islamic Economics: Theory and Practice" - M. Umer Chapra</a>
+                        <div class="description">Comprehensive analysis of Islamic economic principles.</div>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-book"></i> "The Art of Islamic Banking" - Yusuf Talal DeLorenzo</a>
+                        <div class="description">Practical guide to Islamic finance operations.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="resource-card">
+                <div class="card-header">
+                    <div class="card-icon">🔍</div>
+                    <h3>Shariah Screening</h3>
+                </div>
+                <ul class="resource-list">
+                    <li>
+                        <a href="/resources/islamic-vs-conventional.html"><i class="fas fa-link"></i> Islamic vs Conventional Finance</a>
+                        <div class="description">Our detailed comparison guide.</div>
+                    </li>
+                    <li>
+                        <a href="/finance-tools/islamic/sukuk-calculator.html"><i class="fas fa-link"></i> Sukuk Calculator</a>
+                        <div class="description">Calculate Islamic bond returns.</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Recommended Learning Path - UPDATED WITH COMPLETE LESSONS -->
+        <h2 class="section-title">
+            <i class="fas fa-graduation-cap"></i> Complete Learning Path (33 Lessons)
+        </h2>
+        
+        <!-- Progress Overview -->
+        <div style="background: white; border-radius: 20px; padding: 25px; margin-bottom: 30px; border: 1px solid #e2e8f0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <h3 style="font-size: 24px; color: #1e293b;">📊 Your Learning Journey</h3>
+                    <p style="color: #64748b;">33 complete lessons across Trading and Economics</p>
+                </div>
+                <div style="display: flex; gap: 30px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 32px; font-weight: bold; color: #312e81;">13</div>
+                        <div style="font-size: 12px; color: #64748b;">Trading Lessons</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 32px; font-weight: bold; color: #312e81;">20</div>
+                        <div style="font-size: 12px; color: #64748b;">Economics Lessons</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 32px; font-weight: bold; color: #312e81;">33</div>
+                        <div style="font-size: 12px; color: #64748b;">Total Lessons</div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px; margin: 20px 0;">
+                <div style="flex: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #312e81, #10b981);"></div>
+                </div>
+            </div>
+            <p style="color: #64748b; font-size: 14px;">All lessons are now complete and ready for you!</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 40px 0;">
+            <!-- Trading Path -->
+            <div style="background: white; border-radius: 20px; padding: 30px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                    <span style="background: #dbeafe; color: #2563eb; padding: 5px 10px; border-radius: 50px; font-size: 12px; font-weight: 600;">13 LESSONS</span>
+                    <span style="color: #64748b;"><i class="far fa-clock"></i> 8+ hours</span>
+                </div>
+                <h3 style="font-size: 24px; margin-bottom: 5px;">📈 Trading Education</h3>
+                <p style="color: #64748b; margin-bottom: 20px;">Master technical analysis and Islamic trading ethics</p>
+                
+                <div style="margin: 15px 0;">
+                    <details style="margin-bottom: 10px;" open>
+                        <summary style="font-weight: 600; color: #312e81; cursor: pointer; padding: 8px;">📘 Fundamentals (4 lessons)</summary>
+                        <div style="padding-left: 20px; margin-top: 8px;">
+                            <div><a href="/trading/learn/fundamentals/01-order-types.html" style="color: #1e293b; text-decoration: none;">• Order Types</a></div>
+                            <div><a href="/trading/learn/fundamentals/02-technical-analysis.html" style="color: #1e293b; text-decoration: none;">• Technical Analysis</a></div>
+                            <div><a href="/trading/learn/fundamentals/03-indicators.html" style="color: #1e293b; text-decoration: none;">• Key Indicators</a></div>
+                            <div><a href="/trading/learn/fundamentals/04-risk-management.html" style="color: #1e293b; text-decoration: none;">• Risk Management</a></div>
+                        </div>
+                    </details>
+                    
+                    <details style="margin-bottom: 10px;">
+                        <summary style="font-weight: 600; color: #312e81; cursor: pointer; padding: 8px;">🕌 Islamic Perspectives (4 lessons)</summary>
+                        <div style="padding-left: 20px; margin-top: 8px;">
+                            <div><a href="/trading/learn/islamic-perspectives/01-riba-explained.html" style="color: #1e293b; text-decoration: none;">• Riba Explained</a></div>
+                            <div><a href="/trading/learn/islamic-perspectives/02-gharar-in-trading.html" style="color: #1e293b; text-decoration: none;">• Gharar in Trading</a></div>
+                            <div><a href="/trading/learn/islamic-perspectives/03-haram-industries.html" style="color: #1e293b; text-decoration: none;">• Haram Industries</a></div>
+                            <div><a href="/trading/learn/islamic-perspectives/04-asset-backed-trading.html" style="color: #1e293b; text-decoration: none;">• Asset-Backed Trading</a></div>
+                        </div>
+                    </details>
+                    
+                    <details style="margin-bottom: 10px;">
+                        <summary style="font-weight: 600; color: #312e81; cursor: pointer; padding: 8px;">📊 Advanced Technical (5 lessons)</summary>
+                        <div style="padding-left: 20px; margin-top: 8px;">
+                            <div><a href="/trading/learn/advanced-technical/01-chart-patterns.html" style="color: #1e293b; text-decoration: none;">• Chart Patterns</a></div>
+                            <div><a href="/trading/learn/advanced-technical/02-candlestick-patterns.html" style="color: #1e293b; text-decoration: none;">• Candlestick Patterns</a></div>
+                            <div><a href="/trading/learn/advanced-technical/03-fibonacci-trading.html" style="color: #1e293b; text-decoration: none;">• Fibonacci Trading</a></div>
+                            <div><a href="/trading/learn/advanced-technical/04-elliott-wave.html" style="color: #1e293b; text-decoration: none;">• Elliott Wave Theory</a></div>
+                            <div><a href="/trading/learn/advanced-technical/05-ichimoku-cloud.html" style="color: #1e293b; text-decoration: none;">• Ichimoku Cloud</a></div>
+                        </div>
+                    </details>
+                </div>
+                
+                <a href="/trading" style="color: #312e81; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;">
+                    Explore Trading Hub <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Economics Path -->
+            <div style="background: white; border-radius: 20px; padding: 30px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                    <span style="background: #fef3c7; color: #d97706; padding: 5px 10px; border-radius: 50px; font-size: 12px; font-weight: 600;">20 LESSONS</span>
+                    <span style="color: #64748b;"><i class="far fa-clock"></i> 15+ hours</span>
+                </div>
+                <h3 style="font-size: 24px; margin-bottom: 5px;">📊 Economics Education</h3>
+                <p style="color: #64748b; margin-bottom: 20px;">Complete economics curriculum from basics to advanced</p>
+                
+                <div style="margin: 15px 0;">
+                    <details style="margin-bottom: 10px;" open>
+                        <summary style="font-weight: 600; color: #312e81; cursor: pointer; padding: 8px;">🌱 Beginner Path (10 lessons)</summary>
+                        <div style="padding-left: 20px; margin-top: 8px;">
+                            <div><a href="/economics/learn/beginner/01-what-is-economics.html" style="color: #1e293b; text-decoration: none;">• What is Economics?</a></div>
+                            <div><a href="/economics/learn/beginner/02-supply-demand.html" style="color: #1e293b; text-decoration: none;">• Supply & Demand</a></div>
+                            <div><a href="/economics/learn/beginner/03-gdp-explained.html" style="color: #1e293b; text-decoration: none;">• GDP Explained</a></div>
+                            <div><a href="/economics/learn/beginner/04-inflation-basics.html" style="color: #1e293b; text-decoration: none;">• Inflation Basics</a></div>
+                            <div><a href="/economics/learn/beginner/05-unemployment.html" style="color: #1e293b; text-decoration: none;">• Unemployment</a></div>
+                            <div><a href="/economics/learn/beginner/06-monetary-policy.html" style="color: #1e293b; text-decoration: none;">• Monetary Policy</a></div>
+                            <div><a href="/economics/learn/beginner/07-fiscal-policy.html" style="color: #1e293b; text-decoration: none;">• Fiscal Policy</a></div>
+                            <div><a href="/economics/learn/beginner/08-business-cycles.html" style="color: #1e293b; text-decoration: none;">• Business Cycles</a></div>
+                            <div><a href="/economics/learn/beginner/09-international-trade.html" style="color: #1e293b; text-decoration: none;">• International Trade</a></div>
+                            <div><a href="/economics/learn/beginner/10-exchange-rates.html" style="color: #1e293b; text-decoration: none;">• Exchange Rates</a></div>
+                        </div>
+                    </details>
+                    
+                    <details style="margin-bottom: 10px;">
+                        <summary style="font-weight: 600; color: #312e81; cursor: pointer; padding: 8px;">📈 Intermediate Path (5 lessons)</summary>
+                        <div style="padding-left: 20px; margin-top: 8px;">
+                            <div><a href="/economics/learn/intermediate/11-economic-indicators.html" style="color: #1e293b; text-decoration: none;">• Economic Indicators</a></div>
+                            <div><a href="/economics/learn/intermediate/12-monetary-policy-deep-dive.html" style="color: #1e293b; text-decoration: none;">• Monetary Policy Deep Dive</a></div>
+                            <div><a href="/economics/learn/intermediate/13-fiscal-policy-deep-dive.html" style="color: #1e293b; text-decoration: none;">• Fiscal Policy Deep Dive</a></div>
+                            <div><a href="/economics/learn/intermediate/14-phillips-curve.html" style="color: #1e293b; text-decoration: none;">• Phillips Curve</a></div>
+                            <div><a href="/economics/learn/intermediate/15-business-cycles-advanced.html" style="color: #1e293b; text-decoration: none;">• Business Cycles Advanced</a></div>
+                        </div>
+                    </details>
+                    
+                    <details style="margin-bottom: 10px;">
+                        <summary style="font-weight: 600; color: #312e81; cursor: pointer; padding: 8px;">🚀 Advanced Path (5 lessons)</summary>
+                        <div style="padding-left: 20px; margin-top: 8px;">
+                            <div><a href="/economics/learn/advanced/16-quantitative-easing.html" style="color: #1e293b; text-decoration: none;">• Quantitative Easing</a></div>
+                            <div><a href="/economics/learn/advanced/17-international-finance.html" style="color: #1e293b; text-decoration: none;">• International Finance</a></div>
+                            <div><a href="/economics/learn/advanced/18-economic-development.html" style="color: #1e293b; text-decoration: none;">• Economic Development</a></div>
+                            <div><a href="/economics/learn/advanced/19-behavioral-economics.html" style="color: #1e293b; text-decoration: none;">• Behavioral Economics</a></div>
+                            <div><a href="/economics/learn/advanced/20-islamic-economics.html" style="color: #1e293b; text-decoration: none;">• Islamic Economic System</a></div>
+                        </div>
+                    </details>
+                </div>
+                
+                <a href="/economics" style="color: #312e81; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;">
+                    Explore Economics Hub <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Quick Access -->
+            <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 20px; padding: 30px; color: white;">
+                <h3 style="font-size: 24px; margin-bottom: 15px; color: #fbbf24;">⚡ Quick Access</h3>
+                <p style="color: #cbd5e1; margin-bottom: 25px;">Jump directly to any lesson or tool</p>
+                
+                <div style="margin-bottom: 20px;">
+                    <a href="/simulator/trade" style="display: block; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: white; text-decoration: none; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.2);">
+                        <i class="fas fa-exchange-alt"></i> Launch Simulator
+                    </a>
+                    <a href="/trading/learn" style="display: block; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: white; text-decoration: none; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.2);">
+                        <i class="fas fa-chart-line"></i> Trading Lessons
+                    </a>
+                    <a href="/economics/learn" style="display: block; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: white; text-decoration: none; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.2);">
+                        <i class="fas fa-chart-bar"></i> Economics Lessons
+                    </a>
+                </div>
+                
+                <div style="background: rgba(251, 191, 36, 0.1); padding: 15px; border-radius: 12px; border-left: 4px solid #fbbf24;">
+                    <p style="color: #fbbf24; margin-bottom: 5px;"><i class="fas fa-star"></i> Total Content</p>
+                    <p style="font-size: 24px; font-weight: bold;">33 Lessons</p>
+                    <p style="font-size: 14px; color: #94a3b8;">200+ Quiz Questions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update the "How to Use These Resources" section -->
+        <div style="background: #f8fafc; border-radius: 20px; padding: 30px; margin: 40px 0;">
+            <h4 style="font-size: 20px; margin-bottom: 15px; color: #312e81;">
+                <i class="fas fa-lightbulb"></i> How to Use These Resources
+            </h4>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                <div>
+                    <h5 style="font-weight: 600; margin-bottom: 8px;">📈 Trading (13 lessons)</h5>
+                    <p style="font-size: 14px; color: #64748b;">Fundamentals + Islamic Perspectives + Advanced Technical Analysis. Each lesson includes references to Murphy, Nison, and Elder.</p>
+                </div>
+                <div>
+                    <h5 style="font-weight: 600; margin-bottom: 8px;">📊 Economics (20 lessons)</h5>
+                    <p style="font-size: 14px; color: #64748b;">Complete curriculum from basics to advanced. Links to FRED data, World Bank reports, and Nobel-winning theories.</p>
+                </div>
+                <div>
+                    <h5 style="font-weight: 600; margin-bottom: 8px;">🕌 Islamic Finance</h5>
+                    <p style="font-size: 14px; color: #64748b;">Integrated throughout both tracks. References to AAOIFI standards, classical scholars, and modern Islamic economists.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Call to Action -->
+        <div style="text-align: center; margin: 50px 0;">
+            <p style="font-size: 18px; color: #64748b; margin-bottom: 20px;">Ready to apply what you're learning?</p>
+            <a href="/simulator/trade" style="background: linear-gradient(135deg, #312e81, #1e1b4b); color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block;">🚀 Launch Simulator</a>
+        </div>
+    </main>
+
+    <!-- Contact Form Section -->
+    <div style="background: white; border-radius: 30px; padding: 40px; margin: 50px 0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); border: 1px solid #e2e8f0;">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <div style="background: linear-gradient(135deg, #312e81, #1e1b4b); width: 80px; height: 80px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <i class="fas fa-envelope" style="font-size: 32px; color: #fbbf24;"></i>
+            </div>
+            <h2 style="font-size: 28px; color: #1e293b; margin-bottom: 10px;">📬 Get in Touch</h2>
+            <p style="color: #64748b;">Have questions, feedback, or suggestions? We'd love to hear from you!</p>
+            <p style="color: #94a3b8; font-size: 14px; margin-top: 5px;"><i class="fas fa-shield-alt"></i> Your message is private and will not be shared</p>
+        </div>
+
+        <form id="contactForm" onsubmit="submitContactForm(event)">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div>
+                    <label style="display: block; font-weight: 500; margin-bottom: 8px; color: #475569;">
+                        <i class="fas fa-user"></i> Your Name
+                    </label>
+                    <input type="text" id="contactName" required style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: 500; margin-bottom: 8px; color: #475569;">
+                       <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input type="email" id="contactEmail" required style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px;">
+                </div>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 500; margin-bottom: 8px; color: #475569;">
+                    <i class="fas fa-tag"></i> Subject
+                </label>
+                <select id="contactSubject" style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px;">
+                     <option value="general">General Inquiry</option>
+                     <option value="feedback">Feedback on Lessons</option>
+                     <option value="suggestion">Suggestion for Content</option>
+                     <option value="technical">Technical Question</option>
+                     <option value="collaboration">Collaboration Opportunity</option>
+                     <option value="other">Other</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 500; margin-bottom: 8px; color: #475569;">
+                    <i class="fas fa-pencil-alt"></i> Your Message
+                </label>
+                <textarea id="contactMessage" rows="5" required style="width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 16px; resize: vertical;" placeholder="Write your message here..."></textarea>
+            </div>
+            <div style="background: #f8fafc; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                         <input type="checkbox" id="copyToSelf" checked style="width: 18px; height: 18px;">
+                         <span style="font-size: 14px;">Send me a copy</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                         <input type="checkbox" id="subscribeUpdates" style="width: 18px; height: 18px;">
+                         <span style="font-size: 14px;">Subscribe to updates (educational content only)</span>
+                    </label>
+                </div>
+            </div>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button type="submit" style="background: linear-gradient(135deg, #312e81, #1e1b4b); color: white; border: none; padding: 14px 40px; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 16px; transition: transform 0.2s;">
+                     <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+                <button type="button" onclick="resetContactForm()" style="background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; padding: 14px 40px; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 16px;">
+                    <i class="fas fa-undo"></i> Reset
+                </button>
+            </div>
+            <div id="formResponse" style="margin-top: 20px; text-align: center; font-size: 14px; display: none;"></div>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May the knowledge you seek benefit you in this life and the next</p>
+        <p style="margin-top: 10px;">© 2026 Fatimah Financial Hub • Curated Learning Resources</p>
+    </footer>
+
+    <script>
+
+        async function submitContactForm(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
+            const copyToSelf = document.getElementById('copyToSelf').checked;
+            const subscribeUpdates = document.getElementById('subscribeUpdates').checked;
+            
+            const responseDiv = document.getElementById('formResponse');
+            responseDiv.style.display = 'block';
+            responseDiv.style.padding = '15px';
+            responseDiv.style.borderRadius = '12px';
+            responseDiv.style.background = '#fef3c7';
+            responseDiv.style.color = '#92400e';
+            responseDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending message...';
+            
+            try {
+                const res = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        subject,
+                        message,
+                        copyToSelf,
+                        subscribeUpdates
+                    })
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    responseDiv.style.background = '#d1fae5';
+                    responseDiv.style.color = '#065f46';
+                    responseDiv.innerHTML = `
+                        <i class="fas fa-check-circle" style="font-size: 18px; margin-right: 8px;"></i>
+                        <strong>Message Sent!</strong> Thank you for your message. We'll review it and get back to you soon, in shaa Allah.
+                    `;
+                    
+                    // Reset form
+                    setTimeout(() => {
+                        resetContactForm();
+                    }, 3000);
+                } else {
+                    throw new Error(data.error || 'Failed to send');
+                }
+                
+            } catch (error) {
+                console.error('Error sending message:', error);
+                responseDiv.style.background = '#fee2e2';
+                responseDiv.style.color = '#991b1b';
+                responseDiv.innerHTML = `
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Error!</strong> Failed to send message. Please try again later.
+                `;
+            }
+            
+            // Scroll to response
+            responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }          
+        
+        // Optional: Add character counter for message
+        const messageInput = document.getElementById('contactMessage');
+        if (messageInput) {
+            messageInput.addEventListener('input', function() {
+                const charCount = this.value.length;
+                if (charCount > 0 && charCount % 50 === 0 && charCount < 500) {
+                    console.log(`📝 Message length: ${charCount} characters`);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

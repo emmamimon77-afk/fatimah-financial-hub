@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantitative Easing - Lesson 16 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #7c3aed;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .debate-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            margin: 15px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .balance-sheet {
+            font-family: monospace;
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/advanced">Advanced</a> › 
+                Lesson 16: Quantitative Easing & Unconventional Policy
+            </div>
+            <div class="title-section">
+                <h1>Quantitative Easing</h1>
+                <span class="badge">Advanced • 60 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 14 Quiz Questions</span>
+                <span><i class="fas fa-print"></i> Money Creation</span>
+                <span><i class="fas fa-mosque"></i> Islamic Critique</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">اللَّهُ الَّذِي خَلَقَ السَّمَاوَاتِ وَالْأَرْضَ وَأَنزَلَ مِنَ السَّمَاءِ مَاءً فَأَخْرَجَ بِهِ مِنَ الثَّمَرَاتِ رِزْقًا لَّكُمْ ۖ وَسَخَّرَ لَكُمُ الْفُلْكَ لِتَجْرِيَ فِي الْبَحْرِ بِأَمْرِهِ ۖ وَسَخَّرَ لَكُمُ الْأَنْهَارَ</div>
+            <div class="translation">"Allah is the One who created the heavens and the earth and sent down rain from the sky and produced thereby fruits as provision for you..."</div>
+            <div class="reference">— Quran 14:32</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">True provision comes from Allah's creation, not from printing money. Unconventional monetary policy reminds us that money is just a medium—real wealth is what Allah has provided.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-print"></i>
+                When Traditional Tools Fail
+            </div>
+            <p style="font-size: 18px;">For centuries, central banks fought recessions by lowering interest rates. But what happens when rates hit zero? Enter <strong>Quantitative Easing (QE)</strong>—the most controversial and powerful tool in modern monetary policy.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 Quantitative Easing:</strong> A central bank creates new money electronically to buy government bonds and other assets, injecting money directly into the economy when interest rates can't go lower.</p>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Ben Bernanke • Nobel Prize 2022</h4>
+                <p>As Fed Chair during the 2008 crisis, Bernanke implemented QE on a massive scale, drawing on his academic research on the Great Depression. He argued that "printing money" could prevent deflationary spirals.</p>
+            </div>
+        </div>
+
+        <!-- The Zero Lower Bound -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-line"></i>
+                The Zero Lower Bound Problem
+            </div>
+
+            <div class="chart-container">
+                <canvas id="ratesChart"></canvas>
+            </div>
+
+            <p style="text-align:center; margin:10px 0; font-size:14px; color:#64748b;">Fed Funds Rate: From 5% in 2007 to 0% in 2008—nowhere left to go</p>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> The Problem</h4>
+                <p>When interest rates are already at zero, central banks can't cut them further. Yet the economy may still need stimulus. This is the <strong>zero lower bound</strong>—a trap that traditional monetary policy cannot escape.</p>
+            </div>
+        </div>
+
+        <!-- How QE Works -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-cogs"></i>
+                How Quantitative Easing Actually Works
+            </div>
+
+            <div class="balance-sheet">
+                <h4 style="color:#fbbf24;">🏦 Central Bank Balance Sheet</h4>
+                <p><strong>Assets:</strong> Government Bonds, Mortgage-Backed Securities</p>
+                <p><strong>Liabilities:</strong> Reserves (money banks hold at central bank)</p>
+                <p>——————</p>
+                <p>When central bank buys bonds: Assets ↑, Liabilities ↑</p>
+                <p>The new money goes into the banking system as reserves</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>📈 The Transmission Mechanism</h4>
+                <ol style="margin-left:20px;">
+                    <li>Central bank creates digital money (keystrokes)</li>
+                    <li>Buys bonds from banks and investors</li>
+                    <li>Sellers now have cash instead of bonds</li>
+                    <li>They reinvest in other assets (stocks, corporate bonds)</li>
+                    <li>Asset prices rise → wealth effect → spending increases</li>
+                    <li>Long-term interest rates fall → borrowing cheaper</li>
+                    <li>Currency may weaken → exports increase</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- The Four Rounds of QE -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                The Four Rounds of QE (US)
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>QE1 (2008-2010)</h4>
+                    <p><strong>Size:</strong> $1.75 trillion</p>
+                    <p><strong>Assets:</strong> Mortgage-backed securities, Treasuries</p>
+                    <p><strong>Goal:</strong> Stabilize banking system after Lehman collapse</p>
+                </div>
+                <div class="column-card">
+                    <h4>QE2 (2010-2011)</h4>
+                    <p><strong>Size:</strong> $600 billion</p>
+                    <p><strong>Assets:</strong> Treasuries only</p>
+                    <p><strong>Goal:</strong> Combat slowing recovery, prevent deflation</p>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>QE3 (2012-2014)</h4>
+                    <p><strong>Size:</strong> $85 billion/month</p>
+                    <p><strong>Assets:</strong> Treasuries + MBS</p>
+                    <p><strong>Goal:</strong> Open-ended until labor market improved</p>
+                </div>
+                <div class="column-card">
+                    <h4>QE4 (2020-2022)</h4>
+                    <p><strong>Size:</strong> $120 billion/month → $9T peak</p>
+                    <p><strong>Assets:</strong> Treasuries + MBS</p>
+                    <p><strong>Goal:</strong> Pandemic response, market functioning</p>
+                </div>
+            </div>
+
+            <div style="background:#f1f5f9; padding:20px; border-radius:16px; margin:20px 0;">
+                <h4>📊 Fed Balance Sheet History</h4>
+                <ul>
+                    <li><strong>2007:</strong> $0.9 trillion</li>
+                    <li><strong>2014:</strong> $4.5 trillion</li>
+                    <li><strong>2020:</strong> $7.2 trillion</li>
+                    <li><strong>2022:</strong> $9.0 trillion (peak)</li>
+                    <li><strong>2025:</strong> $7.5 trillion (QT underway)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QE Around the World -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-globe"></i>
+                QE Around the World
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🇯🇵 Japan</h4>
+                    <p>Pioneer of QE since 2001. Bank of Japan owns >50% of all Japanese government bonds. Also buys ETFs, REITs. Balance sheet >130% of GDP!</p>
+                </div>
+                <div class="column-card">
+                    <h4>🇪🇺 European Central Bank</h4>
+                    <p>Started QE in 2015 (late). Bought €3 trillion. Negative rates + QE. Still unwinding slowly.</p>
+                </div>
+            </div>
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🇬🇧 Bank of England</h4>
+                    <p>£895 billion QE (about 40% of GDP). First started in 2009, expanded in 2016, again in 2020.</p>
+                </div>
+                <div class="column-card">
+                    <h4>🇨🇳 People's Bank of China</h4>
+                    <p>Uses "MLF" and "PSL" — targeted lending programs. Doesn't call it QE, but similar effect.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Benefits of QE -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-check-circle"></i>
+                Arguments FOR Quantitative Easing
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background:#d1fae5;">
+                    <h4 style="color:#065f46;">✅ It Works</h4>
+                    <ul>
+                        <li>Prevented Great Depression 2.0 in 2008</li>
+                        <li>Kept markets functioning in 2020</li>
+                        <li>Lowered long-term rates</li>
+                        <li>Boosted asset prices (wealth effect)</li>
+                        <li>Weakened currency (helped exports)</li>
+                    </ul>
+                </div>
+                <div class="column-card" style="background:#d1fae5;">
+                    <h4 style="color:#065f46;">✅ Necessary Evil</h4>
+                    <ul>
+                        <li>Zero rates left no choice</li>
+                        <li>Better than deflation (which destroys debtors)</li>
+                        <li>Quick to implement (no Congress needed)</li>
+                        <li>Flexible—can be scaled up/down</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-chart-line"></i> What the Evidence Shows</h4>
+                <p>Studies suggest QE lowered long-term rates by 1-2% and boosted GDP by 2-3% during crises. The effects diminish over time but were crucial in emergencies.</p>
+            </div>
+        </div>
+
+        <!-- Criticisms of QE -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Arguments AGAINST Quantitative Easing
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background:#fee2e2;">
+                    <h4 style="color:#991b1b;">❌ Inequality</h4>
+                    <ul>
+                        <li>Asset price inflation benefits wealthy (they own stocks/homes)</li>
+                        <li>Working class holds cash, savings—lose purchasing power</li>
+                        <li>Fed study: Top 1% gained $5-10 million from QE; bottom 50% gained $500</li>
+                    </ul>
+                </div>
+                <div class="column-card" style="background:#fee2e2;">
+                    <h4 style="color:#991b1b;">❌ Moral Hazard</h4>
+                    <ul>
+                        <li>Encourages excessive risk-taking</li>
+                        <li>Zombie companies stay alive with cheap money</li>
+                        <li>Banks take more risk knowing Fed will save them</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background:#fee2e2;">
+                    <h4 style="color:#991b1b;">❌ Distorted Markets</h4>
+                    <ul>
+                        <li>Artificially low rates misallocate capital</li>
+                        <li>Pension funds can't meet return targets</li>
+                        <li>Savers punished (low interest income)</li>
+                    </ul>
+                </div>
+                <div class="column-card" style="background:#fee2e2;">
+                    <h4 style="color:#991b1b;">❌ Exit Problems</h4>
+                    <ul>
+                        <li>Markets become addicted to easy money</li>
+                        <li>Taper tantrum (2013) showed withdrawal symptoms</li>
+                        <li>Fed still holding $7.5T—can't sell without disrupting markets</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ The Inequality Problem</h4>
+                <p>The Federal Reserve's own research shows: QE primarily benefited the wealthy through rising asset prices. Meanwhile, renters and savers lost ground. This creates a fundamental ethical problem—should monetary policy favor asset owners over workers?</p>
+            </div>
+        </div>
+
+        <!-- The 2021-2024 Inflation Debate -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-fire"></i>
+                Case Study: Did QE Cause 2021-2024 Inflation?
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ The Great Debate</h4>
+                <p><strong>Monetarists:</strong> "Too much money chasing too few goods." M2 money supply grew 40% in 2 years. Of course inflation followed! This is exactly what Friedman warned about.</p>
+                <p><strong>Keynesians:</strong> "It was supply shocks! COVID disruptions, war in Ukraine, energy prices. Money growth didn't cause inflation—it was needed to prevent depression."</p>
+                <p><strong>Evidence:</strong> Both are partly right. QE enabled massive fiscal stimulus, which fueled demand. Supply shocks pushed prices higher. The combination was explosive.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>📈 M2 Money Supply</h4>
+                    <p>2019: $15T<br>2022: $22T (+40%)<br>2025: $21T (falling)</p>
+                </div>
+                <div>
+                    <h4>📉 CPI Inflation</h4>
+                    <p>2020: 1.2%<br>2022: 9.0% peak<br>2025: 2.8%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Taper Tantrum (2013) -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-line"></i>
+                The Taper Tantrum: When QE Goes Wrong
+            </div>
+
+            <div class="timeline-item">
+                <h4>📉 May 2013</h4>
+                <p>Fed Chair Ben Bernanke suggested that the Fed might "taper" (slow) QE purchases in coming months. Markets panicked. Bond yields spiked 1% in weeks. Stocks fell. Emerging markets crashed.</p>
+                <p><strong>Lesson:</strong> Markets become addicted to easy money. Even mentioning withdrawal causes withdrawal symptoms. Central banks must communicate with extreme care.</p>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> The "Taper" Today</h4>
+                <p>The Fed began Quantitative Tightening (QT) in 2022—letting bonds mature without reinvesting. So far, markets have handled it better than 2013. Why? Clear communication, gradual pace, and experience.</p>
+            </div>
+        </div>
+
+        <!-- Quantitative Tightening -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-compress"></i>
+                Quantitative Tightening: The Reverse
+            </div>
+
+            <div class="definition-box">
+                <p><strong>Quantitative Tightening (QT):</strong> The Fed stops reinvesting proceeds from maturing bonds, letting its balance sheet shrink. Or sells bonds outright (though they've avoided this).</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>📊 How QT Works</h4>
+                    <ul>
+                        <li>Fed holds $7.5T in bonds</li>
+                        <li>$500B mature each year</li>
+                        <li>Normally, Fed reinvests</li>
+                        <li>With QT, they don't reinvest</li>
+                        <li>Money leaves system → tighter conditions</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>⚠️ Risks of QT</h4>
+                    <ul>
+                        <li>Can cause liquidity crunch</li>
+                        <li>2019 repo spike (rates jumped)</li>
+                        <li>Hard to know "neutral" balance sheet size</li>
+                        <li>Political pressure to keep money easy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Islamic Perspective on QE -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islamic Perspective: Money Creation and Justice
+            </div>
+
+            <div class="psychology-box">
+                <h4>📜 What is Money in Islam?</h4>
+                <p>Classical Islamic scholars defined money as anything universally accepted as payment. But they emphasized that money should have intrinsic value or be fully backed. The gold dinar and silver dirham were standard.</p>
+                <p>Modern fiat money (created by central banks) is problematic for some scholars because:</p>
+                <ul>
+                    <li>It's created out of thin air (no backing)</li>
+                    <li>Its value depends on trust, not intrinsic worth</li>
+                    <li>Creation benefits early recipients (those close to the printer)</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>⚠️ QE Specific Concerns</h4>
+                    <ul>
+                        <li><strong>Unjust enrichment:</strong> New money goes first to banks and financial institutions, not the poor</li>
+                        <li><strong>Inequality:</strong> QE enriches asset owners (wealthy) at expense of savers (middle/lower class)</li>
+                        <li><strong>Speculation:</strong> Low rates encourage gambling-like behavior (gharar) in financial markets</li>
+                        <li><strong>Debt expansion:</strong> Encourages borrowing (interest-based) which is riba</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🕌 Islamic Alternatives</h4>
+                    <ul>
+                        <li><strong>Full reserve banking:</strong> Banks can only lend money they actually have (no fractional reserve)</li>
+                        <li><strong>Gold standard:</strong> Money backed by real commodity</li>
+                        <li><strong>Profit-sharing:</strong> Instead of interest, use Mudaraba to finance investment</li>
+                        <li><strong>Counter-cyclical zakat:</strong> Increase redistribution during crises instead of money printing</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> What Would an Islamic Central Bank Do in a Crisis?</h4>
+                <p>Instead of QE (which creates money out of thin air and distributes it to banks), an Islamic central bank might:</p>
+                <ul>
+                    <li>Provide profit-sharing financing to distressed but viable businesses</li>
+                    <li>Issue Sukuk (asset-backed securities) to fund public investment</li>
+                    <li>Use public funds (Zakat, Waqf) for direct aid to the poor</li>
+                    <li>Coordinate with fiscal authority for counter-cyclical spending</li>
+                    <li>Allow temporary deficit financing through Qard Hasan (interest-free loans) rather than bond purchases</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ The Justice Question</h4>
+                <p>The Quran warns: <strong>"So that it will not be a perpetual distribution among the rich from among you."</strong> (59:7). QE's primary beneficiaries are the wealthy—those who own assets. This violates the spirit of Islamic economics, which emphasizes circulation of wealth to all, not concentration among the elite.</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 14 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is the "zero lower bound"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">A. When interest rates can't go below zero, limiting traditional policy</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">B. When GDP hits zero</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. When inflation reaches zero</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. When unemployment is zero</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> The zero lower bound is when interest rates approach zero and can't be cut further, forcing central banks to use unconventional tools like QE.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. Who won the Nobel Prize in 2022 for research on banking crises and implemented QE as Fed Chair?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">A. Ben Bernanke</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">B. Janet Yellen</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. Jerome Powell</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Alan Greenspan</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> Ben Bernanke won the Nobel Prize in 2022 for his research on banking crises and his role implementing QE during the 2008 crisis.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. What was the peak size of the Fed's balance sheet in 2022?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">A. $9 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. $4.5 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. $15 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. $2 trillion</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> The Fed's balance sheet peaked at about $9 trillion in 2022 after pandemic QE.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. What is the main criticism of QE regarding inequality?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">A. It boosts asset prices, benefiting wealthy owners disproportionately</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">B. It hurts the wealthy</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. It helps everyone equally</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. It only affects banks</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> QE raises stock and home prices, which are disproportionately owned by the wealthy, while savers (often middle/lower class) earn near-zero interest.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What was the "Taper Tantrum" of 2013?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">A. Markets panicked when Bernanke mentioned slowing QE</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">B. The Fed raised rates too fast</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">C. Congress cut spending</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. China devalued its currency</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> When Bernanke suggested QE might slow, bond yields spiked and markets fell—showing addiction to easy money.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. Which country pioneered QE in 2001?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">A. Japan</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. United States</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. United Kingdom</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Germany</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> Japan was first, starting QE in 2001 to fight deflation. The Bank of Japan now owns >50% of Japanese government bonds.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What is Quantitative Tightening (QT)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">A. Letting bonds mature without reinvesting, shrinking balance sheet</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. Printing more money</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. Raising taxes</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. Cutting government spending</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> QT is the reverse of QE—the central bank reduces its balance sheet by not reinvesting proceeds from maturing bonds.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. How much did the US money supply (M2) grow during 2020-2022?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">A. About 40%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">B. About 10%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. About 80%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. About 5%</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> M2 grew from $15T to $22T—a 40% increase in two years, the fastest in history.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What is the main Islamic criticism of QE?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">A. It creates money out of thin air, benefiting banks and wealthy first</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. It's too slow</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. It helps the poor too much</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. It's the same as Islamic finance</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> Islamic scholars criticize QE for unjust enrichment, inequality, and creating money without real asset backing.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. What caused the 2021-2024 inflation surge?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. Combination of QE-fueled demand and supply shocks</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Only supply shocks</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. Only demand from QE</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. Oil prices alone</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Most economists agree both demand (stimulus/QE) and supply (war, COVID) played roles.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. What was the peak inflation rate in 2022?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">A. 9%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. 5%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. 12%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. 3%</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> US inflation peaked at 9% in June 2022, the highest since 1981.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. How does Islamic finance propose to handle crises instead of QE?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">A. Profit-sharing (Mudaraba), Sukuk, Zakat, Qard Hasan</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">B. Print more money</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. Raise interest rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. Do nothing</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> Islamic alternatives include profit-sharing, asset-backed Sukuk, counter-cyclical Zakat, and interest-free Qard Hasan loans.
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="quiz-question" id="q13">
+                <p>13. What Quranic verse relates to the inequality problem of QE?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'correct')">A. "So that it will not be a perpetual distribution among the rich" (59:7)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">B. "And establish prayer" (2:43)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">C. "Fight in the way of Allah" (2:190)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">D. "And speak kindly" (2:83)</div>
+                </div>
+                <div class="explanation" id="exp-q13">
+                    <strong>✅ Correct!</strong> Quran 59:7 warns against wealth circulating only among the rich—exactly what QE does by boosting asset prices.
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="quiz-question" id="q14">
+                <p>14. What is the current Fed balance sheet size (2025-2026)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'correct')">A. About $7.5 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">B. About $9 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">C. About $4 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">D. About $2 trillion</div>
+                </div>
+                <div class="explanation" id="exp-q14">
+                    <strong>✅ Correct!</strong> Through QT, the Fed has reduced its balance sheet to about $7.5 trillion from the $9 trillion peak.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"The Courage to Act" - Ben Bernanke</a></li>
+                        <li><a href="#">"The Only Game in Town" - Mohamed El-Erian</a></li>
+                        <li><a href="#">"Monetary Policy in Islamic Economics" - M. Umer Chapra</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>📊 Academic Papers</h4>
+                    <ul>
+                        <li><a href="#">"What Are the Effects of QE?" - Federal Reserve</a></li>
+                        <li><a href="#">"QE and Inequality" - Bank of International Settlements</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Economics</h4>
+                    <ul>
+                        <li><a href="#">"Money and Its Creation in Islamic Economics" - Islamic Research Institute</a></li>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Finance</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/intermediate/15-business-cycles-advanced.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Business Cycles Advanced</a>
+            <a href="/economics/learn/advanced/17-international-finance.html" class="nav-link">Next: International Finance <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May your wealth be real, your transactions just, and your intentions pure</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 16 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في العشر الأواخر من رمضان</p>
+    </footer>
+
+    <script>
+        // Initialize Rates Chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('ratesChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['2000', '2005', '2007', '2008', '2010', '2015', '2020', '2022', '2025'],
+                    datasets: [{
+                        label: 'Fed Funds Rate (%)',
+                        data: [6.5, 4.0, 5.25, 0.25, 0.25, 0.25, 0.25, 5.0, 4.5],
+                        borderColor: '#312e81',
+                        backgroundColor: 'rgba(49,46,129,0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Interest Rate (%)'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

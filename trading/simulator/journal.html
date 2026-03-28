@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Journal - Ethical Trading Simulator | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📔</text></svg>">
+   
+    <!-- Chart.js for sentiment analysis -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- 🔐 Add tracking script here -->
+    <script src="/trading/simulator/trading-tracker.js"></script>    
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        .nav {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .logo span {
+            font-size: 12px;
+            background: rgba(255,255,255,0.15);
+            padding: 4px 10px;
+            border-radius: 50px;
+            margin-left: 10px;
+            font-weight: normal;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .nav-links a:hover {
+            color: white;
+        }
+        .nav-links a i {
+            font-size: 16px;
+        }
+        .nav-links .simulator-badge {
+            background: rgba(16, 185, 129, 0.2);
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .nav-links .simulator-badge .live {
+            background: #10b981;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Sub Navigation */
+        .sub-nav {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .sub-nav-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 30px;
+            height: 50px;
+            align-items: center;
+        }
+        .sub-nav-content a {
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .sub-nav-content a:hover {
+            color: #312e81;
+        }
+        .sub-nav-content a.active {
+            color: #312e81;
+            border-bottom-color: #312e81;
+            font-weight: 600;
+        }
+        .mode-badge {
+            font-size: 12px;
+            color: #10b981;
+            margin-left: auto;
+            background: #d1fae5;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        /* Trading Login Modal - Add to existing styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+            animation: modalSlideIn 0.3s;
+        }
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-content h2 {
+            margin-bottom: 15px;
+            color: #1e293b;
+            font-size: 24px;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .modal-content input:focus {
+            outline: none;
+            border-color: #312e81;
+            box-shadow: 0 0 0 3px rgba(49, 46, 129, 0.1);
+        }
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #312e81, #1e1b4b);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 15px 0;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(49, 46, 129, 0.3);
+        }
+        .disclaimer {
+            font-size: 12px;
+            color: #64748b;
+            margin: 10px 0;
+        }
+        .btn-text {
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+        .btn-text:hover {
+            color: #312e81;
+        }
+
+        /* User Status in Header */
+        .user-status {
+            display: flex;
+            align-items: center;
+        }
+        .user-avatar {
+            background: #fbbf24;
+            color: #1e293b;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .sign-out-btn {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 15px;
+        }
+        .sign-out-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+        .sign-in-btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sign-in-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }        
+
+        /* Main Content */
+        .main-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Quran Verse */
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+        }
+        .arabic {
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-family: 'Traditional Arabic', 'Amiri', serif;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .verse-ref {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* Journal Header */
+        .journal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .journal-header h1 {
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .journal-header h1 i {
+            color: #312e81;
+        }
+        .header-stats {
+            display: flex;
+            gap: 20px;
+        }
+        .header-stat {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #312e81;
+        }
+        .stat-info h4 {
+            font-size: 14px;
+            color: #64748b;
+        }
+        .stat-info p {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Journal Grid */
+        .journal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* New Entry Card */
+        .entry-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card-title i {
+            color: #312e81;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #475569;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .form-select, .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            transition: all 0.2s;
+            background: white;
+            font-family: 'Inter', sans-serif;
+        }
+        .form-select:focus, .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #312e81;
+            box-shadow: 0 0 0 4px rgba(49, 46, 129, 0.1);
+        }
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Emotional State */
+        .emotional-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .emotional-btn {
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .emotional-btn:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .emotional-btn.selected {
+            background: #312e81;
+            color: white;
+            border-color: #312e81;
+        }
+        .emotional-btn i {
+            font-size: 20px;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .emotional-btn span {
+            font-size: 12px;
+        }
+
+        /* Sentiment Slider */
+        .sentiment-container {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+        .sentiment-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .sentiment-slider {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981);
+            border-radius: 4px;
+            outline: none;
+        }
+        .sentiment-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 2px solid #312e81;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .sentiment-value {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* Lessons Grid */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .lesson-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .lesson-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Save Button */
+        .save-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #312e81, #1e1b4b);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(49, 46, 129, 0.3);
+        }
+
+        /* Entries Section */
+        .entries-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+        .entries-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            background: white;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .entries-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .entries-btn {
+            padding: 8px 16px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .entries-btn:hover {
+            background: #f1f5f9;
+            border-color: #312e81;
+            color: #312e81;
+        }
+
+        /* Entry Items */
+        .entries-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .journal-entry {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            border-left: 4px solid #312e81;
+            transition: transform 0.2s;
+        }
+        .journal-entry:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+        .entry-date {
+            color: #64748b;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .entry-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .entry-action-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-size: 14px;
+        }
+        .entry-action-btn:hover {
+            color: #312e81;
+        }
+        .entry-trade {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+        }
+        .trade-symbol {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .trade-details {
+            color: #64748b;
+            font-size: 13px;
+        }
+        .trade-pnl {
+            font-weight: 600;
+        }
+        .trade-pnl.positive {
+            color: #10b981;
+        }
+        .trade-pnl.negative {
+            color: #ef4444;
+        }
+        .entry-reflection {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .entry-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .meta-tag {
+            padding: 4px 10px;
+            background: white;
+            border-radius: 50px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border: 1px solid #e2e8f0;
+        }
+        .sentiment-badge {
+            padding: 4px 10px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .sentiment-bullish {
+            background: #d1fae5;
+            color: #10b981;
+        }
+        .sentiment-bearish {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+        .sentiment-neutral {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        .lessons-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .lesson-tag {
+            padding: 4px 10px;
+            background: #e2e8f0;
+            border-radius: 50px;
+            font-size: 11px;
+        }
+
+        /* Sentiment Chart */
+        .sentiment-chart-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 30px;
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .chart-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        /* Insights Grid */
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .insight-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid #e2e8f0;
+        }
+        .insight-icon {
+            width: 48px;
+            height: 48px;
+            background: #f1f5f9;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #312e81;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .insight-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .insight-text {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .insight-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: #d1fae5;
+            color: #10b981;
+            border-radius: 50px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        /* Suggested Lessons */
+        .suggested-card {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .suggested-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .suggested-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .suggested-item {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #1e293b;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        .suggested-item:hover {
+            transform: translateY(-2px);
+            border-color: #312e81;
+            box-shadow: 0 4px 12px rgba(49, 46, 129, 0.15);
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 30px;
+            text-align: center;
+            color: #64748b;
+            margin-top: 40px;
+        }
+        .arabic-footer {
+            font-family: 'Traditional Arabic', serif;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #312e81;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #10b981;
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+        }
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f1f5f9;
+            border-top: 4px solid #312e81;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub 
+                <span>v2.0</span>
+            </a>
+            <div class="nav-links">
+                <a href="/"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="/trading"><i class="fas fa-chart-line"></i> Trading</a>
+                <a href="/finance-tools"><i class="fas fa-calculator"></i> Tools</a>
+                <a href="/telephony"><i class="fas fa-phone"></i> Telephony</a>
+                <a href="/economics"><i class="fas fa-chart-bar"></i> Economics</a>
+                <a href="/resources"><i class="fas fa-book"></i> Resources</a>
+                <div class="simulator-badge">
+                    <span class="live"></span>
+                    🎮 LIVE SIMULATOR
+                </div>
+                <div id="userStatus" class="user-status">
+                    <! -- User will be loaded here -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sub Navigation -->
+    <div class="sub-nav">
+        <div class="sub-nav-content">
+            <a href="/simulator"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="/simulator/trade"><i class="fas fa-exchange-alt"></i> Trade</a>
+            <a href="/simulator/portfolio"><i class="fas fa-briefcase"></i> Portfolio</a>
+            <a href="/simulator/journal" class="active"><i class="fas fa-journal-whills"></i> Journal</a>
+            <span class="mode-badge"><i class="fas fa-brain"></i> AI-POWERED INSIGHTS</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+    
+        <!-- 🔐 TRADING LOGIN MODAL - ADD HERE -->
+        <div id="tradingLoginModal" class="modal-overlay" style="display: none;">
+            <div class="modal-content">
+                <h2><i class="fas fa-mosque"></i> Join Ethical Trading</h2>
+                <p>Sign in to start trading with $100,000 virtual cash</p>
+                
+                <form id="tradingLoginForm" onsubmit="handleTradingLogin(event)">
+                    <input type="text" id="username" placeholder="Choose username" required>
+                    <input type="email" id="email" placeholder="Email (optional)">
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Start Trading
+                    </button>
+                </form>
+                
+                <p class="disclaimer">No password required. Your progress will be saved.</p>
+                <button class="btn-text" onclick="hideTradingLogin()">Maybe later</button>
+            </div>
+        </div>   
+
+        <!-- Quran Verse -->
+        <div class="quran-verse">
+            <div class="arabic">كُلُّ نَفْسٍ بِمَا كَسَبَتْ رَهِينَةٌ</div>
+            <div class="translation">"Every soul is held in pledge for what it earns."</div>
+            <div class="verse-ref">— Quran 74:38</div>
+        </div>
+
+        <!-- Journal Header -->
+        <div class="journal-header">
+            <h1>
+                <i class="fas fa-journal-whills"></i>
+                Trading Journal
+            </h1>
+            <div class="header-stats">
+                <div class="header-stat">
+                    <div class="stat-icon">
+                        <i class="fas fa-pen"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Total Entries</h4>
+                        <p id="totalEntries">0</p>
+                    </div>
+                </div>
+                <div class="header-stat">
+                    <div class="stat-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Avg Sentiment</h4>
+                        <p id="avgSentiment">-</p>
+                    </div>
+                </div>
+                <div class="header-stat">
+                    <div class="stat-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h4>Streak</h4>
+                        <p id="streak">0 days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journal Grid -->
+        <div class="journal-grid">
+            <!-- Left Column - New Entry -->
+            <div class="entry-card">
+                <div class="card-title">
+                    <i class="fas fa-pen-to-square"></i>
+                    New Reflection
+                </div>
+
+                <!-- Trade Reference -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-exchange-alt"></i>
+                        Trade Reference
+                    </label>
+                    <select id="tradeRef" class="form-select">
+                        <option value="">-- Select a recent trade to reflect on --</option>
+                    </select>
+                </div>
+
+                <!-- Emotional State -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-heart"></i>
+                        Emotional State During Trade
+                    </label>
+                    <div class="emotional-grid">
+                        <div class="emotional-btn" onclick="selectEmotion('calm')" id="emotionCalm">
+                            <i class="fas fa-face-smile"></i>
+                            <span>Calm</span>
+                        </div>
+                        <div class="emotional-btn" onclick="selectEmotion('excited')" id="emotionExcited">
+                            <i class="fas fa-face-grin-stars"></i>
+                            <span>Excited</span>
+                        </div>
+                        <div class="emotional-btn" onclick="selectEmotion('anxious')" id="emotionAnxious">
+                            <i class="fas fa-face-frown"></i>
+                            <span>Anxious</span>
+                        </div>
+                        <div class="emotional-btn" onclick="selectEmotion('fearful')" id="emotionFearful">
+                            <i class="fas fa-face-tired"></i>
+                            <span>Fearful</span>
+                        </div>
+                        <div class="emotional-btn" onclick="selectEmotion('greedy')" id="emotionGreedy">
+                            <i class="fas fa-face-angry"></i>
+                            <span>Greedy</span>
+                        </div>
+                        <div class="emotional-btn" onclick="selectEmotion('confident')" id="emotionConfident">
+                            <i class="fas fa-face-smile-wink"></i>
+                            <span>Confident</span>
+                        </div>
+                        <div class="emotional-btn" onclick="selectEmotion('regretful')" id="emotionRegretful">
+                            <i class="fas fa-face-sad-tear"></i>
+                            <span>Regretful</span>
+                        </div>
+                        <div class="emotional-btn" onclick="selectEmotion('neutral')" id="emotionNeutral">
+                            <i class="fas fa-face-meh"></i>
+                            <span>Neutral</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sentiment Slider -->
+                <div class="sentiment-container">
+                    <div class="sentiment-label">
+                        <span>Bearish 😟</span>
+                        <span>Sentiment Score</span>
+                        <span>Bullish 🚀</span>
+                    </div>
+                    <input type="range" id="sentimentSlider" class="sentiment-slider" min="0" max="100" value="50">
+                    <div class="sentiment-value" id="sentimentValue">Neutral - 50</div>
+                </div>
+
+                <!-- Reflection Text -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-pencil"></i>
+                        What did you learn?
+                    </label>
+                    <textarea id="reflection" class="form-textarea" placeholder="Reflect on this trade from an Islamic perspective... Did you consider the ethical implications? Was there any gharar? What would you do differently?"></textarea>
+                </div>
+
+                <!-- Ethical Rating -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-star"></i>
+                        Ethical Rating
+                    </label>
+                    <select id="ethicalRating" class="form-select">
+                        <option value="excellent">🌟 Excellent - Fully Shariah Compliant</option>
+                        <option value="good">👍 Good - Mostly Compliant</option>
+                        <option value="fair">⚖️ Fair - Some Concerns</option>
+                        <option value="poor">⚠️ Poor - Needs Improvement</option>
+                    </select>
+                </div>
+
+                <!-- Lessons to Review -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-book"></i>
+                        Lessons to Review
+                    </label>
+                    <div class="lessons-grid">
+                        <label class="lesson-checkbox">
+                            <input type="checkbox" id="lessonRiba" value="Riba">
+                            <span>📘 Riba</span>
+                        </label>
+                        <label class="lesson-checkbox">
+                            <input type="checkbox" id="lessonGharar" value="Gharar">
+                            <span>📗 Gharar</span>
+                        </label>
+                        <label class="lesson-checkbox">
+                            <input type="checkbox" id="lessonHaram" value="Haram Industries">
+                            <span>📕 Haram Industries</span>
+                        </label>
+                        <label class="lesson-checkbox">
+                            <input type="checkbox" id="lessonAssetBacked" value="Asset-Backed">
+                            <span>📙 Asset-Backed</span>
+                        </label>
+                        <label class="lesson-checkbox">
+                            <input type="checkbox" id="lessonRisk" value="Risk Management">
+                            <span>📘 Risk Management</span>
+                        </label>
+                        <label class="lesson-checkbox">
+                            <input type="checkbox" id="lessonPsychology" value="Trading Psychology">
+                            <span>🧠 Psychology</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Mistake Analysis -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        What could you improve?
+                    </label>
+                    <select id="improvement" class="form-select">
+                        <option value="">-- Select area for improvement --</option>
+                        <option value="entry">Entry timing</option>
+                        <option value="exit">Exit timing</option>
+                        <option value="size">Position sizing</option>
+                        <option value="research">More research needed</option>
+                        <option value="patience">Be more patient</option>
+                        <option value="cut_losses">Cut losses earlier</option>
+                        <option value="take_profits">Take profits sooner</option>
+                    </select>
+                </div>
+
+                <!-- Save Button -->
+                <button class="save-btn" onclick="saveJournalEntry()">
+                    <i class="fas fa-save"></i>
+                    Save Reflection
+                </button>
+            </div>
+
+            <!-- Right Column - Past Entries -->
+            <div class="entries-card">
+                <div class="entries-header">
+                    <h3><i class="fas fa-history"></i> Recent Reflections</h3>
+                    <div class="entries-actions">
+                        <button class="entries-btn" onclick="exportJournal()">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button class="entries-btn" onclick="searchEntries()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="entries-list" id="entriesList">
+                    <!-- Entries will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Sentiment Analysis Chart -->
+        <div class="sentiment-chart-card">
+            <div class="chart-header">
+                <h3><i class="fas fa-chart-line"></i> Emotional Journey</h3>
+                <div>
+                    <button class="entries-btn" onclick="changeSentimentPeriod('week')">Week</button>
+                    <button class="entries-btn" onclick="changeSentimentPeriod('month')">Month</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="sentimentChart"></canvas>
+            </div>
+        </div>
+
+        <!-- AI Insights -->
+        <div class="insights-grid">
+            <div class="insight-card">
+                <div class="insight-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="insight-title">Trading Pattern</div>
+                <div class="insight-text" id="patternInsight">
+                    Analyzing your trading patterns...
+                </div>
+                <span class="insight-badge" id="patternBadge">AI Analysis</span>
+            </div>
+            <div class="insight-card">
+                <div class="insight-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="insight-title">Psychological Profile</div>
+                <div class="insight-text" id="psychologyInsight">
+                    Understanding your emotional patterns...
+                </div>
+                <span class="insight-badge" id="psychologyBadge">AI Analysis</span>
+            </div>
+            <div class="insight-card">
+                <div class="insight-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <div class="insight-title">Performance Attribution</div>
+                <div class="insight-text" id="performanceInsight">
+                    Breaking down your wins and losses...
+                </div>
+                <span class="insight-badge" id="performanceBadge">AI Analysis</span>
+            </div>
+        </div>
+
+        <!-- Suggested Lessons -->
+        <div class="suggested-card">
+            <div class="suggested-title">
+                <i class="fas fa-lightbulb"></i>
+                Personalized Learning Recommendations
+            </div>
+            <div class="suggested-grid" id="suggestedLessons">
+                <!-- Lessons will be populated based on journal entries -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May this trading knowledge help you make informed and ethical investment decisions</p>
+        <p style="margin-top: 10px;">© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Built on Islamic Principles</p>
+    </footer>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Scripts -->
+    <script src="/trading/simulator/simulator-utils.js"></script>
+    <script src="/trading/simulator/ethics-filter.js"></script>
+    <script src="/trading/simulator/data-feed.js"></script>
+
+    <script>
+
+        // Global variables
+        let journalEntries = [];
+        let currentEmotion = 'neutral';
+        let sentimentChart = null;  // ADD THIS LINE
+        let selectedEmotion = null;
+        window.currentJournalUser = null;  // ADD THIS LINE
+
+        // ========== USER MANAGEMENT ==========
+
+        function loadUserData() {
+            try {
+                const userData = localStorage.getItem('trading_user');
+                const userStatus = document.getElementById('userStatus');
+                
+                if (!userStatus) {
+                    console.error('User status element not found');
+                    return null;
+                }
+                
+                if (!userData) {
+                    userStatus.innerHTML = `
+                        <button onclick="location.href='/'" class="sign-in-btn">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </button>
+                    `;
+                    return null;
+                }
+                
+                const user = JSON.parse(userData);
+                console.log('👤 Current user:', user.username);
+                
+                userStatus.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 50px;">
+                        <div style="background: #fbbf24; color: #1e293b; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            ${user.username.charAt(0).toUpperCase()}
+                        </div>
+                        <span style="font-weight: 500;">${user.username}</span>
+                        <button onclick="signOut()" class="sign-out-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                `;
+                
+                // Update journal title
+                const journalHeader = document.querySelector('.journal-header h1');
+                if (journalHeader) {
+                    journalHeader.innerHTML = `<i class="fas fa-journal-whills"></i> ${user.username}'s Trading Journal`;
+                }
+                
+                window.currentJournalUser = user;  // Store globally
+                return user;
+                
+            } catch (e) {
+                console.error('Error loading user:', e);
+                return null;
+            }
+        }
+
+
+        function updateHeaderUserStatus(user) {
+            const userStatus = document.getElementById('userStatus');
+            if (userStatus) {
+                userStatus.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 50px;">
+                        <div style="background: #fbbf24; color: #1e293b; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            ${user.username.charAt(0).toUpperCase()}
+                        </div>
+                        <span style="font-weight: 500;">${user.username}</span>
+                        <button onclick="signOut()" style="background: none; border: none; color: white; cursor: pointer; margin-left: 5px;">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        function showGuestHeader() {
+            const userStatus = document.getElementById('userStatus');
+            if (userStatus) {
+                userStatus.innerHTML = `
+                    <button onclick="location.href='/'" class="sign-in-btn">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                `;
+            }
+        }
+
+        function signOut() {
+            if (confirm('Sign out from your account?')) {
+                localStorage.removeItem('trading_user');
+                showNotification('You have been signed out', 'info');
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1500);
+            }
+        }
+
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📔 Loading Trading Journal...');
+            
+            // Check user status first
+            const user = loadUserData();
+
+            // Store in global variable for other functions
+            window.currentJournalUser = user;
+ 
+            // Then load journal data
+            loadTradeReferences();
+            loadJournalEntries();
+            initializeSentimentChart();
+            generateAIInsights();
+
+            console.log('📔 Journal loaded for:', currentUser?.username || 'guest');
+        });    
+
+ 
+        // 🔐 TRADING LOGIN FUNCTIONS - ADD INSIDE EXISTING SCRIPT TAG
+        
+        // Check login status on page load
+        (function() {
+            const tradingUser = localStorage.getItem('trading_user');
+            if (!tradingUser && window.location.pathname.includes('/simulator/trade')) {
+                // Show login modal after a short delay
+                setTimeout(() => {
+                    showTradingLogin();
+                }, 1000);
+            } else if (tradingUser) {
+                // Load user's trading data
+                loadUserTradingData(JSON.parse(tradingUser));
+            }
+        })();
+
+        function showTradingLogin() {
+            document.getElementById('tradingLoginModal').style.display = 'flex';
+        }
+
+        function hideTradingLogin() {
+            document.getElementById('tradingLoginModal').style.display = 'none';
+        }
+
+        function handleTradingLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            if (!username) {
+                alert('Please choose a username');
+                return;
+            }
+            
+            // Create user object
+            const user = {
+                id: 'user_' + Date.now(),
+                username: username,
+                email: email || 'anonymous',
+                signupDate: new Date().toISOString(),
+                lastActive: new Date().toISOString(),
+                trades: 0,
+                portfolio: 100000
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('trading_user', JSON.stringify(user));
+            
+            // Track in private analytics
+            TradingTracker.trackUser(user);
+            
+            // Hide modal
+            hideTradingLogin();
+            
+            // Show welcome message
+            showNotification(`Welcome ${username}! You have $100,000 to trade.`);
+            
+            // Reload page to initialize trading
+            location.reload();
+        }
+
+        function loadUserTradingData(user) {
+            console.log('👤 Trading as:', user.username);
+            // You could customize UI with username here
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📔 Loading Trading Journal...');
+            loadTradeReferences();
+            loadJournalEntries();
+            initializeSentimentChart();
+            generateAIInsights();
+        });
+
+        // Load trade references from portfolio
+        function loadTradeReferences() {
+            try {
+                const transactions = SimulatorUtils.getTransactions() || [];
+                const select = document.getElementById('tradeRef');
+                
+                select.innerHTML = '<option value="">-- Select a recent trade to reflect on --</option>';
+                
+                if (!transactions || transactions.length === 0) {
+                    const option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = '-- No trades yet. Make a trade first! --';
+                    option.disabled = true;
+                    select.appendChild(option);
+                    return;
+                }
+                
+                transactions.slice(0, 20).forEach(trade => {
+                    const option = document.createElement('option');
+                    option.value = trade.id;
+                    
+                    const date = new Date(trade.timestamp).toLocaleDateString();
+                    const pnl = trade.pnl ? (trade.pnl > 0 ? '+' : '') + trade.pnl.toFixed(2) : '--';
+                    
+                    option.textContent = `${date} - ${trade.type.toUpperCase()} ${trade.quantity} ${trade.symbol} @ $${trade.price.toFixed(2)} (P/L: $${pnl})`;
+                    select.appendChild(option);
+                });
+                
+            } catch (error) {
+                console.error('Error loading trade references:', error);
+            }
+        }
+
+        // Select emotion
+        function selectEmotion(emotion) {
+            currentEmotion = emotion;
+            selectedEmotion = emotion;
+            
+            // Remove selected class from all
+            document.querySelectorAll('.emotional-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked
+            document.getElementById(`emotion${emotion.charAt(0).toUpperCase() + emotion.slice(1)}`).classList.add('selected');
+        }
+
+        // Update sentiment value
+        document.getElementById('sentimentSlider').addEventListener('input', function(e) {
+            const value = e.target.value;
+            let sentiment = 'Neutral';
+            if (value < 30) sentiment = 'Bearish';
+            else if (value > 70) sentiment = 'Bullish';
+            
+            document.getElementById('sentimentValue').textContent = 
+                `${sentiment} - ${value}`;
+        });
+
+        // Save journal entry
+        function saveJournalEntry() {
+            try {
+                const tradeRef = document.getElementById('tradeRef');
+                const reflection = document.getElementById('reflection');
+                const ethicalRating = document.getElementById('ethicalRating');
+                const sentiment = document.getElementById('sentimentSlider').value;
+                const improvement = document.getElementById('improvement');
+                
+                if (!tradeRef.value) {
+                    showNotification('Please select a trade to reflect on', 'error');
+                    return;
+                }
+                
+                if (!reflection.value.trim()) {
+                    showNotification('Please write your reflection', 'error');
+                    return;
+                }
+                
+                // Get selected lessons
+                const lessons = [];
+                if (document.getElementById('lessonRiba').checked) lessons.push('Riba');
+                if (document.getElementById('lessonGharar').checked) lessons.push('Gharar');
+                if (document.getElementById('lessonHaram').checked) lessons.push('Haram Industries');
+                if (document.getElementById('lessonAssetBacked').checked) lessons.push('Asset-Backed');
+                if (document.getElementById('lessonRisk').checked) lessons.push('Risk Management');
+                if (document.getElementById('lessonPsychology').checked) lessons.push('Trading Psychology');
+                
+                // Get trade details
+                const selectedOption = tradeRef.options[tradeRef.selectedIndex];
+                const tradeDetails = selectedOption.text;
+                
+                // Create entry
+                const entry = {
+                    id: Date.now() + Math.random().toString(36).substr(2, 9),
+                    date: new Date().toISOString(),
+                    tradeRef: tradeRef.value,
+                    tradeDetails: tradeDetails,
+                    emotion: currentEmotion,
+                    sentiment: parseInt(sentiment),
+                    reflection: reflection.value.trim(),
+                    ethicalRating: ethicalRating.value,
+                    lessons: lessons,
+                    improvement: improvement.value,
+                    timestamp: new Date().toLocaleString()
+                };
+                
+                // Get existing entries
+                let entries = JSON.parse(localStorage.getItem('ethical_trading_journal_v2') || '[]');
+                entries.unshift(entry);
+                
+                // Save
+                localStorage.setItem('ethical_trading_journal_v2', JSON.stringify(entries));
+                
+                // Reset form
+                resetForm();
+                
+                // Reload entries
+                loadJournalEntries();
+                
+                // Update insights
+                generateAIInsights();
+                
+                // Update sentiment chart
+                updateSentimentChart();
+                
+                showNotification('✅ Reflection saved successfully!');
+                
+            } catch (error) {
+                console.error('Error saving entry:', error);
+                showNotification('Error saving reflection', 'error');
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('reflection').value = '';
+            document.getElementById('ethicalRating').value = 'excellent';
+            document.getElementById('sentimentSlider').value = 50;
+            document.getElementById('sentimentValue').textContent = 'Neutral - 50';
+            document.getElementById('improvement').value = '';
+            
+            // Uncheck all lessons
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            
+            // Remove emotion selection
+            document.querySelectorAll('.emotional-btn').forEach(btn => btn.classList.remove('selected'));
+            currentEmotion = 'neutral';
+        }
+
+        // Load journal entries
+        function loadJournalEntries() {
+            try {
+                const entries = JSON.parse(localStorage.getItem('ethical_trading_journal_v2') || '[]');
+                journalEntries = entries;
+                
+                const entriesList = document.getElementById('entriesList');
+                
+                if (entries.length === 0) {
+                    entriesList.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-journal-whills"></i>
+                            <p>No journal entries yet</p>
+                            <p style="font-size: 14px; margin-top: 10px;">Start reflecting on your trades!</p>
+                        </div>
+                    `;
+                    document.getElementById('totalEntries').textContent = '0';
+                    document.getElementById('avgSentiment').textContent = '-';
+                    document.getElementById('streak').textContent = '0 days';
+                    return;
+                }
+                
+                let html = '';
+                entries.slice(0, 10).forEach(entry => {
+                    const date = new Date(entry.date);
+                    const dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+                    
+                    // Determine sentiment class
+                    let sentimentClass = 'sentiment-neutral';
+                    if (entry.sentiment > 70) sentimentClass = 'sentiment-bullish';
+                    else if (entry.sentiment < 30) sentimentClass = 'sentiment-bearish';
+                    
+                    // Get emotion icon
+                    const emotionIcons = {
+                        calm: '😌', excited: '🤩', anxious: '😰', fearful: '😨',
+                        greedy: '🤑', confident: '😎', regretful: '😞', neutral: '😐'
+                    };
+                    
+                    // Format lessons
+                    const lessonTags = (entry.lessons || []).map(l => 
+                        `<span class="lesson-tag">📘 ${l}</span>`
+                    ).join('');
+                    
+                    html += `
+                        <div class="journal-entry">
+                            <div class="entry-header">
+                                <span class="entry-date">
+                                    <i class="far fa-calendar"></i> ${dateStr}
+                                </span>
+                                <div class="entry-actions">
+                                    <button class="entry-action-btn" onclick="editEntry('${entry.id}')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="entry-action-btn" onclick="deleteEntry('${entry.id}')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="entry-trade">
+                                <div>
+                                    <span class="trade-symbol">${entry.tradeDetails}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="entry-reflection">
+                                ${entry.reflection}
+                            </div>
+                            
+                            <div class="entry-meta">
+                                <span class="meta-tag">
+                                    <i class="fas fa-heart"></i> ${emotionIcons[entry.emotion] || '😐'} ${entry.emotion}
+                                </span>
+                                <span class="sentiment-badge ${sentimentClass}">
+                                    <i class="fas ${entry.sentiment > 70 ? 'fa-arrow-up' : entry.sentiment < 30 ? 'fa-arrow-down' : 'fa-minus'}"></i>
+                                    Score: ${entry.sentiment}
+                                </span>
+                                <span class="meta-tag">
+                                    <i class="fas fa-star"></i> ${entry.ethicalRating}
+                                </span>
+                            </div>
+                            
+                            ${lessonTags ? `<div class="lessons-tags">${lessonTags}</div>` : ''}
+                        </div>
+                    `;
+                });
+                
+                entriesList.innerHTML = html;
+                
+                // Update stats
+                document.getElementById('totalEntries').textContent = entries.length;
+                
+                const avgSentiment = entries.reduce((sum, e) => sum + (e.sentiment || 50), 0) / entries.length;
+                document.getElementById('avgSentiment').textContent = avgSentiment.toFixed(0);
+                
+                // Calculate streak (simplified)
+                document.getElementById('streak').textContent = calculateStreak(entries) + ' days';
+                
+            } catch (error) {
+                console.error('Error loading entries:', error);
+            }
+        }
+
+        function calculateStreak(entries) {
+            if (entries.length === 0) return 0;
+            
+            let streak = 1;
+            const today = new Date().toDateString();
+            
+            for (let i = 1; i < entries.length; i++) {
+                const prevDate = new Date(entries[i-1].date).toDateString();
+                const currDate = new Date(entries[i].date).toDateString();
+                
+                if (prevDate === currDate) continue;
+                
+                const diff = Math.abs(new Date(prevDate) - new Date(currDate));
+                if (diff <= 86400000) { // Within 24 hours
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            
+            return streak;
+        }
+
+
+        // Initialize sentiment chart
+        let sentimentChart = null;  // Make sure this is at the top with other globals
+
+        function initializeSentimentChart() {
+            const ctx = document.getElementById('sentimentChart')?.getContext('2d');
+            if (!ctx) {
+                console.error('Sentiment chart canvas not found');
+                return;
+            }
+            
+            // Destroy existing chart if it exists
+            if (sentimentChart) {
+                sentimentChart.destroy();
+            }
+            
+            // Create new chart
+            sentimentChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Sentiment Score',
+                        data: [],
+                        borderColor: '#312e81',
+                        backgroundColor: 'rgba(49, 46, 129, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: '#e2e8f0'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Load data
+            updateSentimentChart();
+        }
+
+        function updateSentimentChart() {
+            if (!sentimentChart) {
+                console.warn('Sentiment chart not initialized');
+                return;
+            }
+            
+            const entries = JSON.parse(localStorage.getItem('ethical_trading_journal_v2') || '[]');
+            
+            // Get last 7 entries (or fewer if not enough)
+            const recentEntries = entries.slice(0, 7).reverse();
+            
+            const labels = recentEntries.map(e => {
+                const date = new Date(e.date);
+                return date.toLocaleDateString();
+            });
+            
+            const data = recentEntries.map(e => e.sentiment || 50);
+            
+            sentimentChart.data.labels = labels;
+            sentimentChart.data.datasets[0].data = data;
+            sentimentChart.update();
+        }
+
+        // AI Insights
+        function generateAIInsights() {
+            const entries = JSON.parse(localStorage.getItem('ethical_trading_journal_v2') || '[]');
+            
+            if (entries.length === 0) {
+                document.getElementById('patternInsight').textContent = 
+                    'Start journaling to receive personalized insights about your trading patterns.';
+                document.getElementById('psychologyInsight').textContent = 
+                    'Track your emotions to understand your trading psychology better.';
+                document.getElementById('performanceInsight').textContent = 
+                    'Journal your trades to identify what works best for you.';
+                return;
+            }
+            
+            // Pattern insight
+            const emotions = entries.map(e => e.emotion);
+            const mostCommon = getMostFrequent(emotions);
+            document.getElementById('patternInsight').textContent = 
+                `You tend to feel ${mostCommon} during trades. Consider how this affects your decisions.`;
+            
+            // Psychology insight
+            const bullishCount = entries.filter(e => e.sentiment > 70).length;
+            const bearishCount = entries.filter(e => e.sentiment < 30).length;
+            
+            if (bullishCount > bearishCount) {
+                document.getElementById('psychologyInsight').textContent = 
+                    'You show bullish tendencies. Balance optimism with risk management.';
+                document.getElementById('psychologyBadge').textContent = 'Bullish Profile';
+            } else {
+                document.getElementById('psychologyInsight').textContent = 
+                    'You show cautious tendencies. Consider taking calculated risks.';
+                document.getElementById('psychologyBadge').textContent = 'Cautious Profile';
+            }
+            
+            // Performance insight
+            const ethicalRatings = entries.map(e => e.ethicalRating);
+            const goodEthics = ethicalRatings.filter(r => r === 'excellent' || r === 'good').length;
+            const percentGood = (goodEthics / entries.length) * 100;
+            
+            document.getElementById('performanceInsight').textContent = 
+                `${percentGood.toFixed(0)}% of your trades are ethically sound. Keep learning!`;
+            
+            // Update suggested lessons
+            updateSuggestedLessons(entries);
+        }
+
+        function getMostFrequent(arr) {
+            return arr.sort((a,b) =>
+                arr.filter(v => v === a).length - arr.filter(v => v === b).length
+            ).pop();
+        }
+
+        function updateSuggestedLessons(entries) {
+            const lessons = new Set();
+            entries.forEach(e => {
+                (e.lessons || []).forEach(l => lessons.add(l));
+            });
+            
+            const lessonLinks = {
+                'Riba': '/trading/learn/islamic-perspectives/01-riba-explained.html',
+                'Gharar': '/trading/learn/islamic-perspectives/02-gharar-in-trading.html',
+                'Haram Industries': '/trading/learn/islamic-perspectives/03-haram-industries.html',
+                'Asset-Backed': '/trading/learn/islamic-perspectives/04-asset-backed-trading.html',
+                'Risk Management': '/trading/learn/fundamentals/04-risk-management.html',
+                'Trading Psychology': '/trading/learn/fundamentals/01-order-types.html'
+            };
+            
+            const suggested = Array.from(lessons).slice(0, 3);
+            const grid = document.getElementById('suggestedLessons');
+            
+            if (suggested.length === 0) {
+                grid.innerHTML = `
+                    <a href="/trading/learn/islamic-perspectives/01-riba-explained.html" class="suggested-item">
+                        <i class="fas fa-book"></i> Understanding Riba
+                    </a>
+                    <a href="/trading/learn/islamic-perspectives/02-gharar-in-trading.html" class="suggested-item">
+                        <i class="fas fa-book"></i> Avoiding Gharar
+                    </a>
+                    <a href="/trading/learn/fundamentals/04-risk-management.html" class="suggested-item">
+                        <i class="fas fa-shield"></i> Risk Management
+                    </a>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = suggested.map(lesson => `
+                <a href="${lessonLinks[lesson] || '/trading/learn'}" class="suggested-item">
+                    <i class="fas fa-book"></i> ${lesson}
+                </a>
+            `).join('');
+        }
+
+        function deleteEntry(id) {
+            if (!confirm('Delete this reflection?')) return;
+            
+            let entries = JSON.parse(localStorage.getItem('ethical_trading_journal_v2') || '[]');
+            entries = entries.filter(e => e.id !== id);
+            localStorage.setItem('ethical_trading_journal_v2', JSON.stringify(entries));
+            
+            loadJournalEntries();
+            updateSentimentChart();
+            generateAIInsights();
+            
+            showNotification('Entry deleted');
+        }
+
+        function editEntry(id) {
+            showNotification('Edit feature coming soon!', 'info');
+        }
+
+        function exportJournal() {
+            const entries = JSON.parse(localStorage.getItem('ethical_trading_journal_v2') || '[]');
+            
+            if (entries.length === 0) {
+                showNotification('No entries to export', 'error');
+                return;
+            }
+            
+            const data = {
+                exportDate: new Date().toISOString(),
+                entries: entries
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `journal-export-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showNotification('Journal exported successfully');
+        }
+
+        function searchEntries() {
+            showNotification('Search feature coming soon!', 'info');
+        }
+
+        function changeSentimentPeriod(period) {
+            // Update chart period
+            showNotification(`Showing ${period}ly sentiment data`);
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+                ${message}
+            `;
+            notification.style.background = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6';
+            notification.style.display = 'flex';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

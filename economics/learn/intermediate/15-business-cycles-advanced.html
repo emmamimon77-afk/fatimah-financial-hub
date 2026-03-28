@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Cycles Advanced - Lesson 15 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #7c3aed;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .debate-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .chart-container {
+            height: 300px;
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            margin: 15px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .model-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+        .model-box h4 {
+            color: #fbbf24;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/intermediate">Intermediate</a> › 
+                Lesson 15: Business Cycles Advanced
+            </div>
+            <div class="title-section">
+                <h1>Business Cycles Advanced</h1>
+                <span class="badge">Intermediate • 55 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 15 Quiz Questions</span>
+                <span><i class="fas fa-chart-line"></i> Real Business Cycle Theory</span>
+                <span><i class="fas fa-mosque"></i> Islamic Perspective on Cycles</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">إِنَّ فِي اخْتِلَافِ اللَّيْلِ وَالنَّهَارِ وَمَا خَلَقَ اللَّهُ فِي السَّمَاوَاتِ وَالْأَرْضِ لَآيَاتٍ لِّقَوْمٍ يَتَّقُونَ</div>
+            <div class="translation">"Indeed, in the alternation of night and day and what Allah has created in the heavens and the earth are signs for a people who fear Him."</div>
+            <div class="reference">— Quran 10:6</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Just as night follows day, economies move through cycles of expansion and contraction. Understanding these cycles helps us prepare and respond wisely.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-wave-square"></i>
+                Beyond the Basics
+            </div>
+            <p style="font-size: 18px;">In Lesson 8, we learned the four phases of business cycles. Now we dive into the theories of WHY cycles occur, how to model them mathematically, and the deep debates about whether governments should intervene.</p>
+            
+            <div class="definition-box">
+                <p><strong>🎯 Learning Goals:</strong> By the end of this lesson, you'll understand Real Business Cycle Theory, Keynesian vs. Monetarist views, the Hodrick-Prescott filter, political business cycles, and Islamic perspectives on economic fluctuations.</p>
+            </div>
+        </div>
+
+        <!-- The Great Debate: What Causes Cycles? -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-scale-balanced"></i>
+                The Great Debate: What Causes Business Cycles?
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📈 Keynesian View</h4>
+                    <p><strong>Demand-side fluctuations</strong></p>
+                    <ul>
+                        <li>Changes in consumer and business confidence</li>
+                        <li>Investment volatility (animal spirits)</li>
+                        <li>Government spending shocks</li>
+                        <li>Multiplier-accelerator dynamics</li>
+                        <li>Can be managed with fiscal/monetary policy</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>📉 Monetarist View</h4>
+                    <p><strong>Money supply fluctuations</strong></p>
+                    <ul>
+                        <li>Central bank mismanagement of money supply</li>
+                        <li>Friedman: Great Depression caused by Fed, not capitalism</li>
+                        <li>Monetary shocks transmit through economy</li>
+                        <li>"Money matters" in short run</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>⚙️ Real Business Cycle (RBC) Theory</h4>
+                    <p><strong>Supply-side fluctuations</strong></p>
+                    <ul>
+                        <li>Technology shocks drive cycles</li>
+                        <li>Changes in productivity</li>
+                        <li>Oil price shocks, natural disasters</li>
+                        <li>Markets are efficient; recessions are optimal responses</li>
+                        <li>Government intervention makes things worse</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🧠 Behavioral Economics</h4>
+                    <p><strong>Psychological factors</strong></p>
+                    <ul>
+                        <li>Herd behavior, overconfidence</li>
+                        <li>Loss aversion, framing effects</li>
+                        <li>Animal spirits (Keynes' term)</li>
+                        <li>Bubbles and crashes from irrational behavior</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Nobel Prize Connections</h4>
+                <ul>
+                    <li><strong>Finn Kydland & Edward Prescott (2004):</strong> Real Business Cycle Theory</li>
+                    <li><strong>Milton Friedman (1976):</strong> Monetarist explanation of cycles</li>
+                    <li><strong>George Akerlof & Robert Shiller (2013):</strong> Animal Spirits, behavioral</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Real Business Cycle Theory Deep Dive -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-microchip"></i>
+                Real Business Cycle (RBC) Theory
+            </div>
+
+            <div class="model-box">
+                <h4>📊 Key Assumptions</h4>
+                <ul style="color:white;">
+                    <li>Markets clear continuously (prices flexible)</li>
+                    <li>Rational expectations (people use all information)</li>
+                    <li>Technology shocks are the main driver</li>
+                    <li>Money is neutral (even in short run!)</li>
+                    <li>Recessions are "optimal" responses to shocks</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> How a Technology Shock Works</h4>
+                <p><strong>Positive shock:</strong> New technology (AI, internet) → productivity ↑ → wages ↑ → people work more → output ↑ → boom</p>
+                <p><strong>Negative shock:</strong> Oil price spike → productivity ↓ → wages ↓ → people choose to work less → output ↓ → recession</p>
+                <p><strong>Key insight:</strong> Unemployment rises because people VOLUNTARILY choose to work less (not because of demand deficiency). This is highly controversial!</p>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ RBC vs. Keynesians: The Great Debate</h4>
+                <p><strong>RBC Critics (Keynesians):</strong> "People don't choose to be unemployed in recessions! You can't explain 10% unemployment as 'leisure preference.'"</p>
+                <p><strong>RBC Supporters:</strong> "With rational expectations and flexible prices, any other explanation is incoherent. The data fits productivity shocks."</p>
+                <p><strong>Modern Synthesis:</strong> Most economists believe RBC explains some cycles (supply-driven) but not all (demand-driven recessions like 2008).</p>
+            </div>
+        </div>
+
+        <!-- The Hodrick-Prescott Filter -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-filter"></i>
+                Measuring the Cycle: The Hodrick-Prescott Filter
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Robert Hodrick & Edward Prescott (1997)</h4>
+                <p>Developed a statistical method to separate time series into trend and cyclical components. Used in virtually every economics paper on business cycles.</p>
+            </div>
+
+            <div class="formula-box">
+                min Σ(y_t - τ_t)² + λ Σ[(τ_{t+1} - τ_t) - (τ_t - τ_{t-1})]²
+            </div>
+
+            <p style="font-size:14px;">Don't worry about the math—the intuition is that it smooths data to show the underlying trend and the cycles around it.</p>
+
+            <div class="chart-container">
+                <canvas id="hpFilterChart"></canvas>
+            </div>
+            <p style="text-align:center; margin:10px 0; font-size:14px; color:#64748b;">Blue = Actual GDP, Red = Trend, Green = Cycle (deviation from trend)</p>
+        </div>
+
+        <!-- The Multiplier-Accelerator Model -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-sync-alt"></i>
+                The Multiplier-Accelerator Model (Samuelson, 1939)
+            </div>
+
+            <div class="model-box">
+                <h4>📈 How Cycles Amplify Themselves</h4>
+                <p><strong>Multiplier:</strong> Investment → Income → Consumption → More Investment</p>
+                <p><strong>Accelerator:</strong> Output growth → Investment (firms invest when demand grows)</p>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-chart-line"></i> The Self-Reinforcing Cycle</h4>
+                <p>1. GDP rises 1% → firms invest more (accelerator) → investment rises 3%</p>
+                <p>2. Investment spending → incomes rise (multiplier) → consumption rises → GDP rises more</p>
+                <p>3. Repeat until something breaks (capacity constraints, inflation)</p>
+                <p>4. Then the cycle reverses downward</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>✅ Amplifies Booms</h4>
+                    <p>Small positive shock → big boom</p>
+                </div>
+                <div>
+                    <h4>❌ Amplifies Recessions</h4>
+                    <p>Small negative shock → big bust</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Political Business Cycles -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-vote-yea"></i>
+                Political Business Cycles
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> Do Politicians Manipulate the Economy?</h4>
+                <p><strong>Theory (Nordhaus, 1975):</strong> Incumbent politicians stimulate the economy before elections to get re-elected, then impose austerity afterward. Creates a 4-year cycle.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>📈 Pre-Election</h4>
+                    <ul>
+                        <li>Tax cuts</li>
+                        <li>Spending increases</li>
+                        <li>Pressure on central bank for low rates</li>
+                        <li>Unemployment ↓, Growth ↑</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>📉 Post-Election</h4>
+                    <ul>
+                        <li>Tax hikes</li>
+                        <li>Spending cuts</li>
+                        <li>Let central bank raise rates</li>
+                        <li>Inflation control, possible recession</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-history"></i> Nixon's 1972 Reelection</h4>
+                <p>Richard Nixon pressured Fed Chair Arthur Burns to keep money easy in 1972. He won in a landslide. The inflation caught up in 1973-74, contributing to the stagflation of the 1970s.</p>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ Evidence?</h4>
+                <p>Mixed. Some studies find cycles in the US (pre-election booms), others don't. Independent central banks (post-1990s) have reduced the effect. But developing countries still show strong political cycles.</p>
+            </div>
+        </div>
+
+        <!-- Financial Cycles and Minsky -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-pie"></i>
+                Financial Cycles: Hyman Minsky's Hypothesis
+            </div>
+
+            <div class="timeline-item">
+                <h4>📉 Minsky's Financial Instability Hypothesis</h4>
+                <p>"Stability breeds instability." Long periods of stability lead to excessive risk-taking, debt accumulation, and eventual crisis.</p>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🏦 Three Stages</h4>
+                    <ul>
+                        <li><strong>Hedge:</strong> Borrowers can pay interest + principal from cash flow</li>
+                        <li><strong>Speculative:</strong> Borrowers can pay interest, must roll over principal</li>
+                        <li><strong>Ponzi:</strong> Borrowers need asset appreciation to survive</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>💥 Minsky Moment</h4>
+                    <p>When highly leveraged borrowers are forced to sell assets → prices fall → more selling → crisis. Happened in 2008 (subprime), 1998 (LTCM), 1929.</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-home"></i> 2008 Financial Crisis</h4>
+                <p>Years of stability → banks took more risk → subprime mortgages → housing bubble → when prices fell, Ponzi borrowers collapsed → global crisis. Textbook Minsky.</p>
+            </div>
+        </div>
+
+        <!-- Case Study: The Great Depression -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Case Study: The Great Depression (1929-1939)
+            </div>
+
+            <div class="timeline-item">
+                <h4>📉 The Facts</h4>
+                <ul>
+                    <li>GDP fell 30%</li>
+                    <li>Unemployment peaked at 25%</li>
+                    <li>Bank runs: 9,000 banks failed</li>
+                    <li>Deflation: prices fell 10% per year</li>
+                    <li>Lasted 10 years (ended by WWII)</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>📈 Monetarist View (Friedman)</h4>
+                    <p>Fed failed to prevent bank failures → money supply fell 33% → deflation → depression. "The Great Contraction."</p>
+                </div>
+                <div>
+                    <h4>📊 Keynesian View</h4>
+                    <p>Crash → investment collapse → multiplier → depression. Government failed to stimulate demand.</p>
+                </div>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ What Caused It?</h4>
+                <p><strong>Initial shock:</strong> Stock market crash (1929)</p>
+                <p><strong>Propagation:</strong> Bank failures → money supply ↓ (monetarist)</p>
+                <p><strong>Amplification:</strong> Spending ↓ → incomes ↓ → more spending ↓ (Keynesian)</p>
+                <p><strong>Policy failure:</strong> Smoot-Hawley tariff, tax hikes, Fed inaction</p>
+                <p><strong>Consensus:</strong> Multiple factors, but monetary contraction was crucial.</p>
+            </div>
+        </div>
+
+        <!-- Case Study: The 2008 Financial Crisis -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Case Study: The Great Recession (2007-2009)
+            </div>
+
+            <div class="timeline-item">
+                <h4>📉 The Facts</h4>
+                <ul>
+                    <li>GDP fell 4.3%</li>
+                    <li>Unemployment peaked at 10%</li>
+                    <li>Housing prices fell 30%</li>
+                    <li>Stock market fell 50%</li>
+                    <li>Recovery slow but no Depression</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>🏦 Causes</h4>
+                    <ul>
+                        <li>Subprime mortgage bubble</li>
+                        <li>Excessive leverage (Minsky!)</li>
+                        <li>Deregulation (Gramm-Leach-Bliley)</li>
+                        <li>Global imbalances</li>
+                        <li>Ratings agency failures</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🏛️ Policy Response</h4>
+                    <ul>
+                        <li>Fed: Rates to 0, QE, bailouts</li>
+                        <li>Treasury: TARP ($700B)</li>
+                        <li>Fiscal: $831B stimulus</li>
+                        <li>New regulations: Dodd-Frank</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> Why No Depression?</h4>
+                <p>Policymakers learned from 1930s mistakes. They flooded system with liquidity, rescued banks, stimulated demand. Milton Friedman's lesson: "Don't let the money supply collapse."</p>
+            </div>
+        </div>
+
+        <!-- Case Study: COVID-19 Recession (2020) -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Case Study: The COVID-19 Recession (2020)
+            </div>
+
+            <div class="timeline-item">
+                <h4>📉 The Facts</h4>
+                <ul>
+                    <li>GDP fell 10.1% (fastest drop ever)</li>
+                    <li>Unemployment spiked to 14.8%</li>
+                    <li>Lasted 2 months (shortest recession)</li>
+                    <li>Recovery fastest in history</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>🔴 Unprecedented Shock</h4>
+                    <ul>
+                        <li>Not demand or supply—it was a health shock</li>
+                        <li>Government-mandated shutdowns</li>
+                        <li>Both supply and demand collapsed</li>
+                        <li>No historical parallel</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🟢 Unprecedented Response</h4>
+                    <ul>
+                        <li>$5 trillion fiscal stimulus</li>
+                        <li>Fed to 0% + unlimited QE</li>
+                        <li>PPP loans, stimulus checks</li>
+                        <li>V-shaped recovery</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ Lessons Learned</h4>
+                <p>Massive policy response prevented depression. But it contributed to 2021-2024 inflation. The trade-off: better too much than too little when facing unknown shocks.</p>
+            </div>
+        </div>
+
+        <!-- Leading Indicators Revisited -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-line"></i>
+                Predicting the Next Recession
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🔮 Best Leading Indicators</h4>
+                    <ul>
+                        <li>Yield curve inversion (10yr-2yr)</li>
+                        <li>Conference Board LEI</li>
+                        <li>Consumer confidence</li>
+                        <li>Building permits</li>
+                        <li>ISM Manufacturing PMI</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>📊 Current Status (2026)</h4>
+                    <ul>
+                        <li>Yield curve: Normalized (+0.32)</li>
+                        <li>LEI: -0.3% (6 months declining)</li>
+                        <li>Confidence: 108 (high)</li>
+                        <li>PMI: 52.4 (expanding)</li>
+                        <li>Signals mixed—wait and see</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ No One Knows</h4>
+                <p>Economists have predicted 9 of the last 5 recessions. The yield curve inverted in 2022-2024 but no recession yet. Leading indicators are tools, not crystal balls.</p>
+            </div>
+        </div>
+
+        <!-- Islamic Perspective on Business Cycles -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islamic Perspective: Cycles as Tests
+            </div>
+
+            <div class="psychology-box">
+                <h4>📜 Quranic Wisdom</h4>
+                <p><strong>"And these days We alternate among the people."</strong> (3:140) — Economic cycles are part of Allah's plan.</p>
+                <p><strong>"So verily, with hardship comes ease."</strong> (94:5) — After every recession comes recovery.</p>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📈 During Booms</h4>
+                    <ul>
+                        <li>Be grateful (shukr)</li>
+                        <li>Give charity (zakat, sadaqah)</li>
+                        <li>Avoid extravagance (israf)</li>
+                        <li>Save for harder times</li>
+                        <li>Invest productively, not speculatively</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>📉 During Recessions</h4>
+                    <ul>
+                        <li>Be patient (sabr)</li>
+                        <li>Help those in need</li>
+                        <li>Avoid haram means of survival (riba)</li>
+                        <li>Trust in Allah's provision (tawakkul)</li>
+                        <li>Know that ease follows hardship</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> The Story of Yusuf (AS)</h4>
+                <p>Prophet Yusuf interpreted the king's dream: 7 years of plenty followed by 7 years of famine. He stored grain during the boom to prepare for the bust. This is the ultimate example of counter-cyclical policy—saving in good times to spend in bad times.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-balance-scale"></i> Justice During Cycles</h4>
+                <p>Islamic economics emphasizes that cycles shouldn't devastate the poor. Zakat provides a safety net. Prohibition of riba prevents debt spirals. Asset-backed finance reduces speculative bubbles. While cycles are natural, their worst effects can be mitigated through Shariah-compliant systems.</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 15 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is the main driver of cycles in Real Business Cycle (RBC) theory?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">A. Technology/productivity shocks</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">B. Demand fluctuations</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. Government policy</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. Animal spirits</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> RBC theory argues that technology shocks drive productivity changes, which cause rational people to adjust work/leisure decisions, creating cycles.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. What is the Hodrick-Prescott filter used for?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">A. Separating economic data into trend and cycle components</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">B. Predicting stock market returns</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. Measuring inflation expectations</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Calculating GDP</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> The HP filter decomposes time series into trend (long-run) and cyclical (short-run) components, used in virtually all business cycle research.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. Who won the Nobel Prize for Real Business Cycle Theory?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">A. Finn Kydland and Edward Prescott (2004)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. Milton Friedman (1976)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. Paul Krugman (2008)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. Robert Shiller (2013)</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Kydland and Prescott won in 2004 for their contributions to dynamic macroeconomics and the time-consistency problem, including RBC theory.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. What is Minsky's "Ponzi" stage?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">A. Borrowers need asset appreciation to survive</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">B. Borrowers can pay interest and principal</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. Borrowers can only pay interest</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Borrowers have no debt</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> In the Ponzi stage, cash flow isn't enough to pay interest or principal—borrowers rely entirely on rising asset prices to refinance.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What caused the Great Depression according to Milton Friedman?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">A. Fed let money supply collapse by 33%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">B. Stock market crash alone</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">C. Smoot-Hawley tariff</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. Wage rigidity</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> Friedman argued the Fed's failure to prevent bank failures and money supply collapse turned a recession into the Great Depression.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. What is the multiplier-accelerator model?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">A. Investment and consumption reinforce each other, amplifying cycles</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. Money supply determines GDP</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. Government spending crowds out investment</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Tax cuts pay for themselves</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> The multiplier (spending → income) and accelerator (output growth → investment) create self-reinforcing cycles.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What happened to GDP in the COVID-19 recession?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">A. Fell 10.1% (fastest ever)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. Fell 4.3%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. Fell 30%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. Didn't fall</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> GDP fell 10.1% in Q2 2020—the sharpest drop in history—but recovered quickly.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. What is a "Minsky Moment"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">A. When a financial crisis erupts after long stability</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">B. When the Fed raises rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. When a new technology is invented</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. When unemployment falls below NAIRU</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> A Minsky Moment is the sudden collapse of asset values after a long period of stability and rising debt.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What is the political business cycle?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">A. Incumbents stimulate pre-election, austerity post-election</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. Republicans and Democrats have different policies</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. Congress controls the Fed</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. Elections have no economic effect</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> Politicians may manipulate the economy to get re-elected, creating 4-year cycles.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. What was the unemployment peak in 2008-2009?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. 10%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. 14.8%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. 7%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. 25%</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Unemployment peaked at 10% in October 2009 during the Great Recession.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. Which Prophet's story teaches counter-cyclical policy?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">A. Prophet Yusuf (AS) storing grain during plenty for famine</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. Prophet Musa (AS) parting the sea</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. Prophet Ibrahim (AS) building the Kaaba</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. Prophet Muhammad (ﷺ) migrating to Medina</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Yusuf's (AS) interpretation of the king's dream led to storing grain during 7 good years for 7 bad years—perfect counter-cyclical policy.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. What does RBC theory say about unemployment in recessions?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">A. People voluntarily choose more leisure</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">B. It's caused by demand deficiency</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. It's caused by sticky wages</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. It's always 0%</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> RBC theory controversially argues that when productivity falls, people rationally choose to work less (more leisure), so unemployment is voluntary.
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="quiz-question" id="q13">
+                <p>13. How long did the COVID-19 recession last?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'correct')">A. 2 months (shortest in history)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">B. 18 months</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">C. 4 years</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">D. 1 year</div>
+                </div>
+                <div class="explanation" id="exp-q13">
+                    <strong>✅ Correct!</strong> The COVID recession lasted only 2 months (March-April 2020)—the shortest on record.
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="quiz-question" id="q14">
+                <p>14. What is the Islamic response during economic booms?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'correct')">A. Be grateful, give charity, save for harder times</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">B. Borrow as much as possible</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">C. Spend everything extravagantly</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">D. Ignore the future</div>
+                </div>
+                <div class="explanation" id="exp-q14">
+                    <strong>✅ Correct!</strong> Islam teaches gratitude (shukr), charity, and saving for future needs—counter-cyclical behavior.
+                </div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="quiz-question" id="q15">
+                <p>15. Which leading indicator is considered most reliable?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'correct')">A. Yield curve inversion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">B. Stock market prices</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">C. Unemployment rate</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q15', 'incorrect')">D. GDP growth</div>
+                </div>
+                <div class="explanation" id="exp-q15">
+                    <strong>✅ Correct!</strong> The yield curve (10yr minus 2yr Treasury rates) has predicted every US recession since 1970 with a lead time of 12-24 months.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"A Monetary History of the United States" - Friedman & Schwartz</a></li>
+                        <li><a href="#">"This Time is Different" - Reinhart & Rogoff</a></li>
+                        <li><a href="#">"Manias, Panics, and Crashes" - Kindleberger</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>📊 Academic Papers</h4>
+                    <ul>
+                        <li><a href="#">"Time to Build and Aggregate Fluctuations" - Kydland & Prescott (1982)</a></li>
+                        <li><a href="#">"The Financial Instability Hypothesis" - Hyman Minsky</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Economics</h4>
+                    <ul>
+                        <li><a href="#">"Business Cycles in Islamic Perspective" - M. Umer Chapra</a></li>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Economics</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/intermediate/14-phillips-curve.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Phillips Curve</a>
+            <a href="/economics/learn/advanced/16-quantitative-easing.html" class="nav-link">Next: Quantitative Easing (Advanced) <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May you navigate life's cycles with wisdom, patience, and gratitude</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 15 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في العشر الأواخر من رمضان</p>
+    </footer>
+
+    <script>
+        // Initialize HP Filter Chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('hpFilterChart').getContext('2d');
+            
+            // Generate sample data
+            const years = [];
+            const actual = [];
+            const trend = [];
+            const cycle = [];
+            
+            for (let i = 0; i < 50; i++) {
+                years.push(1980 + i);
+                let base = 100 + i * 0.8; // trend growth
+                let cyclical = Math.sin(i * 0.7) * 5; // cycle
+                actual.push(base + cyclical);
+                trend.push(base);
+                cycle.push(cyclical);
+            }
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [
+                        {
+                            label: 'Actual GDP',
+                            data: actual,
+                            borderColor: '#312e81',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Trend',
+                            data: trend,
+                            borderColor: '#ef4444',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [5,5],
+                            pointRadius: 0
+                        },
+                        {
+                            label: 'Cycle (right scale)',
+                            data: cycle,
+                            borderColor: '#10b981',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            yAxisID: 'y1',
+                            pointRadius: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'GDP Level'
+                            }
+                        },
+                        y1: {
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Cycle Deviation'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

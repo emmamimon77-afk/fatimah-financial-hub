@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Analysis - Fundamentals | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 32px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .chart-container {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+        .chart-placeholder {
+            height: 200px;
+            background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 8px;
+            padding: 20px;
+        }
+        .bar {
+            width: 40px;
+            background: #312e81;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.3s;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .pattern-card {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .quiz-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #312e81;
+            text-align: center;
+        }
+        .quiz-question {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-question p {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .quiz-option.correct-answer {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.wrong-answer {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .quiz-option.show-correct {
+            background: #d1fae5;
+            border-color: #10b981;
+            border-width: 3px;
+            position: relative;
+        }
+        .quiz-option.show-correct::after {
+            content: "✓ Correct Answer";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 60px 20px 30px;
+            margin-top: 60px;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .footer-logo i {
+            color: #fbbf24;
+        }
+        .footer-about {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .footer-links ul {
+            list-style: none;
+        }
+        .footer-links li {
+            margin: 10px 0;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .two-column, .pattern-grid {
+                grid-template-columns: 1fr;
+            }
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            .title-section h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo"><i class="fas fa-mosque"></i> Fatimah Financial Hub</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="/trading">Trading Hub</a> › 
+            <a href="/trading/learn">Learning Center</a> › 
+            <a href="/trading/learn/fundamentals">Fundamentals</a> › 
+            Lesson 2: Technical Analysis
+        </div>
+
+        <div class="lesson-header">
+            <div class="title-section">
+                <h1>Technical Analysis</h1>
+                <span class="badge">Beginner • 30 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="fas fa-chart-line"></i> Price Analysis</span>
+                <span><i class="fas fa-brain"></i> Market Psychology</span>
+                <span><i class="fas fa-question-circle"></i> 10 Quiz Questions</span>
+            </div>
+        </div>
+
+        <div class="quran-verse">
+            <div class="arabic">وَجَعَلْنَا اللَّيْلَ وَالنَّهَارَ آيَتَيْنِ</div>
+            <div class="translation">"And We have made the night and day as two signs."</div>
+            <div class="reference">— Quran 17:12</div>
+            <p style="margin-top: 15px;">Markets have their own rhythm—patterns that repeat as human nature repeats.</p>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="concept-card">
+            <h2 class="section-title">🎯 Learning Objectives</h2>
+            <ul style="margin-left: 20px;">
+                <li>Understand what technical analysis is (and isn't)</li>
+                <li>Identify support and resistance levels</li>
+                <li>Draw trend lines correctly</li>
+                <li>Recognize basic chart patterns</li>
+                <li>Understand Islamic perspective on TA</li>
+            </ul>
+        </div>
+
+        <!-- What is Technical Analysis -->
+        <div class="concept-card">
+            <h2 class="section-title">📊 What is Technical Analysis?</h2>
+            <p>Technical analysis is the study of market action through charts. The belief is that all known information is already reflected in the price, and history tends to repeat itself.</p>
+            
+            <div class="two-column">
+                <div class="example-box">
+                    <h4>Three Core Principles</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>Market discounts everything</strong> - All news, earnings, emotions are in the price</li>
+                        <li><strong>Price moves in trends</strong> - Once a trend starts, it tends to continue</li>
+                        <li><strong>History repeats itself</strong> - Human psychology creates recognizable patterns</li>
+                    </ul>
+                </div>
+                <div class="psychology-box">
+                    <h4>Human Psychology</h4>
+                    <p>Markets are driven by two emotions: <strong>Fear</strong> and <strong>Greed</strong>. Technical analysis helps us recognize these emotions in price action.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support & Resistance -->
+        <div class="concept-card">
+            <h2 class="section-title">📉 Support & Resistance</h2>
+            <div class="two-column">
+                <div class="example-box">
+                    <h4>🛡️ Support Level</h4>
+                    <p>A price level where buying pressure is strong enough to prevent the price from falling further. Think of it as a "floor" under the price.</p>
+                    <p><strong>Example:</strong> AAPL bounces off $150 three times → $150 is support.</p>
+                </div>
+                <div class="warning-box">
+                    <h4>⛰️ Resistance Level</h4>
+                    <p>A price level where selling pressure is strong enough to prevent the price from rising further. Think of it as a "ceiling" above the price.</p>
+                    <p><strong>Example:</strong> AAPL hits $175 three times and falls back → $175 is resistance.</p>
+                </div>
+            </div>
+            <div class="psychology-box">
+                <h4>🔄 Role Reversal</h4>
+                <p>Once a resistance level is broken, it often becomes new support. Once a support level is broken, it often becomes new resistance.</p>
+            </div>
+        </div>
+
+        <!-- Trend Lines -->
+        <div class="concept-card">
+            <h2 class="section-title">📈 Trend Lines & Channels</h2>
+            <div class="two-column">
+                <div class="example-box">
+                    <h4>Uptrend</h4>
+                    <p>Higher highs and higher lows. Draw trend line connecting the higher lows.</p>
+                </div>
+                <div class="warning-box">
+                    <h4>Downtrend</h4>
+                    <p>Lower highs and lower lows. Draw trend line connecting the lower highs.</p>
+                </div>
+            </div>
+            <div class="psychology-box">
+                <h4>How to Draw Trend Lines:</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>Identify at least 2 touch points (3 is stronger)</li>
+                    <li>In an uptrend, connect the lowest points (lows)</li>
+                    <li>In a downtrend, connect the highest points (highs)</li>
+                    <li>Extend the line to see future potential reactions</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Chart Patterns -->
+        <div class="concept-card">
+            <h2 class="section-title">📊 Common Chart Patterns</h2>
+            <div class="pattern-grid">
+                <div class="pattern-card">
+                    <div>📉📈</div>
+                    <strong>Head & Shoulders</strong>
+                    <p style="font-size: 12px;">Reversal pattern. Three peaks with middle highest.</p>
+                </div>
+                <div class="pattern-card">
+                    <div>📈📉</div>
+                    <strong>Double Bottom</strong>
+                    <p style="font-size: 12px;">Bullish reversal. Price tests support twice.</p>
+                </div>
+                <div class="pattern-card">
+                    <div>📉📈</div>
+                    <strong>Double Top</strong>
+                    <p style="font-size: 12px;">Bearish reversal. Price tests resistance twice.</p>
+                </div>
+                <div class="pattern-card">
+                    <div>📊</div>
+                    <strong>Flags</strong>
+                    <p style="font-size: 12px;">Continuation pattern. Brief pause before continuing.</p>
+                </div>
+                <div class="pattern-card">
+                    <div>🔺</div>
+                    <strong>Triangles</strong>
+                    <p style="font-size: 12px;">Consolidation before breakout.</p>
+                </div>
+                <div class="pattern-card">
+                    <div>🌊</div>
+                    <strong>Wedge</strong>
+                    <p style="font-size: 12px;">Converging trend lines. Can signal reversal or continuation.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Islamic Perspective -->
+        <div class="concept-card">
+            <h2 class="section-title">🕌 Islamic Perspective</h2>
+            <div class="psychology-box">
+                <p>Technical analysis is a <strong>tool</strong>, like a stethoscope for a doctor. It doesn't predict the unseen future (ghayb), but helps analyze current market conditions. As long as one believes all outcomes are from Allah, using tools for analysis is permissible.</p>
+                <p style="margin-top: 10px;">— Sh. Mufti Taqi Usmani</p>
+            </div>
+            <div class="two-column">
+                <div class="example-box">
+                    <h4>✅ Permissible</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Using TA to identify trends</li>
+                        <li>Risk management</li>
+                        <li>Finding entry points</li>
+                    </ul>
+                </div>
+                <div class="warning-box">
+                    <h4>⚠️ Not Permissible</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Believing patterns "guarantee" future moves</li>
+                        <li>Treating charts as deterministic</li>
+                        <li>Obsessive or gambling-like behavior</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="quran-verse" style="background: #f1f5f9; color: #1e293b; margin-top: 20px;">
+                <div class="arabic" style="color: #312e81;">قُل لَّا يَعْلَمُ مَن فِي السَّمَاوَاتِ وَالْأَرْضِ الْغَيْبَ إِلَّا اللَّهُ</div>
+                <div class="translation" style="color: #475569;">"Say: None in the heavens and earth knows the unseen except Allah."</div>
+                <div class="reference">— Quran 27:65</div>
+            </div>
+        </div>
+
+        <!-- Practice Scenario -->
+        <div class="concept-card">
+            <h2 class="section-title">✍️ Practice Scenario</h2>
+            <div class="example-box">
+                <p>You're looking at AAPL stock. It has bounced off $150 three times in the last month. Each time it reaches $175, sellers push it down. Where would you consider buying? Where would you consider taking profits?</p>
+                <p style="margin-top: 10px;"><strong>Suggested Answer:</strong> Consider buying near support ($150) with a stop-loss slightly below. Consider taking profits near resistance ($175). This gives a favorable risk/reward ratio.</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 10 Questions -->
+        <div class="quiz-section">
+            <h3><i class="fas fa-pencil-alt"></i> Test Your Understanding</h3>
+            <p style="text-align: center; margin-bottom: 30px;">Answer all 10 questions to test your knowledge of technical analysis.</p>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is a support level?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q1" value="a"> A price ceiling where selling pressure increases</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="b"> A price floor where buying pressure increases</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="c"> The average price over 30 days</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="d"> A guaranteed price reversal point</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. When resistance breaks, what often happens?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q2" value="a"> It becomes new support</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="b"> It becomes stronger resistance</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="c"> The pattern disappears</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="d"> Price always doubles</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. From an Islamic perspective, technical analysis is...</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q3" value="a"> Forbidden (haram) because it predicts the future</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="b"> Permissible as an analytical tool, not as prediction</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="c"> Required for all Muslim traders</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="d"> Only for professional traders</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. How many touch points make a trend line stronger?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q4" value="a"> 1 touch point</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="b"> 2 touch points</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="c"> 3 touch points</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="d"> 5 touch points</label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What does the Head & Shoulders pattern signal?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q5" value="a"> Trend continuation</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="b"> Trend reversal</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="c"> Market consolidation</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="d"> No trading signal</label>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. What is the main difference between technical and fundamental analysis?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q6" value="a"> TA uses charts; FA uses company financials</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="b"> TA is haram; FA is halal</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="c"> TA is for stocks; FA is for forex</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="d"> TA is short-term; FA is long-term only</label>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What does a "double bottom" pattern indicate?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q7" value="a"> Bearish reversal (price will fall)</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="b"> Bullish reversal (price will rise)</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="c"> Market will stay flat</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="d"> No meaningful signal</label>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. How do you identify an uptrend?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q8" value="a"> Lower highs and lower lows</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="b"> Higher highs and higher lows</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="c"> Sideways movement</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="d"> Random price movement</label>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What does the Quran verse 27:65 teach about technical analysis?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q9" value="a"> Technical analysis is forbidden</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="b"> Only Allah knows the unseen (future)</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="c"> Charts are reliable predictions</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="d"> Traders can know the future</label>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. When support is broken, what often happens?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q10" value="a"> Price bounces up immediately</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="b"> It becomes new resistance</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="c"> Trend reverses upward</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="d"> No change in trend</label>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="checkTAQuiz()" style="background: #312e81; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 600; cursor: pointer;">
+                    <i class="fas fa-check-circle"></i> Check My Answers
+                </button>
+            </div>
+            <div id="quizResult" style="margin-top: 20px; text-align: center; font-size: 18px;"></div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="concept-card">
+            <h2 class="section-title">📋 Key Takeaways</h2>
+            <ul style="margin-left: 20px;">
+                <li>Support = price floor where buyers step in</li>
+                <li>Resistance = price ceiling where sellers step in</li>
+                <li>Trends are your friend - trade in their direction</li>
+                <li>Patterns help identify potential reversals or continuations</li>
+                <li>Islamic view: TA is a permissible tool, not fortune-telling</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="/trading/learn/fundamentals/01-order-types.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Order Types</a>
+            <a href="/trading/learn/fundamentals/03-indicators.html" class="nav-link">Next: Key Indicators <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo"><i class="fas fa-mosque"></i> Fatimah Financial Hub</div>
+                <p class="footer-about">Building ethical traders with Islamic principles at the core. Learn, practice, and grow with confidence.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul><li><a href="/">Dashboard</a></li><li><a href="/trading">Trading</a></li><li><a href="/simulator/trade">Simulator</a></li><li><a href="/resources">Resources</a></li></ul>
+            </div>
+            <div class="footer-links">
+                <h4>Learn</h4>
+                <ul><li><a href="/trading/learn/fundamentals/01-order-types.html">Fundamentals</a></li><li><a href="/trading/learn/islamic-perspectives/01-riba-explained.html">Islamic Perspectives</a></li><li><a href="/economics">Economics</a></li><li><a href="/finance-tools">Tools</a></li></ul>
+            </div>
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <ul><li><a href="/about">About Us</a></li><li><a href="/resources">Contact</a></li><li><a href="/privacy">Privacy Policy</a></li><li><a href="/terms">Terms of Use</a></li></ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="arabic-footer">الحمد لله</div>
+            <p>May your analysis be clear and your trades be blessed</p>
+            <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Lesson 2 of 4 (Fundamentals Series)</p>
+        </div>
+    </footer>
+
+    <script>
+        function checkTAQuiz() {
+            const answers = {
+                q1: 'b', q2: 'a', q3: 'b', q4: 'c', q5: 'b',
+                q6: 'a', q7: 'b', q8: 'b', q9: 'b', q10: 'b'
+            };
+            let score = 0, total = 10;
+            
+            for (let i = 1; i <= total; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(radio => radio.parentElement.classList.remove('correct-answer', 'wrong-answer', 'show-correct'));
+                let answered = false;
+                for (let radio of radios) {
+                    if (radio.checked) {
+                        answered = true;
+                        if (radio.value === answers[`q${i}`]) { score++; radio.parentElement.classList.add('correct-answer'); }
+                        else { radio.parentElement.classList.add('wrong-answer');
+                            for (let r of radios) if (r.value === answers[`q${i}`]) r.parentElement.classList.add('show-correct'); }
+                        break;
+                    }
+                }
+                if (!answered) for (let radio of radios) if (radio.value === answers[`q${i}`]) radio.parentElement.classList.add('show-correct');
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.style.padding = '20px'; resultDiv.style.borderRadius = '12px';
+            if (score === total) resultDiv.innerHTML = '<div style="font-size:24px;font-weight:bold;">🎉 MashaAllah! Perfect score!</div><div>You have excellent understanding of technical analysis!</div>';
+            else if (score >= 8) resultDiv.innerHTML = `<div style="font-size:24px;font-weight:bold;">✅ Good job! You scored ${score}/${total}</div><div>The correct answers are highlighted in green.</div>`;
+            else resultDiv.innerHTML = `<div style="font-size:24px;font-weight:bold;">📚 You scored ${score}/${total}</div><div>Study the highlighted correct answers and try again.</div>`;
+            resultDiv.style.background = score === total ? '#d1fae5' : (score >= 8 ? '#fef3c7' : '#fee2e2');
+            resultDiv.style.color = score === total ? '#065f46' : (score >= 8 ? '#92400e' : '#991b1b');
+        }
+    </script>
+</body>
+</html>

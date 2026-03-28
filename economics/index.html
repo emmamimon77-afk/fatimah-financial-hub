@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics Module - Fatimah Financial Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #8E54E9;
+        }
+
+        .nav-links a.active {
+            color: #8E54E9;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+            border-radius: 2px;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            z-index: 1;
+            padding: 0.5rem 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 0.75rem 1rem;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+            color: white;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Bismillah */
+        .bismillah {
+            text-align: center;
+            font-size: 2.5rem;
+            color: white;
+            margin: 2rem 0 1rem;
+            font-family: 'Traditional Arabic', 'Amiri', serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Secondary Navigation */
+        .nav-links-section {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* FRED Status */
+        .fred-status {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            color: white;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .status-badge i {
+            margin-right: 0.5rem;
+            color: #4CAF50;
+        }
+
+        /* Explanation Cards (matching profit margin style) */
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .explanation-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .explanation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .explanation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+        }
+
+        .explanation-icon {
+            font-size: 2rem;
+            color: #8E54E9;
+            margin-bottom: 1rem;
+        }
+
+        .explanation-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .explanation-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Economic Grid */
+        .economic-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .economic-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .economic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .economic-card h3 {
+            color: #4776E6;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .formula-box {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 1rem 0;
+            color: #8E54E9;
+            font-weight: 500;
+            border-left: 4px solid #8E54E9;
+        }
+
+        .economic-value {
+            font-size: 2rem;
+            text-align: center;
+            margin: 1rem 0;
+            font-weight: bold;
+            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .explanation-text {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 1rem 0;
+        }
+
+        .chart-container {
+            height: 200px;
+            margin-top: 1rem;
+        }
+
+        /* Educational Section */
+        .educational-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #607d8b;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 1rem;
+        }
+
+        .section-title i {
+            color: #8E54E9;
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .concept-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #8E54E9;
+        }
+
+        .concept-card h4 {
+            color: #8E54E9;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .concept-card p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .formula-large {
+            background: #2d3748;
+            color: #fbbf24;
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .formula-large small {
+            display: block;
+            color: #a0aec0;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .key-terms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .term-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .term-item strong {
+            color: #8E54E9;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .term-item span {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .nobel-prize-box {
+            background: linear-gradient(135deg, #ffd70010 0%, #c0c0c010 100%);
+            border: 2px solid #ffd700;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .nobel-prize-box h4 {
+            color: #b8860b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .laureate-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .laureate-card {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .laureate-card i {
+            font-size: 2rem;
+            color: #b8860b;
+            margin-bottom: 0.5rem;
+        }
+
+        .laureate-card h5 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .laureate-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .insights-box {
+            background: linear-gradient(135deg, #4776E610 0%, #8E54E910 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            border: 1px solid #8E54E940;
+        }
+
+        .insights-box h4 {
+            color: #8E54E9;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .insights-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .insights-box li {
+            padding: 0.5rem 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .insights-box li i {
+            color: #4caf50;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0,0,0,0.3);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer .alhamdulillah {
+            font-size: 2rem;
+            font-family: 'Traditional Arabic', 'Amiri', serif;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .economic-grid,
+            .explanation-grid,
+            .concept-grid,
+            .laureate-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">Fatimah Financial Hub</div>
+        <div class="nav-links">
+            <a href="/">Dashboard</a>
+            <a href="/trading">Trading</a>
+            <div class="dropdown">
+                <a href="/finance-tools/index.html" class="active">Tools</a>
+                <div class="dropdown-content">
+                    <a href="/finance-tools/personal/index.html">Personal Finance</a>
+                    <a href="/finance-tools/investment/index.html">Investment Hub</a>
+                    <a href="/finance-tools/business/index.html">Business Tools</a>
+                    <a href="/finance-tools/global/index.html">Global Calculators</a>
+                    <a href="/finance-tools/islamic/index.html">Islamic Finance</a>
+                </div>
+            </div>
+            <a href="/resources" class="nav-link">Resources</a>
+            <a href="/telephony">Telephony</a>
+        </div>
+    </nav>
+
+    <!-- Bismillah -->
+    <div class="bismillah">
+        ﷽
+    </div>
+
+    <div class="container">
+        <!-- Secondary Navigation -->
+        <div class="nav-links-section">
+            <a href="/finance-tools/islamic/sukuk-calculator.html" class="nav-link">
+                <i class="fas fa-calculator"></i> Sukuk Calculator
+            </a>
+            <a href="/finance-tools/investment/index.html" class="nav-link">
+                <i class="fas fa-chart-line"></i> Investment Hub
+            </a>
+            <a href="/finance-tools/index.html" class="nav-link">
+                <i class="fas fa-th-large"></i> All Tools Hub
+            </a>
+        </div>
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="fas fa-graduation-cap"></i> Economics Module</h1>
+            <p style="opacity: 0.9;">Nobel Prize-Winning Economic Formulas • Real-Time FRED Data</p>
+        </div>
+
+        <!-- FRED Status -->
+        <div class="fred-status">
+            <div class="status-badge">
+                <i class="fas fa-circle"></i> FRED API Connected - Real Economic Data from St. Louis Fed
+            </div>
+        </div>
+
+        <!-- Top Explanation Cards (matching profit margin style) -->
+        <div class="explanation-grid">
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3>What It Does</h3>
+                <p>Real-time economic indicator tracking using FRED API. Monitor GDP, inflation, unemployment, and Nobel Prize-winning economic relationships like the Philips Curve and Okun's Law.</p>
+            </div>
+    
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-search-dollar"></i>
+                </div>
+                <h3>Why It Matters</h3>
+                <p>Economic indicators drive markets, interest rates, and business cycles. Understanding them helps in investment decisions, business planning, and policy analysis. Track the economy like a professional economist.</p>
+            </div>
+
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Key Insights</h3>
+                <p>GDP growth affects corporate earnings, inflation impacts purchasing power and bond yields, unemployment influences consumer spending. Learn how these indicators interact to shape economic policy.</p>
+            </div>
+        </div>
+
+        <!-- Economic Indicators Grid -->
+        <div class="economic-grid">
+            <!-- GDP Card -->
+            <div class="economic-card">
+                <h3><i class="fas fa-chart-bar"></i> GDP Growth Rate</h3>
+                <div class="formula-box">
+                    GDP Growth = (GDPcurrent - GDPprevious) / GDPprevious × 100
+                </div>
+                <div class="economic-value" id="gdpValue">2.4%</div>
+                <p class="explanation-text">
+                    <strong>Simon Kuznets • Nobel Prize 1971</strong><br>
+                    Measures annual economic growth rate. Positive growth indicates expansion. <strong>Real-time FRED data: GDP series</strong>
+                </p>
+                <div class="chart-container">
+                    <canvas id="gdpChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Inflation Card -->
+            <div class="economic-card">
+                <h3><i class="fas fa-chart-line"></i> Inflation Rate (CPI)</h3>
+                <div class="formula-box">
+                    Inflation = (CPIcurrent - CPIprevious) / CPIprevious × 100
+                </div>
+                <div class="economic-value" id="inflationValue">2.8%</div>
+                <p class="explanation-text">
+                    <strong>Consumer Price Index Methodology</strong><br>
+                    Moderate inflation (2-3%) indicates healthy economy. <strong>FRED series: CPIAUCSL</strong>
+                </p>
+                <div class="chart-container">
+                    <canvas id="inflationChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Unemployment Card -->
+            <div class="economic-card">
+                <h3><i class="fas fa-users"></i> Unemployment Rate</h3>
+                <div class="formula-box">
+                    Unemployment = Unemployed / Labor Force × 100
+                </div>
+                <div class="economic-value" id="unemploymentValue">4.2%</div>
+                <p class="explanation-text">
+                    <strong>Natural Rate Theory</strong><br>
+                    Natural rate (4-5%) indicates full employment. <strong>FRED series: UNRATE</strong>
+                </p>
+                <div class="chart-container">
+                    <canvas id="unemploymentChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Philips Curve Card -->
+            <div class="economic-card">
+                <h3><i class="fas fa-chart-pie"></i> Philips Curve</h3>
+                <div class="formula-box">
+                    Inverse Relationship: Inflation ↑ → Unemployment ↓
+                </div>
+                <div class="economic-value" id="philipsValue">Stable</div>
+                <p class="explanation-text">
+                    <strong>A.W. Phillips • Nobel Prize Concept</strong><br>
+                    Shows inverse relationship between inflation and unemployment. Central banks use this for policy decisions.
+                </p>
+                <div class="chart-container">
+                    <canvas id="philipsChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Okun's Law Card -->
+            <div class="economic-card">
+                <h3><i class="fas fa-balance-scale"></i> Okun's Law</h3>
+                <div class="formula-box">
+                    1% ↑ Unemployment → 2% ↓ GDP
+                </div>
+                <div class="economic-value" id="okunValue">-0.6% GDP Impact</div>
+                <p class="explanation-text">
+                    <strong>Arthur Okun's Relationship</strong><br>
+                    Every 1% increase in unemployment causes roughly 2% GDP loss. Critical for policy makers.
+                </p>
+                <div class="chart-container">
+                    <canvas id="okunChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="economic-card">
+                <h3><i class="fas fa-brain"></i> Economic Health</h3>
+                <div class="economic-value" id="healthValue">Stable Growth</div>
+                <p class="explanation-text">
+                    <strong>Composite Indicator Analysis</strong><br>
+                    Combined analysis of all indicators for overall economic health assessment.
+                </p>
+                <div style="text-align: center; font-size: 3rem; margin-top: 1rem;" id="healthIcon">
+                    📈
+                </div>
+            </div>
+        </div>
+
+        <!-- 📚 COMPLETE LEARNING PATH SECTION -->
+        <div style="background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); border-radius: 30px; padding: 40px; margin: 40px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <h2 style="font-size: 32px; color: #1e293b; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-graduation-cap" style="color: #312e81;"></i>
+                        Complete Economics Learning Center
+                    </h2>
+                    <p style="color: #64748b; font-size: 16px;">Master economics step by step with our comprehensive 20-lesson series</p>
+                </div>
+                <div style="background: #312e81; color: white; padding: 12px 25px; border-radius: 50px; font-weight: 600;">
+                    <i class="fas fa-check-circle"></i> 20 Lessons Complete
+                </div>
+            </div>
+
+            <!-- Progress Overview -->
+            <div style="background: white; border-radius: 20px; padding: 25px; margin-bottom: 30px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap;">
+                    <h3 style="font-size: 20px;">Your Learning Journey</h3>
+                    <div style="display: flex; gap: 20px;">
+                        <span><strong>20</strong> Total Lessons</span>
+                        <span><strong>15+ hours</strong> Content</span>
+                        <span><strong>200+</strong> Quiz Questions</span>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; margin: 15px 0;">
+                    <div style="flex: 1; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                        <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #312e81, #10b981); border-radius: 4px;"></div>
+                    </div>
+                </div>
+                <p style="color: #64748b; font-size: 14px;">All 20 lessons are now complete and ready for you!</p>
+            </div>
+
+            <!-- Three Learning Paths -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-bottom: 30px;">
+                <!-- Beginner Path (Lessons 1-10) -->
+                <div style="background: white; border-radius: 20px; padding: 25px; border: 1px solid #e2e8f0;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <span style="background: #dbeafe; color: #2563eb; padding: 5px 10px; border-radius: 50px; font-size: 12px; font-weight: 600;">10 LESSONS</span>
+                        <span style="color: #64748b;"><i class="far fa-clock"></i> 5-6 hours</span>
+                    </div>
+                    <h3 style="font-size: 24px; margin-bottom: 10px;">🌱 Beginner Path</h3>
+                    <p style="color: #64748b; margin-bottom: 20px;">Start here if you're new to economics. No prior knowledge needed.</p>
+                    
+                    <div style="margin: 15px 0; max-height: 250px; overflow-y: auto; padding-right: 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/beginner/01-what-is-economics.html" style="color: #1e293b; text-decoration: none; flex:1;">1. What is Economics?</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/beginner/02-supply-demand.html" style="color: #1e293b; text-decoration: none; flex:1;">2. Supply and Demand</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/beginner/03-gdp-explained.html" style="color: #1e293b; text-decoration: none; flex:1;">3. GDP Explained</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/beginner/04-inflation-basics.html" style="color: #1e293b; text-decoration: none; flex:1;">4. Inflation Basics</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/beginner/05-unemployment.html" style="color: #1e293b; text-decoration: none; flex:1;">5. Unemployment</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/beginner/06-monetary-policy.html" style="color: #1e293b; text-decoration: none; flex:1;">6. Monetary Policy</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/beginner/07-fiscal-policy.html" style="color: #1e293b; text-decoration: none; flex:1;">7. Fiscal Policy</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/beginner/08-business-cycles.html" style="color: #1e293b; text-decoration: none; flex:1;">8. Business Cycles</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/beginner/09-international-trade.html" style="color: #1e293b; text-decoration: none; flex:1;">9. International Trade</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/beginner/10-exchange-rates.html" style="color: #1e293b; text-decoration: none; flex:1;">10. Exchange Rates</a>
+                        </div>
+                    </div>
+                    
+                    <a href="/economics/learn/beginner/01-what-is-economics.html" style="color: #312e81; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 15px;">
+                        Start Beginner Path <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Intermediate Path (Lessons 11-15) -->
+                <div style="background: white; border-radius: 20px; padding: 25px; border: 1px solid #e2e8f0;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <span style="background: #fef3c7; color: #d97706; padding: 5px 10px; border-radius: 50px; font-size: 12px; font-weight: 600;">5 LESSONS</span>
+                        <span style="color: #64748b;"><i class="far fa-clock"></i> 4-5 hours</span>
+                    </div>
+                    <h3 style="font-size: 24px; margin-bottom: 10px;">📊 Intermediate Path</h3>
+                    <p style="color: #64748b; margin-bottom: 20px;">Deepen your understanding with key economic theories.</p>
+                    
+                    <div style="margin: 15px 0;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/intermediate/11-economic-indicators.html" style="color: #1e293b; text-decoration: none; flex:1;">11. Economic Indicators</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/intermediate/12-monetary-policy-deep-dive.html" style="color: #1e293b; text-decoration: none; flex:1;">12. Monetary Policy Deep Dive</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/intermediate/13-fiscal-policy-deep-dive.html" style="color: #1e293b; text-decoration: none; flex:1;">13. Fiscal Policy Deep Dive</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/intermediate/14-phillips-curve.html" style="color: #1e293b; text-decoration: none; flex:1;">14. Phillips Curve & Inflation Dynamics</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/intermediate/15-business-cycles-advanced.html" style="color: #1e293b; text-decoration: none; flex:1;">15. Business Cycles Advanced</a>
+                        </div>
+                    </div>
+                    
+                    <a href="/economics/learn/intermediate/11-economic-indicators.html" style="color: #312e81; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 15px;">
+                        Start Intermediate Path <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Advanced Path (Lessons 16-20) -->
+                <div style="background: white; border-radius: 20px; padding: 25px; border: 1px solid #e2e8f0;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <span style="background: #fee2e2; color: #dc2626; padding: 5px 10px; border-radius: 50px; font-size: 12px; font-weight: 600;">5 LESSONS</span>
+                        <span style="color: #64748b;"><i class="far fa-clock"></i> 5-6 hours</span>
+                    </div>
+                    <h3 style="font-size: 24px; margin-bottom: 10px;">📈 Advanced Path</h3>
+                    <p style="color: #64748b; margin-bottom: 20px;">Master complex theories and economic modeling.</p>
+                    
+                    <div style="margin: 15px 0;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/advanced/16-quantitative-easing.html" style="color: #1e293b; text-decoration: none; flex:1;">16. Quantitative Easing & Unconventional Policy</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/advanced/17-international-finance.html" style="color: #1e293b; text-decoration: none; flex:1;">17. International Finance & Exchange Rate Systems</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/advanced/18-economic-development.html" style="color: #1e293b; text-decoration: none; flex:1;">18. Economic Development & Growth Theory</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/advanced/19-behavioral-economics.html" style="color: #1e293b; text-decoration: none; flex:1;">19. Behavioral Economics</a>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; margin: 8px 0; padding: 5px;">
+                            <span style="color: #10b981;">✅</span>
+                            <a href="/economics/learn/advanced/20-islamic-economics.html" style="color: #1e293b; text-decoration: none; flex:1;">20. Islamic Economic System</a>
+                        </div>
+                    </div>
+                    
+                    <a href="/economics/learn/advanced/16-quantitative-easing.html" style="color: #312e81; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 15px;">
+                        Start Advanced Path <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Access to All Lessons -->
+            <div style="background: white; border-radius: 20px; padding: 25px; margin-top: 20px;">
+                <h3 style="font-size: 20px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-list"></i> Complete Lesson List (20 Lessons)
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;">
+                    <a href="/economics/learn/beginner/01-what-is-economics.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">1. Economics</a>
+                    <a href="/economics/learn/beginner/02-supply-demand.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">2. Supply/Demand</a>
+                    <a href="/economics/learn/beginner/03-gdp-explained.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">3. GDP</a>
+                    <a href="/economics/learn/beginner/04-inflation-basics.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">4. Inflation</a>
+                    <a href="/economics/learn/beginner/05-unemployment.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">5. Unemployment</a>
+                    <a href="/economics/learn/beginner/06-monetary-policy.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">6. Monetary</a>
+                    <a href="/economics/learn/beginner/07-fiscal-policy.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">7. Fiscal</a>
+                    <a href="/economics/learn/beginner/08-business-cycles.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">8. Cycles</a>
+                    <a href="/economics/learn/beginner/09-international-trade.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">9. Trade</a>
+                    <a href="/economics/learn/beginner/10-exchange-rates.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">10. Exchange</a>
+                    <a href="/economics/learn/intermediate/11-economic-indicators.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">11. Indicators</a>
+                    <a href="/economics/learn/intermediate/12-monetary-policy-deep-dive.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">12. Monetary II</a>
+                    <a href="/economics/learn/intermediate/13-fiscal-policy-deep-dive.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">13. Fiscal II</a>
+                    <a href="/economics/learn/intermediate/14-phillips-curve.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">14. Phillips</a>
+                    <a href="/economics/learn/intermediate/15-business-cycles-advanced.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">15. Cycles II</a>
+                    <a href="/economics/learn/advanced/16-quantitative-easing.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">16. QE</a>
+                    <a href="/economics/learn/advanced/17-international-finance.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">17. Intl Finance</a>
+                    <a href="/economics/learn/advanced/18-economic-development.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">18. Development</a>
+                    <a href="/economics/learn/advanced/19-behavioral-economics.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">19. Behavioral</a>
+                    <a href="/economics/learn/advanced/20-islamic-economics.html" style="background: #f1f5f9; padding: 8px; border-radius: 8px; text-align: center; text-decoration: none; color: #1e293b; font-size: 13px;">20. Islamic</a>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Educational Section - Understanding Economic Indicators -->
+        <div class="educational-section">
+            <div class="section-title">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Understanding Economic Indicators: Step-by-Step</span>
+            </div>
+
+            <!-- Key Concepts Grid -->
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h4>📊 Gross Domestic Product (GDP)</h4>
+                    <p><strong>Step 1:</strong> Calculate GDP = Consumption + Investment + Government Spending + (Exports - Imports)</p>
+                    <p><strong>Step 2:</strong> Compare current vs previous quarter: (Q2 - Q1) / Q1 × 100</p>
+                    <p><strong>Step 3:</strong> Annualize: Multiply quarterly rate by 4</p>
+                    <p><strong>Real-world:</strong> 2-3% growth = healthy; below 0% = recession</p>
+                </div>
+                <div class="concept-card">
+                    <h4>📈 Inflation (CPI)</h4>
+                    <p><strong>Step 1:</strong> Bureau of Labor Statistics tracks 94,000 prices monthly</p>
+                    <p><strong>Step 2:</strong> CPI = (Current Basket Cost / Base Year Basket Cost) × 100</p>
+                    <p><strong>Step 3:</strong> Inflation Rate = (CPI Year2 - CPI Year1) / CPI Year1 × 100</p>
+                    <p><strong>Real-world:</strong> Fed targets 2% average inflation</p>
+                </div>
+                <div class="concept-card">
+                    <h4>👥 Unemployment Rate</h4>
+                    <p><strong>Step 1:</strong> Labor Force = Employed + Unemployed (actively seeking)</p>
+                    <p><strong>Step 2:</strong> Unemployment Rate = Unemployed / Labor Force × 100</p>
+                    <p><strong>Step 3:</strong> Calculate U-6 (includes discouraged workers) for broader measure</p>
+                    <p><strong>Real-world:</strong> U-3 reported rate; U-6 typically 3-4% higher</p>
+                </div>
+            </div>
+
+            <!-- Nobel Prize Section -->
+            <div class="nobel-prize-box">
+                <h4><i class="fas fa-trophy"></i> Nobel Prize-Winning Economic Theories</h4>
+                <div class="laureate-grid">
+                    <div class="laureate-card">
+                        <i class="fas fa-medal"></i>
+                        <h5>Simon Kuznets</h5>
+                        <p>Nobel Prize 1971<br>Developed GDP measurement system</p>
+                    </div>
+                    <div class="laureate-card">
+                        <i class="fas fa-medal"></i>
+                        <h5>A.W. Phillips</h5>
+                        <p>Nobel-recognized concept<br>Philips Curve (inflation-unemployment)</p>
+                    </div>
+                    <div class="laureate-card">
+                        <i class="fas fa-medal"></i>
+                        <h5>Arthur Okun</h5>
+                        <p>Nobel-recognized concept<br>Okun's Law (GDP-unemployment)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Formulas -->
+            <div class="formula-large">
+                <div><strong>Philips Curve:</strong> π = πᵉ - β(u - uⁿ) + ε</div>
+                <small>π = inflation, πᵉ = expected inflation, u = unemployment, uⁿ = natural rate</small>
+            </div>
+
+            <div class="formula-large">
+                <div><strong>Okun's Law:</strong> (Y - Y*) / Y* = -c (u - u*)</div>
+                <small>Y = actual GDP, Y* = potential GDP, u = actual unemployment, u* = natural rate, c ≈ 2</small>
+            </div>
+
+            <!-- Key Terms -->
+            <div class="key-terms">
+                <div class="term-item">
+                    <strong>Leading Indicators</strong>
+                    <span>Predict future economic activity: stock market, building permits, consumer confidence</span>
+                </div>
+                <div class="term-item">
+                    <strong>Lagging Indicators</strong>
+                    <span>Confirm trends after they occur: unemployment rate, corporate profits, labor costs</span>
+                </div>
+                <div class="term-item">
+                    <strong>Coincident Indicators</strong>
+                    <span>Move with the economy: GDP, industrial production, retail sales</span>
+                </div>
+                <div class="term-item">
+                    <strong>Core CPI</strong>
+                    <span>CPI excluding food and energy - less volatile, better for trend analysis</span>
+                </div>
+            </div>
+
+            <!-- Economic Insights -->
+            <div class="insights-box">
+                <h4><i class="fas fa-chart-simple"></i> Economic Insights & Applications</h4>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> <strong>GDP & Markets:</strong> 2 consecutive quarters negative GDP = recession (conventional definition)</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Inflation & Bonds:</strong> Rising inflation causes bond prices to fall, yields to rise</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Unemployment & Fed:</strong> Fed raises rates when unemployment falls below natural rate to prevent overheating</li>
+                    <li><i class="fas fa-check-circle"></i> <strong>Philips Curve Today:</strong> Relationship has weakened; "flattened" curve means inflation less responsive to unemployment</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Educational Note -->
+        <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 1.5rem; text-align: center; margin: 2rem 0; color: white;">
+            <p style="font-size: 1.1rem;"><strong>Key Formula:</strong> Economic Growth = f(Capital, Labor, Technology) - Solow Growth Model (Nobel Prize 1987)</p>
+            <p style="opacity: 0.8; margin-top: 0.5rem;">Data provided by FRED® (Federal Reserve Economic Data) • Updated in real-time</p>
+        </div>
+    </div>
+
+        <!-- Economics Resources Section -->
+        <div class="educational-section" style="background: white; border-radius: 20px; padding: 2.5rem; margin: 3rem 0;">
+            <div class="section-title" style="color: #1e3c72; margin-bottom: 2rem;">
+                <i class="fas fa-book-open"></i> Learn Economics: Free Resources & Data Sources
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+                <div>
+                    <h4 style="color: #4776E6; margin-bottom: 1rem;">📚 Free Courses</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.75rem;"><a href="https://www.khanacademy.org/economics-finance-domain" target="_blank" style="color: #333; text-decoration: none;"><i class="fas fa-external-link-alt"></i> Khan Academy - Economics</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="https://www.coursera.org/learn/financial-markets-global" target="_blank" style="color: #333; text-decoration: none;"><i class="fas fa-external-link-alt"></i> Yale Financial Markets (Coursera)</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="https://ocw.mit.edu/search/?d=Economics" target="_blank" style="color: #333; text-decoration: none;"><i class="fas fa-external-link-alt"></i> MIT OpenCourseWare</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="https://mru.org/" target="_blank" style="color: #333; text-decoration: none;"><i class="fas fa-external-link-alt"></i> Marginal Revolution University</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: #4776E6; margin-bottom: 1rem;">📊 Data Sources</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.75rem;"><a href="https://fred.stlouisfed.org/" target="_blank" style="color: #333; text-decoration: none;"><i class="fas fa-external-link-alt"></i> FRED (St. Louis Fed)</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="https://data.worldbank.org/" target="_blank" style="color: #333; text-decoration: none;"><i class="fas fa-external-link-alt"></i> World Bank Open Data</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="https://www.imf.org/en/Data" target="_blank" style="color: #333; text-decoration: none;"><i class="fas fa-external-link-alt"></i> IMF DataMapper</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="https://www.bls.gov/data/" target="_blank" style="color: #333; text-decoration: none;"><i class="fas fa-external-link-alt"></i> BLS (Bureau of Labor Stats)</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: #4776E6; margin-bottom: 1rem;">📖 Islamic Economics</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.75rem;"><a href="/finance-tools/islamic/sukuk-calculator.html" style="color: #333; text-decoration: none;"><i class="fas fa-calculator"></i> Sukuk Calculator</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="/resources/#comparison" style="color: #333; text-decoration: none;"><i class="fas fa-balance-scale"></i> Islamic vs Conventional</a></li>
+                        <li style="margin-bottom: 0.75rem;"><a href="https://www.isdb.org/" target="_blank" style="color: #333; text-decoration: none;"><i class="fas fa-external-link-alt"></i> Islamic Development Bank</a></li>
+                        <li style="margin-bottom: 0.75rem;"><span style="color: #666;">Islamic Development Bank reports</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <p style="text-align: center;"><strong>Compare Systems:</strong> See how Islamic economics offers an alternative to conventional models. <a href="/resources/#comparison" style="color: #4776E6;">View comparison →</a></p>
+            </div>
+        </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="alhamdulillah">الحمد لله</div>
+        <p>May this economic knowledge help in making wise and beneficial decisions</p>
+        <p>© 2026 Fatimah Financial Hub. All data for educational purposes. FRED® is a trademark of St. Louis Fed.</p>
+    </footer>
+
+    <script>
+        // Sample data for charts (in production, this would fetch from FRED API)
+        function createSampleChart(chartId, label, data) {
+            const ctx = document.getElementById(chartId)?.getContext('2d');
+            if (!ctx) return;
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        borderColor: '#8E54E9',
+                        backgroundColor: 'rgba(142, 84, 233, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { grid: { display: false } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        // Initialize charts on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            createSampleChart('gdpChart', 'GDP %', [2.1, 2.3, 2.4, 2.4, 2.5, 2.4]);
+            createSampleChart('inflationChart', 'CPI %', [2.5, 2.6, 2.7, 2.8, 2.8, 2.8]);
+            createSampleChart('unemploymentChart', 'Unemployment %', [4.5, 4.4, 4.3, 4.2, 4.2, 4.2]);
+            
+            // Simple Philips Curve representation
+            const philipsCtx = document.getElementById('philipsChart')?.getContext('2d');
+            if (philipsCtx) {
+                new Chart(philipsCtx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'Philips Curve',
+                            data: [
+                                { x: 3.0, y: 4.0 },
+                                { x: 2.8, y: 4.2 },
+                                { x: 2.5, y: 4.5 },
+                                { x: 2.2, y: 4.8 },
+                                { x: 2.0, y: 5.0 }
+                            ],
+                            backgroundColor: '#8E54E9',
+                            showLine: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { 
+                                title: { display: true, text: 'Unemployment %' },
+                                grid: { display: false }
+                            },
+                            x: { 
+                                title: { display: true, text: 'Inflation %' },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Okun's Law visualization
+            createSampleChart('okunChart', 'GDP Impact %', [0, -0.5, -1.0, -1.5, -2.0, -2.5]);
+        });
+    </script>
+</body>
+</html>

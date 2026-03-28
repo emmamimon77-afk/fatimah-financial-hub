@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Types - Fundamentals | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+
+        /* Lesson Header */
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        /* Quran Verse */
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 32px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        .reference {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Cards */
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Order Type Cards */
+        .order-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .order-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+        .order-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .order-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        .order-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #312e81;
+        }
+        .order-desc {
+            color: #64748b;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        .order-pros, .order-cons {
+            margin-top: 10px;
+            font-size: 13px;
+        }
+        .pro { color: #10b981; }
+        .con { color: #ef4444; }
+
+        /* Example Boxes */
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 20px;
+            font-family: monospace;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #312e81;
+            text-align: center;
+        }
+        .quiz-question {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-question p {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Quiz answer highlighting */
+        .quiz-option.correct-answer {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.wrong-answer {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .quiz-option.show-correct {
+            background: #d1fae5;
+            border-color: #10b981;
+            border-width: 3px;
+            position: relative;
+        }
+        .quiz-option.show-correct::after {
+            content: "✓ Correct Answer";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 60px 20px 30px;
+            margin-top: 60px;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .footer-logo i {
+            color: #fbbf24;
+        }
+        .footer-about {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .footer-links ul {
+            list-style: none;
+        }
+        .footer-links li {
+            margin: 10px 0;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .order-grid {
+                grid-template-columns: 1fr;
+            }
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            .title-section h1 {
+                font-size: 32px;
+            }
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="/trading">Trading Hub</a> › 
+            <a href="/trading/learn">Learning Center</a> › 
+            <a href="/trading/learn/fundamentals">Fundamentals</a> › 
+            Lesson 1: Order Types
+        </div>
+
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="title-section">
+                <h1>Order Types</h1>
+                <span class="badge">Beginner • 20 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="fas fa-chart-line"></i> Trading Basics</span>
+                <span><i class="fas fa-gavel"></i> Islamic Rulings</span>
+                <span><i class="fas fa-question-circle"></i> 10 Quiz Questions</span>
+            </div>
+        </div>
+
+        <!-- Quran Verse -->
+        <div class="quran-verse">
+            <div class="arabic">وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا</div>
+            <div class="translation">"And Allah has permitted trade and forbidden interest."</div>
+            <div class="reference">— Quran 2:275</div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="concept-card">
+            <h2 class="section-title">🎯 Learning Objectives</h2>
+            <ul style="margin-left: 20px;">
+                <li>Understand market, limit, and stop orders</li>
+                <li>Know when to use each order type</li>
+                <li>Calculate position sizes with stop-loss</li>
+                <li>Understand Islamic perspective on each order</li>
+                <li>Practice with real scenarios</li>
+            </ul>
+        </div>
+
+        <!-- The Three Core Order Types -->
+        <div class="order-grid">
+            <div class="order-card">
+                <div class="order-icon">📊</div>
+                <div class="order-title">Market Order</div>
+                <div class="order-desc">Executes immediately at the current market price.</div>
+                <div class="order-pros"><span class="pro">✓</span> Guaranteed execution</div>
+                <div class="order-pros"><span class="pro">✓</span> Instant fills</div>
+                <div class="order-cons"><span class="con">✗</span> No price control</div>
+                <div class="order-cons"><span class="con">✗</span> Slippage in volatile markets</div>
+                <div class="example-box" style="margin-top: 10px; padding: 10px;">
+                    <strong>Example:</strong> AAPL at $175.50 → market order buys at $175.50 (or very close)
+                </div>
+            </div>
+
+            <div class="order-card">
+                <div class="order-icon">⚡</div>
+                <div class="order-title">Limit Order</div>
+                <div class="order-desc">Executes only at your specified price or better.</div>
+                <div class="order-pros"><span class="pro">✓</span> Price control</div>
+                <div class="order-pros"><span class="pro">✓</span> No slippage</div>
+                <div class="order-cons"><span class="con">✗</span> May not execute</div>
+                <div class="order-cons"><span class="con">✗</span> Can miss opportunities</div>
+                <div class="example-box" style="margin-top: 10px; padding: 10px;">
+                    <strong>Example:</strong> AAPL at $175.50 → limit order at $174.00 fills only if price drops
+                </div>
+            </div>
+
+            <div class="order-card">
+                <div class="order-icon">🛡️</div>
+                <div class="order-title">Stop-Loss Order</div>
+                <div class="order-desc">Becomes a market order when price hits your stop price.</div>
+                <div class="order-pros"><span class="pro">✓</span> Limits losses</div>
+                <div class="order-pros"><span class="pro">✓</span> Automatic protection</div>
+                <div class="order-cons"><span class="con">✗</span> Can trigger on temporary dips</div>
+                <div class="order-cons"><span class="con">✗</span> Slippage possible</div>
+                <div class="example-box" style="margin-top: 10px; padding: 10px;">
+                    <strong>Example:</strong> Buy AAPL at $175.50 → stop-loss at $170.00 triggers if price drops
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Order Types -->
+        <div class="concept-card">
+            <h2 class="section-title">📌 Advanced Order Types</h2>
+            
+            <div class="psychology-box">
+                <h4>Stop-Limit Order</h4>
+                <p>Combines stop-loss and limit order. When price hits the stop, it places a limit order instead of a market order.</p>
+                <p><strong>Example:</strong> Stock at $50. Set stop at $48 and limit at $47.90. If price hits $48, a limit order to sell at $47.90 is placed.</p>
+            </div>
+            
+            <div class="psychology-box">
+                <h4>Trailing Stop</h4>
+                <p>Stop price moves with the stock price. Locks in profits as price rises, but still protects if price falls.</p>
+                <p><strong>Example:</strong> Set 5% trailing stop on stock at $100. If stock rises to $110, stop rises to $104.50. If stock drops from $110 to $104.50, it triggers.</p>
+            </div>
+        </div>
+
+        <!-- Islamic Perspective -->
+        <div class="concept-card">
+            <h2 class="section-title">🕌 Islamic Perspective</h2>
+            
+            <div class="two-column">
+                <div class="example-box">
+                    <h4>✅ Permissible Orders</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li><strong>Market Orders:</strong> Generally permissible as they represent immediate trade</li>
+                        <li><strong>Limit Orders:</strong> Permissible as a promise to trade at a specified price</li>
+                        <li><strong>Stop-Loss:</strong> Permissible as a risk management tool</li>
+                    </ul>
+                </div>
+                <div class="warning-box">
+                    <h4>⚠️ What to Avoid</h4>
+                    <ul style="margin: 10px 0 0 20px;">
+                        <li>Margin trading (involves riba/interest)</li>
+                        <li>Short selling (selling what you don't own)</li>
+                        <li>Derivatives with excessive uncertainty (gharar)</li>
+                        <li>Day trading with extreme frequency</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="psychology-box">
+                <h4>📜 Hadith Reference</h4>
+                <p>The Prophet Muhammad (ﷺ) said: "The two parties in a transaction have the right to cancel it as long as they have not separated." (Bukhari)</p>
+                <p>Application: Limit orders respect this by giving you control over the execution price.</p>
+            </div>
+        </div>
+
+        <!-- Position Size Calculation -->
+        <div class="concept-card">
+            <h2 class="section-title">📐 Position Size Calculation</h2>
+            <div class="formula-box">
+                Position Size = (Account × Risk %) ÷ (Entry - Stop)
+            </div>
+            <div class="example-box">
+                <h4>Example: $10,000 Account, 2% Risk</h4>
+                <p><strong>Entry:</strong> $175.50<br>
+                <strong>Stop Loss:</strong> $170.00<br>
+                <strong>Risk per share:</strong> $5.50<br>
+                <strong>Position Size:</strong> ($10,000 × 0.02) ÷ $5.50 = <strong>36 shares</strong></p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 10 Questions -->
+        <div class="quiz-section">
+            <h3><i class="fas fa-pencil-alt"></i> Test Your Understanding</h3>
+            <p style="text-align: center; margin-bottom: 30px;">Answer all 10 questions to test your knowledge of order types.</p>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. You want to buy a stock at exactly $50, not a penny more. Which order type should you use?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q1" value="a"> Market Order</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="b"> Limit Order</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="c"> Stop-Loss Order</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="d"> Trailing Stop</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. You own a stock and want to automatically sell if it drops 10% to protect your capital. Which order?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q2" value="a"> Market Order</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="b"> Limit Order</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="c"> Stop-Loss Order</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="d"> Stop-Limit Order</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. From an Islamic perspective, which of these is problematic?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q3" value="a"> Limit Order on a halal stock</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="b"> Market Order on a halal stock</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="c"> Stop-Loss for risk management</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="d"> Margin trading with interest</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. What is the main advantage of a limit order?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q4" value="a"> Guaranteed execution</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="b"> Price control (no slippage)</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="c"> Instant fill</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="d"> No price limit</label>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. A trailing stop order does what?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q5" value="a"> Stops at a fixed price</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="b"> Moves with the stock price to lock in profits</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="c"> Guarantees a profit</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="d"> Only works for selling</label>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. You have a $20,000 account and want to risk 1% per trade. Entry at $100, stop at $95. How many shares?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q6" value="a"> 20 shares</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="b"> 40 shares</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="c"> 60 shares</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="d"> 80 shares</label>
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What is "slippage"?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q7" value="a"> Price difference between expected and actual execution</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="b"> A type of order</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="c"> Market volatility</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="d"> A trading platform</label>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. Which order type is best for entering a position quickly?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q8" value="a"> Limit Order</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="b"> Stop-Limit Order</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="c"> Market Order</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="d"> Trailing Stop</label>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What does the Prophet's Hadith about "two parties in a transaction" teach us?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q9" value="a"> Trading is prohibited</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="b"> Parties can cancel until they separate</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="c"> Only Muslims can trade</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="d"> Prices must be fixed</label>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. Which of these is NOT an Islamic trading prohibition?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q10" value="a"> Margin trading (riba)</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="b"> Short selling</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="c"> Using a stop-loss order</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="d"> Derivatives with excessive uncertainty</label>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="checkOrderQuiz()" style="background: #312e81; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 600; cursor: pointer;">
+                    <i class="fas fa-check-circle"></i> Check My Answers
+                </button>
+            </div>
+            <div id="quizResult" style="margin-top: 20px; text-align: center; font-size: 18px;"></div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="concept-card">
+            <h2 class="section-title">📋 Key Takeaways</h2>
+            <ul style="margin-left: 20px;">
+                <li>Market orders execute immediately but lack price control</li>
+                <li>Limit orders give price control but may not execute</li>
+                <li>Stop-loss orders protect capital automatically</li>
+                <li>Always calculate position size before entering a trade</li>
+                <li>Islamic trading prohibits margin, short selling, and excessive speculation</li>
+            </ul>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/trading/learn/islamic-perspectives/04-asset-backed-trading.html" class="nav-link">
+                <i class="fas fa-arrow-left"></i> Previous: Asset-Backed Trading
+            </a>
+            <a href="/trading/learn/fundamentals/02-technical-analysis.html" class="nav-link">
+                Next: Technical Analysis <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">
+                    <i class="fas fa-mosque"></i>
+                    Fatimah Financial Hub
+                </div>
+                <p class="footer-about">Building ethical traders with Islamic principles at the core. Learn, practice, and grow with confidence.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/trading">Trading</a></li>
+                    <li><a href="/simulator/trade">Simulator</a></li>
+                    <li><a href="/resources">Resources</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Learn</h4>
+                <ul>
+                    <li><a href="/trading/learn/fundamentals/01-order-types.html">Fundamentals</a></li>
+                    <li><a href="/trading/learn/islamic-perspectives/01-riba-explained.html">Islamic Perspectives</a></li>
+                    <li><a href="/economics">Economics</a></li>
+                    <li><a href="/finance-tools">Tools</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/resources">Contact</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="arabic-footer">الحمد لله</div>
+            <p>May this knowledge help you make informed and ethical investment decisions</p>
+            <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Lesson 1 of 4 (Fundamentals Series)</p>
+        </div>
+    </footer>
+
+    <script>
+        function checkOrderQuiz() {
+            const answers = {
+                q1: 'b',
+                q2: 'c',
+                q3: 'd',
+                q4: 'b',
+                q5: 'b',
+                q6: 'b',
+                q7: 'a',
+                q8: 'c',
+                q9: 'b',
+                q10: 'c'
+            };
+            
+            let score = 0;
+            let total = 10;
+            
+            // Clear previous highlights
+            for (let i = 1; i <= total; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(radio => {
+                    radio.parentElement.classList.remove('correct-answer', 'wrong-answer', 'show-correct');
+                });
+            }
+            
+            // Check each question
+            for (let i = 1; i <= total; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                let answered = false;
+                
+                for (let radio of radios) {
+                    if (radio.checked) {
+                        answered = true;
+                        if (radio.value === answers[`q${i}`]) {
+                            score++;
+                            radio.parentElement.classList.add('correct-answer');
+                        } else {
+                            radio.parentElement.classList.add('wrong-answer');
+                            
+                            // Highlight the correct answer
+                            for (let r of radios) {
+                                if (r.value === answers[`q${i}`]) {
+                                    r.parentElement.classList.add('show-correct');
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+                
+                if (!answered) {
+                    // Highlight correct answer even if not answered
+                    for (let radio of radios) {
+                        if (radio.value === answers[`q${i}`]) {
+                            radio.parentElement.classList.add('show-correct');
+                        }
+                    }
+                }
+            }
+            
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.style.padding = '20px';
+            resultDiv.style.borderRadius = '12px';
+            resultDiv.style.marginTop = '20px';
+            
+            if (score === total) {
+                resultDiv.style.background = '#d1fae5';
+                resultDiv.style.color = '#065f46';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">🎉 MashaAllah! Perfect score (${score}/${total})!</div>
+                    <div style="font-size: 16px;">You have excellent understanding of order types!</div>
+                `;
+            } else if (score >= 8) {
+                resultDiv.style.background = '#fef3c7';
+                resultDiv.style.color = '#92400e';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">✅ Good job! You scored ${score}/${total}</div>
+                    <div style="font-size: 16px;">The correct answers are highlighted in green. Review the ones you missed.</div>
+                `;
+            } else {
+                resultDiv.style.background = '#fee2e2';
+                resultDiv.style.color = '#991b1b';
+                resultDiv.innerHTML = `
+                    <div style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">📚 You scored ${score}/${total}</div>
+                    <div style="font-size: 16px;">Study the highlighted correct answers and try again.</div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

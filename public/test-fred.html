@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test FRED API</title>
+</head>
+<body>
+    <h1>Testing FRED API Connection</h1>
+    <button onclick="testFRED()">Test API</button>
+    <div id="result"></div>
+    
+    <script src="finance-tools/shared/api-keys.js"></script>
+    <script>
+    async function testFRED() {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '<p>Testing API connection...</p>';
+        
+        const apiKey = window.API_KEYS.FRED_API_KEY;
+        
+        // Simple test: Get the latest mortgage rate
+        const url = `https://api.stlouisfed.org/fred/series/observations?series_id=MORTGAGE30US&api_key=${apiKey}&file_type=json&limit=1&sort_order=desc`;
+        
+        try {
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            if (data.observations && data.observations[0]) {
+                const observation = data.observations[0];
+                resultDiv.innerHTML = `
+                    <h3 style="color: green;">✅ API Connection Successful!</h3>
+                    <p><strong>Latest US Mortgage Rate:</strong> ${observation.value}%</p>
+                    <p><strong>Date:</strong> ${observation.date}</p>
+                    <p><strong>Series:</strong> MORTGAGE30US (30-Year Fixed Rate Mortgage Average)</p>
+                    <p><small>API Key works! You can now use real-time rates.</small></p>
+                `;
+            } else {
+                resultDiv.innerHTML = `<p style="color: orange;">⚠️ API responded but no data found</p>`;
+            }
+            
+        } catch (error) {
+            resultDiv.innerHTML = `
+                <h3 style="color: red;">❌ API Error</h3>
+                <p><strong>Error:</strong> ${error.message}</p>
+                <p>Check:</p>
+                <ul>
+                    <li>Is your API key correct? (32 characters)</li>
+                    <li>Do you have internet connection?</li>
+                    <li>Is the FRED API service up?</li>
+                </ul>
+                <p>Key length: ${apiKey.length} chars</p>
+                <p>Key starts with: ${apiKey.substring(0, 4)}...</p>
+            `;
+        }
+    }
+    </script>
+</body>
+</html>

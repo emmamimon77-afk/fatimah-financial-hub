@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enhanced Calculators Test</title>
+    <style>
+        body { padding: 20px; font-family: Arial; }
+        .test { margin: 15px 0; padding: 15px; border-radius: 5px; }
+        .pass { background: #d4edda; border: 1px solid #c3e6cb; }
+        .fail { background: #f8d7da; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>Enhanced Calculators Test</h1>
+    <div id="results"></div>
+
+    <script src="config.js"></script>
+    <script src="calculators.js"></script>
+    <script>
+        const results = document.getElementById('results');
+        const calc = new FinancialCalculators();
+        
+        // Test Retirement Calculator
+        const retirement = calc.calculateRetirement({
+            currentAge: 35,
+            retirementAge: 65,
+            currentSavings: 50000,
+            monthlySave: 1000,
+            desiredIncome: 60000,
+            country: 'US'
+        });
+        
+        let html = '<h2>Retirement Planning</h2>';
+        if (retirement.success) {
+            html += `<div class="test pass">
+                <strong>US Retirement:</strong><br>
+                Savings at 65: ${retirement.savingsAtRetirement}<br>
+                Safe withdrawal: ${retirement.safeWithdrawal}<br>
+                Years covered: ${retirement.yearsCovered}<br>
+                Readiness: ${retirement.readiness}
+            </div>`;
+        }
+        
+        // Test Loan Payoff
+        const loan = calc.calculateLoanPayoff({
+            amount: 25000,
+            rate: 7.5,
+            minPayment: 300,
+            extraPayment: 100,
+            country: 'US'
+        });
+        
+        html += '<h2>Loan Payoff Analysis</h2>';
+        if (loan.success) {
+            html += `<div class="test pass">
+                <strong>With minimum payments:</strong><br>
+                ${loan.withMinimum.years} years, Interest: ${loan.withMinimum.totalInterest}<br>
+                <strong>With extra $100/month:</strong><br>
+                ${loan.withExtra.years} years, Interest: ${loan.withExtra.totalInterest}<br>
+                <strong>Savings:</strong> ${loan.withExtra.timeSaved} and ${loan.withExtra.interestSaved}
+            </div>`;
+        }
+        
+        // Test China Retirement
+        const chinaRetirement = calc.calculateRetirement({
+            currentAge: 35,
+            retirementAge: 65,
+            currentSavings: 50000,
+            monthlySave: 1000,
+            country: 'CN'
+        });
+        
+        html += '<h2>China Retirement</h2>';
+        if (chinaRetirement.success) {
+            html += `<div class="test pass">
+                Savings at 65: ${chinaRetirement.savingsAtRetirement}<br>
+                Using China's average return rate
+            </div>`;
+        }
+        
+        results.innerHTML = html;
+        console.log('All tests:', { retirement, loan, chinaRetirement });
+    </script>
+</body>
+</html>

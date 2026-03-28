@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head><title>Final Test</title></head>
+<body>
+<h1>Config.js Final Test</h1>
+<div id="result" style="padding: 20px; background: #f0f0f0; border-radius: 5px;">
+    Loading...
+</div>
+
+<script src="config.js"></script>
+<script>
+    const result = document.getElementById('result');
+    
+    if (typeof FinancialConfig === 'undefined') {
+        result.innerHTML = '<span style="color: red">❌ FinancialConfig not defined</span>';
+    } else if (!FinancialConfig.countryData) {
+        result.innerHTML = '<span style="color: red">❌ countryData not defined</span>';
+    } else {
+        const countries = Object.keys(FinancialConfig.countryData);
+        const china = FinancialConfig.countryData['CN'];
+        const russia = FinancialConfig.countryData['RU'];
+        
+        result.innerHTML = `
+            <span style="color: green; font-size: 24px;">✅ SUCCESS!</span><br><br>
+            <strong>Total Countries:</strong> ${countries.length}<br>
+            <strong>Countries:</strong> ${countries.join(', ')}<br><br>
+            <strong>China Test:</strong> ${china ? '✓' : '✗'}<br>
+            ${china ? `- PBOC Rate: ${china.centralBankRate}%<br>- Currency: ${china.symbol}${china.currency}` : ''}<br><br>
+            <strong>Russia Test:</strong> ${russia ? '✓' : '✗'}<br>
+            ${russia ? `- CBR Rate: ${russia.centralBankRate}%<br>- Flat Tax: ${russia.tax.income[0]}%` : ''}<br><br>
+            <strong>US Mortgage Rate:</strong> ${FinancialConfig.getRate('mortgage30yr', 'US')}%
+        `;
+        
+        console.log('🎉 Config.js working! Countries:', countries);
+    }
+</script>
+</body>
+</html>

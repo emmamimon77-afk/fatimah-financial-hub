@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudaraba Calculator - Islamic Profit-Sharing | Fatimah Financial Hub</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Islamic Finance Specific Styles */
+        :root {
+            --islamic-green: #2E7D32;
+            --islamic-green-light: #E8F5E9;
+            --islamic-gold: #D4A017;
+            --western-blue: #1565C0;
+            --western-blue-light: #E3F2FD;
+        }
+        
+        .islamic-card {
+            border-left: 5px solid var(--islamic-green);
+            background: linear-gradient(135deg, #f8fdf9 0%, #f0f9f3 100%);
+        }
+        
+        .western-card {
+            border-left: 5px solid var(--western-blue);
+            background: linear-gradient(135deg, #f8faff 0%, #f0f5ff 100%);
+        }
+        
+        .islamic-badge {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--islamic-green);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .western-badge {
+            background: rgba(21, 101, 192, 0.1);
+            color: var(--western-blue);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .partnership-badge {
+            background: rgba(212, 160, 23, 0.1);
+            color: #B8860B;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .comparison-highlight {
+            background: #FFF8E1;
+            border-left: 4px solid #FFB300;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .input-group-enhanced {
+            margin-bottom: 20px;
+        }
+        
+        .input-group-enhanced label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #37474F;
+        }
+        
+        .input-group-enhanced input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group-enhanced input:focus {
+            border-color: var(--islamic-green);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+        }
+        
+        .results-panel {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-top: 20px;
+        }
+        
+        .results-header {
+            font-size: 1.3rem;
+            color: var(--islamic-green);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--islamic-green-light);
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .profit-sharing-slider {
+            width: 100%;
+            margin: 15px 0;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 4px;
+            background: #E0E0E0;
+            outline: none;
+        }
+        
+        .profit-sharing-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--islamic-gold);
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .result-card {
+            padding: 20px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+        
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #F5F5F5;
+        }
+        
+        .metric-label {
+            color: #546E7A;
+            font-size: 0.95rem;
+        }
+        
+        .metric-value {
+            font-weight: 600;
+            color: #263238;
+            font-size: 1.1rem;
+        }
+        
+        .profit-positive {
+            color: var(--islamic-green);
+            font-weight: 700;
+        }
+        
+        .profit-negative {
+            color: #C62828;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem;">
+                <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; opacity: 0.9;">
+               <i class="fas fa-calculator"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; opacity: 0.9;">
+               <i class="fas fa-phone-alt"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px;">
+                 <i class="fas fa-islam"></i> Islamic Finance
+            </span>
+        </div>
+    </div>
+
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none;">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none;">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="../index.html" style="color: #667eea; text-decoration: none;">Islamic Finance</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333;">Mudaraba Calculator</span>
+    </div> 
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-handshake"></i> Islamic Finance: Mudaraba Calculator</h1>
+            <p>Compare Sharia-compliant profit-sharing partnership with conventional interest-based investments</p>
+        </div>
+        
+        <!-- Navigation -->
+        <div style="margin-bottom: 25px;">
+            <a href="../global/index.html" class="btn" style="background: var(--islamic-green); color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center;">
+                <i class="fas fa-arrow-left" style="margin-right: 8px;"></i> Back to Global Calculators
+            </a>
+            <a href="index.html" class="btn" style="background: #6c757d; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; margin-left: 10px;">
+                <i class="fas fa-mosque" style="margin-right: 8px;"></i> Islamic Finance Hub
+            </a>
+            <span style="margin-left: 15px; color: #666; font-size: 0.9rem;">
+                <i class="fas fa-info-circle" style="margin-right: 5px;"></i> Part of Fatimah Financial Hub
+            </span>
+        </div>
+
+        <!-- Country Selector -->
+        <div style="margin-bottom: 20px; padding: 15px; background: #F5F5F5; border-radius: 8px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <div>
+                    <strong style="color: #37474F;">
+                        <i class="fas fa-globe-americas" style="margin-right: 8px;"></i> Select Market:
+                    </strong>
+                    <select id="countrySelect" style="margin-left: 10px; padding: 8px 15px; border-radius: 5px; border: 1px solid #DDD; background: white;">
+                        <option value="SAUDI_ARABIA">Saudi Arabia</option>
+                        <option value="UAE" selected>United Arab Emirates</option>
+                        <option value="QATAR">Qatar</option>
+                        <option value="KUWAIT">Kuwait</option>
+                        <option value="MALAYSIA">Malaysia</option>
+                        <option value="INDONESIA">Indonesia</option>
+                        <option value="TURKEY">Turkey</option>
+                        <option value="PAKISTAN">Pakistan</option>
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                    </select>
+                </div>
+                <div style="font-size: 0.9rem; color: #666;">
+                    <i class="fas fa-info-circle" style="margin-right: 5px;"></i>
+                    Country affects currency and typical profit rates
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Calculator Section -->
+        <div class="calculator-card islamic-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap;">
+                <h2 style="margin: 0; color: var(--islamic-green);">
+                    <i class="fas fa-handshake" style="margin-right: 10px;"></i> Mudaraba Profit-Sharing Calculator
+                </h2>
+                <div style="display: flex; gap: 10px;">
+                    <span class="islamic-badge">
+                        <i class="fas fa-mosque" style="margin-right: 5px;"></i> Sharia Compliant
+                    </span>
+                    <span class="partnership-badge">
+                        <i class="fas fa-hand-holding-usd" style="margin-right: 5px;"></i> Profit-Sharing Partnership
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Input Section - CORRECTED for Mudaraba -->
+            <div class="comparison-grid">
+                <!-- Islamic Mudaraba Inputs -->
+                <div>
+                    <h3 style="color: var(--islamic-green); margin-bottom: 20px;">
+                        <i class="fas fa-handshake" style="margin-right: 8px;"></i> Mudaraba (Profit-Sharing)
+                    </h3>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="capitalAmount">Capital Amount (<span class="currency-label">د.إ</span>)</label>
+                        <input type="number" id="capitalAmount" value="100000" step="1000" min="1000">
+                        <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">
+                            Total investment capital provided by investor (Rab-ul-Maal)
+                        </div>
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="investmentPeriod">Investment Period (Years)</label>
+                        <input type="number" id="investmentPeriod" value="5" min="1" max="20" step="0.5">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #666; margin-top: 5px;">
+                            <span>Typical Mudaraba: 1-10 years</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="expectedProfit">Expected Annual Profit Rate (%)</label>
+                        <input type="range" id="expectedProfit" class="profit-sharing-slider" min="1" max="30" value="10" step="0.5">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #666; margin-top: 5px;">
+                            <span>1%</span>
+                            <span id="profitRateDisplay">10%</span>
+                            <span>30%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="managerShare">Manager Profit Share Ratio (%)</label>
+                        <input type="range" id="managerShare" class="profit-sharing-slider" min="10" max="50" value="30" step="1">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #666; margin-top: 5px;">
+                            <span>10%</span>
+                            <span id="managerShareDisplay">30%</span>
+                            <span>50%</span>
+                        </div>
+                        <div style="font-size: 0.8rem; color: #B8860B; margin-top: 5px;">
+                            <i class="fas fa-info-circle"></i> Typical range: 20-40% for manager (Mudarib)
+                        </div>
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="managementFee">Management Fee (<span class="currency-label">د.إ</span>) - Optional</label>
+                        <input type="number" id="managementFee" value="0" min="0" step="100">
+                        <div style="font-size: 0.8rem; color: #666; margin-top: 5px;">
+                            Fixed annual management fee (if any, deducted from investor profit)
+                        </div>
+                    </div>
+                    
+                    <button id="calculateMudarabaBtn" class="calculate-btn" style="background: var(--islamic-green); margin-top: 20px; width: 100%; padding: 15px; font-size: 1.1rem;">
+                        <i class="fas fa-calculator" style="margin-right: 10px;"></i> Calculate Mudaraba
+                    </button>
+                </div>
+                
+                <!-- Western Investment Inputs -->
+                <div>
+                    <h3 style="color: var(--western-blue); margin-bottom: 20px;">
+                        <i class="fas fa-university" style="margin-right: 8px;"></i> Conventional Investment
+                    </h3>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="wPrincipal">Investment Principal (<span class="currency-label">د.إ</span>)</label>
+                        <input type="number" id="wPrincipal" value="100000" step="1000" min="1000">
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="wRate">Expected Annual Return (%)</label>
+                        <input type="number" id="wRate" value="6.0" step="0.1" min="1" max="20">
+                        <div style="font-size: 0.85rem; color: #666; margin-top: 5px;">
+                            <span id="currentMarketRate">Current market rate: 6.0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="wTenure">Investment Period (Years)</label>
+                        <input type="number" id="wTenure" value="5" min="1" max="20" step="0.5">
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="wAnnualFees">Annual Management Fees (%)</label>
+                        <input type="number" id="wAnnualFees" value="1.5" min="0" max="5" step="0.1">
+                    </div>
+                    
+                    <div class="input-group-enhanced">
+                        <label for="wEntryFees">Entry Fees (<span class="currency-label">د.إ</span>)</label>
+                        <input type="number" id="wEntryFees" value="1500" min="0" step="100">
+                    </div>
+                    
+                    <button id="calculateWesternBtn" class="calculate-btn" style="background: var(--western-blue); margin-top: 20px; width: 100%; padding: 15px; font-size: 1.1rem;">
+                        <i class="fas fa-calculator" style="margin-right: 10px;"></i> Calculate Conventional
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Compare Both Button -->
+            <div style="text-align: center; margin-top: 30px;">
+                <button id="compareBothBtn" class="calculate-btn" style="background: linear-gradient(135deg, var(--islamic-green) 0%, var(--western-blue) 100%); color: white; padding: 15px 40px; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer;">
+                    <i class="fas fa-balance-scale" style="margin-right: 10px;"></i> Compare Both Investment Methods
+                </button>
+            </div>
+        </div>
+        
+        <!-- Results Section -->
+        <div id="resultsSection" style="display: none;">
+            <div class="results-panel">
+                <h2 class="results-header">
+                    <i class="fas fa-chart-bar" style="margin-right: 10px;"></i> Investment Comparison Results
+                </h2>
+                
+                <!-- Summary Cards -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                    <div style="text-align: center; padding: 20px; background: var(--islamic-green-light); border-radius: 10px;">
+                        <div style="font-size: 0.9rem; color: var(--islamic-green); margin-bottom: 10px;">
+                            <i class="fas fa-handshake"></i> Mudaraba Total Value
+                        </div>
+                        <div id="mudarabaTotalValue" style="font-size: 2rem; font-weight: bold; color: var(--islamic-green);">
+                            د.إ0
+                        </div>
+                        <div id="mudarabaTotalProfit" style="font-size: 1rem; color: #666; margin-top: 5px;">
+                            Profit: د.إ0
+                        </div>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: var(--western-blue-light); border-radius: 10px;">
+                        <div style="font-size: 0.9rem; color: var(--western-blue); margin-bottom: 10px;">
+                            <i class="fas fa-university"></i> Conventional Total Value
+                        </div>
+                        <div id="westernTotalValue" style="font-size: 2rem; font-weight: bold; color: var(--western-blue);">
+                            د.إ0
+                        </div>
+                        <div id="westernTotalProfit" style="font-size: 1rem; color: #666; margin-top: 5px;">
+                            Profit: د.إ0
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Winner Box -->
+                <div id="winnerBox" style="text-align: center; padding: 20px; background: #FFF8E1; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #FFB300;">
+                    <i class="fas fa-trophy" style="color: #FF8F00; font-size: 1.5rem; margin-right: 10px;"></i>
+                    <span id="winnerText" style="font-weight: bold; color: #5D4037; font-size: 1.2rem;">Calculate to see which investment is better</span>
+                    <div id="savingsText" style="font-size: 1rem; color: #5D4037; margin-top: 8px;"></div>
+                </div>
+                
+                <!-- Detailed Results Grid -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <!-- Mudaraba Details -->
+                    <div class="result-card">
+                        <h3 style="color: var(--islamic-green); margin-bottom: 20px; border-bottom: 2px solid var(--islamic-green-light); padding-bottom: 10px;">
+                            <i class="fas fa-handshake" style="margin-right: 8px;"></i> Mudaraba Breakdown
+                        </h3>
+                        <div id="mudarabaDetails">
+                            <div class="metric-row">
+                                <span class="metric-label">Initial Capital:</span>
+                                <span class="metric-value" id="displayCapital">د.إ100,000</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Total Profit (Gross):</span>
+                                <span class="metric-value profit-positive" id="displayTotalProfit">د.إ0</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Investor Share (70%):</span>
+                                <span class="metric-value" id="displayInvestorShare">د.إ0</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Manager Share (30%):</span>
+                                <span class="metric-value" id="displayManagerShare">د.إ0</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Management Fee:</span>
+                                <span class="metric-value" id="displayManagementFee">د.إ0</span>
+                            </div>
+                            <div class="metric-row" style="border-bottom: none;">
+                                <span class="metric-label" style="font-weight: 700;">Investor Net Profit:</span>
+                                <span class="metric-value profit-positive" id="displayInvestorNet">د.إ0</span>
+                            </div>
+                            <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #E0E0E0;">
+                                <div class="metric-row">
+                                    <span class="metric-label">Total Return:</span>
+                                    <span class="metric-value" id="displayTotalReturn">0%</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Annualized Return:</span>
+                                    <span class="metric-value" id="displayAnnualizedReturn">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Conventional Details -->
+                    <div class="result-card">
+                        <h3 style="color: var(--western-blue); margin-bottom: 20px; border-bottom: 2px solid var(--western-blue-light); padding-bottom: 10px;">
+                            <i class="fas fa-university" style="margin-right: 8px;"></i> Conventional Breakdown
+                        </h3>
+                        <div id="westernDetails">
+                            <div class="metric-row">
+                                <span class="metric-label">Initial Principal:</span>
+                                <span class="metric-value" id="displayWesternPrincipal">د.إ100,000</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Annual Return Rate:</span>
+                                <span class="metric-value" id="displayWesternRate">6.0%</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Total Return (Gross):</span>
+                                <span class="metric-value" id="displayWesternGrossReturn">د.إ0</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Management Fees:</span>
+                                <span class="metric-value" id="displayWesternFees">د.إ0</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Entry Fees:</span>
+                                <span class="metric-value" id="displayWesternEntryFees">د.إ1,500</span>
+                            </div>
+                            <div class="metric-row" style="border-bottom: none;">
+                                <span class="metric-label" style="font-weight: 700;">Net Profit:</span>
+                                <span class="metric-value" id="displayWesternNetProfit">د.إ0</span>
+                            </div>
+                            <div style="margin-top: 15px; padding-top: 15px; border-top: 2px dashed #E0E0E0;">
+                                <div class="metric-row">
+                                    <span class="metric-label">Total Value:</span>
+                                    <span class="metric-value" id="displayWesternTotalValue">د.إ100,000</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Net Return:</span>
+                                    <span class="metric-value" id="displayWesternNetReturn">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CORRECTED EDUCATIONAL CONTENT - MUDARABA SPECIFIC -->
+        <div class="calculator-card" style="margin-top: 40px; border-left: 5px solid #D4A017; background: linear-gradient(135deg, #FEF8E7 0%, #FEF3E0 100%);">
+            <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                <div style="background: #D4A017; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                    <i class="fas fa-graduation-cap" style="font-size: 1.5rem;"></i>
+                </div>
+                <h3 style="margin: 0; color: #B8860B; font-size: 1.5rem;">Understanding Mudaraba: Islamic Profit-Sharing Partnership</h3>
+            </div>
+            
+            <div style="padding: 0 10px;">
+                <!-- What is Mudaraba -->
+                <div style="margin-bottom: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <h4 style="color: #B8860B; margin-bottom: 15px; font-size: 1.2rem; border-bottom: 2px solid #FEF3E0; padding-bottom: 8px;">
+                        <i class="fas fa-info-circle" style="margin-right: 8px;"></i> What is Mudaraba?
+                    </h4>
+                    <p style="line-height: 1.7; color: #37474F; font-size: 1.05rem; margin-bottom: 15px;">
+                        <strong>Mudaraba</strong> (مضاربة) is an Islamic investment partnership where one party provides capital <strong>(Rab-ul-Maal / investor)</strong> and another party provides expertise and management <strong>(Mudarib / manager)</strong>. Profits are shared according to a pre-agreed ratio, while financial losses are borne solely by the capital provider.
+                    </p>
+                    <div style="background: #FEF8E7; padding: 15px; border-radius: 8px; border-left: 4px solid #D4A017; margin-top: 10px;">
+                        <p style="margin: 0; font-style: italic; color: #5D4037;">
+                            <i class="fas fa-quote-right" style="color: #D4A017; margin-right: 8px;"></i>
+                            Mudaraba is based on the principle of shared risk and reward, not guaranteed returns. The investor trusts the manager's expertise, and both share in the success of the venture.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Key Principles -->
+                <div style="margin-bottom: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <h4 style="color: #B8860B; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid #FEF3E0; padding-bottom: 8px;">
+                        <i class="fas fa-star" style="margin-right: 8px;"></i> Key Mudaraba Principles
+                    </h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                        <div style="background: #FEF8E7; padding: 15px; border-radius: 8px; border-left: 4px solid #D4A017;">
+                            <div style="color: #B8860B; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-coins" style="margin-right: 8px;"></i> Capital Provider
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Investor provides 100% capital, bears all financial loss
+                            </div>
+                        </div>
+                        <div style="background: #FEF8E7; padding: 15px; border-radius: 8px; border-left: 4px solid #D4A017;">
+                            <div style="color: #B8860B; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-user-tie" style="margin-right: 8px;"></i> Manager (Mudarib)
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Provides expertise, management, bears effort/time loss
+                            </div>
+                        </div>
+                        <div style="background: #FEF8E7; padding: 15px; border-radius: 8px; border-left: 4px solid #D4A017;">
+                            <div style="color: #B8860B; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-chart-pie" style="margin-right: 8px;"></i> Profit Sharing
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Pre-agreed ratio (e.g., 70% investor, 30% manager)
+                            </div>
+                        </div>
+                        <div style="background: #FEF8E7; padding: 15px; border-radius: 8px; border-left: 4px solid #D4A017;">
+                            <div style="color: #B8860B; font-weight: bold; margin-bottom: 8px;">
+                                <i class="fas fa-shield-alt" style="margin-right: 8px;"></i> Loss Distribution
+                            </div>
+                            <div style="color: #37474F; font-size: 0.95rem; line-height: 1.5;">
+                                Financial loss: 100% investor, Effort loss: 100% manager
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CORRECT MUDARABA FORMULAS -->
+                <div style="margin-bottom: 30px; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <h4 style="color: #B8860B; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid #FEF3E0; padding-bottom: 8px;">
+                        <i class="fas fa-calculator" style="margin-right: 8px;"></i> Mudaraba Calculation Formulas
+                    </h4>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                        <div>
+                            <div style="background: #F5F5F5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                                <p style="font-weight: 700; color: #B8860B; margin-bottom: 10px;">Total Value Formula:</p>
+                                <p style="font-size: 1.1rem; background: white; padding: 10px; border-radius: 5px; font-family: monospace;">
+                                    Total = Capital × (1 + Profit Rate)<sup>Years</sup>
+                                </p>
+                                <p style="font-size: 0.95rem; color: #37474F;">
+                                    <strong>Example:</strong> 100,000 × (1.10)<sup>5</sup> = 161,051
+                                </p>
+                            </div>
+                            
+                            <div style="background: #F5F5F5; padding: 15px; border-radius: 8px;">
+                                <p style="font-weight: 700; color: #B8860B; margin-bottom: 10px;">Total Profit:</p>
+                                <p style="font-size: 1.1rem; background: white; padding: 10px; border-radius: 5px; font-family: monospace;">
+                                    Profit = Total - Capital
+                                </p>
+                                <p style="font-size: 0.95rem; color: #37474F;">
+                                    <strong>Example:</strong> 161,051 - 100,000 = 61,051
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div style="background: #F5F5F5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                                <p style="font-weight: 700; color: #B8860B; margin-bottom: 10px;">Profit Sharing:</p>
+                                <p style="font-size: 1.1rem; background: white; padding: 10px; border-radius: 5px; font-family: monospace;">
+                                    Investor Share = Profit × Investor Ratio<br>
+                                    Manager Share = Profit × Manager Ratio
+                                </p>
+                                <p style="font-size: 0.95rem; color: #37474F;">
+                                    <strong>Example:</strong> 61,051 × 70% = 42,736<br>
+                                    61,051 × 30% = 18,315
+                                </p>
+                            </div>
+                            
+                            <div style="background: #F5F5F5; padding: 15px; border-radius: 8px;">
+                                <p style="font-weight: 700; color: #B8860B; margin-bottom: 10px;">Investor Net Return:</p>
+                                <p style="font-size: 1.1rem; background: white; padding: 10px; border-radius: 5px; font-family: monospace;">
+                                    Net = Investor Share - Fees<br>
+                                    Return % = (Net ÷ Capital) × 100
+                                </p>
+                                <p style="font-size: 0.95rem; color: #37474F;">
+                                    <strong>Example:</strong> 42,736 - 0 = 42,736<br>
+                                    Return: 42,736 ÷ 100,000 = 42.7%
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Comparison Table: Mudaraba vs Conventional -->
+                <div style="padding: 20px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                    <h4 style="color: #B8860B; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid #FEF3E0; padding-bottom: 8px;">
+                        <i class="fas fa-balance-scale" style="margin-right: 8px;"></i> Mudaraba vs Conventional Investment
+                    </h4>
+                    
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; min-width: 600px;">
+                            <thead>
+                                <tr>
+                                    <th style="background: #f8f9fa; padding: 15px; text-align: left; font-weight: 600; color: #37474F;">Aspect</th>
+                                    <th style="background: #FEF8E7; padding: 15px; text-align: left; font-weight: 600; color: #B8860B;">
+                                        <i class="fas fa-handshake" style="margin-right: 8px;"></i> Mudaraba (Islamic)
+                                    </th>
+                                    <th style="background: #E3F2FD; padding: 15px; text-align: left; font-weight: 600; color: #1565C0;">
+                                        <i class="fas fa-university" style="margin-right: 8px;"></i> Conventional
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500;">Return Mechanism</td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #FEFAF0;">
+                                        <span style="font-weight: 600;">Profit-sharing</span><br>
+                                        <span style="font-size: 0.9rem; color: #666;">Variable based on actual profit</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F8FBFF;">
+                                        <span style="font-weight: 600;">Interest-based</span><br>
+                                        <span style="font-size: 0.9rem; color: #666;">Fixed/guaranteed return</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500;">Risk Distribution</td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #FEFAF0;">
+                                        <span style="font-weight: 600;">Investor bears financial loss</span><br>
+                                        <span style="font-size: 0.9rem; color: #666;">Manager bears effort loss</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F8FBFF;">
+                                        <span style="font-weight: 600;">Investor bears all risk</span><br>
+                                        <span style="font-size: 0.9rem; color: #666;">Guaranteed return for manager</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; font-weight: 500;">Sharia Compliance</td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #FEFAF0;">
+                                        <span style="font-weight: 600; color: #2E7D32;">✅ Fully Compliant</span><br>
+                                        <span style="font-size: 0.9rem; color: #666;">No riba, gharar, or maysir</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; border-bottom: 1px solid #EEEEEE; background: #F8FBFF;">
+                                        <span style="font-weight: 600; color: #C62828;">❌ Not Compliant</span><br>
+                                        <span style="font-size: 0.9rem; color: #666;">Involves riba (interest)</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 15px; font-weight: 500;">Economic Impact</td>
+                                    <td style="padding: 14px 15px; background: #FEFAF0;">
+                                        <span style="font-weight: 600;">Partnership-based</span><br>
+                                        <span style="font-size: 0.9rem; color: #666;">Aligns interests, reduces inequality</span>
+                                    </td>
+                                    <td style="padding: 14px 15px; background: #F8FBFF;">
+                                        <span style="font-weight: 600;">Debt-based</span><br>
+                                        <span style="font-size: 0.9rem; color: #666;">Fixed obligation regardless of outcome</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div style="margin-top: 25px; padding: 15px; background: #FFF8E1; border-radius: 8px; border-left: 4px solid #FFB300;">
+                        <div style="display: flex; align-items: flex-start;">
+                            <i class="fas fa-lightbulb" style="color: #FF8F00; font-size: 1.2rem; margin-right: 12px; margin-top: 2px;"></i>
+                            <div>
+                                <div style="color: #5D4037; font-weight: 600; margin-bottom: 5px;">Key Insight:</div>
+                                <div style="color: #5D4037; font-size: 0.95rem;">
+                                    Mudaraba is not simply an "Islamic loan" — it's a genuine partnership. The investor shares in the venture's success, not just receiving fixed returns. This creates a more equitable relationship and aligns with Islamic principles of justice and risk-sharing.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="../shared/api-keys.js"></script>
+    <script src="../shared/config.js"></script>
+    <script src="../shared/calculators.js"></script>
+    <script src="../modules/ui-controls.js"></script>
+    <script src="../modules/islamic-calculators.js"></script>
+    
+    <script>
+        // ============================================
+        // CORRECT MUDARABA CALCULATOR - FRESH BUILD
+        // ============================================
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ Mudaraba calculator loaded - CORRECT VERSION');
+            
+            // Initialize UI
+            initializeUI();
+            
+            // Load real-time market rate
+            updateMarketRate(document.getElementById('countrySelect').value);
+
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Update profit rate display
+            updateProfitRateDisplay();
+            updateManagerShareDisplay();
+            
+            // Initialize currency labels
+            const countrySelect = document.getElementById('countrySelect');
+            if (countrySelect) {
+                updateCurrencyLabels(countrySelect.value);
+            }
+        });
+        
+        // ============ UI INITIALIZATION ============
+        function initializeUI() {
+            // Set default values
+            document.getElementById('capitalAmount').value = 100000;
+            document.getElementById('investmentPeriod').value = 5;
+            document.getElementById('expectedProfit').value = 10;
+            document.getElementById('managerShare').value = 30;
+            document.getElementById('managementFee').value = 0;
+            
+            // Sync principal with capital amount
+            document.getElementById('wPrincipal').value = document.getElementById('capitalAmount').value;
+            document.getElementById('wTenure').value = document.getElementById('investmentPeriod').value;
+        }
+        
+        function setupEventListeners() {
+            // Profit sharing slider displays
+            document.getElementById('expectedProfit').addEventListener('input', updateProfitRateDisplay);
+            document.getElementById('managerShare').addEventListener('input', updateManagerShareDisplay);
+            
+            // Sync capital amount with conventional principal
+            document.getElementById('capitalAmount').addEventListener('input', function() {
+                document.getElementById('wPrincipal').value = this.value;
+            });
+            
+            document.getElementById('wPrincipal').addEventListener('input', function() {
+                document.getElementById('capitalAmount').value = this.value;
+            });
+            
+            // Sync investment period
+            document.getElementById('investmentPeriod').addEventListener('input', function() {
+                document.getElementById('wTenure').value = this.value;
+            });
+            
+            document.getElementById('wTenure').addEventListener('input', function() {
+                document.getElementById('investmentPeriod').value = this.value;
+            });
+
+            
+            // Country change with async
+            document.getElementById('countrySelect').addEventListener('change', async function() {
+                updateCurrencyLabels(this.value);
+                await updateMarketRate(this.value);
+            });
+
+            
+            // Calculate buttons
+            document.getElementById('calculateMudarabaBtn').addEventListener('click', calculateMudaraba);
+            document.getElementById('calculateWesternBtn').addEventListener('click', calculateWestern);
+            document.getElementById('compareBothBtn').addEventListener('click', compareBoth);
+        }
+        
+        function updateProfitRateDisplay() {
+            const slider = document.getElementById('expectedProfit');
+            const display = document.getElementById('profitRateDisplay');
+            if (slider && display) {
+                display.textContent = slider.value + '%';
+            }
+        }
+        
+        function updateManagerShareDisplay() {
+            const slider = document.getElementById('managerShare');
+            const display = document.getElementById('managerShareDisplay');
+            if (slider && display) {
+                display.textContent = slider.value + '%';
+            }
+        }
+        
+        // ============ CURRENCY HANDLING ============
+        const currencyMap = {
+            'SAUDI_ARABIA': 'ر.س',
+            'UAE': 'د.إ',
+            'QATAR': 'ر.ق',
+            'KUWAIT': 'د.ك',
+            'MALAYSIA': 'RM',
+            'INDONESIA': 'Rp',
+            'TURKEY': '₺',
+            'PAKISTAN': '₨',
+            'US': '$',
+            'UK': '£'
+        };
+        
+        function updateCurrencyLabels(countryCode) {
+            const symbol = currencyMap[countryCode] || 'د.إ';
+            
+            // Update all currency labels
+            document.querySelectorAll('.currency-label').forEach(el => {
+                el.textContent = symbol;
+            });
+            
+            document.querySelectorAll('.currency-symbol').forEach(el => {
+                el.textContent = symbol;
+            });
+            
+            console.log('Currency updated to:', symbol);
+        }
+        
+        function formatCurrency(amount) {
+            const countrySelect = document.getElementById('countrySelect');
+            const country = countrySelect ? countrySelect.value : 'UAE';
+            const symbol = currencyMap[country] || 'د.إ';
+            
+            return symbol + amount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+        
+        // ============ REAL-TIME MARKET RATES FROM FRED ============
+        async function updateMarketRate(countryCode) {
+            try {
+                const rateDisplay = document.getElementById('currentMarketRate');
+                rateDisplay.innerHTML = '<span style="color: #666;"><i class="fas fa-spinner fa-spin"></i> Loading real-time market rate...</span>';
+        
+                let rate = 6.0; // Default fallback
+                let source = 'Default';
+        
+                // Use FRED API for US rates (most reliable)
+                if (countryCode === 'US' && window.RealTimeRates) {
+                    try {
+                        const usRates = await window.RealTimeRates.fetchUSRates();
+                        if (usRates && usRates.mortgage30yr) {
+                            rate = usRates.mortgage30yr;
+                            source = 'FRED API (Real-time)';
+                        }
+                } catch (error) {
+                    console.log('FRED API error:', error);
+                }
+            }
+        
+            // Try FinancialConfig for all countries
+            if (window.FinancialConfig && window.FinancialConfig.getRate) {
+                try {
+                    // Map country codes to config format
+                    const countryMap = {
+                         'SAUDI_ARABIA': 'SA',
+                         'UAE': 'AE',
+                         'QATAR': 'QA',
+                         'KUWAIT': 'KW',
+                         'MALAYSIA': 'MY',
+                         'INDONESIA': 'ID',
+                         'TURKEY': 'TR',
+                         'PAKISTAN': 'PK',
+                         'US': 'US',
+                         'UK': 'GB'
+                    };
+                
+                    const configCode = countryMap[countryCode] || countryCode;
+                    const configRate = await window.FinancialConfig.getRate('mortgage30yr', configCode);
+                
+                    if (configRate && typeof configRate === 'number') {
+                        rate = configRate;
+                        source = 'Financial Config (Market-based)';
+                    }
+                } catch (error) {
+                    console.log('Config rate error:', error);
+                }
+            }
+        
+            // Update display
+            rateDisplay.innerHTML = `
+                <span style="color: #2E7D32;">
+                    <i class="fas fa-chart-line"></i> Current market rate: <strong>${rate.toFixed(2)}%</strong>
+                </span>
+                <br>
+                <span style="font-size: 0.8rem; color: #666;">
+                    <i class="fas fa-database"></i> Source: ${source} | <i class="fas fa-globe"></i> ${countryCode}
+                </span>
+            `;
+        
+            // Set the rate in input field
+            document.getElementById('wRate').value = rate.toFixed(2);
+        
+            return rate;
+        
+        } catch (error) {
+            console.error('Error loading market rate:', error);
+            document.getElementById('currentMarketRate').innerHTML = 
+                '<span style="color: #C62828;"><i class="fas fa-exclamation-triangle"></i> Using default rate. FRED API unavailable.</span>';
+            document.getElementById('wRate').value = 6.0;
+            return 6.0;
+        }
+      }  
+        
+
+        // ============ CORRECT MUDARABA CALCULATION ============
+        function calculateMudaraba() {
+            console.log('🔢 Calculating Mudaraba...');
+            
+            // Get input values
+            const capital = parseFloat(document.getElementById('capitalAmount').value) || 100000;
+            const years = parseFloat(document.getElementById('investmentPeriod').value) || 5;
+            const profitRate = parseFloat(document.getElementById('expectedProfit').value) / 100 || 0.10;
+            const managerRatio = parseFloat(document.getElementById('managerShare').value) / 100 || 0.30;
+            const managementFee = parseFloat(document.getElementById('managementFee').value) || 0;
+            
+            // CORRECT MUDARABA CALCULATIONS
+            const totalValue = capital * Math.pow(1 + profitRate, years);
+            const totalProfit = totalValue - capital;
+            
+            // Profit sharing
+            const managerShare = totalProfit * managerRatio;
+            const investorShare = totalProfit - managerShare;
+            
+            // Investor's net after fees
+            const investorNetReturn = investorShare - managementFee;
+            const investorNetPercent = ((capital + investorNetReturn) / capital - 1) * 100;
+            const annualizedReturn = (Math.pow((capital + investorNetReturn) / capital, 1/years) - 1) * 100;
+            
+            // Update display
+            document.getElementById('displayCapital').textContent = formatCurrency(capital);
+            document.getElementById('displayTotalProfit').textContent = formatCurrency(totalProfit);
+            document.getElementById('displayInvestorShare').textContent = formatCurrency(investorShare);
+            document.getElementById('displayManagerShare').textContent = formatCurrency(managerShare);
+            document.getElementById('displayManagementFee').textContent = formatCurrency(managementFee);
+            document.getElementById('displayInvestorNet').textContent = formatCurrency(investorNetReturn);
+            document.getElementById('displayTotalReturn').textContent = investorNetPercent.toFixed(1) + '%';
+            document.getElementById('displayAnnualizedReturn').textContent = annualizedReturn.toFixed(1) + '%';
+            
+            // Update summary cards
+            document.getElementById('mudarabaTotalValue').textContent = formatCurrency(capital + investorNetReturn);
+            document.getElementById('mudarabaTotalProfit').innerHTML = 'Profit: ' + formatCurrency(investorNetReturn);
+            
+            // Store for comparison
+            window.mudarabaResult = {
+                capital: capital,
+                investorNetReturn: investorNetReturn,
+                totalValue: capital + investorNetReturn,
+                totalProfit: investorNetReturn,
+                returnPercent: investorNetPercent
+            };
+            
+            console.log('✅ Mudaraba calculated:', window.mudarabaResult);
+            
+            // Show results section
+            document.getElementById('resultsSection').style.display = 'block';
+            
+            return window.mudarabaResult;
+        }
+        
+        // ============ CONVENTIONAL CALCULATION ============
+        function calculateWestern() {
+            console.log('🔢 Calculating Conventional investment...');
+            
+            const principal = parseFloat(document.getElementById('wPrincipal').value) || 100000;
+            const years = parseFloat(document.getElementById('wTenure').value) || 5;
+            const rate = parseFloat(document.getElementById('wRate').value) / 100 || 0.06;
+            const annualFeeRate = parseFloat(document.getElementById('wAnnualFees').value) / 100 || 0.015;
+            const entryFee = parseFloat(document.getElementById('wEntryFees').value) || 1500;
+            
+            // Conventional compound calculation
+            const totalValue = principal * Math.pow(1 + rate, years);
+            const grossReturn = totalValue - principal;
+            
+            // Fees
+            const annualFeesTotal = principal * annualFeeRate * years;
+            const netProfit = grossReturn - annualFeesTotal - entryFee;
+            const netReturnPercent = (netProfit / principal) * 100;
+            const netTotalValue = principal + netProfit;
+            
+            // Update display
+            document.getElementById('displayWesternPrincipal').textContent = formatCurrency(principal);
+            document.getElementById('displayWesternRate').textContent = (rate * 100).toFixed(1) + '%';
+            document.getElementById('displayWesternGrossReturn').textContent = formatCurrency(grossReturn);
+            document.getElementById('displayWesternFees').textContent = formatCurrency(annualFeesTotal);
+            document.getElementById('displayWesternEntryFees').textContent = formatCurrency(entryFee);
+            document.getElementById('displayWesternNetProfit').textContent = formatCurrency(netProfit);
+            document.getElementById('displayWesternTotalValue').textContent = formatCurrency(netTotalValue);
+            document.getElementById('displayWesternNetReturn').textContent = netReturnPercent.toFixed(1) + '%';
+            
+            // Update summary cards
+            document.getElementById('westernTotalValue').textContent = formatCurrency(netTotalValue);
+            document.getElementById('westernTotalProfit').innerHTML = 'Profit: ' + formatCurrency(netProfit);
+            
+            // Store for comparison
+            window.westernResult = {
+                principal: principal,
+                netProfit: netProfit,
+                totalValue: netTotalValue,
+                returnPercent: netReturnPercent
+            };
+            
+            console.log('✅ Conventional calculated:', window.westernResult);
+            
+            // Show results section
+            document.getElementById('resultsSection').style.display = 'block';
+            
+            return window.westernResult;
+        }
+        
+        // ============ COMPARISON ============
+        function compareBoth() {
+            console.log('⚖️ Comparing both investment methods...');
+            
+            const mudaraba = calculateMudaraba();
+            const western = calculateWestern();
+            
+            if (!mudaraba || !western) {
+                console.error('Missing results for comparison');
+                return;
+            }
+            
+            const mudarabaValue = mudaraba.totalValue;
+            const westernValue = western.totalValue;
+            const difference = mudarabaValue - westernValue;
+            const percentDiff = (Math.abs(difference) / Math.min(mudarabaValue, westernValue) * 100).toFixed(1);
+            
+            const winnerBox = document.getElementById('winnerBox');
+            const winnerText = document.getElementById('winnerText');
+            const savingsText = document.getElementById('savingsText');
+            
+            const symbol = currencyMap[document.getElementById('countrySelect').value] || 'د.إ';
+            
+            if (difference > 0) {
+                // Mudaraba is better
+                winnerText.innerHTML = '<span style="color: #2E7D32;">📈 Mudaraba is More Profitable</span>';
+                savingsText.innerHTML = `Mudaraba outperforms conventional by ${symbol}${Math.abs(difference).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')} (${percentDiff}%)`;
+                winnerBox.style.borderLeftColor = '#2E7D32';
+            } else if (difference < 0) {
+                // Conventional is better
+                winnerText.innerHTML = '<span style="color: #1565C0;">📊 Conventional is More Profitable</span>';
+                savingsText.innerHTML = `Conventional outperforms Mudaraba by ${symbol}${Math.abs(difference).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')} (${percentDiff}%)`;
+                winnerBox.style.borderLeftColor = '#1565C0';
+            } else {
+                // Equal
+                winnerText.innerHTML = '<span style="color: #666;">⚖️ Both Investments Have Equal Value</span>';
+                savingsText.innerHTML = '';
+                winnerBox.style.borderLeftColor = '#FFB300';
+            }
+            
+            console.log('✅ Comparison complete');
+        }   
+    </script>
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px;">Fatimah Financial Hub</h4>
+                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                    <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                </a>
+                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                    <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px;">Calculators</h4>
+                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                    <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                </a>
+                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                    <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                </a>
+                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                    <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px;">Other Modules</h4>
+                <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                    <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                </a>
+                <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
+                    <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                </a>
+                <span style="color: #718096; display: block; margin-bottom: 8px;">
+                    <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics (Coming Soon)
+                </span>
+            </div>
+        </div>
+    
+        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+            <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>

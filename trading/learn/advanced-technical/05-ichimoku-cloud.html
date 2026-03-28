@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ichimoku Cloud - The Complete Trading System | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .title-section h1 {
+            font-size: 36px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 32px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        /* Ichimoku Components */
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .component-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .component-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .component-desc {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .formula {
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .cloud-diagram {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 16px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .cloud-svg {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+        }
+
+        .signal-box {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .signal-good {
+            border-left: 4px solid #10b981;
+        }
+        .signal-bad {
+            border-left: 4px solid #ef4444;
+        }
+        .signal-neutral {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .psychology-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-question {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/trading">Trading Hub</a> › 
+                <a href="/trading/learn">Learning Center</a> › 
+                <a href="/trading/learn/advanced-technical">Advanced Technical</a> › 
+                Lesson 5: Ichimoku Cloud
+            </div>
+            <div class="title-section">
+                <h1>Ichimoku Cloud: The Complete Trading System</h1>
+                <span class="badge">Advanced • 40 min read</span>
+            </div>
+        </div>
+
+        <div class="quran-verse">
+            <div class="arabic">وَجَعَلْنَا مِن بَيْنِ أَيْدِيهِمْ سَدًّا وَمِنْ خَلْفِهِمْ سَدًّا فَأَغْشَيْنَاهُمْ فَهُمْ لَا يُبْصِرُونَ</div>
+            <div class="translation">"And We have put before them a barrier and behind them a barrier and covered them, so they do not see."</div>
+            <div class="reference">— Quran 36:9</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">The Ichimoku Cloud acts as a barrier between you and the market's chaos—revealing support, resistance, trend, and momentum all at once. It lifts the veil so you can see clearly.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div style="background: white; border-radius: 20px; padding: 30px; margin: 30px 0;">
+            <h2>☁️ What is Ichimoku Kinko Hyo?</h2>
+            <p style="font-size: 18px; margin: 20px 0;">In Japanese, "Ichimoku Kinko Hyo" means "one glance equilibrium chart." Developed by journalist Goichi Hosoda in the 1930s, it's a complete trading system that shows everything you need at a single glance.</p>
+            
+            <div class="cloud-diagram">
+                <svg viewBox="0 0 600 300" style="width:100%; background: white; border-radius: 12px;">
+                    <!-- Price Line -->
+                    <path d="M50,150 L120,120 L190,140 L260,90 L330,110 L400,70 L470,90 L540,50" stroke="#1e293b" stroke-width="2" fill="none"/>
+                    
+                    <!-- Tenkan-sen (Conversion Line) -->
+                    <path d="M50,145 L120,125 L190,135 L260,100 L330,115 L400,80 L470,95 L540,60" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3"/>
+                    
+                    <!-- Kijun-sen (Base Line) -->
+                    <path d="M50,155 L120,135 L190,145 L260,110 L330,125 L400,90 L470,105 L540,70" stroke="#312e81" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    
+                    <!-- Cloud (Kumo) -->
+                    <path d="M50,165 L120,145 L190,155 L260,120 L330,135 L400,100 L470,115 L540,80" stroke="#10b981" stroke-width="1" fill="#10b98120" stroke-dasharray="2,2"/>
+                    <path d="M50,135 L120,115 L190,125 L260,90 L330,105 L400,70 L470,85 L540,50" stroke="#ef4444" stroke-width="1" fill="#ef444420" stroke-dasharray="2,2"/>
+                    
+                    <!-- Labels -->
+                    <text x="550" y="40" fill="#1e293b" font-size="10">Price</text>
+                    <text x="550" y="55" fill="#ef4444" font-size="10">Tenkan-sen</text>
+                    <text x="550" y="70" fill="#312e81" font-size="10">Kijun-sen</text>
+                    <text x="550" y="90" fill="#10b981" font-size="10">Cloud (Bullish)</text>
+                    <text x="550" y="115" fill="#ef4444" font-size="10">Cloud (Bearish)</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- The Five Components -->
+        <h2 style="margin: 40px 0 20px;">📊 The Five Components - Like the Five Pillars</h2>
+        <p>Just as Islam has five pillars that support the faith, Ichimoku has five lines that support your trading decisions.</p>
+
+        <div class="component-grid">
+            <!-- Tenkan-sen -->
+            <div class="component-card">
+                <div class="component-title">
+                    <span style="color: #ef4444;">🔴</span> Tenkan-sen (Conversion Line)
+                </div>
+                <div class="formula">(9-period high + 9-period low) ÷ 2</div>
+                <p class="component-desc"><strong>Meaning:</strong> Short-term momentum. Like a scout reporting what happened in the last 9 days.</p>
+                <p><strong>Psychology:</strong> Fast-moving traders. When this line rises, short-term buyers are in control. When it falls, short-term sellers dominate.</p>
+                <p><strong>Quranic Connection:</strong> "And cooperate in righteousness and piety." (Quran 5:2) - The Tenkan-sen cooperates with the Kijun-sen to show us the path.</p>
+            </div>
+
+            <!-- Kijun-sen -->
+            <div class="component-card">
+                <div class="component-title">
+                    <span style="color: #312e81;">🔵</span> Kijun-sen (Base Line)
+                </div>
+                <div class="formula">(26-period high + 26-period low) ÷ 2</div>
+                <p class="component-desc"><strong>Meaning:</strong> Medium-term momentum. Like an elder reporting the last month's events.</p>
+                <p><strong>Psychology:</strong> Slower, more deliberate traders. This line represents the "wisdom of the crowd" over a longer period.</p>
+                <p><strong>Quranic Connection:</strong> "And We made you into nations and tribes that you may know one another." (Quran 49:13) - Different timeframes help us understand the market from different perspectives.</p>
+            </div>
+
+            <!-- Chikou Span -->
+            <div class="component-card">
+                <div class="component-title">
+                    <span style="color: #10b981;">🟢</span> Chikou Span (Lagging Span)
+                </div>
+                <div class="formula">Today's close plotted 26 periods behind</div>
+                <p class="component-desc"><strong>Meaning:</strong> Current price shifted backward. Shows how today's price compares to the past.</p>
+                <p><strong>Psychology:</strong> "If only I knew then what I know now." This line helps you see the past from today's perspective.</p>
+                <p><strong>Quranic Connection:</strong> "And Allah presents an example: a city which was safe and secure." (Quran 16:112) - Looking back, we see clearly where we were.</p>
+            </div>
+
+            <!-- Senkou Span A -->
+            <div class="component-card">
+                <div class="component-title">
+                    <span style="color: #10b981;">🟢</span> Senkou Span A (Leading Span A)
+                </div>
+                <div class="formula">(Tenkan-sen + Kijun-sen) ÷ 2, plotted 26 periods ahead</div>
+                <p class="component-desc"><strong>Meaning:</strong> The midpoint of fast and slow, projected into the future.</p>
+                <p><strong>Psychology:</strong> Optimism. The average of recent momentum, projected forward. "If trends continue, here's where we'll be."</p>
+            </div>
+
+            <!-- Senkou Span B -->
+            <div class="component-card">
+                <div class="component-title">
+                    <span style="color: #ef4444;">🔴</span> Senkou Span B (Leading Span B)
+                </div>
+                <div class="formula">(52-period high + 52-period low) ÷ 2, plotted 26 periods ahead</div>
+                <p class="component-desc"><strong>Meaning:</strong> Longer-term average projected into the future.</p>
+                <p><strong>Psychology:</strong> Realism. The longer-term view says, "Remember, here's where we've come from."</p>
+            </div>
+
+            <!-- The Cloud (Kumo) -->
+            <div class="component-card">
+                <div class="component-title">
+                    <span style="color: #fbbf24;">🟡</span> The Cloud (Kumo)
+                </div>
+                <div class="formula">The space between Senkou Span A and B</div>
+                <p class="component-desc"><strong>Meaning:</strong> Support and resistance in the future. Thick clouds are strong, thin clouds are weak.</p>
+                <p><strong>Psychology:</strong> The cloud is like the consensus of the market. When price is above, everyone's optimistic. When below, pessimistic.</p>
+                <p><strong>Quranic Connection:</strong> "And We have placed between them a barrier." (Quran 7:46) - The cloud is a barrier between bullish and bearish territory.</p>
+            </div>
+        </div>
+
+        <!-- The Three States -->
+        <div style="background: white; border-radius: 20px; padding: 30px; margin: 40px 0;">
+            <h2>☁️ The Three States of the Cloud</h2>
+            
+            <div class="cloud-diagram">
+                <svg viewBox="0 0 600 150" style="width:100%;">
+                    <rect x="50" y="30" width="150" height="90" fill="#10b98120" stroke="#10b981" stroke-dasharray="3,3"/>
+                    <text x="120" y="80" fill="#10b981" font-size="12">Bullish Cloud</text>
+                    
+                    <rect x="250" y="30" width="150" height="90" fill="#ef444420" stroke="#ef4444" stroke-dasharray="3,3"/>
+                    <text x="320" y="80" fill="#ef4444" font-size="12">Bearish Cloud</text>
+                    
+                    <rect x="450" y="30" width="150" height="90" fill="#94a3b8" stroke="#64748b" stroke-dasharray="3,3"/>
+                    <text x="510" y="80" fill="#64748b" font-size="12">Flat Cloud</text>
+                </svg>
+            </div>
+
+            <div class="psychology-box signal-good">
+                <h4>🟢 When the Cloud is Green (A > B)</h4>
+                <p>Senkou Span A is above Senkou Span B. The market is bullish. Uptrend likely. Buy on pullbacks to the cloud.</p>
+                <p><strong>Spiritual Meaning:</strong> Hope dominates. The community is optimistic.</p>
+            </div>
+
+            <div class="psychology-box signal-bad">
+                <h4>🔴 When the Cloud is Red (A < B)</h4>
+                <p>Senkou Span A is below Senkou Span B. The market is bearish. Downtrend likely. Sell on rallies to the cloud.</p>
+                <p><strong>Spiritual Meaning:</strong> Fear dominates. The community is pessimistic.</p>
+            </div>
+
+            <div class="psychology-box signal-neutral">
+                <h4>⚪ When the Cloud is Thin or Flat</h4>
+                <p>The two lines are close together. The market is indecisive. A breakout is coming.</p>
+                <p><strong>Spiritual Meaning:</strong> "And you will not cease to discover deceit in them, except a few." (Quran 5:13) - Uncertainty before clarity.</p>
+            </div>
+        </div>
+
+        <!-- The Six Trading Signals -->
+        <h2 style="margin: 40px 0 20px;">🎯 The Six Trading Signals</h2>
+
+        <div class="component-grid">
+            <div class="component-card signal-good">
+                <h4>1. TK Cross</h4>
+                <p><strong>Signal:</strong> Tenkan-sen crosses above Kijun-sen = BUY</p>
+                <p>Below = SELL</p>
+                <p><strong>Psychology:</strong> Fast momentum overtakes slow momentum. The young outrun the old.</p>
+            </div>
+
+            <div class="component-card signal-good">
+                <h4>2. Price vs Cloud</h4>
+                <p><strong>Signal:</strong> Price above cloud = BULLISH</p>
+                <p>Price below cloud = BEARISH</p>
+                <p><strong>Psychology:</strong> "And We have put before them a barrier." (Quran 36:9) - The cloud is the barrier between success and failure.</p>
+            </div>
+
+            <div class="component-card signal-good">
+                <h4>3. Cloud Color</h4>
+                <p><strong>Signal:</strong> Green cloud = BULLISH</p>
+                <p>Red cloud = BEARISH</p>
+            </div>
+
+            <div class="component-card signal-good">
+                <h4>4. Chikou Span</h4>
+                <p><strong>Signal:</strong> Chikou above price (26 periods ago) = BULLISH</p>
+                <p>Below = BEARISH</p>
+            </div>
+
+            <div class="component-card signal-good">
+                <h4>5. TK Cross in Cloud</h4>
+                <p><strong>Signal:</strong> When TK cross happens within the cloud = less reliable</p>
+                <p>Outside cloud = more reliable</p>
+            </div>
+
+            <div class="component-card signal-good">
+                <h4>6. Cloud Thickness</h4>
+                <p><strong>Signal:</strong> Thick cloud = strong support/resistance</p>
+                <p>Thin cloud = weak support/resistance</p>
+            </div>
+        </div>
+
+        <!-- The Complete System -->
+        <div style="background: linear-gradient(135deg, #f1f5f9, #e2e8f0); border-radius: 20px; padding: 30px; margin: 40px 0;">
+            <h2>🕯️ The Complete Picture - Like Reading the Quran</h2>
+            <p style="font-size: 18px;">When all signals align, it's like a verse in the Quran—clear, powerful, and undeniable.</p>
+
+            <div class="psychology-box signal-good" style="margin: 20px 0;">
+                <h4>✅ The Perfect Bullish Setup</h4>
+                <ul style="margin-left: 20px;">
+                    <li>Price is above the cloud</li>
+                    <li>Cloud is green (A > B)</li>
+                    <li>Tenkan-sen > Kijun-sen</li>
+                    <li>Chikou Span > price (26 periods ago)</li>
+                    <li>Cloud is thick (strong support)</li>
+                </ul>
+            </div>
+
+            <div class="psychology-box signal-bad">
+                <h4>✅ The Perfect Bearish Setup</h4>
+                <ul style="margin-left: 20px;">
+                    <li>Price is below the cloud</li>
+                    <li>Cloud is red (A < B)</li>
+                    <li>Tenkan-sen < Kijun-sen</li>
+                    <li>Chikou Span < price (26 periods ago)</li>
+                    <li>Cloud is thick (strong resistance)</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Quranic Connection:</strong> "This is the Book about which there is no doubt, a guidance for those conscious of Allah." (Quran 2:2) - When all signals align, there is no doubt. The path is clear.</p>
+        </div>
+
+        <!-- The Deeper Wisdom -->
+        <div style="background: white; border-radius: 20px; padding: 30px; margin: 40px 0;">
+            <h2>🕌 The Spiritual Meaning of Ichimoku</h2>
+
+            <div class="psychology-box">
+                <h4>The Five Lines Are Like the Five Senses</h4>
+                <p>Each line gives you a different perspective on reality. Together, they give you the complete picture—just as your senses work together to understand the world.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>The Cloud Represents the Unseen (Ghaib)</h4>
+                <p>The cloud projects 26 periods into the future. It's not a prediction—it's a projection based on current conditions. Like the future in Islam, we don't know it, but we prepare for it.</p>
+                <p><strong>Quranic Connection:</strong> "Say, 'None in the heavens and earth knows the unseen except Allah.'" (Quran 27:65) - The cloud is not fortune-telling; it's a tool for preparation.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>When Price Crosses the Cloud</h4>
+                <p>When price moves from below the cloud to above, it's like entering a new state of being. From darkness to light. From jahannam to jannah.</p>
+                <p><strong>Quranic Connection:</strong> "Allah is the Ally of those who believe. He brings them out from darkness into the light." (Quran 2:257)</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>The Thickness of the Cloud</h4>
+                <p>A thick cloud is like strong faith. It holds you up. A thin cloud is like weak faith—easily broken.</p>
+                <p><strong>Quranic Connection:</strong> "So whoever Allah wants to guide - He expands his breast to [contain] Islam." (Quran 6:125)</p>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-section">
+            <h2>📝 Test Your Understanding</h2>
+
+            <div class="quiz-question">
+                <p><strong>1. What does Ichimoku Kinko Hyo mean in Japanese?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. Five lines of wisdom</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">B. One glance equilibrium chart</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">C. Cloud trading system</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. Future price predictor</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>2. Which two lines form the cloud?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. Tenkan-sen and Kijun-sen</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">B. Senkou Span A and Senkou Span B</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">C. Chikou Span and Kijun-sen</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. Tenkan-sen and Chikou Span</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>3. What does it mean when the cloud is green (Senkou A > Senkou B)?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">A. Bullish market - uptrend likely</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">B. Bearish market - downtrend likely</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">C. Market is sideways</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. The cloud is about to disappear</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>4. What does the Chikou Span show us?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. Future price projections</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">B. Today's price compared to 26 periods ago</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">C. The midpoint of fast and slow averages</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. The thickness of the cloud</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>5. What Quranic concept best relates to the cloud projecting into the future?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. "And do not walk upon the earth exultantly" - humility</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">B. "Indeed, with hardship comes ease" - hope</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">C. "None knows the unseen except Allah" - we prepare but don't predict</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. "And We made your sleep a rest" - rest before continuation</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <button onclick="checkAllAnswers()" style="background: #312e81; color: white; border: none; padding: 12px 30px; border-radius: 50px; font-weight: 600; cursor: pointer;">Check All Answers</button>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div style="background: #f1f5f9; border-radius: 20px; padding: 30px; margin: 40px 0;">
+            <h3 style="margin-bottom: 20px;">📋 Key Takeaways</h3>
+            <ul style="margin-left: 20px;">
+                <li><strong>Ichimoku means "one glance"</strong> - A complete system showing everything at once</li>
+                <li><strong>Five components</strong> - Like the five pillars, each serves a unique purpose</li>
+                <li><strong>The cloud is future support/resistance</strong> - Thick clouds are strong, thin are weak</li>
+                <li><strong>Three states</strong> - Green cloud (bullish), Red cloud (bearish), Flat cloud (indecision)</li>
+                <li><strong>Six signals align for high probability trades</strong> - When all agree, the path is clear</li>
+                <li><strong>Spiritual lesson</strong> - The cloud reminds us that the future is unseen; we prepare, not predict</li>
+            </ul>
+        </div>
+
+        <!-- Course Complete -->
+        <div style="background: linear-gradient(135deg, #312e81, #1e1b4b); color: white; border-radius: 20px; padding: 40px; margin: 40px 0; text-align: center;">
+            <h2 style="color: #fbbf24; margin-bottom: 20px;">🏆 Congratulations!</h2>
+            <p style="font-size: 18px; margin-bottom: 20px;">You have completed all 5 Advanced Technical Analysis lessons!</p>
+            <p style="margin-bottom: 10px;">You've learned:</p>
+            <p>📊 Chart Patterns | 🕯️ Candlesticks | 📐 Fibonacci | 🌊 Elliott Wave | ☁️ Ichimoku Cloud</p>
+            <p style="margin-top: 30px;">May Allah bless your trading journey and grant you success in this life and the next.</p>
+        </div>
+
+        <!-- 📚 REFERENCES & FURTHER STUDY -->
+        <div style="background: #f8fafc; border-radius: 20px; padding: 30px; margin: 40px 0;">
+            <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: #1e293b;">
+                <i class="fas fa-book" style="color: #312e81;"></i> References & Further Study
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div>
+                    <h4 style="color: #312e81; margin-bottom: 10px; font-size: 16px;">📖 Recommended Books</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0; font-size: 14px; color: #475569;">• "Technical Analysis of Financial Markets" - John Murphy</li>
+                        <li style="margin: 8px 0; font-size: 14px; color: #475569;">• "Japanese Candlestick Charting Techniques" - Steve Nison</li>
+                        <li style="margin: 8px 0; font-size: 14px; color: #475569;">• "Trading for a Living" - Dr. Alexander Elder</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #312e81; margin-bottom: 10px; font-size: 16px;">🌐 Online Resources</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.investopedia.com" target="_blank" style="color: #312e81; text-decoration: none;">Investopedia</a>
+                            <span style="color: #64748b; font-size: 12px; margin-left: 5px;">(Free tutorials)</span>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.tradingview.com" target="_blank" style="color: #312e81; text-decoration: none;">TradingView</a>
+                            <span style="color: #64748b; font-size: 12px; margin-left: 5px;">(Charting platform)</span>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.stockcharts.com" target="_blank" style="color: #312e81; text-decoration: none;">StockCharts.com</a>
+                            <span style="color: #64748b; font-size: 12px; margin-left: 5px;">(Chart school)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #312e81; margin-bottom: 10px; font-size: 16px;">🕌 Islamic Finance</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="/resources/islamic-vs-conventional.html" style="color: #312e81; text-decoration: none;">Islamic vs Conventional Finance</a>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.aaoifi.com" target="_blank" style="color: #312e81; text-decoration: none;">AAOIFI Standards</a>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="/resources/references/islamic-finance/" style="color: #312e81; text-decoration: none;">More Islamic Resources →</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-size: 13px; color: #64748b; text-align: center;">
+                <i class="fas fa-link"></i> For a complete list of resources, visit our 
+                <a href="/resources" style="color: #312e81; text-decoration: none; font-weight: 500;">Learning Resources Hub</a>
+            </p>
+        </div>
+
+        <!-- Navigation -->
+        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+            <a href="/trading/learn/advanced-technical/04-elliott-wave.html" style="color: #312e81; text-decoration: none;">← Previous: Elliott Wave Theory</a>
+            <a href="/trading/learn" style="color: #312e81; text-decoration: none;">Back to Learning Center →</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May the cloud always be green above your trades and the path always clear before you</p>
+        <p style="margin-top: 10px;">© 2026 Fatimah Financial Hub • Lesson 5 of 5 (Advanced Technical Series)</p>
+        <p style="margin-top: 20px; color: #10b981;">✨ Advanced Technical Analysis Complete ✨</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, result) {
+            const parent = element.parentNode;
+            Array.from(parent.children).forEach(child => {
+                child.classList.remove('correct', 'incorrect');
+            });
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+        }
+
+        function checkAllAnswers() {
+            alert('Check your answers above! Green = correct, Red = incorrect. Each question has one correct answer.');
+        }
+    </script>
+</body>
+</html>

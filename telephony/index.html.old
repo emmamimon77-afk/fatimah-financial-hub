@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatimah Telephony • Video/Audio Calls for Traders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="/js/telephony-client.js" defer></script>
+    <style>
+        /* === TELECOM THEME === */
+        :root {
+            --telecom-blue: #0066cc;
+            --telecom-green: #00cc66;
+            --telecom-purple: #9933cc;
+            --telecom-red: #ff3366;
+            --gradient-call: linear-gradient(135deg, #0066cc 0%, #00cc66 100%);
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1e293b 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* === NAVBAR === */
+        .navbar {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: var(--gradient-call);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(0, 102, 204, 0.2);
+        }
+
+        .nav-links a.active {
+            background: var(--telecom-blue);
+        }
+
+        /* === MAIN LAYOUT === */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            gap: 2rem;
+            height: calc(100vh - 100px);
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr auto;
+            }
+        }
+
+        /* === SIDEBARS === */
+        .sidebar {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+
+        /* === CALL AREA === */
+        .call-area {
+            display: flex;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .video-container {
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16/9;
+            min-height: 200px;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .user-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .user-label.self::after {
+            content: ' (You)';
+            opacity: 0.7;
+        }
+
+        /* === CONTROLS === */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .control-btn.primary {
+            background: var(--telecom-blue);
+        }
+
+        .control-btn.danger {
+            background: var(--telecom-red);
+        }
+
+        .control-btn.success {
+            background: var(--telecom-green);
+        }
+
+        .control-btn.warning {
+            background: #f59e0b;
+        }
+
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* === USER LIST === */
+        .user-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .user-item:hover {
+            background: rgba(0, 102, 204, 0.2);
+        }
+
+        .user-item.active {
+            background: rgba(0, 102, 204, 0.3);
+            border-left: 4px solid var(--telecom-blue);
+        }
+
+        .user-item:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-call);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .user-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: auto;
+        }
+
+        .user-status.online {
+            background: var(--telecom-green);
+            box-shadow: 0 0 10px var(--telecom-green);
+        }
+
+        .user-status.offline {
+            background: #666;
+        }
+
+        .user-status.busy {
+            background: var(--telecom-red);
+            box-shadow: 0 0 10px var(--telecom-red);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* === CHAT === */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            min-height: 200px;
+        }
+
+        .message {
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 15px;
+            max-width: 80%;
+            word-wrap: break-word;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.self {
+            background: var(--telecom-blue);
+            margin-left: auto;
+        }
+
+        .message.other {
+            background: rgba(255, 255, 255, 0.1);
+            margin-right: auto;
+        }
+
+        .message.system {
+            background: rgba(255, 255, 255, 0.05);
+            text-align: center;
+            font-style: italic;
+            max-width: 100%;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: var(--telecom-blue);
+            box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+        }
+
+        .chat-input button {
+            padding: 12px 20px;
+            border-radius: 10px;
+            background: var(--telecom-blue);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .chat-input button:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+        }
+
+        /* === CALL STATUS === */
+        .call-status {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin: 1rem 0;
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .call-timer {
+            font-size: 2rem;
+            font-family: 'Monaco', 'Consolas', monospace;
+            letter-spacing: 2px;
+            margin-top: 0.5rem;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* === MODAL === */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === UTILITY CLASSES === */
+        .hidden {
+            display: none !important;
+        }
+
+        .error {
+            color: var(--telecom-red);
+        }
+
+        .success {
+            color: var(--telecom-green);
+        }
+
+        .warning {
+            color: #f59e0b;
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .container {
+                padding: 1rem;
+                gap: 1rem;
+            }
+            
+            .call-area {
+                padding: 1rem;
+            }
+            
+            .controls {
+                gap: 0.5rem;
+            }
+            
+            .control-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                <i class="fas fa-user" style="margin-right: 5px;"></i> TELEPHONY
+            </span>
+        </div>
+    </div>
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+         <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+         <span style="margin: 0 8px; color: #999;">›</span>
+         <span style="color: #333; font-weight: 500;">Telephony</span>
+    </div>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-phone-alt"></i>
+            <span>Fatimah Telephony</span>
+        </div>
+        <div class="nav-links">
+            <a href="/"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="/telephony" class="active"><i class="fas fa-phone-alt"></i> Telephony</a>
+            <a href="/trading"><i class="fas fa-chart-line"></i> Trading</a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <!-- LEFT SIDEBAR - USERS -->
+        <div class="sidebar">
+            <div class="section-title">
+                <i class="fas fa-users"></i>
+                <h3>Online Traders</h3>
+                <span id="onlineCount" class="user-status online" style="margin-left: auto; margin-right: 0;"></span>
+            </div>
+            <div id="userList" class="user-list">
+                <div class="user-item loading">
+                    <div class="user-avatar">...</div>
+                    <div>Loading users...</div>
+                </div>
+            </div>
+            
+            <div class="section-title" style="margin-top: 2rem;">
+                <i class="fas fa-sliders-h"></i>
+                <h3>Media Settings</h3>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px; padding: 10px;">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" id="videoToggle" checked>
+                    <span>Camera</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" id="audioToggle" checked>
+                    <span>Microphone</span>
+                </label>
+                <button id="deviceSettingsBtn" class="control-btn" style="width: 100%; height: auto; border-radius: 10px; padding: 10px; margin-top: 10px;">
+                    <i class="fas fa-cog"></i> Device Settings
+                </button>
+            </div>
+        </div>
+
+        <!-- CENTER - CALL AREA -->
+        <div class="call-area">
+            <!-- VIDEO GRID -->
+            <div class="video-grid">
+                <div class="video-container">
+                    <video id="localVideo" autoplay muted playsinline></video>
+                    <div class="user-label self" id="localUserName">Connecting...</div>
+                    <div class="connection-status" style="position: absolute; top: 10px; right: 10px;">
+                        <i class="fas fa-circle" id="localStreamStatus" style="color: #666;"></i>
+                        <span id="localStreamText">Offline</span>
+                    </div>
+                </div>
+                
+                <div class="video-container">
+                    <video id="remoteVideo" autoplay playsinline></video>
+                    <div class="user-label" id="remoteUserName">Waiting for call...</div>
+                    <div class="connection-status" style="position: absolute; top: 10px; right: 10px;">
+                        <i class="fas fa-circle" id="remoteStreamStatus" style="color: #666;"></i>
+                        <span id="remoteStreamText">Offline</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CALL STATUS -->
+            <div class="call-status">
+                <div id="callStatusText">Ready to call</div>
+                <div id="callTimer" class="call-timer hidden">00:00:00</div>
+            </div>
+
+            <!-- CONTROLS -->
+            <div class="controls">
+                <button id="callBtn" class="control-btn primary">
+                    <i class="fas fa-phone"></i>
+                </button>
+                <button id="videoToggleBtn" class="control-btn" title="Toggle Video">
+                    <i class="fas fa-video"></i>
+                </button>
+                <button id="audioToggleBtn" class="control-btn" title="Toggle Audio">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button id="screenShareBtn" class="control-btn warning" title="Share Screen">
+                    <i class="fas fa-desktop"></i>
+                </button>
+                <button id="endCallBtn" class="control-btn danger" disabled>
+                    <i class="fas fa-phone-slash"></i>
+                </button>
+                <button id="chatToggleBtn" class="control-btn" title="Toggle Chat">
+                    <i class="fas fa-comment-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDEBAR - CHAT -->
+        <div class="sidebar chat-container">
+            <div class="section-title">
+                <i class="fas fa-comments"></i>
+                <h3>Call Chat</h3>
+                <span id="unreadCount" class="user-status online" style="margin-left: auto; margin-right: 0; display: none;"></span>
+            </div>
+            
+            <div id="chatMessages" class="chat-messages">
+                <div class="message system">
+                    Welcome to Fatimah Telephony chat! Start a call to chat with other traders.
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Type a message..." disabled>
+                <button id="sendBtn" disabled>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div id="incomingCallModal" class="modal">
+        <div class="modal-content">
+            <div class="user-avatar" style="width: 80px; height: 80px; margin: 0 auto 1rem;">
+                <i class="fas fa-user" style="font-size: 2rem;"></i>
+            </div>
+            <h2 id="incomingCallerName">Incoming Call</h2>
+            <p id="incomingCallType">Video call...</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                <button id="acceptCallBtn" class="control-btn success" style="width: 80px; height: 80px;">
+                    <i class="fas fa-phone"></i>
+                </button>
+                <button id="rejectCallBtn" class="control-btn danger" style="width: 80px; height: 80px;">
+                    <i class="fas fa-phone-slash"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="deviceSettingsModal" class="modal">
+        <div class="modal-content">
+            <h2><i class="fas fa-cog"></i> Device Settings</h2>
+            
+            <div style="text-align: left; margin: 1.5rem 0;">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                        <i class="fas fa-video"></i> Camera
+                    </label>
+                    <select id="cameraSelect" style="width: 100%; padding: 10px; border-radius: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        <option value="">Select Camera</option>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                        <i class="fas fa-microphone"></i> Microphone
+                    </label>
+                    <select id="microphoneSelect" style="width: 100%; padding: 10px; border-radius: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        <option value="">Select Microphone</option>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                        <i class="fas fa-headphones"></i> Speaker
+                    </label>
+                    <select id="speakerSelect" style="width: 100%; padding: 10px; border-radius: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                        <option value="">Select Speaker</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+                <button id="saveDeviceSettingsBtn" class="control-btn primary" style="width: auto; padding: 10px 20px; border-radius: 10px;">
+                    <i class="fas fa-save"></i> Save Settings
+                </button>
+                <button id="closeDeviceSettingsBtn" class="control-btn" style="width: auto; padding: 10px 20px; border-radius: 10px;">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize TelephonyClient when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create telephony client instance
+            window.telephonyClient = new TelephonyClient({
+                socketUrl: window.location.origin,
+                onUsersUpdate: updateUserList,
+                onCallStatusChange: updateCallStatus,
+                onRemoteStream: handleRemoteStream,
+                onMessage: handleChatMessage,
+                onIncomingCall: handleIncomingCall,
+                onCallEnded: handleCallEnded
+            });
+
+            // Initialize UI elements
+            initializeUI();
+        });
+
+        function initializeUI() {
+            console.log('🔄 Initializing UI...');
+
+            // Get DOM elements
+            const elements = {
+                callBtn: document.getElementById('callBtn'),
+                endCallBtn: document.getElementById('endCallBtn'),
+                videoToggleBtn: document.getElementById('videoToggleBtn'),
+                audioToggleBtn: document.getElementById('audioToggleBtn'),
+                screenShareBtn: document.getElementById('screenShareBtn'),
+                chatToggleBtn: document.getElementById('chatToggleBtn'),
+                videoToggle: document.getElementById('videoToggle'),
+                audioToggle: document.getElementById('audioToggle'),
+                chatInput: document.getElementById('chatInput'),
+                sendBtn: document.getElementById('sendBtn'),
+                userList: document.getElementById('userList'),
+                localVideo: document.getElementById('localVideo'),
+                remoteVideo: document.getElementById('remoteVideo'),
+                localUserName: document.getElementById('localUserName'),
+                remoteUserName: document.getElementById('remoteUserName'),
+                callStatusText: document.getElementById('callStatusText'),
+                callTimer: document.getElementById('callTimer'),
+                incomingCallModal: document.getElementById('incomingCallModal'),
+                acceptCallBtn: document.getElementById('acceptCallBtn'),
+                rejectCallBtn: document.getElementById('rejectCallBtn'),
+                deviceSettingsModal: document.getElementById('deviceSettingsModal'),
+                deviceSettingsBtn: document.getElementById('deviceSettingsBtn'),
+                saveDeviceSettingsBtn: document.getElementById('saveDeviceSettingsBtn'),
+                closeDeviceSettingsBtn: document.getElementById('closeDeviceSettingsBtn'),
+                cameraSelect: document.getElementById('cameraSelect'),
+                microphoneSelect: document.getElementById('microphoneSelect'),
+                speakerSelect: document.getElementById('speakerSelect')
+            };
+
+            console.log('✅ UI elements found:', Object.keys(elements).length);
+            console.log('userList element exists:', !!elements.userList);
+  
+            // Store elements in window for global access
+            window.telephonyElements = elements;
+
+            // Initialize user data
+            const username = localStorage.getItem('telephony_username') || 
+                           `Trader${Math.floor(Math.random() * 1000)}`;
+            elements.localUserName.textContent = username;
+            window.telephonyClient.username = username;
+
+            // Event Listeners
+            elements.callBtn.addEventListener('click', handleCallAction);
+            elements.endCallBtn.addEventListener('click', () => window.telephonyClient.endCall());
+            elements.videoToggleBtn.addEventListener('click', toggleVideo);
+            elements.audioToggleBtn.addEventListener('click', toggleAudio);
+            elements.screenShareBtn.addEventListener('click', toggleScreenShare);
+            elements.chatToggleBtn.addEventListener('click', toggleChat);
+            
+            elements.videoToggle.addEventListener('change', (e) => {
+                window.telephonyClient.toggleVideo(e.target.checked);
+                elements.videoToggleBtn.classList.toggle('warning', !e.target.checked);
+            });
+            
+            elements.audioToggle.addEventListener('change', (e) => {
+                window.telephonyClient.toggleAudio(e.target.checked);
+                elements.audioToggleBtn.classList.toggle('warning', !e.target.checked);
+            });
+            
+            elements.chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+            
+            elements.sendBtn.addEventListener('click', sendMessage);
+            elements.acceptCallBtn.addEventListener('click', () => {
+              closeIncomingCallModal();
+              window.telephonyClient.acceptCall();
+            });
+            elements.rejectCallBtn.addEventListener('click', () => {
+              closeIncomingCallModal();
+              window.telephonyClient.rejectCall();
+            });
+
+            
+            elements.deviceSettingsBtn.addEventListener('click', showDeviceSettings);
+            elements.saveDeviceSettingsBtn.addEventListener('click', saveDeviceSettings);
+            elements.closeDeviceSettingsBtn.addEventListener('click', () => {
+                elements.deviceSettingsModal.classList.remove('active');
+            });
+
+            // Store elements in window for global access
+            window.telephonyElements = elements;
+
+            // Connect to server
+            window.telephonyClient.connect().then(() => {
+                updateConnectionStatus('online');
+            }).catch(err => {
+                console.error('Connection failed:', err);
+                updateConnectionStatus('error');
+            });
+        }
+
+        function handleCallAction() {
+            const client = window.telephonyClient;
+            const elements = window.telephonyElements;
+            
+            if (client.currentCall) {
+                client.endCall();
+            } else {
+                const selectedUser = elements.userList.querySelector('.user-item.active');
+                if (selectedUser) {
+                    const userId = selectedUser.dataset.userId;
+                    client.startCall(userId, 'video');
+                } else {
+                    alert('Please select a user to call');
+                }
+            }
+        }
+
+        function toggleVideo() {
+            const client = window.telephonyClient;
+            const isVideoEnabled = client.toggleVideo();
+            window.telephonyElements.videoToggle.checked = isVideoEnabled;
+            window.telephonyElements.videoToggleBtn.classList.toggle('warning', !isVideoEnabled);
+        }
+
+        function toggleAudio() {
+            const client = window.telephonyClient;
+            const isAudioEnabled = client.toggleAudio();
+            window.telephonyElements.audioToggle.checked = isAudioEnabled;
+            window.telephonyElements.audioToggleBtn.classList.toggle('warning', !isAudioEnabled);
+        }
+
+        function toggleScreenShare() {
+            const client = window.telephonyClient;
+            const isSharing = client.toggleScreenShare();
+            window.telephonyElements.screenShareBtn.classList.toggle('warning', isSharing);
+        }
+
+        function toggleChat() {
+            const chatContainer = document.querySelector('.chat-container');
+            chatContainer.classList.toggle('hidden');
+        }
+
+        function sendMessage() {
+            const elements = window.telephonyElements;
+            const message = elements.chatInput.value.trim();
+            if (message && window.telephonyClient.currentCall) {
+                window.telephonyClient.sendMessage(message);
+                addChatMessage(message, 'self');
+                elements.chatInput.value = '';
+            }
+        }
+
+        function updateUserList(users) {
+            const elements = window.telephonyElements;
+            const currentUserId = window.telephonyClient.socket?.id;
+            
+            elements.userList.innerHTML = '';
+            let onlineCount = 0;
+            
+            users.forEach(user => {
+                if (user.id === currentUserId) return; // Skip self
+                
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                userItem.dataset.userId = user.id;
+                userItem.innerHTML = `
+                    <div class="user-avatar">${user.username?.charAt(0).toUpperCase() || 'U'}</div>
+                    <div>
+                        <div style="font-weight: 600;">${user.username || 'Unknown'}</div>
+                        <div style="font-size: 0.8rem; opacity: 0.7;">${user.status || 'online'}</div>
+                    </div>
+                    <div class="user-status ${user.inCall ? 'busy' : 'online'}"></div>
+                `;
+                
+                userItem.addEventListener('click', () => {
+                    if (!user.inCall) {
+                        elements.userList.querySelectorAll('.user-item').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        userItem.classList.add('active');
+                    }
+                });
+                
+                elements.userList.appendChild(userItem);
+                if (!user.inCall) onlineCount++;
+            });
+            
+            document.getElementById('onlineCount').textContent = onlineCount;
+        }
+
+        function updateCallStatus(status, data) {
+            const elements = window.telephonyElements;
+            const client = window.telephonyClient;
+            
+            elements.callStatusText.textContent = status;
+            
+            switch(status) {
+                case 'calling':
+                    elements.callBtn.disabled = true;
+                    elements.callBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                    break;
+                    
+                case 'incoming':
+                    elements.callBtn.disabled = true;
+                    break;
+                    
+                case 'connected':
+                    elements.callBtn.disabled = true;
+                    elements.endCallBtn.disabled = false;
+                    elements.chatInput.disabled = false;
+                    elements.sendBtn.disabled = false;
+                    startCallTimer();
+                    break;
+                    
+                case 'ended':
+                    elements.callBtn.disabled = false;
+                    elements.endCallBtn.disabled = true;
+                    elements.callBtn.innerHTML = '<i class="fas fa-phone"></i>';
+                    elements.chatInput.disabled = true;
+                    elements.sendBtn.disabled = true;
+                    elements.callTimer.classList.add('hidden');
+                    elements.remoteVideo.srcObject = null;
+                    elements.remoteUserName.textContent = 'Waiting for call...';
+                    stopCallTimer();
+                    break;
+                    
+                case 'ready':
+                    elements.callBtn.disabled = false;
+                    elements.endCallBtn.disabled = true;
+                    elements.callBtn.innerHTML = '<i class="fas fa-phone"></i>';
+                    break;
+            }
+        }
+
+        function handleRemoteStream(stream, userId) {
+            const elements = window.telephonyElements;
+            elements.remoteVideo.srcObject = stream;
+            
+            // Update remote user name if available
+            const users = window.telephonyClient.users || [];
+            const remoteUser = users.find(u => u.id === userId);
+            if (remoteUser) {
+                elements.remoteUserName.textContent = remoteUser.username || 'Remote User';
+            }
+        }
+
+        function handleChatMessage(message, senderId, isSystem) {
+            const senderName = window.telephonyClient.users?.find(u => u.id === senderId)?.username || 'Unknown';
+            addChatMessage(message, senderId === window.telephonyClient.socket?.id ? 'self' : 'other', senderName);
+        }
+
+        function handleIncomingCall(callerId, callType, callerData) {
+          console.log('📞 handleIncomingCall called:', callerId, callType, callerData);
+  
+          const elements = window.telephonyElements;
+          if (!elements) {
+             console.error('❌ telephonyElements not found');
+             return;
+        }
+
+        function closeIncomingCallModal() {
+           const modal = document.getElementById('incomingCallModal');
+           if (modal) {
+              modal.classList.remove('active');
+        }
+      }
+  
+        // Use callerData if provided, otherwise try to find in users array
+        const caller = callerData || window.telephonyClient.users?.find(u => u.id === callerId);
+  
+        console.log('Caller info:', caller);
+  
+        if (elements.incomingCallerName) {
+          elements.incomingCallerName.textContent = caller?.username || 'Unknown Caller';
+        }
+  
+        if (elements.incomingCallType) {
+          elements.incomingCallType.textContent = callType === 'video' ? 'Video call...' : 'Audio call...';
+        }
+  
+        // Show the modal
+        if (elements.incomingCallModal) {
+          elements.incomingCallModal.classList.add('active');
+          console.log('✅ Incoming call modal shown');
+        } else {
+          console.error('❌ Incoming call modal not found');
+        }
+    }
+
+
+        function handleCallEnded() {
+            const elements = window.telephonyElements;
+            elements.incomingCallModal.classList.remove('active');
+        }
+
+        function addChatMessage(message, type, senderName) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            if (type === 'system') {
+                messageDiv.textContent = message;
+            } else {
+                const nameSpan = document.createElement('span');
+                nameSpan.style.fontWeight = '600';
+                nameSpan.textContent = senderName + ': ';
+                messageDiv.appendChild(nameSpan);
+                messageDiv.appendChild(document.createTextNode(message));
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Update unread count if chat is hidden
+            if (document.querySelector('.chat-container').classList.contains('hidden')) {
+                const unreadCount = document.getElementById('unreadCount');
+                let count = parseInt(unreadCount.textContent) || 0;
+                unreadCount.textContent = count + 1;
+                unreadCount.style.display = 'block';
+            }
+        }
+
+        function updateConnectionStatus(status) {
+            const localStatus = document.getElementById('localStreamStatus');
+            const localText = document.getElementById('localStreamText');
+            
+            switch(status) {
+                case 'online':
+                    localStatus.style.color = '#00cc66';
+                    localText.textContent = 'Online';
+                    break;
+                case 'error':
+                    localStatus.style.color = '#ff3366';
+                    localText.textContent = 'Error';
+                    break;
+                default:
+                    localStatus.style.color = '#666';
+                    localText.textContent = 'Offline';
+            }
+        }
+
+        let callTimerInterval;
+        let callStartTime;
+
+        function startCallTimer() {
+            callStartTime = Date.now();
+            elements.callTimer.classList.remove('hidden');
+            
+            callTimerInterval = setInterval(() => {
+                const elapsed = Date.now() - callStartTime;
+                const hours = Math.floor(elapsed / 3600000);
+                const minutes = Math.floor((elapsed % 3600000) / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                
+                elements.callTimer.textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function stopCallTimer() {
+            if (callTimerInterval) {
+                clearInterval(callTimerInterval);
+                callTimerInterval = null;
+            }
+        }
+
+        async function showDeviceSettings() {
+            const elements = window.telephonyElements;
+            
+            try {
+                const devices = await navigator.mediaDevices.enumerateDevices();
+                
+                // Populate camera options
+                elements.cameraSelect.innerHTML = '<option value="">Select Camera</option>';
+                devices.filter(d => d.kind === 'videoinput').forEach(device => {
+                    const option = document.createElement('option');
+                    option.value = device.deviceId;
+                    option.textContent = device.label || `Camera ${elements.cameraSelect.options.length}`;
+                    elements.cameraSelect.appendChild(option);
+                });
+                
+                // Populate microphone options
+                elements.microphoneSelect.innerHTML = '<option value="">Select Microphone</option>';
+                devices.filter(d => d.kind === 'audioinput').forEach(device => {
+                    const option = document.createElement('option');
+                    option.value = device.deviceId;
+                    option.textContent = device.label || `Microphone ${elements.microphoneSelect.options.length}`;
+                    elements.microphoneSelect.appendChild(option);
+                });
+                
+                // Populate speaker options
+                elements.speakerSelect.innerHTML = '<option value="">Select Speaker</option>';
+                devices.filter(d => d.kind === 'audiooutput').forEach(device => {
+                    const option = document.createElement('option');
+                    option.value = device.deviceId;
+                    option.textContent = device.label || `Speaker ${elements.speakerSelect.options.length}`;
+                    elements.speakerSelect.appendChild(option);
+                });
+                
+                // Load saved preferences
+                const savedCamera = localStorage.getItem('telephony_camera');
+                const savedMic = localStorage.getItem('telephony_microphone');
+                const savedSpeaker = localStorage.getItem('telephony_speaker');
+                
+                if (savedCamera) elements.cameraSelect.value = savedCamera;
+                if (savedMic) elements.microphoneSelect.value = savedMic;
+                if (savedSpeaker) elements.speakerSelect.value = savedSpeaker;
+                
+                elements.deviceSettingsModal.classList.add('active');
+            } catch (error) {
+                console.error('Error accessing devices:', error);
+                alert('Error accessing media devices. Please check permissions.');
+            }
+        }
+
+        function saveDeviceSettings() {
+            const elements = window.telephonyElements;
+            
+            localStorage.setItem('telephony_camera', elements.cameraSelect.value);
+            localStorage.setItem('telephony_microphone', elements.microphoneSelect.value);
+            localStorage.setItem('telephony_speaker', elements.speakerSelect.value);
+            
+            // Apply new camera/mic settings if in a call
+            if (window.telephonyClient.currentCall) {
+                window.telephonyClient.updateMediaDevices({
+                    video: elements.cameraSelect.value || true,
+                    audio: elements.microphoneSelect.value || true
+                });
+            }
+            
+            elements.deviceSettingsModal.classList.remove('active');
+            alert('Device settings saved!');
+        }
+    </script>
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                </a>
+                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                </a>
+                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                </a>
+                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+                <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                </a>
+                <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                </a>
+                <span style="color: #718096; display: block; margin-bottom: 8px; padding: 3px 0;">
+                    <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics (Coming Soon)
+                </span>
+            </div>
+        </div>
+    
+        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+            <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+               <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+            </p>
+        </div>
+    </div>
+</body>
+</html>

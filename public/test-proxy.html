@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test FRED Proxy</title>
+</head>
+<body>
+    <h1>Testing FRED Server Proxy</h1>
+    <button onclick="testProxy()">Test Proxy</button>
+    <div id="result">Click button to test...</div>
+    
+    <script>
+    async function testProxy() {
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '<p>Testing proxy connection...</p>';
+        
+        try {
+            // Test 1: Direct proxy test
+            const response = await fetch('/api/fred/MORTGAGE30US');
+            const data = await response.json();
+            
+            if (data.observations && data.observations[0]) {
+                const obs = data.observations[0];
+                resultDiv.innerHTML = `
+                    <h3 style="color: green;">✅ Proxy Works!</h3>
+                    <p><strong>US Mortgage Rate:</strong> ${obs.value}%</p>
+                    <p><strong>Date:</strong> ${obs.date}</p>
+                    <p><strong>Source:</strong> FRED API via Server Proxy</p>
+                    <p><strong>No CORS issues! 🎉</strong></p>
+                `;
+            } else if (data.error) {
+                resultDiv.innerHTML = `
+                    <h3 style="color: orange;">⚠️ Proxy Error</h3>
+                    <p>${data.error}</p>
+                    <p>${data.message}</p>
+                `;
+            }
+            
+        } catch (error) {
+            resultDiv.innerHTML = `
+                <h3 style="color: red;">❌ Proxy Test Failed</h3>
+                <p>${error.message}</p>
+                <p>Make sure server is running with: FRED_API_KEY=your_key node financial-server.js</p>
+            `;
+        }
+    }
+    </script>
+</body>
+</html>

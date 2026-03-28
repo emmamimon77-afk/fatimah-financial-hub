@@ -421,67 +421,6 @@
             }
         }
         
-        // ========== RINGTONE ==========
-        let ringtoneInterval = null;
-        
-        function playRingtone() {
-            if (ringtoneInterval) return;
-            
-            // Use the shared audio context
-            if (!window.audioContext) {
-                window.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-            
-            // Resume if suspended
-            if (window.audioContext.state === 'suspended') {
-                window.audioContext.resume().then(() => {
-                    playBeep();
-                }).catch(e => console.log('Audio context resume failed:', e));
-            } else {
-                playBeep();
-            }
-            
-            function playBeep() {
-                const oscillator = window.audioContext.createOscillator();
-                const gainNode = window.audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(window.audioContext.destination);
-                
-                oscillator.frequency.value = 440; // A4 note
-                gainNode.gain.value = 0.3;
-                
-                oscillator.start();
-                oscillator.stop(window.audioContext.currentTime + 0.5);
-            }
-            
-            // Repeat every 2 seconds
-            ringtoneInterval = setInterval(() => {
-                if (document.getElementById('incomingModal').style.display !== 'block') {
-                    stopRingtone();
-                    return;
-                }
-                if (window.audioContext && window.audioContext.state === 'running') {
-                    const oscillator = window.audioContext.createOscillator();
-                    const gainNode = window.audioContext.createGain();
-                    oscillator.connect(gainNode);
-                    gainNode.connect(window.audioContext.destination);
-                    oscillator.frequency.value = 440;
-                    gainNode.gain.value = 0.3;
-                    oscillator.start();
-                    oscillator.stop(window.audioContext.currentTime + 0.5);
-                }
-            }, 2000);
-        }        
-       
- 
-        function stopRingtone() {
-            if (ringtoneInterval) {
-                clearInterval(ringtoneInterval);
-                ringtoneInterval = null;
-            }
-        }
-  
         // ========== USER REGISTRATION ==========
         function registerUser() {
             const baseName = prompt('Enter your name:', 'Trader') || 'Trader';
@@ -497,21 +436,14 @@
             if (mediaStarted) return;
             
             try {
-                // Initialize audio context for ringtone (user gesture!)
-                if (window.audioContext && window.audioContext.state === 'suspended') {
-                    await window.audioContext.resume();
-                } else if (!window.audioContext) {
-                    window.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                
                 myStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
                 localVideo.srcObject = myStream;
                 mediaStarted = true;
                 
-                // Setup audio debugging
+                // Setup audio debugging for local stream
                 setupAudioDebugging(myStream, true);
                 
-                // List audio devices
+                // List all audio devices
                 const devices = await navigator.mediaDevices.enumerateDevices();
                 const audioInputs = devices.filter(d => d.kind === 'audioinput');
                 console.log('🎤 Available microphones:', audioInputs.map(d => d.label));
@@ -537,9 +469,8 @@
                 alert('Could not access camera or microphone. Please check permissions.');
                 return false;
             }
-        }       
-
- 
+        }
+        
         function toggleMute() {
             if (myStream) {
                 const audioTrack = myStream.getAudioTracks()[0];
@@ -604,11 +535,7 @@
             overlay.style.display = 'block';
             incomingModal.style.display = 'block';
             window.pendingOffer = data;
-            
-            // Play ringtone
-            playRingtone();
         });
-
         
         socket.on('webrtc-answer', async (data) => {
             console.log('✅ Received answer');
@@ -707,9 +634,6 @@
         }
         
         async function acceptCall() {
-            // Stop ringtone
-            stopRingtone();
-
             overlay.style.display = 'none';
             incomingModal.style.display = 'none';
             
@@ -750,7 +674,6 @@
         }
         
         function rejectCall() {
-            stopRingtone();
             overlay.style.display = 'none';
             incomingModal.style.display = 'none';
             if (window.pendingOffer) {
@@ -760,7 +683,6 @@
         }
         
         function hangUp() {
-            stopRingtone();
             if (peerConnection) {
                 peerConnection.close();
                 peerConnection = null;

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Trading - The Divine Proportion in Markets | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .title-section h1 {
+            font-size: 36px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 32px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        /* Fibonacci Spiral */
+        .spiral-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .fib-spiral {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        .square {
+            position: absolute;
+            border: 2px solid #312e81;
+        }
+        .spiral-path {
+            stroke: #fbbf24;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .ratio-box {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+        }
+        .ratio-item {
+            text-align: center;
+        }
+        .ratio-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #312e81;
+        }
+        .ratio-name {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .nature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .nature-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+        }
+        .nature-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .level-section {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .level-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .level-row:last-child {
+            border-bottom: none;
+        }
+        .level {
+            font-weight: 600;
+        }
+        .level-382 { color: #10b981; }
+        .level-500 { color: #f59e0b; }
+        .level-618 { color: #ef4444; }
+
+        .psychology-box {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-question {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/trading">Trading Hub</a> › 
+                <a href="/trading/learn">Learning Center</a> › 
+                <a href="/trading/learn/advanced-technical">Advanced Technical</a> › 
+                Lesson 3: Fibonacci Trading
+            </div>
+            <div class="title-section">
+                <h1>Fibonacci Trading: The Divine Proportion in Markets</h1>
+                <span class="badge">Advanced • 40 min read</span>
+            </div>
+        </div>
+
+        <div class="quran-verse">
+            <div class="arabic">الَّذِي خَلَقَ فَسَوَّىٰ - وَالَّذِي قَدَّرَ فَهَدَىٰ</div>
+            <div class="translation">"Who created and proportioned; and Who destined and guided."</div>
+            <div class="reference">— Quran 87:2-3</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Allah created everything in perfect proportion. From the spiral of a galaxy to the curve of a seashell, the same divine ratio appears—and surprisingly, it appears in markets too.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="spiral-section">
+            <h2>🪐 The Divine Proportion</h2>
+            <p style="font-size: 18px; margin: 20px 0;">In the 13th century, Leonardo Fibonacci discovered a sequence of numbers that appears throughout creation. But it wasn't new—it was Allah's signature in the universe.</p>
+
+            <div class="fib-spiral">
+                <svg viewBox="0 0 300 300" style="width:100%; height:100%;">
+                    <!-- Golden Spiral -->
+                    <path d="M150,150 Q170,130 190,150 Q210,170 190,190 Q170,210 150,190 Q130,170 150,150" 
+                          stroke="#fbbf24" stroke-width="3" fill="none" stroke-dasharray="5,3"/>
+                    <circle cx="150" cy="150" r="5" fill="#312e81"/>
+                </svg>
+            </div>
+
+            <div class="ratio-box">
+                <div class="ratio-item">
+                    <div class="ratio-number">0.618</div>
+                    <div class="ratio-name">Golden Ratio (φ)</div>
+                </div>
+                <div class="ratio-item">
+                    <div class="ratio-number">0.382</div>
+                    <div class="ratio-name">Complement</div>
+                </div>
+                <div class="ratio-item">
+                    <div class="ratio-number">0.236</div>
+                    <div class="ratio-name">Deep Retracement</div>
+                </div>
+            </div>
+
+            <p><strong>The Fibonacci Sequence:</strong> 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144...</p>
+            <p style="color: #64748b; font-size: 14px;">Each number is the sum of the two before it. Divide any number by the next: 55/89 = 0.618. Divide any number by the one two ahead: 55/144 = 0.382.</p>
+        </div>
+
+        <!-- Fibonacci in Nature -->
+        <h2 style="margin: 40px 0 20px;">🌿 Allah's Signature in Creation</h2>
+        
+        <div class="nature-grid">
+            <div class="nature-card">
+                <div class="nature-icon">🐚</div>
+                <h4>Nautilus Shell</h4>
+                <p style="font-size: 14px;">The spiral grows by φ (1.618) each quarter-turn. Perfect proportion for strength and space.</p>
+            </div>
+            <div class="nature-card">
+                <div class="nature-icon">🌻</div>
+                <h4>Sunflower Seeds</h4>
+                <p style="font-size: 14px;">Seeds arrange in 55 spiral arms one way, 89 the other—both Fibonacci numbers.</p>
+            </div>
+            <div class="nature-card">
+                <div class="nature-icon">👆</div>
+                <h4>Human Finger</h4>
+                <p style="font-size: 14px;">Each finger bone is roughly 1.618 times longer than the previous. The proportion of beauty.</p>
+            </div>
+            <div class="nature-card">
+                <div class="nature-icon">🌀</div>
+                <h4>Galaxies</h4>
+                <p style="font-size: 14px;">Spiral galaxies follow the golden spiral. Even the cosmos obeys this proportion.</p>
+            </div>
+            <div class="nature-card">
+                <div class="nature-icon">🌸</div>
+                <h4>Flower Petals</h4>
+                <p style="font-size: 14px;">Lilies have 3 petals, buttercups 5, delphiniums 8—all Fibonacci numbers.</p>
+            </div>
+            <div class="nature-card">
+                <div class="nature-icon">📏</div>
+                <h4>Human Face</h4>
+                <p style="font-size: 14px;">The ratio of face height to width approximates φ in faces we find beautiful.</p>
+            </div>
+        </div>
+
+        <div class="quran-verse" style="background: #f1f5f9; color: #1e293b;">
+            <div class="arabic" style="color: #312e81;">صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ</div>
+            <div class="translation" style="color: #475569;">"The work of Allah, Who perfected all things."</div>
+            <div class="reference" style="color: #64748b;">— Quran 27:88</div>
+        </div>
+
+        <!-- Fibonacci in Markets -->
+        <h2 style="margin: 60px 0 20px;">📊 The Same Pattern Appears in Markets</h2>
+
+        <div class="spiral-section">
+            <p style="margin-bottom: 30px;">Why do markets retrace to 61.8%, 50%, and 38.2%? Because markets are made of people, and people are made in Allah's image—we naturally seek proportion and balance.</p>
+
+            <svg viewBox="0 0 400 200" style="width:100%; background: #f1f5f9; border-radius: 12px; padding: 20px;">
+                <!-- Price Move -->
+                <path d="M50,150 L150,50" stroke="#10b981" stroke-width="3" fill="none"/>
+                <!-- Retracement Levels -->
+                <line x1="150" y1="50" x2="250" y2="150" stroke="#312e81" stroke-width="2" stroke-dasharray="5,3"/>
+                <line x1="150" y1="50" x2="200" y2="112" stroke="#fbbf24" stroke-width="2" stroke-dasharray="3,3"/>
+                <line x1="150" y1="50" x2="225" y2="131" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,3"/>
+                <!-- Labels -->
+                <text x="260" y="160" fill="#10b981" font-size="12">Move Up (100%)</text>
+                <text x="260" y="140" fill="#312e81" font-size="12">61.8% Retrace</text>
+                <text x="260" y="120" fill="#fbbf24" font-size="12">50% Retrace</text>
+                <text x="260" y="100" fill="#94a3b8" font-size="12">38.2% Retrace</text>
+            </svg>
+
+            <div style="margin-top: 30px;">
+                <p><strong>The Retracement Levels:</strong></p>
+                <div class="level-row">
+                    <span class="level">61.8% (Golden Ratio)</span>
+                    <span class="level-618">Most significant level - primary support/resistance</span>
+                </div>
+                <div class="level-row">
+                    <span class="level">50.0% (Psychological)</span>
+                    <span class="level-500">Halfway point - traders take profits</span>
+                </div>
+                <div class="level-row">
+                    <span class="level">38.2% (Deep)</span>
+                    <span class="level-382">Shallow retrace - strong trend</span>
+                </div>
+                <div class="level-row">
+                    <span class="level">23.6% (Very deep)</span>
+                    <span class="level-382">Extremely shallow - explosive trend</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Fibonacci Levels -->
+        <div class="level-section">
+            <h3>📈 The Psychology Behind Each Level</h3>
+            
+            <div class="psychology-box">
+                <h4>61.8% - The Divine Proportion</h4>
+                <p>This is the most powerful level. When price retraces to 61.8%, it's testing the "natural order." If it bounces here, the trend is healthy. If it breaks, something fundamental has changed.</p>
+                <p><strong>Psychology:</strong> Traders sense this is the "fair" retracement. Institutions place large orders here. It's where the market finds its balance.</p>
+                <p><strong>Quranic Connection:</strong> "And the heaven He raised and imposed the balance." (Quran 55:7) - The 61.8% level is the market's balance point.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>50.0% - The Psychological Level</h4>
+                <p>Not a Fibonacci number, but the most obvious level. Halfway. Did we give back half our gains? Are we still up?</p>
+                <p><strong>Psychology:</strong> "I've lost half my profits. Should I take the rest?" Traders hesitate here. If price holds, confidence returns. If it breaks, fear sets in.</p>
+                <p><strong>Quranic Connection:</strong> "And thus We have made you a just community." (Quran 2:143) - The concept of "just" or "middle" is powerful in human psychology.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>38.2% - The Strong Trend Level</h4>
+                <p>A shallow retracement. The trend is so strong that sellers barely make a dent.</p>
+                <p><strong>Psychology:</strong> "This dip is a gift! Everyone wants to buy." Strong hands accumulate. Weak hands who sold regret it.</p>
+                <p><strong>Quranic Connection:</strong> "And whoever fears Allah - He will make for him a way out." (Quran 65:2) - For those who trusted the trend, the shallow dip is their reward.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4>23.6% - The Explosive Level</h4>
+                <p>An extremely shallow retracement. The trend is nearly vertical.</p>
+                <p><strong>Psychology:</strong> FOMO (Fear Of Missing Out). No one wants to sell because they believe it will go much higher. This often precedes a blow-off top.</p>
+                <p><strong>Quranic Connection:</strong> "Leave them to eat and enjoy and be diverted by [false] hope, for they are going to know." (Quran 15:3) - Warning against excessive greed.</p>
+            </div>
+        </div>
+
+        <!-- Fibonacci Extensions -->
+        <h2 style="margin: 40px 0 20px;">🎯 Fibonacci Extensions - Where is the Market Going?</h2>
+
+        <div class="spiral-section">
+            <svg viewBox="0 0 400 200" style="width:100%; background: #f1f5f9; border-radius: 12px; padding: 20px;">
+                <!-- Move and Extensions -->
+                <path d="M50,150 L150,50" stroke="#10b981" stroke-width="3" fill="none"/>
+                <line x1="150" y1="50" x2="250" y2="20" stroke="#312e81" stroke-width="2" stroke-dasharray="5,3"/>
+                <line x1="150" y1="50" x2="300" y2="-10" stroke="#fbbf24" stroke-width="2" stroke-dasharray="5,3"/>
+                <text x="260" y="10" fill="#312e81" font-size="12">127.2%</text>
+                <text x="310" y="-20" fill="#fbbf24" font-size="12">161.8%</text>
+            </svg>
+
+            <div style="margin-top: 30px;">
+                <p><strong>Common Extension Levels:</strong></p>
+                <div class="level-row">
+                    <span class="level">127.2%</span>
+                    <span>First profit target - where traders often take partial profits</span>
+                </div>
+                <div class="level-row">
+                    <span class="level">161.8%</span>
+                    <span>Golden extension - major target, often trend exhaustion</span>
+                </div>
+                <div class="level-row">
+                    <span class="level">261.8%</span>
+                    <span>Extreme move - usually only in powerful trends</span>
+                </div>
+            </div>
+
+            <div class="psychology-box" style="margin-top: 20px;">
+                <p><strong>Psychology of Extensions:</strong> Traders set profit targets at these levels. When price approaches 161.8%, many sell, creating resistance. If it breaks through, it's a sign of extraordinary strength—like a runner finding a second wind.</p>
+            </div>
+        </div>
+
+        <!-- Practical Trading Application -->
+        <h2 style="margin: 40px 0 20px;">📝 How to Trade with Fibonacci</h2>
+
+        <div class="level-section">
+            <h3>Method 1: The Trend Retracement</h3>
+            <ol style="margin-left: 20px;">
+                <li>Identify a clear trend (higher highs and higher lows for uptrend)</li>
+                <li>Draw Fibonacci from the bottom of the move to the top</li>
+                <li>Watch for price to retrace to 38.2%, 50%, or 61.8%</li>
+                <li>Look for confirmation (bullish candlestick patterns) at these levels</li>
+                <li>Enter with stop below the retracement level</li>
+                <li>Target the previous high or Fibonacci extensions</li>
+            </ol>
+
+            <div style="background: #f1f5f9; padding: 15px; border-radius: 12px; margin: 20px 0;">
+                <p><strong>Example:</strong> Stock rallies from $100 to $200. It retraces to $161.80 (38.2%). You buy with stop at $155. Target $200 or $238.20 (127.2% extension).</p>
+            </div>
+        </div>
+
+        <div class="level-section">
+            <h3>Method 2: Confluence - When Levels Align</h3>
+            <p>The most powerful trades happen when multiple Fibonacci levels align with other technical factors:</p>
+            <ul style="margin-left: 20px;">
+                <li>61.8% retracement + previous resistance turned support</li>
+                <li>38.2% retracement + moving average</li>
+                <li>127.2% extension + previous high</li>
+                <li>161.8% extension + trend line</li>
+            </ul>
+            <p><strong>Quranic Connection:</strong> "And cooperate in righteousness and piety." (Quran 5:2) - When multiple factors agree, the signal is stronger.</p>
+        </div>
+
+        <!-- The Deeper Wisdom -->
+        <div class="spiral-section" style="background: linear-gradient(135deg, #f1f5f9, #e2e8f0);">
+            <h2>🕯️ The Spiritual Meaning of Fibonacci</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 30px;">
+                <div>
+                    <h4>0.618 - The Balance</h4>
+                    <p>Not too much, not too little. The perfect proportion. Islam is the middle path—not extreme in one direction or the other. The market finds its balance at 61.8%.</p>
+                </div>
+                <div>
+                    <h4>0.382 - The Mercy</h4>
+                    <p>A shallow retracement is mercy for those who missed the move. Allah gives us second chances. The dip is an opportunity, not a punishment.</p>
+                </div>
+                <div>
+                    <h4>0.500 - The Test</h4>
+                    <p>Halfway. Are you patient? Will you hold? The 50% level tests your conviction. Those who pass are rewarded.</p>
+                </div>
+                <div>
+                    <h4>1.618 - The Abundance</h4>
+                    <p>When price extends beyond the previous high, it's a sign of abundance—Allah's provision multiplied. The market rewards those who trusted the trend.</p>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; font-style: italic;">"And if you should count the favors of Allah, you could not enumerate them." (Quran 16:18)</p>
+            <p>The Fibonacci sequence reminds us that even in markets, we see signs of divine order. The same pattern in a seashell appears in a stock chart. SubhanAllah.</p>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="quiz-section">
+            <h2>📝 Test Your Understanding</h2>
+
+            <div class="quiz-question">
+                <p><strong>1. What is the Golden Ratio (φ) approximately?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. 0.500</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">B. 0.618</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">C. 0.382</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. 0.236</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>2. Which Fibonacci level is considered the most significant for retracements?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. 38.2%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">B. 50.0%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">C. 61.8%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. 78.6%</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>3. Where in creation can we see Fibonacci patterns?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. Nautilus shells only</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">B. Sunflowers only</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">C. Galaxies only</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">D. All of the above and more</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>4. What does the 50% retracement level represent psychologically?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">A. The halfway point where traders hesitate and take profits</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">B. The point of maximum fear</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">C. The point of maximum greed</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. A meaningless level</div>
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <p><strong>5. Which Quranic concept best relates to the 61.8% Fibonacci level?</strong></p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">A. "And do not walk upon the earth exultantly" - humility</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">B. "Indeed, with hardship comes ease" - hope after despair</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'correct')">C. "And the heaven He raised and imposed the balance" - divine proportion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'incorrect')">D. "And We made your sleep a rest" - rest before continuation</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <button onclick="checkAllAnswers()" style="background: #312e81; color: white; border: none; padding: 12px 30px; border-radius: 50px; font-weight: 600; cursor: pointer;">Check All Answers</button>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div style="background: #f1f5f9; border-radius: 20px; padding: 30px; margin: 40px 0;">
+            <h3 style="margin-bottom: 20px;">📋 Key Takeaways</h3>
+            <ul style="margin-left: 20px;">
+                <li><strong>Fibonacci is Allah's signature</strong> - The same proportion appears throughout creation, from seashells to galaxies to markets</li>
+                <li><strong>61.8% is the divine balance</strong> - The most significant retracement level, where markets find equilibrium</li>
+                <li><strong>38.2% shows trend strength</strong> - Shallow retracements indicate powerful trends</li>
+                <li><strong>50% is psychological</strong> - Not Fibonacci, but powerful because humans think in halves</li>
+                <li><strong>Extensions project targets</strong> - 127.2% and 161.8% are common profit-taking levels</li>
+                <li><strong>Confluence is key</strong> - When Fibonacci aligns with other technical factors, signals are stronger</li>
+            </ul>
+            <p style="margin-top: 20px; font-style: italic; text-align: center;">"He who created seven heavens in layers. You will not see in the creation of the Most Merciful any inconsistency. So return your vision to the sky; do you see any breaks?" (Quran 67:3)</p>
+        </div>
+
+        <!-- 📚 REFERENCES & FURTHER STUDY -->
+        <div style="background: #f8fafc; border-radius: 20px; padding: 30px; margin: 40px 0;">
+            <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: #1e293b;">
+                <i class="fas fa-book" style="color: #312e81;"></i> References & Further Study
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div>
+                    <h4 style="color: #312e81; margin-bottom: 10px; font-size: 16px;">📖 Recommended Books</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0; font-size: 14px; color: #475569;">• "Technical Analysis of Financial Markets" - John Murphy</li>
+                        <li style="margin: 8px 0; font-size: 14px; color: #475569;">• "Japanese Candlestick Charting Techniques" - Steve Nison</li>
+                        <li style="margin: 8px 0; font-size: 14px; color: #475569;">• "Trading for a Living" - Dr. Alexander Elder</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #312e81; margin-bottom: 10px; font-size: 16px;">🌐 Online Resources</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.investopedia.com" target="_blank" style="color: #312e81; text-decoration: none;">Investopedia</a>
+                            <span style="color: #64748b; font-size: 12px; margin-left: 5px;">(Free tutorials)</span>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.tradingview.com" target="_blank" style="color: #312e81; text-decoration: none;">TradingView</a>
+                            <span style="color: #64748b; font-size: 12px; margin-left: 5px;">(Charting platform)</span>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.stockcharts.com" target="_blank" style="color: #312e81; text-decoration: none;">StockCharts.com</a>
+                            <span style="color: #64748b; font-size: 12px; margin-left: 5px;">(Chart school)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #312e81; margin-bottom: 10px; font-size: 16px;">🕌 Islamic Finance</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="/resources/islamic-vs-conventional.html" style="color: #312e81; text-decoration: none;">Islamic vs Conventional Finance</a>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="https://www.aaoifi.com" target="_blank" style="color: #312e81; text-decoration: none;">AAOIFI Standards</a>
+                        </li>
+                        <li style="margin: 8px 0; font-size: 14px;">
+                            <a href="/resources/references/islamic-finance/" style="color: #312e81; text-decoration: none;">More Islamic Resources →</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-size: 13px; color: #64748b; text-align: center;">
+                <i class="fas fa-link"></i> For a complete list of resources, visit our 
+                <a href="/resources" style="color: #312e81; text-decoration: none; font-weight: 500;">Learning Resources Hub</a>
+            </p>
+        </div>
+
+        <!-- Navigation -->
+        <div style="display: flex; justify-content: space-between; margin-top: 40px;">
+            <a href="/trading/learn/advanced-technical/02-candlestick-patterns.html" style="color: #312e81; text-decoration: none;">← Previous: Candlestick Patterns</a>
+            <a href="/trading/learn/advanced-technical/04-elliott-wave.html" style="color: #312e81; text-decoration: none;">Next: Elliott Wave Theory →</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May you see Allah's signs in the markets as clearly as in the stars above</p>
+        <p style="margin-top: 10px;">© 2026 Fatimah Financial Hub • Lesson 3 of 5 (Advanced Technical Series)</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, result) {
+            const parent = element.parentNode;
+            Array.from(parent.children).forEach(child => {
+                child.classList.remove('correct', 'incorrect');
+            });
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+        }
+
+        function checkAllAnswers() {
+            alert('Check your answers above! Green = correct, Red = incorrect. Each question has one correct answer.');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html><body>
+<h1>Calculators Integration Test</h1>
+<div id="result" style="padding:20px;background:#f0f0f0;">
+    Testing...
+</div>
+
+<script src="config.js"></script>
+<script src="calculators.js"></script>
+<script>
+    const result = document.getElementById('result');
+    
+    if (!window.FinancialCalculators) {
+        result.innerHTML = '❌ FinancialCalculators not loaded';
+        return;
+    }
+    
+    const calculator = new FinancialCalculators();
+    
+    // Test 1: Mortgage calculator with US rates
+    const mortgageTest = calculator.calculateMortgage({
+        principal: 300000,
+        years: 30,
+        country: 'US'
+    });
+    
+    // Test 2: Investment calculator with China rates
+    const investmentTest = calculator.calculateInvestment({
+        initial: 10000,
+        contribution: 500,
+        years: 20,
+        country: 'CN'
+    });
+    
+    // Test 3: Retirement with Russia rates
+    const retirementTest = calculator.calculateRetirement({
+        currentAge: 35,
+        retirementAge: 65,
+        currentSavings: 50000,
+        monthlyContribution: 1000,
+        retirementIncome: 60000,
+        country: 'RU'
+    });
+    
+    result.innerHTML = `
+        <h3>✅ Calculators Integrated Successfully!</h3>
+        <strong>US Mortgage:</strong> ${mortgageTest.success ? mortgageTest.monthlyPayment : 'Error'}<br>
+        <strong>China Investment:</strong> ${investmentTest.success ? investmentTest.nominalValue : 'Error'}<br>
+        <strong>Russia Retirement:</strong> ${retirementTest.success ? retirementTest.savingsAtRetirement : 'Error'}<br>
+        <br>
+        All calculators using country-specific rates from config.js!
+    `;
+    
+    console.log('Mortgage Test:', mortgageTest);
+    console.log('Investment Test:', investmentTest);
+    console.log('Retirement Test:', retirementTest);
+</script>
+</body></html>

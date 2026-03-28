@@ -1,0 +1,568 @@
+/**
+ * Advanced Financial Calculators
+ * Integrates with FinancialConfig for global rate support
+ */
+
+class FinancialCalculators {
+    constructor() {
+        this.config = window.FinancialConfig || new FinancialConfig();
+        this.results = {};
+    }
+
+    /**
+     * Mortgage Calculator with global rate support
+     */
+    calculateMortgage(params) {
+        try {
+            const {
+                principal,
+                annualRate = null, // If null, uses country default
+                years,
+                country = this.config.userSettings.country,
+                loanType = 'fixed',
+                paymentFrequency = 'monthly'
+            } = params;
+
+            // Use provided rate or get country default
+            const rate = annualRate !== null ? annualRate : 
+                        this.config.getRate('mortgage30yr', country);
+
+            const monthlyRate = rate / 100 / 12;
+            const numPayments = years * 12;
+            
+            // Calculate payment
+            let monthlyPayment;
+            if (loanType === 'interestOnly') {
+                monthlyPayment = principal * monthlyRate;
+            } else {
+                monthlyPayment = principal * 
+                    (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+                    (Math.pow(1 + monthlyRate, numPayments) - 1);
+            }
+
+            const totalPayment = monthlyPayment * numPayments;
+            const totalInterest = totalPayment - principal;
+
+            // Generate amortization schedule
+            const schedule = this.generateAmortizationSchedule(
+                principal, monthlyRate, monthlyPayment, numPayments
+            );
+
+            // Calculate affordability metrics
+            const income = params.income || 0;
+            const housingRatio = (monthlyPayment * 12) / income * 100;
+            const debtToIncome = housingRatio + (params.otherDebt || 0);
+
+            return {
+                success: true,
+                country,
+                currency: this.config.getCurrencySymbol(this.config.countryData[country]?.currency),
+                monthlyPayment: this.formatCurrency(monthlyPayment, country),
+                totalPayment: this.formatCurrency(totalPayment, country),
+                totalInterest: this.formatCurrency(totalInterest, country),
+                interestRate: this.formatPercentage(rate),
+                affordability: {
+                    housingRatio: this.formatPercentage(housingRatio),
+                    debtToIncome: this.formatPercentage(debtToIncome),
+                    recommendation: this.getAffordabilityRecommendation(housingRatio, debtToIncome)
+                },
+                schedule: schedule.yearly,
+                keyMetrics: {
+                    interestToPrincipal: this.formatPercentage((totalInterest / principal) * 100),
+                    monthlyPrincipal: this.formatCurrency(monthlyPayment - (principal * monthlyRate), country),
+                    monthlyInterest: this.formatCurrency(principal * monthlyRate, country)
+                }
+            };
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    /**
+     * Investment Calculator with country-specific returns
+     */
+    calculateInvestment(params) {
+        try {
+            const {
+                initial,
+                contribution,
+                contributionFrequency = 'monthly',
+                annualRate = null,
+                years,
+                country = this.config.userSettings.country,
+                inflationAdjusted = true,
+                taxAdjusted = false
+            } = params;
+
+            // Get country-specific return rate if not provided
+            const rate = annualRate !== null ? annualRate : 
+                        this.config.getRate('retirementReturn', country);
+
+            // Convert to period rate
+            const periodsPerYear = {
+                monthly: 12,
+                quarterly: 4,
+                annually: 1
+            }[contributionFrequency] || 12;
+
+            const periods = years * periodsPerYear;
+            const periodRate = rate / 100 / periodsPerYear;
+            const periodContribution = contribution / (12 / periodsPerYear);
+
+            // Future value calculations
+            const fvInitial = initial * Math.pow(1 + periodRate, periods);
+            const fvContributions = periodContribution * 
+                ((Math.pow(1 + periodRate, periods) - 1) / periodRate);
+            
+            let futureValue = fvInitial + fvContributions;
+            const totalContributions = initial + (periodContribution * periods);
+            const earnings = futureValue - totalContributions;
+
+            // Adjust for inflation
+            let realValue = futureValue;
+            if (inflationAdjusted) {
+                const inflation = this.config.getRate('inflation', country);
+                const inflationFactor = Math.pow(1 + inflation / 100, years);
+                realValue = futureValue / inflationFactor;
+            }
+
+            // Adjust for taxes
+            let afterTaxValue = futureValue;
+            if (taxAdjusted) {
+                const taxRate = this.config.getRate('taxCapitalGains', country);
+                const taxableEarnings = earnings * 0.8; // Assume 80% taxable
+                const taxes = taxableEarnings * (taxRate / 100);
+                afterTaxValue = futureValue - taxes;
+            }
+
+            // Generate projections
+            const projections = this.generateInvestmentProjections(
+                initial, periodContribution, periodRate, periods, periodsPerYear, country
+            );
+
+            return {
+                success: true,
+                country,
+                currency: this.config.getCurrencySymbol(this.config.countryData[country]?.currency),
+                nominalValue: this.formatCurrency(futureValue, country),
+                realValue: this.formatCurrency(realValue, country),
+                afterTaxValue: this.formatCurrency(afterTaxValue, country),
+                totalContributions: this.formatCurrency(totalContributions, country),
+                totalEarnings: this.formatCurrency(earnings, country),
+                annualizedReturn: this.formatPercentage(
+                    (Math.pow(futureValue / totalContributions, 1 / years) - 1) * 100
+                ),
+                ruleOf72: (72 / rate).toFixed(1) + ' years to double',
+                projections,
+                metrics: {
+                    inflationImpact: this.formatCurrency(futureValue - realValue, country),
+                    taxImpact: this.formatCurrency(futureValue - afterTaxValue, country),
+                    safeWithdrawal: this.formatCurrency(futureValue * 0.04, country) + '/year'
+                }
+            };
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    /**
+     * Retirement Planner with global social systems
+     */
+    calculateRetirement(params) {
+        try {
+            const {
+                currentAge,
+                retirementAge,
+                currentSavings,
+                monthlyContribution,
+                expectedReturn = null,
+                retirementIncome,
+                country = this.config.userSettings.country,
+                lifeExpectancy = 85,
+                includeSocialSecurity = true
+            } = params;
+
+            // Get country-specific return rate
+            const rate = expectedReturn !== null ? expectedReturn : 
+                        this.config.getRate('retirementReturn', country);
+
+            const yearsToRetirement = retirementAge - currentAge;
+            const retirementYears = lifeExpectancy - retirementAge;
+
+            // Calculate savings at retirement
+            const investmentResult = this.calculateInvestment({
+                initial: currentSavings,
+                contribution: monthlyContribution,
+                annualRate: rate,
+                years: yearsToRetirement,
+                country
+            });
+
+            if (!investmentResult.success) throw new Error(investmentResult.error);
+
+            const savingsAtRetirement = this.parseCurrency(investmentResult.nominalValue);
+            
+            // Adjust for inflation
+            const inflation = this.config.getRate('inflation', country);
+            const inflationFactor = Math.pow(1 + inflation / 100, yearsToRetirement);
+            const inflatedIncome = retirementIncome * inflationFactor;
+            
+            // Include social security/pension if available
+            let socialSecurity = 0;
+            if (includeSocialSecurity && this.config.countryData[country]?.retirement?.socialSecurity) {
+                socialSecurity = this.estimateSocialSecurity(retirementIncome, country);
+            }
+            
+            const monthlyIncomeNeeded = (inflatedIncome - socialSecurity) / 12;
+
+            // Calculate withdrawal sustainability
+            const monthlyReturnRate = rate / 100 / 12;
+            const withdrawalRate = this.config.getRate('withdrawalRate', country) / 100;
+            const sustainableIncome = savingsAtRetirement * withdrawalRate;
+            const yearsFundsWillLast = this.calculateRetirementDuration(
+                savingsAtRetirement, monthlyIncomeNeeded, monthlyReturnRate
+            );
+
+            // Generate scenarios
+            const scenarios = this.generateRetirementScenarios(params, savingsAtRetirement, country);
+
+            return {
+                success: true,
+                country,
+                currency: this.config.getCurrencySymbol(this.config.countryData[country]?.currency),
+                savingsAtRetirement: investmentResult.nominalValue,
+                monthlyIncomeNeeded: this.formatCurrency(monthlyIncomeNeeded, country),
+                socialSecurity: this.formatCurrency(socialSecurity, country),
+                sustainableIncome: this.formatCurrency(sustainableIncome, country),
+                withdrawalRate: this.formatPercentage(withdrawalRate * 100),
+                yearsFundsWillLast: yearsFundsWillLast.toFixed(1),
+                retirementReadiness: this.calculateReadinessScore(
+                    monthlyIncomeNeeded, sustainableIncome, yearsFundsWillLast, retirementYears
+                ),
+                scenarios,
+                recommendations: this.generateRetirementRecommendations(
+                    params, yearsFundsWillLast, retirementYears, country
+                )
+            };
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    /**
+     * Loan Analysis with country-specific rates
+     */
+    analyzeLoan(params) {
+        try {
+            const {
+                loanAmount,
+                interestRate = null,
+                loanTerm,
+                country = this.config.userSettings.country,
+                loanType = 'amortizing',
+                extraPayment = 0
+            } = params;
+
+            // Use provided rate or country default
+            const rate = interestRate !== null ? interestRate : 
+                        this.config.getRate('mortgage30yr', country);
+
+            const monthlyRate = rate / 100 / 12;
+            const numPayments = loanTerm * 12;
+
+            // Calculate payment
+            let monthlyPayment;
+            if (loanType === 'interestOnly') {
+                monthlyPayment = loanAmount * monthlyRate;
+            } else {
+                monthlyPayment = loanAmount * 
+                    (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / 
+                    (Math.pow(1 + monthlyRate, numPayments) - 1);
+            }
+
+            // Analyze payoff strategies
+            const strategies = {
+                minimum: this.calculatePayoffStrategy(loanAmount, monthlyRate, monthlyPayment, 0, numPayments, country),
+                withExtra: this.calculatePayoffStrategy(loanAmount, monthlyRate, monthlyPayment, extraPayment, numPayments, country),
+                lumpSum: this.calculateLumpSumStrategy(loanAmount, monthlyRate, monthlyPayment, numPayments, country)
+            };
+
+            const totalCost = strategies.minimum.totalPaid;
+            const totalInterest = strategies.minimum.totalInterest;
+
+            return {
+                success: true,
+                country,
+                currency: this.config.getCurrencySymbol(this.config.countryData[country]?.currency),
+                monthlyPayment: this.formatCurrency(monthlyPayment, country),
+                totalCost: this.formatCurrency(totalCost, country),
+                totalInterest: this.formatCurrency(totalInterest, country),
+                interestPercentage: this.formatPercentage((totalInterest / totalCost) * 100),
+                interestRate: this.formatPercentage(rate),
+                strategies,
+                bestStrategy: this.determineBestStrategy(strategies),
+                savings: {
+                    withExtra: this.formatCurrency(strategies.minimum.totalInterest - strategies.withExtra.totalInterest, country),
+                    timeSaved: Math.round((strategies.minimum.months - strategies.withExtra.months) / 12) + ' years'
+                }
+            };
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    /**
+     * Portfolio Analysis with country-specific asset returns
+     */
+    analyzePortfolio(params) {
+        try {
+            const { 
+                holdings,
+                country = this.config.userSettings.country,
+                riskFreeRate = null
+            } = params;
+
+            if (!holdings || holdings.length === 0) {
+                throw new Error('Portfolio holdings required');
+            }
+
+            // Use country-specific risk-free rate
+            const rfRate = riskFreeRate !== null ? riskFreeRate : 
+                          this.config.getRate('centralBank', country);
+
+            const totalValue = holdings.reduce((sum, h) => sum + (h.value || 0), 0);
+            
+            // Calculate allocations
+            const sectorAllocation = this.calculateSectorAllocation(holdings);
+            const geographicAllocation = this.calculateGeographicAllocation(holdings);
+            const assetAllocation = this.calculateAssetAllocation(holdings);
+
+            // Calculate risk metrics
+            const volatility = this.estimatePortfolioVolatility(holdings, country);
+            const expectedReturn = this.estimatePortfolioReturn(holdings, country);
+            const sharpeRatio = this.calculateSharpeRatio(expectedReturn, rfRate, volatility);
+            const diversificationScore = this.calculateDiversificationScore(holdings);
+
+            return {
+                success: true,
+                country,
+                currency: this.config.getCurrencySymbol(this.config.countryData[country]?.currency),
+                portfolioValue: this.formatCurrency(totalValue, country),
+                numberOfHoldings: holdings.length,
+                allocation: {
+                    sectors: sectorAllocation,
+                    geographic: geographicAllocation,
+                    assets: assetAllocation
+                },
+                riskMetrics: {
+                    expectedReturn: this.formatPercentage(expectedReturn),
+                    expectedVolatility: this.formatPercentage(volatility),
+                    sharpeRatio: sharpeRatio.toFixed(2),
+                    diversificationScore: this.formatPercentage(diversificationScore),
+                    beta: this.calculatePortfolioBeta(holdings, country).toFixed(2),
+                    valueAtRisk: this.calculateValueAtRisk(totalValue, volatility, country)
+                },
+                recommendations: this.generatePortfolioRecommendations(
+                    holdings, sectorAllocation, sharpeRatio, diversificationScore, country
+                )
+            };
+        } catch (error) {
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    }
+
+    // ========== HELPER METHODS ==========
+
+    generateAmortizationSchedule(principal, rate, payment, periods) {
+        let balance = principal;
+        const monthly = [];
+        const yearly = [];
+
+        for (let i = 1; i <= periods; i++) {
+            const interest = balance * rate;
+            const principalPaid = payment - interest;
+            balance -= principalPaid;
+
+            monthly.push({
+                month: i,
+                payment: this.formatCurrency(payment),
+                principal: this.formatCurrency(principalPaid),
+                interest: this.formatCurrency(interest),
+                balance: this.formatCurrency(Math.max(0, balance))
+            });
+
+            if (i % 12 === 0) {
+                yearly.push({
+                    year: i / 12,
+                    totalPayment: this.formatCurrency(payment * 12),
+                    totalPrincipal: this.formatCurrency(
+                        monthly.slice(-12).reduce((sum, m) => sum + parseFloat(m.principal.replace(/[^0-9.-]+/g, '')), 0)
+                    ),
+                    totalInterest: this.formatCurrency(
+                        monthly.slice(-12).reduce((sum, m) => sum + parseFloat(m.interest.replace(/[^0-9.-]+/g, '')), 0)
+                    ),
+                    remainingBalance: this.formatCurrency(Math.max(0, balance))
+                });
+            }
+        }
+
+        return { monthly, yearly };
+    }
+
+    generateInvestmentProjections(initial, contribution, rate, periods, periodsPerYear, country) {
+        const projections = [];
+        let balance = initial;
+        let year = 1;
+
+        for (let i = 1; i <= periods; i++) {
+            balance = balance * (1 + rate) + contribution;
+
+            if (i % periodsPerYear === 0) {
+                const totalInvested = initial + (contribution * i);
+                const gains = balance - totalInvested;
+                
+                projections.push({
+                    year,
+                    balance: this.formatCurrency(balance, country),
+                    contributions: this.formatCurrency(totalInvested, country),
+                    gains: this.formatCurrency(gains, country),
+                    annualReturn: this.formatPercentage(((balance / (initial + (contribution * (i - periodsPerYear)))) - 1) * 100)
+                });
+                year++;
+            }
+        }
+
+        return projections;
+    }
+
+    calculateRetirementDuration(savings, monthlyWithdrawal, monthlyReturn) {
+        if (monthlyWithdrawal <= savings * monthlyReturn) return Infinity;
+        
+        let balance = savings;
+        let months = 0;
+        
+        while (balance > 0 && months < 1200) {
+            const interest = balance * monthlyReturn;
+            balance = balance + interest - monthlyWithdrawal;
+            months++;
+        }
+        
+        return months / 12;
+    }
+
+    calculatePayoffStrategy(principal, rate, payment, extra, periods, country) {
+        let balance = principal;
+        let totalInterest = 0;
+        let months = 0;
+        const totalPayment = payment + extra;
+
+        while (balance > 0 && months < periods) {
+            const interest = balance * rate;
+            totalInterest += interest;
+            
+            const principalPaid = totalPayment - interest;
+            balance -= principalPaid;
+            months++;
+
+            if (balance <= 0) break;
+        }
+
+        return {
+            months,
+            years: (months / 12).toFixed(1),
+            totalInterest: this.formatCurrency(totalInterest, country),
+            totalPaid: this.formatCurrency(principal + totalInterest, country),
+            interestSaved: '0' // Will be calculated in comparison
+        };
+    }
+
+    // ========== FORMATTING METHODS ==========
+
+    formatCurrency(amount, country = 'US') {
+        const countryData = this.config.countryData[country];
+        const currency = countryData?.currency || 'USD';
+        const symbol = countryData?.symbol || '$';
+        
+        try {
+            // For major currencies with proper formatting
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: currency,
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            
+            // Handle currencies that might not be in Intl
+            try {
+                return formatter.format(amount);
+            } catch (e) {
+                return symbol + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            }
+        } catch (e) {
+            return symbol + amount.toFixed(2);
+        }
+    }
+
+    formatPercentage(value) {
+        return value.toFixed(2) + '%';
+    }
+
+    parseCurrency(currencyString) {
+        return parseFloat(currencyString.replace(/[^0-9.-]+/g, ''));
+    }
+
+    // ========== RECOMMENDATION METHODS ==========
+
+    getAffordabilityRecommendation(housingRatio, debtToIncome) {
+        if (housingRatio > 28) return 'Consider less expensive home';
+        if (debtToIncome > 36) return 'Reduce other debts first';
+        if (housingRatio < 20) return 'Comfortably affordable';
+        return 'Within recommended limits';
+    }
+
+    calculateReadinessScore(needed, sustainable, yearsLast, retirementYears) {
+        const incomeCoverage = sustainable / needed;
+        const durationCoverage = yearsLast / retirementYears;
+        const score = (incomeCoverage * 0.6 + durationCoverage * 0.4) * 100;
+        
+        if (score >= 100) return 'Fully ready';
+        if (score >= 80) return 'Mostly ready';
+        if (score >= 60) return 'Somewhat ready';
+        return 'Needs improvement';
+    }
+
+    determineBestStrategy(strategies) {
+        const minInterest = Math.min(
+            this.parseCurrency(strategies.minimum.totalInterest),
+            this.parseCurrency(strategies.withExtra.totalInterest),
+            this.parseCurrency(strategies.lumpSum.totalInterest)
+        );
+        
+        if (minInterest === this.parseCurrency(strategies.withExtra.totalInterest)) return 'withExtra';
+        if (minInterest === this.parseCurrency(strategies.lumpSum.totalInterest)) return 'lumpSum';
+        return 'minimum';
+    }
+
+    // More methods would be here for portfolio calculations, etc.
+    // Keeping it concise for now
+}
+
+// Export for browser
+if (typeof window !== 'undefined') {
+    window.FinancialCalculators = FinancialCalculators;
+}

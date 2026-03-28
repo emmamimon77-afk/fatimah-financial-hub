@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator - Return on Investment</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Main Layout */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .input-section {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            border-color: #2e8b57;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 139, 86, 0.1);
+        }
+        
+        .input-hint {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+        
+        /* Results Section */
+        .results-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #2e8b57;
+        }
+        
+        .roi-meter {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .roi-value {
+            font-size: 3.5rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin: 0.5rem 0;
+        }
+        
+        .roi-label {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .roi-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: bold;
+            color: white;
+            margin-top: 0.5rem;
+        }
+        
+        .badge-excellent { background: #2e8b57; }
+        .badge-good { background: #2196f3; }
+        .badge-fair { background: #ff9800; }
+        .badge-poor { background: #f44336; }
+        
+        /* Metric Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .metric-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .metric-card h4 {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-card .value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .metric-card .sub-value {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 0.25rem;
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table th {
+            background: #2e8b57;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        /* Explanation Cards */
+        .explanation-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .explanation-card {
+            background: linear-gradient(135deg, #0f4c5c 0%, #2e8b57 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .explanation-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .explanation-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .explanation-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 0.5rem;
+        }
+        
+        .explanation-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        /* Time Period Selector */
+        .period-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .period-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .period-btn.active {
+            background: #2e8b57;
+            color: white;
+            border-color: #2e8b57;
+        }
+        
+        .period-btn:hover {
+            border-color: #2e8b57;
+        }
+        
+        /* Islamic decoration */
+        .bismillah {
+            font-size: 1.5rem;
+            font-family: 'Traditional Arabic', serif;
+            text-align: center;
+            margin: 20px 0;
+            color: #4a6fa5;
+        }
+        
+        .hamdullah {
+            font-size: 1rem;
+            font-family: 'Traditional Arabic', serif;
+            text-align: center;
+            margin: 10px 0;
+            color: #666;
+        }
+        
+        @media (max-width: 968px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            .explanation-cards {
+                grid-template-columns: 1fr;
+            }
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                 <i class="fas fa-user" style="margin-right: 5px;"></i> Business Finance
+            </span>
+        </div>
+    </div>
+    
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="index.html" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Business Finance</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333; font-weight: 500;">ROI Calculator</span>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="bismillah">﷽</div>
+            <h1><i class="fas fa-chart-pie"></i> ROI Calculator</h1>
+            <p>Calculate Return on Investment and annualized returns for business projects</p>
+            <a href="index.html" class="back-link">← Back to Business Hub</a>
+        </div>
+        
+        <!-- Explanation Cards -->
+        <div class="explanation-cards">
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3>What It Does</h3>
+                <p>ROI measures the efficiency of an investment by comparing the gain or loss to its cost. Simple ROI = (Net Return ÷ Cost) × 100%. Annualized ROI accounts for time, letting you compare investments of different durations.</p>
+            </div>
+    
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Why It Matters</h3>
+                <p>ROI helps you compare different investment opportunities, evaluate past decisions, and set performance targets. A positive ROI means you're making money; negative means you're losing. Higher ROI indicates better investment efficiency.</p>
+            </div>
+    
+            <div class="explanation-card">
+                <div class="explanation-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Key Insights</h3>
+                <p>Consider time value - a 50% ROI over 1 year beats 100% over 5 years. Factor in all costs, not just purchase price. For Shariah-compliant investing, ensure the underlying business activities are permissible.</p>
+            </div>
+        </div>
+        
+        <!-- Main Calculator -->
+        <div class="calculator-card">
+            <div class="calculator-grid">
+                <!-- Input Section -->
+                <div class="input-section">
+                    <h3 style="margin-bottom: 1.5rem; color: #2e8b57;">
+                        <i class="fas fa-sliders-h"></i> Investment Details
+                    </h3>
+                    
+                    <div class="input-group">
+                        <label>Initial Investment ($)</label>
+                        <input type="number" id="initialInvestment" value="10000" min="0" step="1000">
+                        <div class="input-hint">Total money invested upfront</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Final Value ($)</label>
+                        <input type="number" id="finalValue" value="15000" min="0" step="1000">
+                        <div class="input-hint">Current or expected value</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Additional Income ($)</label>
+                        <input type="number" id="additionalIncome" value="2000" min="0" step="500">
+                        <div class="input-hint">Dividends, rent, or other income received</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Time Period</label>
+                        <div class="period-selector">
+                            <button class="period-btn active" data-period="months">Months</button>
+                            <button class="period-btn" data-period="years">Years</button>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Investment Duration</label>
+                        <input type="number" id="duration" value="3" min="0.1" step="0.5">
+                        <div class="input-hint">How long the investment was held</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Benchmark Rate (%)</label>
+                        <input type="number" id="benchmarkRate" value="10" step="0.5">
+                        <div class="input-hint">Compare against (e.g., stock market average)</div>
+                    </div>
+                </div>
+                
+                <!-- Results Section -->
+                <div class="results-section" id="results">
+                    <h3 style="margin-bottom: 1.5rem; color: #2e8b57;">
+                        <i class="fas fa-chart-bar"></i> ROI Analysis
+                    </h3>
+                    
+                    <div class="roi-meter" id="roiMeter">
+                        <!-- Dynamic content -->
+                    </div>
+                    
+                    <div class="metrics-grid" id="metrics">
+                        <!-- Dynamic metrics -->
+                    </div>
+                    
+                    <h4 style="margin: 1.5rem 0 1rem 0;">Comparison with Common Benchmarks</h4>
+                    <table class="comparison-table" id="comparisonTable">
+                        <!-- Dynamic comparison table -->
+                    </table>
+                    
+                    <div style="margin-top: 1.5rem; padding: 1rem; background: white; border-radius: 8px;" id="interpretation">
+                        <!-- Dynamic interpretation -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    // Format money with commas
+    function formatMoney(value) {
+        return parseFloat(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    }
+    
+    // Calculate ROI and related metrics
+    function calculateROI() {
+        // Get input values
+        const initialInvestment = parseFloat(document.getElementById('initialInvestment').value) || 0;
+        const finalValue = parseFloat(document.getElementById('finalValue').value) || 0;
+        const additionalIncome = parseFloat(document.getElementById('additionalIncome').value) || 0;
+        const duration = parseFloat(document.getElementById('duration').value) || 1;
+        const benchmarkRate = parseFloat(document.getElementById('benchmarkRate').value) || 10;
+        
+        // Get period type
+        const activePeriod = document.querySelector('.period-btn.active');
+        const isYears = activePeriod ? activePeriod.dataset.period === 'years' : true;
+        
+        // Convert duration to years for annualized calculations
+        const durationInYears = isYears ? duration : duration / 12;
+        
+        // Calculate total return and ROI
+        const totalReturn = (finalValue - initialInvestment) + additionalIncome;
+        const simpleROI = (totalReturn / initialInvestment) * 100;
+        
+        // Calculate annualized ROI
+        let annualizedROI = 0;
+        if (durationInYears > 0 && simpleROI > -100) {
+            const totalMultiplier = 1 + (simpleROI / 100);
+            annualizedROI = (Math.pow(totalMultiplier, 1 / durationInYears) - 1) * 100;
+        }
+        
+        // Calculate gain/loss
+        const gainLoss = totalReturn;
+        const gainLossPercent = (gainLoss / initialInvestment) * 100;
+        
+        // Determine rating
+        let rating, badgeClass;
+        if (annualizedROI >= 20) { rating = 'Excellent'; badgeClass = 'badge-excellent'; }
+        else if (annualizedROI >= 12) { rating = 'Good'; badgeClass = 'badge-good'; }
+        else if (annualizedROI >= 5) { rating = 'Fair'; badgeClass = 'badge-fair'; }
+        else { rating = 'Poor'; badgeClass = 'badge-poor'; }
+        
+        // Update ROI meter
+        document.getElementById('roiMeter').innerHTML = `
+            <div class="roi-label">Total Return on Investment</div>
+            <div class="roi-value" style="color: ${simpleROI >= 0 ? '#2e8b57' : '#f44336'}">
+                ${simpleROI >= 0 ? '+' : ''}${simpleROI.toFixed(2)}%
+            </div>
+            <div class="roi-label">Annualized Return</div>
+            <div style="font-size: 2rem; font-weight: bold; color: #2196f3;">
+                ${annualizedROI >= 0 ? '+' : ''}${annualizedROI.toFixed(2)}%
+            </div>
+            <div class="roi-badge ${badgeClass}">${rating} Return</div>
+        `;
+        
+        // Update metrics grid
+        document.getElementById('metrics').innerHTML = `
+            <div class="metric-card">
+                <h4>Total Gain/Loss</h4>
+                <div class="value" style="color: ${gainLoss >= 0 ? '#2e8b57' : '#f44336'}">
+                    $${formatMoney(Math.abs(gainLoss))}
+                </div>
+                <div class="sub-value">${gainLossPercent >= 0 ? '+' : ''}${gainLossPercent.toFixed(2)}%</div>
+            </div>
+            <div class="metric-card">
+                <h4>Final Value</h4>
+                <div class="value">$${formatMoney(finalValue)}</div>
+                <div class="sub-value">+ $${formatMoney(additionalIncome)} income</div>
+            </div>
+            <div class="metric-card">
+                <h4>Investment Period</h4>
+                <div class="value">${duration.toFixed(1)} ${isYears ? 'years' : 'months'}</div>
+                <div class="sub-value">${durationInYears.toFixed(2)} years</div>
+            </div>
+            <div class="metric-card">
+                <h4>vs Benchmark</h4>
+                <div class="value" style="color: ${annualizedROI >= benchmarkRate ? '#2e8b57' : '#f44336'}">
+                    ${annualizedROI >= benchmarkRate ? '+' : '-'}${Math.abs(annualizedROI - benchmarkRate).toFixed(2)}%
+                </div>
+                <div class="sub-value">Benchmark: ${benchmarkRate.toFixed(1)}%</div>
+            </div>
+        `;
+        
+        // Update comparison table
+        const benchmarks = [
+            { name: 'Savings Account', rate: 0.5, color: '#666' },
+            { name: 'Government Bonds', rate: 3.0, color: '#2196f3' },
+            { name: 'Stock Market (S&P 500)', rate: 10.0, color: '#4caf50' },
+            { name: 'Real Estate (Avg)', rate: 8.0, color: '#ff9800' },
+            { name: 'Venture Capital', rate: 25.0, color: '#f44336' }
+        ];
+        
+        let tableHTML = `
+            <thead>
+                <tr>
+                    <th>Investment Type</th>
+                    <th>Typical Return</th>
+                    <th>Your vs Benchmark</th>
+                </tr>
+            </thead>
+            <tbody>
+        `;
+        
+        benchmarks.forEach(b => {
+            const diff = annualizedROI - b.rate;
+            tableHTML += `
+                <tr>
+                    <td>${b.name}</td>
+                    <td style="color: ${b.color}; font-weight: bold;">+${b.rate.toFixed(1)}%</td>
+                    <td style="color: ${diff >= 0 ? '#2e8b57' : '#f44336'}; font-weight: bold;">
+                        ${diff >= 0 ? '+' : ''}${diff.toFixed(1)}%
+                    </td>
+                </tr>
+            `;
+        });
+        
+        tableHTML += '</tbody>';
+        document.getElementById('comparisonTable').innerHTML = tableHTML;
+        
+        // Update interpretation
+        let interpretation = '';
+        if (simpleROI < 0) {
+            interpretation = `⚠️ This investment lost money. You're down $${formatMoney(Math.abs(gainLoss))} (${Math.abs(gainLossPercent).toFixed(1)}% loss). Consider reviewing your investment strategy.`;
+        } else if (annualizedROI < benchmarkRate) {
+            interpretation = `📉 Your investment underperformed compared to the ${benchmarkRate.toFixed(1)}% benchmark. While you made a ${simpleROI.toFixed(1)}% total return, you might have done better in passive index funds.`;
+        } else if (annualizedROI >= 20) {
+            interpretation = `🚀 Excellent performance! Your ${annualizedROI.toFixed(1)}% annualized return significantly outperforms most investments. Consider if this level of return is sustainable.`;
+        } else {
+            interpretation = `✅ Solid performance. Your ${annualizedROI.toFixed(1)}% annualized return beats the ${benchmarkRate.toFixed(1)}% benchmark. This is a healthy return on investment.`;
+        }
+        
+        document.getElementById('interpretation').innerHTML = `
+            <h4 style="margin: 0 0 0.5rem 0; color: #2e8b57;">
+                <i class="fas fa-info-circle"></i> Investment Insight
+            </h4>
+            <p style="margin: 0; color: #666;">${interpretation}</p>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #888;">
+                <strong>Formula:</strong> ROI = [(Final Value - Initial Investment + Income) ÷ Initial Investment] × 100%
+            </p>
+        `;
+    }
+    
+    // Set up event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        // Input listeners
+        ['initialInvestment', 'finalValue', 'additionalIncome', 'duration', 'benchmarkRate'].forEach(id => {
+            document.getElementById(id).addEventListener('input', calculateROI);
+        });
+        
+        // Period selector listeners
+        document.querySelectorAll('.period-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                calculateROI();
+            });
+        });
+        
+        // Initial calculation
+        calculateROI();
+    });
+    </script>
+    
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                </a>
+                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                </a>
+                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                </a>
+                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+                <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+                </a>
+                <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+                </a>
+                <a href="/economics" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0;">
+                   <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics
+                </a>
+            </div>
+        </div>
+    
+        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+            <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+               <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+            </p>
+        </div>
+        <div class="hamdullah">الحمد لله</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiscal Policy Deep Dive - Lesson 13 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #7c3aed;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .debate-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            margin: 15px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/intermediate">Intermediate</a> › 
+                Lesson 13: Fiscal Policy Deep Dive
+            </div>
+            <div class="title-section">
+                <h1>Fiscal Policy Deep Dive</h1>
+                <span class="badge">Intermediate • 50 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 14 Quiz Questions</span>
+                <span><i class="fas fa-landmark"></i> Keynesian vs. Supply-Side</span>
+                <span><i class="fas fa-mosque"></i> Islamic Public Finance</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">مَّا أَفَاءَ اللَّهُ عَلَىٰ رَسُولِهِ مِنْ أَهْلِ الْقُرَىٰ فَلِلَّهِ وَلِلرَّسُولِ وَلِذِي الْقُرْبَىٰ وَالْيَتَامَىٰ وَالْمَسَاكِينِ وَابْنِ السَّبِيلِ كَيْ لَا يَكُونَ دُولَةً بَيْنَ الْأَغْنِيَاءِ مِنكُمْ</div>
+            <div class="translation">"So that it will not be a perpetual distribution among the rich from among you."</div>
+            <div class="reference">— Quran 59:7</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">This verse establishes a core principle of fiscal policy: wealth should circulate, not concentrate among the rich.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-landmark"></i>
+                Beyond the Basics
+            </div>
+            <p style="font-size: 18px;">In Lesson 7, we learned the fundamentals of fiscal policy. Now we dive deeper into the competing schools of thought, the mathematical models, historical case studies, and the complex politics of government spending and taxation.</p>
+            
+            <div class="definition-box">
+                <p><strong>🎯 Learning Goals:</strong> By the end of this lesson, you'll understand the Keynesian vs. Supply-Side debate, the multiplier effect in detail, the Laffer Curve, Ricardian Equivalence, and how Islamic public finance offers an alternative framework.</p>
+            </div>
+        </div>
+
+        <!-- The Great Debate: Keynesian vs. Supply-Side -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-scale-balanced"></i>
+                The Great Debate: Keynesian vs. Supply-Side Economics
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📈 Keynesian (Demand-Side)</h4>
+                    <p><strong>John Maynard Keynes • 1936</strong></p>
+                    <ul>
+                        <li>Focus on aggregate demand</li>
+                        <li>During recessions, government should spend more</li>
+                        <li>Multiplier effect: $1 spending → >$1 GDP</li>
+                        <li>Tax cuts for lower/middle class (they spend more)</li>
+                        <li>Government can run deficits to stabilize economy</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>📊 Supply-Side</h4>
+                    <p><strong>Arthur Laffer • 1970s</strong></p>
+                    <ul>
+                        <li>Focus on aggregate supply</li>
+                        <li>Lower taxes to incentivize work, investment, production</li>
+                        <li>Tax cuts for businesses and wealthy (they invest more)</li>
+                        <li>Deregulation to reduce costs</li>
+                        <li>Believe tax cuts can pay for themselves via growth</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ The Debate in Practice</h4>
+                <p><strong>Keynesian View of 2017 Tax Cuts:</strong> Mostly benefited wealthy, increased deficit without much growth.</p>
+                <p><strong>Supply-Side View of 2017 Tax Cuts:</strong> Boosted investment and brought manufacturing back.</p>
+                <p><strong>Result:</strong> Growth was modest (2-3%), deficits expanded significantly. The debate continues.</p>
+            </div>
+        </div>
+
+        <!-- The Multiplier Effect: Deep Dive -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-sync-alt"></i>
+                The Multiplier Effect: How $1 Becomes >$1
+            </div>
+
+            <div class="formula-box">
+                Multiplier = 1 / (1 - MPC)
+            </div>
+
+            <p><strong>Where MPC = Marginal Propensity to Consume</strong> (fraction of extra income spent, not saved)</p>
+
+            <div class="example-box">
+                <h4><i class="fas fa-calculator"></i> Worked Example</h4>
+                <p>Government spends $100 million on infrastructure. MPC = 0.8 (people spend 80% of extra income).</p>
+                <p><strong>Round 1:</strong> $100M → workers get paid → they spend $80M</p>
+                <p><strong>Round 2:</strong> $80M → store owners get paid → they spend $64M</p>
+                <p><strong>Round 3:</strong> $64M → and so on...</p>
+                <p><strong>Total:</strong> $100M × (1 + 0.8 + 0.64 + 0.512 + ...) = $100M × 5 = <strong>$500M</strong></p>
+                <p><strong>Multiplier = 1/(1-0.8) = 5</strong></p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>✅ High Multiplier ( > 2 )</h4>
+                    <ul>
+                        <li>Infrastructure spending</li>
+                        <li>Unemployment benefits</li>
+                        <li>Aid to low-income families</li>
+                        <li>During recessions (when MPC is high)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>❌ Low Multiplier ( < 1 )</h4>
+                    <ul>
+                        <li>Tax cuts for wealthy (they save more)</li>
+                        <li>Corporate tax cuts (may be saved or used for buybacks)</li>
+                        <li>During booms (when MPC is low)</li>
+                        <li>Imported goods (leakage from economy)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Empirical Estimates (2025)</h4>
+                <ul>
+                    <li>Infrastructure spending: 1.5 - 2.5</li>
+                    <li>Unemployment benefits: 1.6 - 2.2</li>
+                    <li>Tax cuts for low-income: 1.0 - 1.5</li>
+                    <li>Tax cuts for high-income: 0.3 - 0.6</li>
+                    <li>Corporate tax cuts: 0.2 - 0.5</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- The Laffer Curve -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-line"></i>
+                The Laffer Curve: Do Tax Cuts Pay for Themselves?
+            </div>
+
+            <div style="text-align: center; margin: 30px 0;">
+                <svg viewBox="0 0 400 250" style="width:100%; max-width:400px; background:#f1f5f9; border-radius:16px; padding:20px;">
+                    <!-- Axes -->
+                    <line x1="50" y1="200" x2="350" y2="200" stroke="#312e81" stroke-width="2"/>
+                    <line x1="50" y1="200" x2="50" y2="50" stroke="#312e81" stroke-width="2"/>
+                    
+                    <!-- Laffer Curve -->
+                    <path d="M50,200 Q150,50 250,50 Q300,80 350,200" stroke="#10b981" stroke-width="3" fill="none"/>
+                    
+                    <!-- Labels -->
+                    <text x="360" y="190" fill="#312e81" font-size="10">Tax Rate</text>
+                    <text x="20" y="40" fill="#312e81" font-size="10">Revenue</text>
+                    
+                    <!-- Points -->
+                    <circle cx="150" cy="80" r="4" fill="#ef4444"/>
+                    <text x="160" y="70" fill="#ef4444" font-size="10">Optimal</text>
+                </svg>
+            </div>
+
+            <p><strong>The Laffer Curve</strong> shows the relationship between tax rates and government revenue. At 0% tax, revenue = 0. At 100% tax, revenue = 0 (no one works). Somewhere in between lies the optimal rate that maximizes revenue.</p>
+
+            <div class="two-column">
+                <div>
+                    <h4>📉 On the "Wrong Side"</h4>
+                    <p>If tax rates are above the optimal point, cutting rates could INCREASE revenue by incentivizing more work, investment, and reducing tax avoidance.</p>
+                </div>
+                <div>
+                    <h4>📈 On the "Right Side"</h4>
+                    <p>If tax rates are below the optimal point, cutting rates would DECREASE revenue. Most economists believe most developed countries are on the right side.</p>
+                </div>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ The Reagan Experiment (1981-1986)</h4>
+                <p>Reagan cut top marginal rate from 70% to 28%. Revenue initially fell, then rose as economy grew. Supply-siders claim victory. Critics note that payroll taxes increased and defense spending rose—the deficit exploded.</p>
+                <p><strong>Kansas Experiment (2012-2017):</strong> Kansas cut income taxes dramatically. Economy didn't boom; revenue collapsed, forcing spending cuts in schools and infrastructure. Experiment reversed.</p>
+            </div>
+        </div>
+
+        <!-- Ricardian Equivalence -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exchange-alt"></i>
+                Ricardian Equivalence: Does Government Debt Matter?
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Robert Barro • Harvard Economist</h4>
+                <p>Revived David Ricardo's 19th-century idea: When government borrows, rational consumers save more because they expect future taxes to repay the debt. Result: Stimulus may have NO effect!</p>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> How It Works</h4>
+                <p>Government cuts taxes by $1000, borrowing the money. Rational you thinks: "They'll have to raise taxes by $1000 + interest in the future. I'll save this $1000 to pay those future taxes." Net effect on spending = $0.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>✅ Evidence FOR</h4>
+                    <ul>
+                        <li>Some studies show private savings rise with deficits</li>
+                        <li>Countries with high debt don't see higher interest rates (Japan)</li>
+                        <li>Long-term, stimulus effects seem to fade</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>❌ Evidence AGAINST</h4>
+                    <ul>
+                        <li>People are short-sighted (behavioral economics)</li>
+                        <li>Liquidity-constrained consumers spend tax cuts</li>
+                        <li>2008-2009 stimulus did increase spending</li>
+                        <li>Most evidence suggests partial Ricardian effects at best</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crowding Out -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-people-arrows"></i>
+                Crowding Out: When Government Spending Hurts Private Investment
+            </div>
+
+            <p><strong>Crowding out</strong> occurs when government borrowing drives up interest rates, making it more expensive for businesses to invest.</p>
+
+            <div class="two-column">
+                <div>
+                    <h4>📊 Direct Crowding Out</h4>
+                    <p>Government spends on roads → hires workers → fewer workers available for private sector → wages rise → private profits fall.</p>
+                </div>
+                <div>
+                    <h4>💰 Financial Crowding Out</h4>
+                    <p>Government borrows → demand for loans increases → interest rates rise → private investment becomes expensive → businesses invest less.</p>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> When Does Crowding Out Happen?</h4>
+                <ul>
+                    <li><strong>During booms:</strong> Severe crowding out (economy at full capacity)</li>
+                    <li><strong>During recessions:</strong> Little crowding out (idle resources, low rates)</li>
+                    <li><strong>Zero lower bound:</strong> Near-zero crowding out (2010-2020)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Case Study: The New Deal (1933-1939) -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Case Study: The New Deal
+            </div>
+
+            <div class="timeline-item">
+                <h4>📊 What Happened</h4>
+                <p>FDR's response to Great Depression: Massive public works (CCC, WPA), Social Security, banking reforms, agricultural programs.</p>
+                <p><strong>Spending:</strong> Federal spending rose from 3% of GDP to 10%.</p>
+                <p><strong>Deficit:</strong> Peaked at 5% of GDP (small by modern standards).</p>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ Did the New Deal End the Depression?</h4>
+                <p><strong>Keynesian View:</strong> Yes, but FDR didn't spend enough. Recovery was slow until WWII spending dwarfed New Deal.</p>
+                <p><strong>Monetarist View (Friedman):</strong> New Deal policies actually prolonged Depression with price controls, anti-business rhetoric.</p>
+                <p><strong>Historical Fact:</strong> Unemployment fell from 25% (1933) to 14% (1937), then spiked to 19% (1938) when FDR cut spending too early. Lesson: Premature austerity can cause double-dip recession.</p>
+            </div>
+        </div>
+
+        <!-- Case Study: 2008-2009 Stimulus -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Case Study: American Recovery and Reinvestment Act (2009)
+            </div>
+
+            <div class="timeline-item">
+                <h4>📊 What Happened</h4>
+                <p><strong>Size:</strong> $831 billion (about 5% of GDP)</p>
+                <p><strong>Components:</strong> Tax cuts (33%), state aid (33%), infrastructure/green energy (33%)</p>
+                <p><strong>Timing:</strong> Passed February 2009, most spending 2009-2011</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>✅ CBO Estimate</h4>
+                    <p>Raised GDP by 2-4% in 2010, saved/created 2-3 million jobs. Multiplier estimates: 1.0 to 2.5 depending on component.</p>
+                </div>
+                <div>
+                    <h4>❌ Criticisms</h4>
+                    <p>Too small relative to crisis. Too much tax cutting (low multiplier). Too slow to spend. Did not fully offset state/local cuts.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case Study: COVID-19 Response (2020-2021) -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Case Study: COVID-19 Fiscal Response
+            </div>
+
+            <div class="timeline-item">
+                <h4>📊 What Happened</h4>
+                <p><strong>CARES Act (March 2020):</strong> $2.2 trillion (stimulus checks, unemployment, PPP loans)</p>
+                <p><strong>Consolidated Appropriations Act (Dec 2020):</strong> $900 billion</p>
+                <p><strong>American Rescue Plan (March 2021):</strong> $1.9 trillion</p>
+                <p><strong>Total:</strong> ~$5 trillion (25% of GDP!) - largest fiscal response in history</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>✅ Successes</h4>
+                    <ul>
+                        <li>Poverty fell (stimulus checks)</li>
+                        <li>Fastest recovery in history</li>
+                        <li>Unemployment fell from 14.8% to 3.5% in 2 years</li>
+                        <li>Business bankruptcies lower than expected</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>❌ Failures</h4>
+                    <ul>
+                        <li>Contributed to 2021-2024 inflation</li>
+                        <li>Some PPP fraud ($80B estimated)</li>
+                        <li>Debt-to-GDP jumped from 107% to 123%</li>
+                        <li>Some argue it was "too much" stimulus</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ The Inflation Debate</h4>
+                <p><strong>Larry Summers (warning):</strong> "This is the least responsible macroeconomic policy in 40 years" (Feb 2021). He was right about inflation.</p>
+                <p><strong>Janet Yellen/Treasury:</strong> "Better to risk too much than too little."</p>
+                <p><strong>Result:</strong> Inflation peaked at 9% (2022), forcing aggressive rate hikes. Debate continues on optimal size.</p>
+            </div>
+        </div>
+
+        <!-- Sovereign Debt Crisis -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                When Fiscal Policy Fails: Sovereign Debt Crises
+            </div>
+
+            <div class="timeline-item">
+                <h4>🇬🇷 Greece (2010-2015)</h4>
+                <p>Debt-to-GDP > 170%. Markets lost confidence. Interest rates > 30%. EU/IMF bailouts required. Austerity caused 25% GDP loss. Unemployment > 27%.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>🇦🇷 Argentina (2001, 2018, 2023)</h4>
+                <p>Repeated defaults. Chronic fiscal deficits. Loss of confidence. Currency crashes. Poverty spikes.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>🇱🇰 Sri Lanka (2022)</h4>
+                <p>Defaulted on foreign debt. Ran out of money for food, fuel, medicine. Government collapsed.</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Warning Signs of Debt Crisis</h4>
+                <ul>
+                    <li>Persistent large deficits (5%+ of GDP)</li>
+                    <li>Rising debt-to-GDP ratio</li>
+                    <li>High foreign currency debt</li>
+                    <li>Loss of investor confidence (rising yields)</li>
+                    <li>Political instability</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Islamic Public Finance -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islamic Public Finance: A Third Way
+            </div>
+
+            <div class="psychology-box">
+                <h4>📜 Classical Islamic Fiscal System</h4>
+                <ul>
+                    <li><strong>Zakat:</strong> 2.5% wealth tax, redistributed to poor (8 categories in Quran)</li>
+                    <li><strong>Kharaj:</strong> Land tax (proportional, just)</li>
+                    <li><strong>Jizya:</strong> Protection tax for non-Muslims</li>
+                    <li><strong>Ushr:</strong> 10% tax on agricultural produce from owned land</li>
+                    <li><strong>Ghanimah:</strong> Spoils of war (20% to public treasury)</li>
+                    <li><strong>Waqf:</strong> Endowments for public goods (hospitals, schools, mosques)</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🕌 Modern Islamic Fiscal Tools</h4>
+                    <ul>
+                        <li><strong>Sukuk:</strong> Asset-backed public financing (instead of interest-bearing bonds)</li>
+                        <li><strong>Zakat funds:</strong> Separate state-managed poverty reduction</li>
+                        <li><strong>Waqf revitalization:</strong> Using old endowments for development</li>
+                        <li><strong>Islamic social finance:</strong> Zakat + Sadaqah + Qard Hasan</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🌍 Country Examples</h4>
+                    <ul>
+                        <li><strong>Malaysia:</strong> Sukuk for infrastructure (50% of government bonds)</li>
+                        <li><strong>Sudan:</strong> Interest-free treasury instruments</li>
+                        <li><strong>Indonesia:</strong> Waqf-based development projects</li>
+                        <li><strong>UAE:</strong> Dubai Islamic Bank finances public projects</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> How Would an Islamic Government Borrow?</h4>
+                <p>Instead of issuing interest-bearing bonds (haram), an Islamic government could:</p>
+                <ul>
+                    <li>Issue Sukuk (sell shares in a public asset like a toll road)</li>
+                    <li>Use Qard Hasan (interest-free loans from citizens, repaid at par)</li>
+                    <li>Establish Waqf for specific projects (donors get ongoing reward)</li>
+                    <li>Create development funds with profit-sharing (Mudaraba)</li>
+                </ul>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-balance-scale"></i> Justice in Taxation</h4>
+                <p>Abu Yusuf (8th century judge) wrote in <em>Kitab al-Kharaj</em>: "Justice in taxation means that the burden should be proportional to ability to pay, and the collector should be kind and not harsh with the people."</p>
+                <p>Islamic principles require:</p>
+                <ul>
+                    <li>Progressive but fair rates</li>
+                    <li>Transparency in collection and spending</li>
+                    <li>Priority on basic needs (maqasid al-shariah)</li>
+                    <li>No taxation without representation (shura)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 14 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What is the main difference between Keynesian and Supply-Side economics?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">A. Keynesians focus on demand; Supply-Siders focus on incentives to produce</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">B. Keynesians want lower taxes; Supply-Siders want higher spending</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. They are the same thing</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. Keynesians hate business; Supply-Siders hate workers</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> Keynesians focus on managing demand; Supply-Siders focus on removing barriers to production (taxes, regulation).
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. What is the multiplier formula?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">A. 1/(1-MPC)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">B. 1/MPC</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. MPC/(1-MPC)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. 1-MPC</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> Multiplier = 1/(1-MPC). If MPC = 0.8, multiplier = 5.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. What does the Laffer Curve show?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">A. Relationship between tax rates and government revenue</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. Relationship between spending and inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. Relationship between debt and growth</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. Relationship between unemployment and GDP</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> The Laffer Curve shows that tax revenue is zero at 0% and 100% rates, with an optimal point in between.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. What is Ricardian Equivalence?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">A. When consumers save more because they expect future taxes to repay debt</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">B. When government spending creates inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. When tax cuts always increase revenue</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. When deficits don't matter</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> Ricardian Equivalence suggests that rational consumers save tax cuts to pay future taxes, neutralizing stimulus.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What was the total US fiscal response to COVID-19?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">A. $1 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">B. $2 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">C. $5 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. $10 trillion</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> Total COVID fiscal response was about $5 trillion (CARES Act + Dec 2020 + American Rescue Plan).
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. What does "crowding out" mean?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">A. Government spending reduces private investment</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. Government spending increases private investment</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. People move from cities to suburbs</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Businesses leave the country</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> Crowding out occurs when government borrowing drives up interest rates, reducing private investment.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What happened in Greece during its debt crisis?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">A. Debt-to-GDP >170%, interest rates >30%, GDP fell 25%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. It grew rapidly</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. It defaulted and left the Euro</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. Nothing happened</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> Greece's crisis was severe: debt >170% of GDP, interest rates spiked, and austerity caused 25% GDP loss.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. Which Quranic verse establishes the principle of wealth circulation?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">A. "So that it will not be a perpetual distribution among the rich" (59:7)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">B. "And do not kill yourselves" (4:29)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. "And speak to people kindly" (2:83)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. "And establish prayer" (2:43)</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> Quran 59:7 explicitly states that wealth should not circulate only among the rich.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What is Sukuk in Islamic finance?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">A. Asset-backed Islamic bonds (ownership shares)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. Interest-bearing bonds</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. A type of tax</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. A charity fund</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> Sukuk represent ownership in an asset, not debt, making them Shariah-compliant alternatives to conventional bonds.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. What was the result of the Kansas tax cut experiment (2012-2017)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. Revenue collapsed, forcing spending cuts; experiment reversed</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Economy boomed, proving Laffer Curve</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. No change</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. Kansas became richest state</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Kansas' tax cuts failed to generate expected growth, leading to budget crises and eventual reversal.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. What is the estimated multiplier for infrastructure spending?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">A. 1.5 - 2.5</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. 0.2 - 0.5</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. 5 - 10</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. 0 - 0.1</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Infrastructure typically has a high multiplier (1.5-2.5) because it uses domestic labor and materials.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. What was Larry Summers' warning about the 2021 stimulus?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">A. It was too large and would cause inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">B. It was too small</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. It would cause deflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. It was perfect</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> Summers warned it was "the least responsible macroeconomic policy in 40 years" and would cause inflation—which happened.
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="quiz-question" id="q13">
+                <p>13. What is Waqf in Islamic economics?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'correct')">A. An endowment for public goods (hospitals, schools, mosques)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">B. A tax on the rich</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">C. Interest-free loan</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">D. Government bond</div>
+                </div>
+                <div class="explanation" id="exp-q13">
+                    <strong>✅ Correct!</strong> Waqf is an Islamic endowment where assets are donated for perpetual public benefit.
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="quiz-question" id="q14">
+                <p>14. During which phase of the business cycle is crowding out most severe?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'correct')">A. During booms (full employment)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">B. During recessions</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">C. During depressions</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">D. Always the same</div>
+                </div>
+                <div class="explanation" id="exp-q14">
+                    <strong>✅ Correct!</strong> Crowding out is most severe when the economy is at full capacity (booms), as resources are already fully employed.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"The General Theory" - John Maynard Keynes</a></li>
+                        <li><a href="#">"Supply-Side Economics" - Arthur Laffer</a></li>
+                        <li><a href="#">"This Time is Different" - Reinhart & Rogoff</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>📊 Academic Papers</h4>
+                    <ul>
+                        <li><a href="#">"Ricardian Equivalence: An Evaluation" - Robert Barro</a></li>
+                        <li><a href="#">"Fiscal Multipliers" - IMF Working Papers</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Public Finance</h4>
+                    <ul>
+                        <li><a href="#">"Kitab al-Kharaj" - Abu Yusuf</a></li>
+                        <li><a href="#">"Public Finance in Islam" - M. Umer Chapra</a></li>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Economics</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/intermediate/12-monetary-policy-deep-dive.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Monetary Policy Deep Dive</a>
+            <a href="/economics/learn/intermediate/14-phillips-curve.html" class="nav-link">Next: Phillips Curve & Inflation Dynamics <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May governments govern with justice and spend with wisdom</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 13 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في العشر الأواخر من رمضان</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

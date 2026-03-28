@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unemployment - Lesson 5 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+
+        .hadith-box {
+            background: linear-gradient(135deg, #312e81 0%, #1e1b4b 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #fbbf24;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/beginner">Beginner</a> › 
+                Lesson 5: Understanding Unemployment
+            </div>
+            <div class="title-section">
+                <h1>Unemployment</h1>
+                <span class="badge">Beginner • 35 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 12 Quiz Questions</span>
+                <span><i class="fas fa-trophy"></i> Natural Rate Theory</span>
+                <span><i class="fas fa-mosque"></i> Dignity of Work</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">وَأَن لَّيْسَ لِلْإِنسَانِ إِلَّا مَا سَعَىٰ</div>
+            <div class="translation">"And that man shall have nothing but what he strives for."</div>
+            <div class="reference">— Quran 53:39</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Work and striving are central to human dignity. Understanding unemployment helps us build societies where everyone can strive and prosper.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-users"></i>
+                What is Unemployment?
+            </div>
+            <p style="font-size: 18px;">Unemployment refers to people who are actively seeking work but cannot find jobs. It's one of the most important indicators of economic health and human welfare.</p>
+            
+            <div class="definition-box">
+                <p><strong>📚 Official Definition:</strong> To be counted as unemployed, a person must be:
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>✅ 16 years or older</li>
+                    <li>✅ Not working (but available to work)</li>
+                    <li>✅ Actively looked for work in the past 4 weeks</li>
+                </ul></p>
+            </div>
+
+            <div class="hadith-box">
+                <h4><i class="fas fa-star"></i> Prophet Muhammad (ﷺ) said:</h4>
+                <p style="font-size: 18px; font-style: italic; margin: 10px 0;">"No one eats better food than what they eat from the work of their own hands." (Bukhari)</p>
+                <p>Work is not just about income—it's about dignity, purpose, and fulfilling our role as vicegerents on earth.</p>
+            </div>
+        </div>
+
+        <!-- How Unemployment is Measured -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-calculator"></i>
+                How is Unemployment Measured?
+            </div>
+
+            <div class="formula-box">
+                Unemployment Rate = (Unemployed ÷ Labor Force) × 100
+            </div>
+
+            <p><strong>Labor Force = Employed + Unemployed</strong> (those actively seeking work)</p>
+
+            <div class="example-box">
+                <h4><i class="fas fa-city"></i> Example: City of 100,000 People</h4>
+                <p>Total adult population: 80,000<br>
+                Employed: 50,000<br>
+                Unemployed (actively seeking): 5,000<br>
+                Labor Force: 55,000<br>
+                <strong>Unemployment Rate = (5,000 ÷ 55,000) × 100 = 9.1%</strong></p>
+                <p>Note: The other 25,000 adults (students, retirees, discouraged workers) are "not in labor force"</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Important: Discouraged Workers</h4>
+                <p>People who have given up looking for work are NOT counted as unemployed. This means the official unemployment rate may UNDERSTATE the true problem. These "discouraged workers" are part of the U-6 measure (broader unemployment).</p>
+            </div>
+        </div>
+
+        <!-- Types of Unemployment -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-pie"></i>
+                The Four Types of Unemployment
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h3>1. Frictional Unemployment</h3>
+                    <p><strong>Short-term, natural movement</strong></p>
+                    <ul>
+                        <li>Between jobs (quit one, looking for next)</li>
+                        <li>New graduates entering workforce</li>
+                        <li>Moving to new city</li>
+                        <li><strong>Duration:</strong> Weeks to months</li>
+                        <li><strong>Actually healthy!</strong> Shows people seeking better opportunities</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h3>2. Structural Unemployment</h3>
+                    <p><strong>Skills mismatch</strong></p>
+                    <ul>
+                        <li>Jobs available, but workers lack skills</li>
+                        <li>Technology makes certain jobs obsolete</li>
+                        <li>Factories close, workers need retraining</li>
+                        <li><strong>Duration:</strong> Months to years</li>
+                        <li><strong>Requires:</strong> Education, training programs</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h3>3. Cyclical Unemployment</h3>
+                    <p><strong>Due to economic downturns</strong></p>
+                    <ul>
+                        <li>Recessions and depressions</li>
+                        <li>Lack of demand for goods/services</li>
+                        <li>People get laid off</li>
+                        <li><strong>Duration:</strong> Varies with economy</li>
+                        <li><strong>Solution:</strong> Government stimulus, lower interest rates</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h3>4. Seasonal Unemployment</h3>
+                    <p><strong>Predictable patterns</strong></p>
+                    <ul>
+                        <li>Farm workers after harvest</li>
+                        <li>Construction workers in winter</li>
+                        <li>Tourism workers off-season</li>
+                        <li><strong>Duration:</strong> Predictable, recurring</li>
+                        <li><strong>Expected, not alarming</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-store"></i> Real-World Examples</h4>
+                <p><strong>Frictional:</strong> Ahmed quits his job to find a better position. Takes 2 months to find the right fit.</p>
+                <p><strong>Structural:</strong> Fatimah worked in a factory for 20 years. The factory automated and she needs retraining for a new career.</p>
+                <p><strong>Cyclical:</strong> During 2020 pandemic, millions lost jobs as businesses closed due to lockdowns.</p>
+                <p><strong>Seasonal:</strong> Hassan works at a ski resort in winter, unemployed in summer.</p>
+            </div>
+        </div>
+
+        <!-- Natural Rate of Unemployment -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-balance-scale"></i>
+                Natural Rate of Unemployment
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Milton Friedman • Nobel Prize 1976</h4>
+                <p>Developed the concept of the "natural rate of unemployment" - the rate that exists even in a healthy economy due to frictional and structural factors.</p>
+            </div>
+
+            <div class="formula-box">
+                Natural Rate = Frictional + Structural Unemployment
+            </div>
+
+            <p><strong>Typical natural rate:</strong> 4-5% in developed economies</p>
+            <p><strong>Full employment:</strong> When actual unemployment = natural rate (NOT zero unemployment!)</p>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-chart-line"></i> NAIRU (Non-Accelerating Inflation Rate of Unemployment)</h4>
+                <p>The unemployment rate below which inflation starts to rise. If unemployment falls too low, workers demand higher wages, businesses raise prices, inflation spirals upward.</p>
+            </div>
+        </div>
+
+        <!-- Costs of Unemployment -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                The Human and Economic Costs
+            </div>
+
+            <div class="two-column">
+                <div class="column-card" style="background: #fee2e2;">
+                    <h3>💔 Personal Costs</h3>
+                    <ul>
+                        <li>Loss of income and savings</li>
+                        <li>Loss of dignity and purpose</li>
+                        <li>Mental health issues, depression</li>
+                        <li>Family stress, divorce</li>
+                        <li>Loss of skills (atrophy)</li>
+                        <li>Social isolation</li>
+                    </ul>
+                </div>
+                <div class="column-card" style="background: #fee2e2;">
+                    <h3>📉 Economic Costs</h3>
+                    <ul>
+                        <li>Lost GDP (output not produced)</li>
+                        <li>Lost tax revenue</li>
+                        <li>Increased welfare spending</li>
+                        <li>Social unrest, crime</li>
+                        <li>Wasted human potential</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="hadith-box" style="margin-top: 20px;">
+                <h4><i class="fas fa-heart"></i> Islamic Perspective</h4>
+                <p>The Prophet (ﷺ) taught us to care for the unemployed and needy. He said: "The one who looks after a widow or a poor person is like a warrior fighting for Allah's cause." (Bukhari)</p>
+                <p>Unemployment is not just an economic problem—it's a spiritual and social crisis. Islam emphasizes community support, zakat, and creating opportunities for dignified work.</p>
+            </div>
+        </div>
+
+        <!-- Unemployment Around the World -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-globe"></i>
+                Global Unemployment (2024-2025)
+            </div>
+
+            <div style="margin: 20px 0;">
+                <table style="width:100%; border-collapse: collapse;">
+                    <tr style="background: #312e81; color: white;">
+                        <th style="padding: 10px;">Country/Region</th>
+                        <th style="padding: 10px;">Unemployment Rate</th>
+                        <th style="padding: 10px;">Youth Unemployment</th>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 10px;">Japan</td>
+                        <td style="padding: 10px;">2.6%</td>
+                        <td style="padding: 10px;">4.5%</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 10px;">United States</td>
+                        <td style="padding: 10px;">3.8%</td>
+                        <td style="padding: 10px;">7.2%</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 10px;">European Union</td>
+                        <td style="padding: 10px;">6.2%</td>
+                        <td style="padding: 10px;">14.5%</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 10px;">South Africa</td>
+                        <td style="padding: 10px;">32.4%</td>
+                        <td style="padding: 10px;">59.4%</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 10px;">Saudi Arabia</td>
+                        <td style="padding: 10px;">5.1%</td>
+                        <td style="padding: 10px;">16.3%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Spain</td>
+                        <td style="padding: 10px;">11.7%</td>
+                        <td style="padding: 10px;">28.5%</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Youth Unemployment Crisis</h4>
+                <p>Youth unemployment (ages 15-24) is often 2-3 times higher than general unemployment. This creates a "lost generation" without skills, experience, or hope—a recipe for social instability.</p>
+            </div>
+        </div>
+
+        <!-- Solutions -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-tools"></i>
+                Solutions to Unemployment
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h3>🏛️ Government Policies</h3>
+                    <ul>
+                        <li>Education and training programs</li>
+                        <li>Unemployment benefits (temporary support)</li>
+                        <li>Job placement services</li>
+                        <li>Infrastructure spending (creates jobs)</li>
+                        <li>Tax incentives for hiring</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h3>💼 Private Sector</h3>
+                    <ul>
+                        <li>Apprenticeship programs</li>
+                        <li>On-the-job training</li>
+                        <li>Flexible work arrangements</li>
+                        <li>Entrepreneurship support</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-mosque"></i> Islamic Solutions</h4>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Zakat:</strong> Provides safety net for unemployed and poor</li>
+                    <li><strong>Qard Hasan:</strong> Interest-free loans for small businesses</li>
+                    <li><strong>Mudaraba:</strong> Profit-sharing partnerships for entrepreneurs</li>
+                    <li><strong>Waqf:</strong> Endowments that fund education and training</li>
+                    <li><strong>Community responsibility:</strong> "The believer is like a building—they support one another."</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Okun's Law Connection -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-link"></i>
+                Okun's Law: Unemployment and GDP
+            </div>
+
+            <div class="formula-box">
+                1% ↑ Unemployment → 2% ↓ GDP
+            </div>
+
+            <p>Arthur Okun discovered this relationship: when unemployment rises 1%, GDP typically falls about 2%. This shows why unemployment is such a critical indicator—it's directly tied to economic output and prosperity.</p>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Real Example</h4>
+                <p>If unemployment rises from 5% to 8% (3% increase):<br>
+                GDP loss ≈ 3% × 2 = 6% of GDP<br>
+                In a $20 trillion economy, that's $1.2 trillion lost—enough to fund healthcare, education, and infrastructure.</p>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 12 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. Who is counted as unemployed in official statistics?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">A. Anyone without a job</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">B. Jobless, available, and actively sought work in past 4 weeks</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. Discouraged workers who gave up looking</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. Full-time students</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> To be counted as unemployed, you must be jobless, currently available for work, and have actively looked in the past 4 weeks.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. What type of unemployment occurs when workers lack skills for available jobs?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">A. Frictional</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">B. Structural</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. Cyclical</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Seasonal</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> Structural unemployment happens when there's a mismatch between workers' skills and job requirements.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. What is the "natural rate of unemployment"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">A. Zero unemployment</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. Cyclical + Seasonal</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">C. Frictional + Structural</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. Total unemployment</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> The natural rate consists of frictional and structural unemployment. It's the rate that exists even in a healthy economy.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. During a recession, which type of unemployment rises?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">A. Frictional</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">B. Structural</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">C. Cyclical</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Seasonal</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> Cyclical unemployment rises during economic downturns due to lack of demand for goods and services.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What is Okun's Law?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">A. 1% ↑ unemployment → 1% ↓ GDP</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">B. 1% ↑ unemployment → 2% ↓ GDP</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">C. 1% ↑ unemployment → 3% ↓ GDP</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. 2% ↑ unemployment → 1% ↓ GDP</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> Okun's Law states that a 1% increase in unemployment leads to approximately 2% decrease in GDP.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. Who developed the concept of "natural rate of unemployment"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">A. John Maynard Keynes</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. Adam Smith</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">C. Milton Friedman</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Karl Marx</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> Milton Friedman won the Nobel Prize in 1976 for his work on the natural rate of unemployment and monetary policy.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What are "discouraged workers"?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">A. Workers who were fired</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. Workers on strike</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">C. People who gave up looking for work</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. Retired workers</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> Discouraged workers have stopped looking for work and are NOT counted in the official unemployment rate.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. Which type of unemployment is actually healthy for an economy?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">A. Cyclical</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">B. Structural</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">C. Frictional</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. Seasonal</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> Frictional unemployment shows people are seeking better opportunities, which leads to better job matches and higher productivity.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What does NAIRU stand for?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">A. National Average Income Rate Unit</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. North American Inflation Regulation Unit</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">C. Non-Accelerating Inflation Rate of Unemployment</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. Natural Adjustment of Inflation Rate</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> NAIRU is the unemployment rate below which inflation starts to rise.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. What Islamic concept provides a safety net for the unemployed?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. Zakat</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. Riba</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. Gharar</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. Maysir</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Zakat is an obligatory charity that provides for the poor, unemployed, and those in need.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. What is the typical natural rate of unemployment in developed economies?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">A. 0-1%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">B. 4-5%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. 8-10%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. 15-20%</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> Most developed economies have a natural unemployment rate of 4-5% due to normal frictional and structural factors.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. What did the Prophet (ﷺ) say about working for one's livelihood?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">A. "Prayer is better than work"</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">B. "No one eats better food than from the work of their own hands"</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. "Work is a punishment"</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. "Only the rich should work"</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> The Prophet emphasized the dignity of work, saying that earning through one's own effort is the best form of sustenance.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"Free to Choose" - Milton Friedman</a></li>
+                        <li><a href="#">"Principles of Economics" - Mankiw (Ch. 28)</a></li>
+                        <li><a href="#">"The General Theory" - John Maynard Keynes</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🌐 Data Sources</h4>
+                    <ul>
+                        <li><a href="https://www.bls.gov" target="_blank">Bureau of Labor Statistics</a></li>
+                        <li><a href="https://fred.stlouisfed.org" target="_blank">FRED - Unemployment Data</a></li>
+                        <li><a href="https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS" target="_blank">World Bank - Global Unemployment</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Economics</h4>
+                    <ul>
+                        <li><a href="/resources/zakat-calculator.html">Zakat Calculator</a></li>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic Economic System</a></li>
+                        <li><a href="https://isdb.org" target="_blank">Islamic Development Bank - Employment Programs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/beginner/04-inflation-basics.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Inflation Basics</a>
+            <a href="/economics/learn/beginner/06-monetary-policy.html" class="nav-link">Next: Monetary Policy <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May every striving soul find dignified work and provision</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 5 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في رمضان وتقبل منا</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

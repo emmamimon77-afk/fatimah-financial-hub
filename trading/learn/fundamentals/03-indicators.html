@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key Indicators - Fundamentals | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #312e81;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 32px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 15px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .indicator-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .indicator-card {
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+        .indicator-card:hover {
+            transform: translateY(-5px);
+        }
+        .indicator-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .indicator-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+        .indicator-value {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .indicator-signal {
+            font-size: 14px;
+            padding: 5px 12px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        .signal-buy { background: #d1fae5; color: #10b981; }
+        .signal-sell { background: #fee2e2; color: #ef4444; }
+        .signal-neutral { background: #fef3c7; color: #f59e0b; }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .psychology-box {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .quiz-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #312e81;
+            text-align: center;
+        }
+        .quiz-question {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-question p {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .quiz-option.correct-answer {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.wrong-answer {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .quiz-option.show-correct {
+            background: #d1fae5;
+            border-color: #10b981;
+            border-width: 3px;
+            position: relative;
+        }
+        .quiz-option.show-correct::after {
+            content: "✓ Correct Answer";
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 60px 20px 30px;
+            margin-top: 60px;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        .footer-logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .footer-logo i {
+            color: #fbbf24;
+        }
+        .footer-about {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .footer-links ul {
+            list-style: none;
+        }
+        .footer-links li {
+            margin: 10px 0;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            color: #fbbf24;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .indicator-grid, .two-column {
+                grid-template-columns: 1fr;
+            }
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            .title-section h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo"><i class="fas fa-mosque"></i> Fatimah Financial Hub</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="/trading">Trading Hub</a> › 
+            <a href="/trading/learn">Learning Center</a> › 
+            <a href="/trading/learn/fundamentals">Fundamentals</a> › 
+            Lesson 3: Key Indicators
+        </div>
+
+        <div class="lesson-header">
+            <div class="title-section">
+                <h1>Key Indicators</h1>
+                <span class="badge">Beginner • 35 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="fas fa-chart-line"></i> RSI, MACD, Moving Averages</span>
+                <span><i class="fas fa-brain"></i> Momentum & Trend</span>
+                <span><i class="fas fa-question-circle"></i> 10 Quiz Questions</span>
+            </div>
+        </div>
+
+        <div class="quran-verse">
+            <div class="arabic">إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّلْمُتَوَسِّمِينَ</div>
+            <div class="translation">"Indeed in that are signs for those who discern."</div>
+            <div class="reference">— Quran 15:75</div>
+            <p style="margin-top: 15px;">Technical indicators help us discern patterns and make informed decisions.</p>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="concept-card">
+            <h2 class="section-title">🎯 Learning Objectives</h2>
+            <ul style="margin-left: 20px;">
+                <li>Understand what RSI (Relative Strength Index) measures</li>
+                <li>Learn how MACD (Moving Average Convergence Divergence) works</li>
+                <li>Identify moving averages and their signals</li>
+                <li>Combine indicators for better trading decisions</li>
+                <li>Apply Islamic principles to indicator usage</li>
+            </ul>
+        </div>
+
+        <!-- Interactive Indicators Dashboard -->
+        <div class="indicator-grid">
+            <div class="indicator-card">
+                <div class="indicator-icon">📊</div>
+                <div class="indicator-title">RSI (14)</div>
+                <div class="indicator-value">52.4</div>
+                <div class="indicator-signal signal-neutral">Neutral</div>
+                <p style="margin-top: 10px; font-size: 12px;">Above 70 = Overbought<br>Below 30 = Oversold</p>
+            </div>
+            <div class="indicator-card">
+                <div class="indicator-icon">📈</div>
+                <div class="indicator-title">MACD</div>
+                <div class="indicator-value">1.23</div>
+                <div class="indicator-signal signal-buy">Bullish</div>
+                <p style="margin-top: 10px; font-size: 12px;">MACD > Signal = Bullish<br>MACD < Signal = Bearish</p>
+            </div>
+            <div class="indicator-card">
+                <div class="indicator-icon">📉</div>
+                <div class="indicator-title">Moving Averages</div>
+                <div class="indicator-value">MA20: $172<br>MA50: $168</div>
+                <div class="indicator-signal signal-buy">Golden Cross</div>
+                <p style="margin-top: 10px; font-size: 12px;">MA20 > MA50 = Uptrend</p>
+            </div>
+        </div>
+
+        <!-- RSI Deep Dive -->
+        <div class="concept-card">
+            <h2 class="section-title">📊 RSI - Relative Strength Index</h2>
+            <div class="two-column">
+                <div>
+                    <div class="formula-box">RSI = 100 - [100 / (1 + RS)]<br>RS = Average Gain / Average Loss (14 periods)</div>
+                    <p><strong>What it measures:</strong> Speed and change of price movements. Identifies overbought and oversold conditions.</p>
+                </div>
+                <div>
+                    <div class="example-box">
+                        <h4>📈 How to Use RSI</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li><strong>RSI > 70:</strong> Overbought → May be due for pullback</li>
+                            <li><strong>RSI < 30:</strong> Oversold → May be due for bounce</li>
+                            <li><strong>RSI 30-70:</strong> Neutral zone</li>
+                            <li><strong>Divergence:</strong> Price makes higher high but RSI makes lower high → Warning sign!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="psychology-box">
+                <h4>🧠 Psychology of RSI</h4>
+                <p>RSI reflects market sentiment. When RSI > 70, it means buyers are exhausted. When RSI < 30, sellers are exhausted. Patience is key - wait for confirmation!</p>
+            </div>
+        </div>
+
+        <!-- MACD Deep Dive -->
+        <div class="concept-card">
+            <h2 class="section-title">📈 MACD - Moving Average Convergence Divergence</h2>
+            <div class="two-column">
+                <div>
+                    <div class="formula-box">MACD = 12-period EMA - 26-period EMA<br>Signal Line = 9-period EMA of MACD<br>Histogram = MACD - Signal Line</div>
+                </div>
+                <div>
+                    <div class="example-box">
+                        <h4>📈 How to Use MACD</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li><strong>Bullish Crossover:</strong> MACD crosses above Signal Line → BUY signal</li>
+                            <li><strong>Bearish Crossover:</strong> MACD crosses below Signal Line → SELL signal</li>
+                            <li><strong>Histogram:</strong> Increasing bars show strengthening momentum</li>
+                            <li><strong>Divergence:</strong> Price up, MACD down → Reversal warning</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Moving Averages -->
+        <div class="concept-card">
+            <h2 class="section-title">📊 Moving Averages</h2>
+            <div class="two-column">
+                <div>
+                    <div class="formula-box">SMA = Sum of closing prices / Number of periods</div>
+                    <p><strong>Types:</strong> Simple (SMA), Exponential (EMA) - gives more weight to recent prices</p>
+                </div>
+                <div>
+                    <div class="example-box">
+                        <h4>📈 How to Use Moving Averages</h4>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li><strong>Golden Cross:</strong> 50-day MA crosses above 200-day MA → Long-term bullish</li>
+                            <li><strong>Death Cross:</strong> 50-day MA crosses below 200-day MA → Long-term bearish</li>
+                            <li><strong>Support/Resistance:</strong> Price often bounces off moving averages</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Combining Indicators -->
+        <div class="concept-card">
+            <h2 class="section-title">🔮 Combining Indicators for Better Signals</h2>
+            <div class="psychology-box">
+                <h4>📈 Strong BUY Signal</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>✅ RSI rising from oversold (< 30) → momentum shifting</li>
+                    <li>✅ MACD bullish crossover → trend turning up</li>
+                    <li>✅ Price above 20-day moving average → short-term uptrend</li>
+                </ul>
+            </div>
+            <div class="warning-box">
+                <h4>📉 Strong SELL Signal</h4>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>❌ RSI falling from overbought (> 70) → momentum weakening</li>
+                    <li>❌ MACD bearish crossover → trend turning down</li>
+                    <li>❌ Price below 20-day moving average → short-term downtrend</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Islamic Perspective -->
+        <div class="concept-card">
+            <h2 class="section-title">🕌 Islamic Perspective on Indicators</h2>
+            <div class="psychology-box">
+                <p>Indicators are tools, not guarantees. The Prophet (ﷺ) said: "Trust in Allah, but tie your camel." Using indicators is like tying your camel - it's prudent planning, not a lack of faith.</p>
+                <p style="margin-top: 10px;"><strong>Key Principles:</strong></p>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>Use indicators as guidance, not certainty</li>
+                    <li>Avoid becoming obsessive or gambling-like</li>
+                    <li>Remember that ultimate outcomes are from Allah</li>
+                    <li>Combine with ethical screening of investments</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 10 Questions -->
+        <div class="quiz-section">
+            <h3><i class="fas fa-pencil-alt"></i> Test Your Understanding</h3>
+            <p style="text-align: center; margin-bottom: 30px;">Answer all 10 questions to test your knowledge of key indicators.</p>
+
+            <div class="quiz-question" id="q1">
+                <p>1. What does RSI measure?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q1" value="a"> Volume of trades</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="b"> Speed and change of price movements</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="c"> Company earnings</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="d"> Market sentiment only</label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="q2">
+                <p>2. What does an RSI reading above 70 typically indicate?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q2" value="a"> Oversold condition (price may rise)</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="b"> Overbought condition (price may fall)</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="c"> Neutral market</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="d"> Strong uptrend guaranteed</label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="q3">
+                <p>3. What does a MACD bullish crossover indicate?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q3" value="a"> MACD crosses below Signal Line → SELL</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="b"> MACD crosses above Signal Line → BUY</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="c"> Price is at all-time high</label>
+                    <label class="quiz-option"><input type="radio" name="q3" value="d"> Volume is increasing</label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="q4">
+                <p>4. What is the "Golden Cross"?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q4" value="a"> 20-day MA crosses above 50-day MA</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="b"> 50-day MA crosses above 200-day MA (long-term bullish)</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="c"> Price crosses above moving average</label>
+                    <label class="quiz-option"><input type="radio" name="q4" value="d"> RSI above 70</label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="q5">
+                <p>5. What does MACD stand for?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q5" value="a"> Moving Average Convergence Divergence</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="b"> Market Average Convergence Divergence</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="c"> Moving Average Cumulative Divergence</label>
+                    <label class="quiz-option"><input type="radio" name="q5" value="d"> Momentum Analysis Curve Divergence</label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="q6">
+                <p>6. What is the difference between SMA and EMA?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q6" value="a"> EMA gives more weight to recent prices</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="b"> SMA gives more weight to recent prices</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="c"> They are exactly the same</label>
+                    <label class="quiz-option"><input type="radio" name="q6" value="d"> EMA is only for daily charts</label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="q7">
+                <p>7. What does "divergence" mean in technical analysis?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q7" value="a"> Price and indicator moving in opposite directions</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="b"> Price and indicator moving together</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="c"> Two indicators giving same signal</label>
+                    <label class="quiz-option"><input type="radio" name="q7" value="d"> Volume increasing with price</label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="q8">
+                <p>8. When combining indicators, which of these suggests a strong BUY signal?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q8" value="a"> RSI > 70, MACD bearish crossover, price below MA</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="b"> RSI < 30, MACD bullish crossover, price above MA</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="c"> RSI = 50, MACD flat, price at MA</label>
+                    <label class="quiz-option"><input type="radio" name="q8" value="d"> All indicators conflicting</label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="q9">
+                <p>9. What Islamic principle applies to using technical indicators?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q9" value="a"> They guarantee future profits</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="b"> They are tools for guidance, not certainty</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="c"> They are haram (forbidden)</label>
+                    <label class="quiz-option"><input type="radio" name="q9" value="d"> They replace the need for research</label>
+                </div>
+            </div>
+
+            <div class="quiz-question" id="q10">
+                <p>10. What is a "Death Cross"?</p>
+                <div class="quiz-options">
+                    <label class="quiz-option"><input type="radio" name="q10" value="a"> 50-day MA crosses below 200-day MA (bearish)</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="b"> 20-day MA crosses above 50-day MA</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="c"> RSI falls below 30</label>
+                    <label class="quiz-option"><input type="radio" name="q10" value="d"> MACD bearish crossover</label>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="checkIndicatorsQuiz()" style="background: #312e81; color: white; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 600; cursor: pointer;">
+                    <i class="fas fa-check-circle"></i> Check My Answers
+                </button>
+            </div>
+            <div id="quizResult" style="margin-top: 20px; text-align: center; font-size: 18px;"></div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="concept-card">
+            <h2 class="section-title">📋 Key Takeaways</h2>
+            <ul style="margin-left: 20px;">
+                <li><strong>RSI:</strong> Measures momentum (70 overbought, 30 oversold)</li>
+                <li><strong>MACD:</strong> Shows trend direction and momentum (crossover signals)</li>
+                <li><strong>Moving Averages:</strong> Identify trend direction (Golden Cross = bullish)</li>
+                <li><strong>Combine indicators</strong> for stronger signals, never rely on just one</li>
+                <li><strong>Islamic view:</strong> Indicators are tools for guidance, not certainty</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="/trading/learn/fundamentals/02-technical-analysis.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Technical Analysis</a>
+            <a href="/trading/learn/fundamentals/04-risk-management.html" class="nav-link">Next: Risk Management <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div><div class="footer-logo"><i class="fas fa-mosque"></i> Fatimah Financial Hub</div><p class="footer-about">Building ethical traders with Islamic principles at the core. Learn, practice, and grow with confidence.</p></div>
+            <div class="footer-links"><h4>Quick Links</h4><ul><li><a href="/">Dashboard</a></li><li><a href="/trading">Trading</a></li><li><a href="/simulator/trade">Simulator</a></li><li><a href="/resources">Resources</a></li></ul></div>
+            <div class="footer-links"><h4>Learn</h4><ul><li><a href="/trading/learn/fundamentals/01-order-types.html">Fundamentals</a></li><li><a href="/trading/learn/islamic-perspectives/01-riba-explained.html">Islamic Perspectives</a></li><li><a href="/economics">Economics</a></li><li><a href="/finance-tools">Tools</a></li></ul></div>
+            <div class="footer-links"><h4>Connect</h4><ul><li><a href="/about">About Us</a></li><li><a href="/resources">Contact</a></li><li><a href="/privacy">Privacy Policy</a></li><li><a href="/terms">Terms of Use</a></li></ul></div>
+        </div>
+        <div class="footer-bottom">
+            <div class="arabic-footer">الحمد لله</div>
+            <p>May your analysis be clear and your trades be blessed</p>
+            <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Lesson 3 of 4 (Fundamentals Series)</p>
+        </div>
+    </footer>
+
+    <script>
+        function checkIndicatorsQuiz() {
+            const answers = { q1: 'b', q2: 'b', q3: 'b', q4: 'b', q5: 'a', q6: 'a', q7: 'a', q8: 'b', q9: 'b', q10: 'a' };
+            let score = 0, total = 10;
+            
+            for (let i = 1; i <= total; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(radio => radio.parentElement.classList.remove('correct-answer', 'wrong-answer', 'show-correct'));
+                let answered = false;
+                for (let radio of radios) {
+                    if (radio.checked) {
+                        answered = true;
+                        if (radio.value === answers[`q${i}`]) { score++; radio.parentElement.classList.add('correct-answer'); }
+                        else { radio.parentElement.classList.add('wrong-answer');
+                            for (let r of radios) if (r.value === answers[`q${i}`]) r.parentElement.classList.add('show-correct'); }
+                        break;
+                    }
+                }
+                if (!answered) for (let radio of radios) if (radio.value === answers[`q${i}`]) radio.parentElement.classList.add('show-correct');
+            }
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.style.padding = '20px'; resultDiv.style.borderRadius = '12px';
+            if (score === total) resultDiv.innerHTML = '<div style="font-size:24px;font-weight:bold;">🎉 MashaAllah! Perfect score!</div><div>You have excellent understanding of key indicators!</div>';
+            else if (score >= 8) resultDiv.innerHTML = `<div style="font-size:24px;font-weight:bold;">✅ Good job! You scored ${score}/${total}</div><div>The correct answers are highlighted in green.</div>`;
+            else resultDiv.innerHTML = `<div style="font-size:24px;font-weight:bold;">📚 You scored ${score}/${total}</div><div>Study the highlighted correct answers and try again.</div>`;
+            resultDiv.style.background = score === total ? '#d1fae5' : (score >= 8 ? '#fef3c7' : '#fee2e2');
+            resultDiv.style.color = score === total ? '#065f46' : (score >= 8 ? '#92400e' : '#991b1b');
+        }
+    </script>
+</body>
+</html>

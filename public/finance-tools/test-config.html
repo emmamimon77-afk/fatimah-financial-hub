@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Config Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .pass { background: #d4edda; border-color: #c3e6cb; }
+        .fail { background: #f8d7da; border-color: #f5c6cb; }
+        .country { margin: 10px 0; padding: 10px; border-left: 4px solid #007bff; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Financial Config Test</h1>
+    
+    <div id="test-results">
+        <div class="test" id="test1">
+            <h3>Test 1: Loading Config.js</h3>
+            <div id="test1-result">Running...</div>
+        </div>
+        
+        <div class="test" id="test2">
+            <h3>Test 2: Country Data</h3>
+            <div id="test2-result">Running...</div>
+        </div>
+        
+        <div class="test" id="test3">
+            <h3>Test 3: Rate Retrieval</h3>
+            <div id="test3-result">Running...</div>
+        </div>
+        
+        <div class="test" id="test4">
+            <h3>Test 4: China & Russia Specific</h3>
+            <div id="test4-result">Running...</div>
+        </div>
+        
+        <div class="test" id="test5">
+            <h3>Test 5: All Countries Display</h3>
+            <div id="test5-result">Running...</div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        // Test 1: Check if config loads
+        function testConfigLoading() {
+            const test1 = document.getElementById('test1');
+            const result = document.getElementById('test1-result');
+            
+            if (typeof FinancialConfig !== 'undefined') {
+                test1.classList.add('pass');
+                result.innerHTML = '✅ Config.js loaded successfully!';
+                return true;
+            } else {
+                test1.classList.add('fail');
+                result.innerHTML = '❌ Config.js failed to load. Check console for errors.';
+                return false;
+            }
+        }
+        
+        // Test 2: Check country data
+        function testCountryData() {
+            const test2 = document.getElementById('test2');
+            const result = document.getElementById('test2-result');
+            
+            if (FinancialConfig && FinancialConfig.countryData) {
+                const countryCount = Object.keys(FinancialConfig.countryData).length;
+                test2.classList.add('pass');
+                result.innerHTML = `✅ Country data loaded: ${countryCount} countries available`;
+                return true;
+            } else {
+                test2.classList.add('fail');
+                result.innerHTML = '❌ Country data not found';
+                return false;
+            }
+        }
+        
+        // Test 3: Test rate retrieval
+        function testRateRetrieval() {
+            const test3 = document.getElementById('test3');
+            const result = document.getElementById('test3-result');
+            
+            try {
+                // Test US rates
+                const usInflation = FinancialConfig.getRate('inflation', 'US');
+                const usMortgage = FinancialConfig.getRate('mortgage30yr', 'US');
+                
+                // Test China rates
+                const cnCentralBank = FinancialConfig.getRate('centralBank', 'CN');
+                
+                // Test Russia rates
+                const ruTax = FinancialConfig.getRate('taxIncome', 'RU');
+                
+                test3.classList.add('pass');
+                result.innerHTML = `
+                    ✅ Rate retrieval working:<br>
+                    - US Inflation: ${usInflation}%<br>
+                    - US 30yr Mortgage: ${usMortgage}%<br>
+                    - China Central Bank: ${cnCentralBank}%<br>
+                    - Russia Income Tax: ${ruTax}%
+                `;
+                return true;
+            } catch (error) {
+                test3.classList.add('fail');
+                result.innerHTML = `❌ Rate retrieval failed: ${error.message}`;
+                return false;
+            }
+        }
+        
+        // Test 4: China & Russia specific tests
+        function testChinaRussia() {
+            const test4 = document.getElementById('test4');
+            const result = document.getElementById('test4-result');
+            
+            try {
+                const china = FinancialConfig.countryData['CN'];
+                const russia = FinancialConfig.countryData['RU'];
+                
+                if (!china || !russia) {
+                    throw new Error('China or Russia data missing');
+                }
+                
+                // Verify China data
+                const chinaTests = [
+                    china.name === 'China',
+                    china.currency === 'CNY',
+                    china.centralBankRate === 3.45,
+                    china.specialFeatures.capitalControls === true
+                ];
+                
+                // Verify Russia data
+                const russiaTests = [
+                    russia.name === 'Russia',
+                    russia.currency === 'RUB',
+                    russia.centralBankRate === 16.00,
+                    russia.tax.income.length === 1  // Flat tax
+                ];
+                
+                const allTestsPass = [...chinaTests, ...russiaTests].every(test => test === true);
+                
+                if (allTestsPass) {
+                    test4.classList.add('pass');
+                    result.innerHTML = `
+                        ✅ China & Russia data correct:<br>
+                        - China: ${china.name}, ${china.currency}, PBOC Rate: ${china.centralBankRate}%<br>
+                        - Russia: ${russia.name}, ${russia.currency}, CBR Rate: ${russia.centralBankRate}%<br>
+                        - Russia Flat Tax: ${russia.tax.income[0]}%
+                    `;
+                    return true;
+                } else {
+                    throw new Error('Data mismatch detected');
+                }
+            } catch (error) {
+                test4.classList.add('fail');
+                result.innerHTML = `❌ China/Russia test failed: ${error.message}`;
+                return false;
+            }
+        }
+        
+        // Test 5: Display all countries
+        function displayAllCountries() {
+            const test5 = document.getElementById('test5');
+            const result = document.getElementById('test5-result');
+            
+            try {
+                const countries = FinancialConfig.getCountries();
+                let html = '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px;">';
+                
+                countries.forEach(country => {
+                    const data = FinancialConfig.countryData[country.code];
+                    html += `
+                        <div class="country">
+                            <strong>${country.name} (${country.code})</strong><br>
+                            Currency: ${country.symbol} ${country.currency}<br>
+                            Central Bank: ${data.centralBankRate}%<br>
+                            Inflation: ${data.inflation}%<br>
+                            Mortgage (30yr): ${data.mortgage.avg30yrFixed}%
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                
+                test5.classList.add('pass');
+                result.innerHTML = `✅ All ${countries.length} countries loaded:<br>${html}`;
+                return true;
+            } catch (error) {
+                test5.classList.add('fail');
+                result.innerHTML = `❌ Country display failed: ${error.message}`;
+                return false;
+            }
+        }
+        
+        // Run all tests
+        window.onload = function() {
+            console.log('Starting Financial Config Tests...');
+            
+            // Run tests in sequence
+            setTimeout(() => {
+                if (testConfigLoading()) {
+                    setTimeout(() => {
+                        if (testCountryData()) {
+                            setTimeout(() => {
+                                if (testRateRetrieval()) {
+                                    setTimeout(() => {
+                                        if (testChinaRussia()) {
+                                            setTimeout(() => {
+                                                displayAllCountries();
+                                                console.log('All tests completed!');
+                                            }, 500);
+                                        }
+                                    }, 500);
+                                }
+                            }, 500);
+                        }
+                    }, 500);
+                }
+            }, 100);
+        };
+    </script>
+</body>
+</html>

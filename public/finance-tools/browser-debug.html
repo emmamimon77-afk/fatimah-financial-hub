@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Browser Debug</title>
+    <style>
+        .step { margin: 10px; padding: 10px; border: 1px solid #ccc; }
+        .success { background: #d4edda; }
+        .error { background: #f8d7da; }
+        .loading { background: #fff3cd; }
+    </style>
+</head>
+<body>
+    <h1>Browser Loading Debug</h1>
+    
+    <div class="step loading" id="step1">Step 1: Document ready</div>
+    <div class="step loading" id="step2">Step 2: Load config.js</div>
+    <div class="step loading" id="step3">Step 3: Check FinancialConfig</div>
+    <div class="step loading" id="step4">Step 4: Check instance</div>
+    <div class="step loading" id="step5">Step 5: Check countryData</div>
+    
+    <div id="console" style="margin-top:20px;padding:10px;background:#333;color:#0f0;font-family:monospace;">
+        <h3 style="color:white;">Console Output:</h3>
+        <div id="console-output"></div>
+    </div>
+
+<script>
+function log(msg) {
+    const output = document.getElementById('console-output');
+    output.innerHTML += '> ' + msg + '<br>';
+    console.log(msg);
+}
+
+function updateStep(stepId, status, message) {
+    const step = document.getElementById(stepId);
+    step.className = 'step ' + status;
+    step.innerHTML = message;
+    log(message);
+}
+
+// Step 1: Document ready
+updateStep('step1', 'success', 'Step 1: ✅ Document loaded');
+
+// Step 2: Load config.js
+const script = document.createElement('script');
+script.src = 'config.js';
+
+script.onload = function() {
+    updateStep('step2', 'success', 'Step 2: ✅ config.js loaded');
+    
+    // Small delay to ensure parsing
+    setTimeout(function() {
+        // Step 3: Check if FinancialConfig class exists
+        if (typeof FinancialConfig === 'undefined') {
+            updateStep('step3', 'error', 'Step 3: ❌ FinancialConfig class not defined');
+            log('Checking global scope:');
+            log('- window.FinancialConfig: ' + (window.FinancialConfig ? 'exists' : 'undefined'));
+            log('- this.FinancialConfig: ' + (this.FinancialConfig ? 'exists' : 'undefined'));
+            log('- self.FinancialConfig: ' + (self.FinancialConfig ? 'exists' : 'undefined'));
+            log('- globalThis.FinancialConfig: ' + (globalThis.FinancialConfig ? 'exists' : 'undefined'));
+            return;
+        }
+        
+        updateStep('step3', 'success', 'Step 3: ✅ FinancialConfig class defined');
+        
+        // Step 4: Check if instance was created
+        if (!window.FinancialConfig) {
+            updateStep('step4', 'error', 'Step 4: ❌ No FinancialConfig instance');
+            log('Trying to create instance manually...');
+            try {
+                const manualInstance = new FinancialConfig();
+                updateStep('step4', 'success', 'Step 4: ✅ Can create instance manually');
+                log('Manual instance created: ' + (manualInstance.countryData ? 'Has countryData' : 'No countryData'));
+                
+                // Check countryData on manual instance
+                if (manualInstance.countryData) {
+                    updateStep('step5', 'success', 'Step 5: ✅ Manual instance has countryData');
+                    log('Countries: ' + Object.keys(manualInstance.countryData).join(', '));
+                } else {
+                    updateStep('step5', 'error', 'Step 5: ❌ Manual instance missing countryData');
+                }
+            } catch (e) {
+                updateStep('step4', 'error', 'Step 4: ❌ Cannot create instance: ' + e.message);
+            }
+            return;
+        }
+        
+        updateStep('step4', 'success', 'Step 4: ✅ FinancialConfig instance exists');
+        
+        // Step 5: Check countryData
+        if (!window.FinancialConfig.countryData) {
+            updateStep('step5', 'error', 'Step 5: ❌ Instance missing countryData');
+            log('Instance properties: ' + Object.keys(window.FinancialConfig));
+            log('Constructor name: ' + window.FinancialConfig.constructor.name);
+        } else {
+            updateStep('step5', 'success', 'Step 5: ✅ countryData exists!');
+            const countries = Object.keys(window.FinancialConfig.countryData);
+            log('🎉 SUCCESS! Countries: ' + countries.length);
+            log('China: ' + (window.FinancialConfig.countryData['CN'] ? '✓' : '✗'));
+            log('Russia: ' + (window.FinancialConfig.countryData['RU'] ? '✓' : '✗'));
+            log('All countries: ' + countries.join(', '));
+        }
+    }, 100);
+};
+
+script.onerror = function(error) {
+    updateStep('step2', 'error', 'Step 2: ❌ Failed to load config.js');
+    log('Error loading script: ' + error);
+    log('Check:');
+    log('1. File exists at correct path');
+    log('2. No CORS issues (local file)');
+    log('3. JavaScript syntax errors');
+};
+
+// Add script to document
+document.head.appendChild(script);
+</script>
+</body>
+</html>

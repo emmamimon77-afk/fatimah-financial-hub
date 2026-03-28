@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Loan Calculator</title>
+    <link rel="stylesheet" href="../shared/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a> 
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
+        </div>
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                 <i class="fas fa-user" style="margin-right: 5px;"></i> Personal Finance
+            </span>
+        </div>
+    </div>
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="../personal/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Personal Finance</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333; font-weight: 500;">Auto Loan Calculator</span>
+    </div>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-car"></i> Auto Loan Calculator</h1>
+            <p>Calculate your car loan payments with trade-in and tax options</p>
+            <a href="index.html" class="back-link">← Back to Personal Finance Hub</a>
+        </div>
+        
+        <!-- Calculator Card -->
+        <div class="calculator-card">
+            <div id="calculator-inputs">
+                <!-- Vehicle Price -->
+                <div class="input-group">
+                    <label for="vehicle-price">Vehicle Price ($)</label>
+                    <input type="number" id="vehicle-price" class="form-input" value="30000">
+                </div>
+                
+                <!-- Down Payment -->
+                <div class="input-group">
+                    <label for="down-payment">Down Payment ($)</label>
+                    <input type="number" id="down-payment" class="form-input" value="5000">
+                </div>
+                
+                <!-- Trade-in Value -->
+                <div class="input-group">
+                    <label for="trade-in">Trade-in Value ($)</label>
+                    <input type="number" id="trade-in" class="form-input" value="0">
+                </div>
+                
+                <!-- Loan Term -->
+                <div class="input-group">
+                    <label for="loan-years">Loan Term (years)</label>
+                    <select id="loan-years" class="form-input">
+                        <option value="3">3 years</option>
+                        <option value="4">4 years</option>
+                        <option value="5" selected>5 years</option>
+                        <option value="6">6 years</option>
+                        <option value="7">7 years</option>
+                    </select>
+                </div>
+                
+                <!-- Interest Rate -->
+                <div class="input-group">
+                    <label for="interest-rate">Interest Rate (%)</label>
+                    <input type="number" id="interest-rate" class="form-input" value="6.5" step="0.1">
+                    <div class="input-hint">Current average auto loan rate: 6.5%</div>
+                </div>
+                
+                <!-- Sales Tax -->
+                <div class="input-group">
+                    <label for="sales-tax">Sales Tax Rate (%)</label>
+                    <input type="number" id="sales-tax" class="form-input" value="7" step="0.1">
+                </div>
+                
+                <!-- Fees -->
+                <div class="input-group">
+                    <label for="fees">Fees & Registration ($)</label>
+                    <input type="number" id="fees" class="form-input" value="500">
+                </div>
+            </div>
+            
+            <!-- Calculate Button -->
+            <button id="calculate-auto" class="calculate-btn">
+                Calculate Auto Loan <i class="fas fa-calculator"></i>
+            </button>
+            
+            <!-- Results -->
+            <div id="auto-results" class="results">
+                Enter values and click calculate
+            </div>
+        </div>
+        
+        <!-- Footer Links -->
+        <div class="footer-links">
+            <a href="education-savings.html">🎓 Education Savings Calculator →</a>
+            <a href="../global/index.html">🌍 Global Calculators →</a>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="../shared/config.js"></script>
+    <script src="../shared/calculators.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Auto Loan Calculator loaded');
+        
+        // Get calculate button
+        const calculateBtn = document.getElementById('calculate-auto');
+        
+        calculateBtn.addEventListener('click', function() {
+            // Get input values
+            const vehiclePrice = parseFloat(document.getElementById('vehicle-price').value) || 0;
+            const downPayment = parseFloat(document.getElementById('down-payment').value) || 0;
+            const tradeIn = parseFloat(document.getElementById('trade-in').value) || 0;
+            const years = parseFloat(document.getElementById('loan-years').value) || 5;
+            const rate = parseFloat(document.getElementById('interest-rate').value) || 6.5;
+            const salesTax = parseFloat(document.getElementById('sales-tax').value) || 0;
+            const fees = parseFloat(document.getElementById('fees').value) || 0;
+            
+            // Show loading
+            const resultsDiv = document.getElementById('auto-results');
+            resultsDiv.innerHTML = '<div class="loading">Calculating...</div>';
+            
+            // Calculate
+            setTimeout(function() {
+                if (window.FinancialCalculators) {
+                    const calc = new FinancialCalculators();
+                    const result = calc.calculateAutoLoan({
+                        vehiclePrice: vehiclePrice,
+                        downPayment: downPayment,
+                        tradeInValue: tradeIn,
+                        years: years,
+                        rate: rate,
+                        salesTax: salesTax,
+                        fees: fees,
+                        country: 'US' // Default for now
+                    });
+                    
+                    console.log('Auto loan result:', result);
+               
+                    // Display results
+                    if (result.success) {
+                        resultsDiv.innerHTML = `
+                            <div class="result-card">
+                                <h3><i class="fas fa-file-invoice-dollar"></i> Loan Summary</h3>
+                                <div class="result-grid">
+                                    <div class="result-item">
+                                        <span class="label">Monthly Payment:</span>
+                                        <span class="value">${result.monthlyPayment}</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="label">Loan Amount:</span>
+                                        <span class="value">${result.loanAmount}</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="label">Total Cost:</span>
+                                        <span class="value">${result.totalCost}</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="label">Total Interest:</span>
+                                        <span class="value">${result.totalInterest}</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="label">Total Paid:</span>
+                                        <span class="value">${result.totalPaid}</span>
+                                    </div>
+                                    <div class="result-item">
+                                        <span class="label">Out of Pocket:</span>
+                                        <span class="value">${result.totalOutOfPocket || 'N/A'}</span>
+                                    </div>
+                                </div>
+                                ${result.message ? `<div class="note">${result.message}</div>` : ''}
+                            </div>
+                        `;
+                    } else {
+                        resultsDiv.innerHTML = `<div class="error">Error: ${result.error}</div>`;
+                    }
+                } else {
+                    resultsDiv.innerHTML = '<div class="error">Calculators not loaded</div>';
+                }
+            }, 300);
+        });
+    });
+    </script>
+    <!-- FOOTER NAVIGATION -->
+    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+                </a>
+                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+                </a>
+            </div>
+        
+            <div>
+                <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+                </a>
+                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+                </a>
+                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                   <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+                </a>
+            </div>
+        
+          <div>
+            <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+            <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+            </a>
+            <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+            </a>
+            <a href="/economics" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s;">
+                    <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics
+            </a>
+        </div>
+    </div>
+    
+    <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+        <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+        <p style="margin-top: 10px; font-size: 0.9rem;">
+            <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+        </p>
+    </div>
+</div>
+</body>
+</html>

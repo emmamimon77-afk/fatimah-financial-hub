@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html><body>
+<h1>Direct Script Test</h1>
+<div id="result">Testing...</div>
+
+<!-- DIRECT script include -->
+<script>
+console.log('=== DIRECT SCRIPT INCLUDE TEST ===');
+try {
+    // Try to load config.js as inline script
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'config.js', false); // Synchronous
+    xhr.send();
+    
+    if (xhr.status === 200) {
+        console.log('config.js loaded directly');
+        eval(xhr.responseText);
+        
+        const result = document.getElementById('result');
+        if (window.FinancialConfig && window.FinancialConfig.countryData) {
+            result.innerHTML = '✅ DIRECT LOAD WORKS!<br>' +
+                'Countries: ' + Object.keys(window.FinancialConfig.countryData).join(', ');
+        } else {
+            result.innerHTML = '❌ Direct load failed<br>' +
+                'FinancialConfig: ' + (window.FinancialConfig ? 'exists' : 'undefined') + '<br>' +
+                'countryData: ' + (window.FinancialConfig && window.FinancialConfig.countryData ? 'exists' : 'undefined');
+        }
+    } else {
+        document.getElementById('result').innerHTML = '❌ Cannot load config.js: ' + xhr.status;
+    }
+} catch(e) {
+    document.getElementById('result').innerHTML = '❌ Error: ' + e.message;
+    console.error('Error:', e);
+}
+</script>
+</body></html>

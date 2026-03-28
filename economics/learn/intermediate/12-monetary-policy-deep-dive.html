@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monetary Policy Deep Dive - Lesson 12 | Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            color: white;
+            padding: 1rem 2rem;
+        }
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            color: #fbbf24;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .lesson-header {
+            margin-bottom: 40px;
+        }
+        .breadcrumb {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #312e81;
+            text-decoration: none;
+        }
+        .title-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .title-section h1 {
+            font-size: 42px;
+            color: #1e293b;
+        }
+        .badge {
+            background: #7c3aed;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .meta-info {
+            display: flex;
+            gap: 20px;
+            color: #64748b;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .quran-verse {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 24px;
+            margin: 30px 0 40px;
+            text-align: center;
+        }
+        .arabic {
+            font-size: 42px;
+            font-family: 'Traditional Arabic', serif;
+            margin-bottom: 20px;
+            color: #fbbf24;
+        }
+        .translation {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin: 50px 0 25px;
+            color: #312e81;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        .concept-title {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .definition-box {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .formula-box {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-family: monospace;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        .column-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+        .column-card h3 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .column-card ul {
+            list-style: none;
+        }
+        .column-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .column-card li:before {
+            content: "•";
+            color: #312e81;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        .example-box {
+            background: #d1fae5;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ef4444;
+        }
+
+        .debate-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+
+        .nobel-card {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 16px;
+            margin: 15px 0;
+            border-left: 4px solid #312e81;
+        }
+
+        .quiz-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .quiz-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #312e81;
+        }
+        .quiz-question {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f8fafc;
+            border-radius: 20px;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 15px 0;
+        }
+        .quiz-option {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: #312e81;
+            background: #f1f5f9;
+        }
+        .quiz-option.correct {
+            background: #d1fae5;
+            border-color: #10b981;
+        }
+        .quiz-option.incorrect {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+        .explanation {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+        }
+
+        .references-section {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            margin: 50px 0;
+            border: 1px solid #e2e8f0;
+        }
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .ref-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .ref-card h4 {
+            color: #312e81;
+            margin-bottom: 15px;
+        }
+        .ref-card ul {
+            list-style: none;
+        }
+        .ref-card li {
+            margin: 10px 0;
+        }
+        .ref-card a {
+            color: #1e293b;
+            text-decoration: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+            padding: 20px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-link {
+            color: #312e81;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer {
+            background: white;
+            border-top: 1px solid #e2e8f0;
+            padding: 40px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        .arabic-footer {
+            font-size: 24px;
+            color: #312e81;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                Fatimah Financial Hub
+            </a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/trading">Trading</a>
+                <a href="/economics">Economics</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <!-- Lesson Header -->
+        <div class="lesson-header">
+            <div class="breadcrumb">
+                <a href="/economics">Economics Hub</a> › 
+                <a href="/economics/learn">Learning Center</a> › 
+                <a href="/economics/learn/intermediate">Intermediate</a> › 
+                Lesson 12: Monetary Policy Deep Dive
+            </div>
+            <div class="title-section">
+                <h1>Monetary Policy Deep Dive</h1>
+                <span class="badge">Intermediate • 50 min read</span>
+            </div>
+            <div class="meta-info">
+                <span><i class="far fa-clock"></i> 14 Quiz Questions</span>
+                <span><i class="fas fa-university"></i> Taylor Rule, QE, Fed History</span>
+                <span><i class="fas fa-mosque"></i> Islamic Monetary Alternatives</span>
+            </div>
+        </div>
+
+        <!-- Opening Quranic Verse -->
+        <div class="quran-verse">
+            <div class="arabic">يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا الرِّبَا أَضْعَافًا مُّضَاعَفَةً</div>
+            <div class="translation">"O you who have believed, do not consume usury, doubled and multiplied."</div>
+            <div class="reference">— Quran 3:130</div>
+            <p style="margin-top: 20px; color: #cbd5e1;">Monetary policy in conventional systems relies on interest. Islamic economics offers a different path—one based on justice and real assets.</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-university"></i>
+                Beyond the Basics
+            </div>
+            <p style="font-size: 18px;">In Lesson 6, we learned the fundamentals of monetary policy. Now we dive deeper into how central banks actually operate, the debates among economists, and the sophisticated tools used to manage modern economies.</p>
+            
+            <div class="definition-box">
+                <p><strong>🎯 Learning Goals:</strong> By the end of this lesson, you'll understand the Taylor Rule, the difference between rules-based and discretionary policy, the full history of the Fed's actions, and how Islamic economics offers an alternative framework.</p>
+            </div>
+        </div>
+
+        <!-- The Taylor Rule -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-calculator"></i>
+                The Taylor Rule: A Formula for Interest Rates
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 John Taylor • Stanford Economist</h4>
+                <p>In 1993, John Taylor proposed a simple formula that describes how central banks should set interest rates based on economic conditions. It became the most famous monetary policy rule in modern economics.</p>
+            </div>
+
+            <div class="formula-box">
+                i = r* + π + 0.5(π - π*) + 0.5(y - y*)
+            </div>
+
+            <p><strong>Where:</strong></p>
+            <ul style="margin-left: 20px;">
+                <li><strong>i</strong> = target federal funds rate</li>
+                <li><strong>r*</strong> = neutral real interest rate (usually 2%)</li>
+                <li><strong>π</strong> = current inflation rate</li>
+                <li><strong>π*</strong> = target inflation rate (usually 2%)</li>
+                <li><strong>y - y*</strong> = output gap (actual GDP minus potential GDP)</li>
+            </ul>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> Worked Example (2025)</h4>
+                <p><strong>Assumptions:</strong> r* = 2%, π = 3.2%, π* = 2%, output gap = -1% (slightly below potential)</p>
+                <p>i = 2 + 3.2 + 0.5(3.2 - 2) + 0.5(-1)</p>
+                <p>i = 2 + 3.2 + 0.5(1.2) - 0.5</p>
+                <p>i = 2 + 3.2 + 0.6 - 0.5 = <strong>5.3%</strong></p>
+                <p>The rule suggests rates should be about 5.3%. The actual Fed funds rate in 2025 was 5.25-5.5%—remarkably close!</p>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ Rules vs. Discretion: The Great Debate</h4>
+                <p><strong>Milton Friedman (Rules):</strong> Central banks should follow fixed rules to prevent political interference and time-inconsistency problems. "K percent rule" for money supply growth.</p>
+                <p><strong>Keynesians (Discretion):</strong> Central banks need flexibility to respond to unforeseen crises (2008, 2020). Rigid rules can't handle every situation.</p>
+                <p><strong>Modern Synthesis:</strong> Most central banks use Taylor-type rules as guidelines but retain discretion—"constrained discretion."</p>
+            </div>
+        </div>
+
+        <!-- The Fed's Balance Sheet -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-chart-pie"></i>
+                The Fed's Balance Sheet: A Window into QE
+            </div>
+
+            <p>Before 2008, the Fed's balance sheet was about $900 billion. By 2025, it peaked at nearly $9 trillion! Let's understand what this means.</p>
+
+            <div style="background:#f1f5f9; padding:20px; border-radius:16px; margin:20px 0;">
+                <h4>📊 Fed Assets Over Time</h4>
+                <ul>
+                    <li><strong>2007:</strong> $0.9 trillion (pre-crisis)</li>
+                    <li><strong>2014:</strong> $4.5 trillion (post-QE1, QE2, QE3)</li>
+                    <li><strong>2020:</strong> $7.2 trillion (pandemic response)</li>
+                    <li><strong>2022:</strong> $9.0 trillion (peak)</li>
+                    <li><strong>2025:</strong> $7.5 trillion (quantitative tightening underway)</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>📈 Assets (What the Fed Owns)</h4>
+                    <ul>
+                        <li>Treasury securities (government bonds)</li>
+                        <li>Mortgage-backed securities (MBS)</li>
+                        <li>Emergency loans (during crises)</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>📉 Liabilities (What the Fed Owes)</h4>
+                    <ul>
+                        <li>Currency in circulation</li>
+                        <li>Bank reserves (electronic money banks hold at Fed)</li>
+                        <li>Reverse repos (temporary borrowing)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> Why Does Balance Sheet Size Matter?</h4>
+                <p>When the Fed buys bonds (QE), it creates bank reserves (liabilities). More reserves = more money in the banking system = potential for inflation and asset bubbles. When the Fed sells bonds (QT), it drains reserves.</p>
+            </div>
+        </div>
+
+        <!-- Quantitative Easing Deep Dive -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-print"></i>
+                Quantitative Easing: How It Really Works
+            </div>
+
+            <div class="timeline-item">
+                <h4>QE1 (2008-2010): $1.75 trillion</h4>
+                <p>Response to financial crisis. Bought mortgage-backed securities to stabilize housing market and banks.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>QE2 (2010-2011): $600 billion</h4>
+                <p>Bought Treasury securities to lower long-term rates and support recovery.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>QE3 (2012-2014): $85 billion/month</h4>
+                <p>Open-ended purchases until labor market improved. Ended when unemployment fell to 6.5%.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h4>QE4 (2020-2022): $120 billion/month</h4>
+                <p>Pandemic response. Bought $80B Treasuries + $40B MBS monthly. Balance sheet peaked at $9T.</p>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Criticisms of QE</h4>
+                <ul>
+                    <li><strong>Inequality:</strong> Asset price inflation benefits the wealthy (who own stocks/homes)</li>
+                    <li><strong>Moral hazard:</strong> Encourages excessive risk-taking</li>
+                    <li><strong>Hard to exit:</strong> Markets become addicted to easy money</li>
+                    <li><strong>Distorts markets:</strong> Artificially low rates misallocate capital</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Forward Guidance -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-bullhorn"></i>
+                Forward Guidance: Talking Markets into Submission
+            </div>
+
+            <p><strong>Forward guidance</strong> is when central banks communicate their future policy intentions to influence market expectations.</p>
+
+            <div class="example-box">
+                <h4><i class="fas fa-history"></i> Historical Examples</h4>
+                <p><strong>2013: "Taper Tantrum"</strong> - Fed Chair Bernanke suggested QE would slow. Markets panicked, yields spiked. Lesson: Communication matters!</p>
+                <p><strong>2020-2022:</strong> Fed promised to keep rates near zero until inflation reached 2% AND was on track to exceed 2% for some time. "Average inflation targeting."</p>
+                <p><strong>2025-2026:</strong> Fed used forward guidance to signal rate cuts as inflation moderated, easing financial conditions before actually cutting.</p>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> The Psychology of Forward Guidance</h4>
+                <p>If businesses believe rates will stay low, they invest more. If consumers believe inflation will stay low, they don't demand big wage increases. Expectations become self-fulfilling.</p>
+            </div>
+        </div>
+
+        <!-- Case Study: The Volcker Shock (1979-1982) -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-history"></i>
+                Case Study: The Volcker Shock (1979-1982)
+            </div>
+
+            <div class="nobel-card">
+                <h4>🏆 Paul Volcker • Fed Chair 1979-1987</h4>
+                <p>When Volcker took office, inflation was 14%. He raised the federal funds rate to 20%—the highest in US history—causing a severe recession but permanently breaking inflation expectations.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>📉 The Pain</h4>
+                    <ul>
+                        <li>Unemployment peaked at 10.8%</li>
+                        <li>GDP fell sharply (1982 recession)</li>
+                        <li>Farmers protested with tractors on Washington mall</li>
+                        <li>Auto and housing industries devastated</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>📈 The Gain</h4>
+                    <ul>
+                        <li>Inflation fell from 14% to 3%</li>
+                        <li>Credibility restored for decades</li>
+                        <li>Paved way for 1980s boom</li>
+                        <li>Lesson learned: Central banks must act decisively</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="psychology-box">
+                <h4><i class="fas fa-brain"></i> Why Volcker Succeeded</h4>
+                <p>He convinced markets he would do "whatever it takes." Once expectations shifted, inflation fell with less pain than many predicted. This is the power of credibility.</p>
+            </div>
+        </div>
+
+        <!-- Case Study: The ECB and the Euro Crisis -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-euro-sign"></i>
+                Case Study: ECB and the Euro Crisis (2010-2015)
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>🇬🇷 Greece's Crisis</h4>
+                    <ul>
+                        <li>Debt-to-GDP > 170%</li>
+                        <li>Interest rates spiked > 30%</li>
+                        <li>EU/IMF bailouts required</li>
+                        <li>Greece suffered depression-level GDP loss</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>🏛️ ECB's Response</h4>
+                    <ul>
+                        <li><strong>LTRO:</strong> 3-year loans to banks (€1 trillion)</li>
+                        <li><strong>OMT:</strong> "Whatever it takes" (Mario Draghi, 2012)</li>
+                        <li><strong>Negative rates:</strong> 2014-2022</li>
+                        <li><strong>QE:</strong> Started 2015, continued for years</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="debate-box">
+                <h4>⚖️ Was the Euro Crisis a Monetary Policy Failure?</h4>
+                <p>Critics say the ECB was too slow to act. Defenders say the ECB lacked a fiscal union to back it. The crisis revealed the limits of monetary policy without fiscal coordination.</p>
+            </div>
+        </div>
+
+        <!-- Modern Monetary Theory (MMT) Debate -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-money-bill-wave"></i>
+                Modern Monetary Theory (MMT): The Controversial Alternative
+            </div>
+
+            <div class="debate-box">
+                <h4>💡 What is MMT?</h4>
+                <p>Countries that issue their own currency (like USA, Japan, UK) cannot go bankrupt. They can always create more money to pay debts. The only constraint is inflation, not solvency.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h4>✅ MMT Claims</h4>
+                    <ul>
+                        <li>Taxes don't fund spending—they regulate demand</li>
+                        <li>Government can spend freely until inflation hits</li>
+                        <li>Job guarantee can maintain full employment</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>❌ Critics Respond</h4>
+                    <ul>
+                        <li>Ignore political constraints on central banks</li>
+                        <li>Hyperinflation risk (Zimbabwe, Venezuela)</li>
+                        <li>2021-2023 inflation may prove MMT wrong</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> MMT in Practice?</h4>
+                <p>MMT advocates pointed to Japan's high debt (260% of GDP) with low inflation as proof. Critics point to 2022-2024 global inflation as counter-proof. The debate continues.</p>
+            </div>
+        </div>
+
+        <!-- Islamic Alternative to Conventional Monetary Policy -->
+        <div class="concept-card">
+            <div class="concept-title">
+                <i class="fas fa-mosque"></i>
+                Islamic Monetary Policy: An Interest-Free Framework
+            </div>
+
+            <div class="psychology-box">
+                <h4>📜 Principles of Islamic Monetary Policy</h4>
+                <ul>
+                    <li><strong>No Riba:</strong> Interest-based tools (Fed funds rate, QE) are prohibited</li>
+                    <li><strong>Asset-backing:</strong> Money creation must be tied to real assets</li>
+                    <li><strong>Profit-sharing:</strong> Instead of interest, use Mudaraba and Musharaka</li>
+                    <li><strong>Real economy focus:</strong> Money for productive investment, not speculation</li>
+                </ul>
+            </div>
+
+            <div class="two-column">
+                <div class="column-card">
+                    <h4>🕌 Islamic Monetary Tools</h4>
+                    <ul>
+                        <li><strong>Mudaraba certificates:</strong> Central bank issues profit-sharing instruments</li>
+                        <li><strong>Commodity murabaha:</strong> Central bank buys/sells commodities to manage liquidity</li>
+                        <li><strong>Reserve requirements:</strong> Can be used (no riba issue)</li>
+                        <li><strong>Moral suasion:</strong> Guidance to banks within Shariah framework</li>
+                    </ul>
+                </div>
+                <div class="column-card">
+                    <h4>🌍 Countries Experimenting</h4>
+                    <ul>
+                        <li><strong>Malaysia:</strong> Dual system with Islamic money market</li>
+                        <li><strong>Sudan:</strong> Fully interest-free banking since 1980s</li>
+                        <li><strong>Iran:</strong> Islamic banking law (though debated)</li>
+                        <li><strong>GCC countries:</strong> Developing Islamic monetary frameworks</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fas fa-lightbulb"></i> How Would an Islamic Central Bank Fight Inflation?</h4>
+                <p>Instead of raising interest rates (haram), an Islamic central bank could:</p>
+                <ul>
+                    <li>Increase reserve requirements</li>
+                    <li>Issue profit-sharing certificates to absorb excess liquidity</li>
+                    <li>Use moral suasion to encourage lower profit rates</li>
+                    <li>Regulate credit growth through macroprudential tools</li>
+                    <li>In extreme cases, commodity market interventions</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- QUIZ SECTION - 14 Questions -->
+        <div class="quiz-section">
+            <h2><i class="fas fa-pencil-alt"></i> Test Your Understanding</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-question" id="q1">
+                <p>1. What does the Taylor Rule attempt to do?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'correct')">A. Prescribe the optimal interest rate based on inflation and output gap</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">B. Calculate the money supply needed for stable prices</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">C. Determine exchange rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q1', 'incorrect')">D. Set fiscal policy targets</div>
+                </div>
+                <div class="explanation" id="exp-q1">
+                    <strong>✅ Correct!</strong> The Taylor Rule provides a formula for setting the federal funds rate based on inflation and the output gap.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-question" id="q2">
+                <p>2. What is the "rules vs. discretion" debate about?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'correct')">A. Whether central banks should follow fixed formulas or have flexibility</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">B. Whether to use fiscal or monetary policy</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">C. Whether to target inflation or employment</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q2', 'incorrect')">D. Whether to have a central bank at all</div>
+                </div>
+                <div class="explanation" id="exp-q2">
+                    <strong>✅ Correct!</strong> The debate is between fixed rules (Friedman) and discretionary policy (Keynesians) for central banks.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-question" id="q3">
+                <p>3. What happened during the "Volcker Shock" (1979-1982)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'correct')">A. Fed raised rates to 20%, causing recession but ending high inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">B. Fed lowered rates to 0% to fight recession</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">C. Fed started QE for the first time</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q3', 'incorrect')">D. Fed pegged the dollar to gold</div>
+                </div>
+                <div class="explanation" id="exp-q3">
+                    <strong>✅ Correct!</strong> Volcker raised rates to 20%, causing severe recession but permanently breaking inflation expectations.
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-question" id="q4">
+                <p>4. What is forward guidance?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'correct')">A. Central bank communication about future policy intentions</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">B. Predicting stock market movements</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">C. Setting interest rates for the next decade</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q4', 'incorrect')">D. Advising banks on lending standards</div>
+                </div>
+                <div class="explanation" id="exp-q4">
+                    <strong>✅ Correct!</strong> Forward guidance is when central banks signal their future policy to influence expectations today.
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="quiz-question" id="q5">
+                <p>5. What was the Fed's balance sheet size at its peak in 2022?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">A. $2 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">B. $5 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'correct')">C. $9 trillion</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q5', 'incorrect')">D. $15 trillion</div>
+                </div>
+                <div class="explanation" id="exp-q5">
+                    <strong>✅ Correct!</strong> The Fed's balance sheet peaked at about $9 trillion in 2022 after pandemic QE.
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="quiz-question" id="q6">
+                <p>6. What does Modern Monetary Theory (MMT) argue?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'correct')">A. Countries with sovereign currency can't go bankrupt—inflation is the only constraint</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">B. All government spending must be balanced by taxes</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">C. Gold should back currency</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q6', 'incorrect')">D. Central banks should be abolished</div>
+                </div>
+                <div class="explanation" id="exp-q6">
+                    <strong>✅ Correct!</strong> MMT argues that currency-issuing governments face no solvency constraint—only inflation matters.
+                </div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="quiz-question" id="q7">
+                <p>7. What was the "Taper Tantrum" of 2013?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'correct')">A. Markets panicked when Bernanke mentioned slowing QE</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">B. A new dance craze</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">C. When the Fed raised rates too fast</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q7', 'incorrect')">D. When China devalued its currency</div>
+                </div>
+                <div class="explanation" id="exp-q7">
+                    <strong>✅ Correct!</strong> When Bernanke suggested QE might slow, bond yields spiked and markets fell—a lesson in communication.
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="quiz-question" id="q8">
+                <p>8. In the Taylor Rule formula i = r* + π + 0.5(π - π*) + 0.5(y - y*), what does (y - y*) represent?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'correct')">A. Output gap (actual GDP minus potential GDP)</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">B. Inflation gap</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">C. Unemployment rate</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q8', 'incorrect')">D. Exchange rate differential</div>
+                </div>
+                <div class="explanation" id="exp-q8">
+                    <strong>✅ Correct!</strong> (y - y*) is the output gap—how far actual output is from potential.
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="quiz-question" id="q9">
+                <p>9. What is a major criticism of Quantitative Easing?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'correct')">A. It increases inequality by boosting asset prices owned by wealthy</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">B. It causes deflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">C. It reduces the money supply</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q9', 'incorrect')">D. It only helps poor people</div>
+                </div>
+                <div class="explanation" id="exp-q9">
+                    <strong>✅ Correct!</strong> QE inflates stock and home prices, disproportionately benefiting the wealthy.
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="quiz-question" id="q10">
+                <p>10. How does Islamic monetary policy differ from conventional?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'correct')">A. No interest (riba), uses profit-sharing and asset-backed instruments</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">B. It uses higher interest rates</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">C. It requires a gold standard</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q10', 'incorrect')">D. It abolishes central banks</div>
+                </div>
+                <div class="explanation" id="exp-q10">
+                    <strong>✅ Correct!</strong> Islamic monetary policy prohibits interest and uses profit-sharing (Mudaraba) and asset-backed tools instead.
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="quiz-question" id="q11">
+                <p>11. What was Mario Draghi's famous "whatever it takes" speech about?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'correct')">A. ECB would do anything to save the euro during the crisis</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">B. Fed would raise rates to fight inflation</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">C. Bank of England would leave the EU</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q11', 'incorrect')">D. Bank of Japan would weaken the yen</div>
+                </div>
+                <div class="explanation" id="exp-q11">
+                    <strong>✅ Correct!</strong> In 2012, Draghi pledged to do "whatever it takes" to preserve the euro, calming markets.
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="quiz-question" id="q12">
+                <p>12. What is the neutral real interest rate (r*) approximately?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'correct')">A. 2%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">B. 5%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">C. 0%</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q12', 'incorrect')">D. 10%</div>
+                </div>
+                <div class="explanation" id="exp-q12">
+                    <strong>✅ Correct!</strong> The neutral rate is typically estimated at 2% in the Taylor Rule, though it varies over time.
+                </div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="quiz-question" id="q13">
+                <p>13. What is quantitative tightening (QT)?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'correct')">A. Fed selling bonds to reduce its balance sheet</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">B. Fed buying bonds to increase money supply</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">C. Raising taxes</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q13', 'incorrect')">D. Cutting government spending</div>
+                </div>
+                <div class="explanation" id="exp-q13">
+                    <strong>✅ Correct!</strong> QT is the opposite of QE—the Fed sells bonds or lets them mature, draining reserves from the banking system.
+                </div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="quiz-question" id="q14">
+                <p>14. Which country has operated a fully interest-free banking system since the 1980s?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">A. Malaysia</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'correct')">B. Sudan</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">C. Saudi Arabia</div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'q14', 'incorrect')">D. Turkey</div>
+                </div>
+                <div class="explanation" id="exp-q14">
+                    <strong>✅ Correct!</strong> Sudan has operated a fully interest-free banking system since the 1980s, though the economy has faced many other challenges.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button onclick="resetQuiz()" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px 25px; border-radius: 50px; cursor: pointer;">🔄 Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- REFERENCES SECTION -->
+        <div class="references-section">
+            <h3><i class="fas fa-book"></i> References & Further Study</h3>
+            <div class="references-grid">
+                <div class="ref-card">
+                    <h4>📚 Books</h4>
+                    <ul>
+                        <li><a href="#">"The Courage to Act" - Ben Bernanke</a></li>
+                        <li><a href="#">"Keeping At It" - Paul Volcker</a></li>
+                        <li><a href="#">"The Only Game in Town" - Mohamed El-Erian</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>📊 Academic Papers</h4>
+                    <ul>
+                        <li><a href="#">"Discretion vs. Policy Rules in Practice" - John Taylor (1993)</a></li>
+                        <li><a href="#">"Monetary Policy in Islamic Economics" - M. Umer Chapra</a></li>
+                    </ul>
+                </div>
+                <div class="ref-card">
+                    <h4>🕌 Islamic Monetary Policy</h4>
+                    <ul>
+                        <li><a href="#">"Islamic Monetary Policy" - Islamic Research & Training Institute (IsDB)</a></li>
+                        <li><a href="/resources/islamic-vs-conventional.html">Islamic vs Conventional Finance</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <a href="/economics/learn/intermediate/11-economic-indicators.html" class="nav-link"><i class="fas fa-arrow-left"></i> Previous: Economic Indicators</a>
+            <a href="/economics/learn/intermediate/13-fiscal-policy-deep-dive.html" class="nav-link">Next: Fiscal Policy Deep Dive <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="arabic-footer">الحمد لله</div>
+        <p>May your understanding of money lead you to use it wisely and justly</p>
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub • Economics Lesson 12 of 20</p>
+        <p style="margin-top: 10px; color: #fbbf24;">اللهم بارك لنا في العشر الأواخر من رمضان</p>
+    </footer>
+
+    <script>
+        function checkAnswer(element, questionId, result) {
+            const question = document.getElementById(questionId);
+            const options = question.querySelectorAll('.quiz-option');
+            const explanation = document.getElementById('exp-' + questionId);
+            
+            options.forEach(opt => opt.classList.remove('correct', 'incorrect'));
+            element.classList.add(result === 'correct' ? 'correct' : 'incorrect');
+            
+            if (explanation) explanation.classList.add('show');
+            
+            if (result === 'incorrect') {
+                options.forEach(opt => {
+                    if (opt.getAttribute('onclick').includes('correct')) {
+                        opt.classList.add('correct');
+                    }
+                });
+            }
+        }
+
+        function resetQuiz() {
+            document.querySelectorAll('.explanation').forEach(e => e.classList.remove('show'));
+            document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('correct', 'incorrect'));
+        }
+    </script>
+</body>
+</html>

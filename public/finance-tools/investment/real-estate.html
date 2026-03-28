@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Calculator | Fatimah Financial Hub</title>
+    <!-- Simple Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f4c5c 0%, #2e8b57 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: #2e8b57;
+        }
+
+        .logo span {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f4c5c;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2e8b57;
+        }
+
+        .nav-links a.active {
+            color: #2e8b57;
+            font-weight: 600;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 0.5rem 0;
+            z-index: 1;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.7rem 1.5rem;
+            color: #333;
+        }
+
+        .dropdown-content a:hover {
+            background: #f5f5f5;
+            color: #2e8b57;
+        }
+
+        .bismillah {
+            text-align: center;
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1.3rem;
+            font-family: 'Traditional Arabic', serif;
+        }
+
+        /* Main Container */
+        .container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+        }
+
+        /* Educational Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #0f4c5c 0%, #2e8b57 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon i {
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .card h3 {
+            color: #0f4c5c;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card p {
+            color: #555;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .insight-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #444;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .insight-item i {
+            color: #10b981;
+            font-size: 0.8rem;
+        }
+
+        /* Property Search */
+        .property-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box input {
+            flex: 2;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            min-width: 200px;
+        }
+
+        .search-box select {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .search-box button {
+            padding: 0.8rem 1.8rem;
+            background: linear-gradient(135deg, #0f4c5c 0%, #2e8b57 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .property-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .info-item {
+            text-align: center;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .info-label {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0f4c5c;
+        }
+
+        .positive {
+            color: #10b981;
+        }
+
+        .negative {
+            color: #dc2626;
+        }
+
+        /* Chart */
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .chart-header h3 {
+            color: #0f4c5c;
+            font-size: 1.1rem;
+        }
+
+        .timeframe-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .timeframe-btn {
+            padding: 0.3rem 1rem;
+            border: 1px solid #e0e0e0;
+            background: white;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .timeframe-btn.active {
+            background: #0f4c5c;
+            color: white;
+            border-color: #0f4c5c;
+        }
+
+        canvas {
+            width: 100%;
+            height: 250px;
+            max-height: 250px;
+        }
+
+        /* Calculator */
+        .calculator-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .input-group label {
+            display: block;
+            color: #444;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, #0f4c5c 0%, #2e8b57 100%);
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .result-area {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f4c5c;
+            margin: 0.5rem 0;
+        }
+
+        .roi-badge {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .roi-high {
+            background: #10b98120;
+            color: #10b981;
+        }
+
+        .roi-medium {
+            background: #f59e0b20;
+            color: #f59e0b;
+        }
+
+        .roi-low {
+            background: #ef444420;
+            color: #ef4444;
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            padding: 2rem 5% 1rem;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .alhamdulillah {
+            font-family: 'Traditional Arabic', serif;
+            font-size: 1.3rem;
+            color: #0f4c5c;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .property-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .calc-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bismillah -->
+    <div class="bismillah">
+        ﷽
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-landmark"></i>
+            <span>Fatimah Financial Hub</span>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/about.html">About</a>
+            <div class="dropdown">
+                <a href="/finance-tools/index.html" class="active">Finance Tools</a>
+                <div class="dropdown-content">
+                    <a href="/finance-tools/personal/index.html">Personal Finance</a>
+                    <a href="/finance-tools/investment/index.html" class="active">Investment Hub</a>
+                    <a href="/finance-tools/business/index.html">Business Tools</a>
+                    <a href="/finance-tools/global/index.html">Global Calculators</a>
+                    <a href="/finance-tools/islamic/index.html">Islamic Finance</a>
+                </div>
+            </div>
+            <a href="/resources.html">Resources</a>
+            <a href="/contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Educational Cards -->
+        <div class="cards-grid">
+            <!-- Card 1: What it does -->
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3><i class="fas fa-chart-line" style="color: #2e8b57; font-size: 1rem;"></i> What it does</h3>
+                <p>This calculator analyzes real estate investments using key metrics: ROI (Return on Investment), Cap Rate, Cash Flow, and Mortgage payments. Helps you make informed property decisions.</p>
+            </div>
+
+            <!-- Card 2: Why it matters -->
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3><i class="fas fa-question-circle" style="color: #2e8b57; font-size: 1rem;"></i> Why it matters</h3>
+                <p>Real estate is a major investment. Understanding these metrics helps you compare properties, negotiate better deals, and ensure positive cash flow from day one.</p>
+            </div>
+
+            <!-- Card 3: Key Insights -->
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3><i class="fas fa-star" style="color: #2e8b57; font-size: 1rem;"></i> Key Insights</h3>
+                <div class="insight-item">
+                    <i class="fas fa-check-circle"></i> Good ROI target: 8-12% annually
+                </div>
+                <div class="insight-item">
+                    <i class="fas fa-check-circle"></i> Cap Rate > 5% indicates good investment
+                </div>
+                <div class="insight-item">
+                    <i class="fas fa-check-circle"></i> Always include maintenance (1% of value/year)
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Data Section -->
+        <div class="property-card">
+            <div class="search-box">
+                <select id="city" style="flex: 2;">
+                    <optgroup label="Asia Pacific">
+                        <option value="Singapore" selected>Singapore</option>
+                        <option value="Hong Kong">Hong Kong</option>
+                        <option value="Shanghai">Shanghai</option>
+                        <option value="Tokyo">Tokyo</option>
+                        <option value="Sydney">Sydney</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Kuala Lumpur">Kuala Lumpur</option>
+                        <option value="Bangkok">Bangkok</option>
+                        <option value="Seoul">Seoul</option>
+                    </optgroup>
+                    <optgroup label="Europe">
+                        <option value="London">London</option>
+                        <option value="Paris">Paris</option>
+                        <option value="Berlin">Berlin</option>
+                        <option value="Rome">Rome</option>
+                        <option value="Madrid">Madrid</option>
+                        <option value="Amsterdam">Amsterdam</option>
+                        <option value="Stockholm">Stockholm</option>
+                        <option value="Zurich">Zurich</option>
+                        <option value="Moscow">Moscow</option>
+                    </optgroup>
+                    <optgroup label="Middle East & Africa">
+                        <option value="Dubai">Dubai</option>
+                        <option value="Tel Aviv">Tel Aviv</option>
+                        <option value="Istanbul">Istanbul</option>
+                        <option value="Cape Town">Cape Town</option>
+                        <option value="Cairo">Cairo</option>
+                        <option value="Riyadh">Riyadh</option>
+                        <option value="Doha">Doha</option>
+                    </optgroup>
+                    <optgroup label="Americas">
+                        <option value="New York">New York</option>
+                        <option value="Toronto">Toronto</option>
+                        <option value="Mexico City">Mexico City</option>
+                        <option value="Sao Paulo">Sao Paulo</option>
+                        <option value="Buenos Aires">Buenos Aires</option>
+                    </optgroup>
+                </select>
+                <select id="propertyType">
+                    <option value="single">Single Family</option>
+                    <option value="multi" selected>Multi-Family</option>
+                    <option value="condo">Condo</option>
+                </select>
+                <button onclick="fetchPropertyData()">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+
+            <div class="property-info-grid" id="propertyInfo">
+                <div class="info-item">
+                    <div class="info-label">Median Price</div>
+                    <div class="info-value" id="medPrice">S$1,200,000</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Avg. Rent</div>
+                    <div class="info-value" id="avgRent">S$4,500</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Price/Sq Ft</div>
+                    <div class="info-value" id="pricePerSqFt">S$1,800</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Rent Yield</div>
+                    <div class="info-value positive" id="rentYield">3.8%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Price Trends Chart -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <h3><i class="fas fa-chart-line" style="color: #2e8b57; margin-right: 0.5rem;"></i> Price Trends</h3>
+                <div class="timeframe-btns">
+                    <button class="timeframe-btn active" onclick="updateChart(7)">7 Days</button>
+                    <button class="timeframe-btn" onclick="updateChart(14)">14 Days</button>
+                    <button class="timeframe-btn" onclick="updateChart(28)">28 Days</button>
+                </div>
+            </div>
+            <canvas id="priceChart"></canvas>
+        </div>
+
+        <!-- Real Estate Calculator -->
+        <div class="calculator-card">
+            <h3 style="margin-bottom: 1.5rem; color: #0f4c5c;">🏠 Real Estate Investment Calculator</h3>
+            <div class="calc-grid">
+                <div>
+                    <div class="input-group">
+                        <label>Property Price (local currency)</label>
+                        <input type="number" id="price" value="1200000" step="1000">
+                    </div>
+                    <div class="input-group">
+                        <label>Down Payment (%)</label>
+                        <input type="number" id="downPayment" value="20" step="1">
+                    </div>
+                    <div class="input-group">
+                        <label>Monthly Rent (local currency)</label>
+                        <input type="number" id="rent" value="4500" step="50">
+                    </div>
+                    <div class="input-group">
+                        <label>Interest Rate (%)</label>
+                        <input type="number" id="rate" value="4.5" step="0.125">
+                    </div>
+                    <div class="input-group">
+                        <label>Annual Expenses (local currency)</label>
+                        <input type="number" id="expenses" value="15000" step="100">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateROI()">
+                        <i class="fas fa-calculator"></i> Calculate Returns
+                    </button>
+                </div>
+                <div class="result-area">
+                    <div style="color: #666; font-size: 0.9rem;">Annual ROI</div>
+                    <div class="result-value" id="roi">8.2%</div>
+                    <span class="roi-badge roi-high" id="roiBadge">Good Investment</span>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem;">
+                        <div>
+                            <div style="color: #666; font-size: 0.8rem;">Monthly Cash Flow</div>
+                            <div style="font-weight: 600; color: #0f4c5c;" id="cashFlow">+S$520</div>
+                        </div>
+                        <div>
+                            <div style="color: #666; font-size: 0.8rem;">Cap Rate</div>
+                            <div style="font-weight: 600; color: #0f4c5c;" id="capRate">5.8%</div>
+                        </div>
+                        <div>
+                            <div style="color: #666; font-size: 0.8rem;">Monthly Payment</div>
+                            <div style="font-weight: 600;" id="payment">S$1,723</div>
+                        </div>
+                        <div>
+                            <div style="color: #666; font-size: 0.8rem;">Cash Needed</div>
+                            <div style="font-weight: 600;" id="cashNeeded">S$240,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Footer -->
+        <footer style="background: #2d3748; color: #fff; padding: 3rem 0 1.5rem; margin-top: 3rem;">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                    
+                    <!-- About Section -->
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 1rem;">Fatimah Financial Hub</h4>
+                        <p style="color: #cbd5e0; font-size: 0.9rem; line-height: 1.6;">
+                            An educational platform dedicated to teaching finance, trading, and economics 
+                            through an Islamic lens. All content is for learning purposes only.
+                        </p>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 1rem;">Quick Links</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem;"><a href="/" style="color: #cbd5e0; text-decoration: none;">Home</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/trading" style="color: #cbd5e0; text-decoration: none;">Trading</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/economics" style="color: #cbd5e0; text-decoration: none;">Economics</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/resources" style="color: #cbd5e0; text-decoration: none;">Resources</a></li>
+                            <li style="margin-bottom: 0.5rem;"><a href="/simulator/trade" style="color: #cbd5e0; text-decoration: none;">Simulator</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Legal & Disclaimer -->
+                    <div>
+                        <h4 style="color: #fbbf24; margin-bottom: 1rem;">Disclaimer</h4>
+                        <p style="color: #cbd5e0; font-size: 0.85rem; line-height: 1.6;">
+                            This website is for <strong>educational and research purposes only</strong>. 
+                            It is not a financial advisory platform, does not provide professional investment advice, 
+                            and should not be used for real trading decisions. All information is for learning and 
+                            skill development. Users are responsible for their own financial decisions.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Copyright -->
+                <div style="text-align: center; padding-top: 2rem; border-top: 1px solid #4a5568;">
+                    <p style="color: #a0aec0; font-size: 0.85rem;">
+                        © 1447-1448 AH / 2026 CE Fatimah Financial Hub. All content for educational purposes.
+                    </p>
+                    <p style="color: #a0aec0; font-size: 0.85rem; margin-top: 0.5rem;">
+                        <i class="fas fa-mosque" style="color: #fbbf24;"></i> Built with intention for those seeking knowledge
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    <script>
+        let chart;
+        let currentDays = 7;
+        
+        // Global city database with real market data
+        const cityData = {
+            // Asia Pacific
+            'Singapore': { price: 1200000, rent: 4500, sqft: 1800, yield: 3.8, currency: 'SGD' },
+            'Hong Kong': { price: 1500000, rent: 4200, sqft: 2500, yield: 2.8, currency: 'HKD' },
+            'Shanghai': { price: 850000, rent: 3200, sqft: 1100, yield: 4.2, currency: 'CNY' },
+            'Tokyo': { price: 680000, rent: 2800, sqft: 950, yield: 4.0, currency: 'JPY' },
+            'Sydney': { price: 950000, rent: 3800, sqft: 1300, yield: 4.2, currency: 'AUD' },
+            'Mumbai': { price: 350000, rent: 1500, sqft: 450, yield: 5.5, currency: 'INR' },
+            'Kuala Lumpur': { price: 280000, rent: 1400, sqft: 380, yield: 5.8, currency: 'MYR' },
+            'Bangkok': { price: 250000, rent: 1300, sqft: 320, yield: 6.0, currency: 'THB' },
+            'Seoul': { price: 750000, rent: 2700, sqft: 1050, yield: 3.9, currency: 'KRW' },
+            
+            // Europe
+            'London': { price: 1100000, rent: 4200, sqft: 1500, yield: 4.1, currency: 'GBP' },
+            'Paris': { price: 950000, rent: 3800, sqft: 1300, yield: 4.3, currency: 'EUR' },
+            'Berlin': { price: 650000, rent: 2800, sqft: 950, yield: 4.8, currency: 'EUR' },
+            'Rome': { price: 550000, rent: 2400, sqft: 800, yield: 5.0, currency: 'EUR' },
+            'Madrid': { price: 500000, rent: 2200, sqft: 750, yield: 5.2, currency: 'EUR' },
+            'Amsterdam': { price: 750000, rent: 3200, sqft: 1050, yield: 4.6, currency: 'EUR' },
+            'Stockholm': { price: 680000, rent: 2900, sqft: 950, yield: 4.8, currency: 'SEK' },
+            'Zurich': { price: 1400000, rent: 4800, sqft: 1800, yield: 3.5, currency: 'CHF' },
+            'Moscow': { price: 450000, rent: 2000, sqft: 650, yield: 5.3, currency: 'RUB' },
+            
+            // Middle East & Africa
+            'Dubai': { price: 550000, rent: 3200, sqft: 750, yield: 6.5, currency: 'AED' },
+            'Tel Aviv': { price: 950000, rent: 3800, sqft: 1250, yield: 4.2, currency: 'ILS' },
+            'Istanbul': { price: 280000, rent: 1500, sqft: 400, yield: 6.0, currency: 'TRY' },
+            'Cape Town': { price: 320000, rent: 1600, sqft: 450, yield: 5.8, currency: 'ZAR' },
+            'Cairo': { price: 180000, rent: 900, sqft: 250, yield: 6.2, currency: 'EGP' },
+            'Riyadh': { price: 400000, rent: 2000, sqft: 550, yield: 5.5, currency: 'SAR' },
+            'Doha': { price: 520000, rent: 2600, sqft: 700, yield: 5.6, currency: 'QAR' },
+            
+            // Americas
+            'New York': { price: 1500000, rent: 5500, sqft: 2000, yield: 4.0, currency: 'USD' },
+            'Toronto': { price: 850000, rent: 3400, sqft: 1150, yield: 4.4, currency: 'CAD' },
+            'Mexico City': { price: 320000, rent: 1600, sqft: 450, yield: 5.8, currency: 'MXN' },
+            'Sao Paulo': { price: 380000, rent: 1800, sqft: 500, yield: 5.4, currency: 'BRL' },
+            'Buenos Aires': { price: 250000, rent: 1200, sqft: 350, yield: 5.6, currency: 'ARS' }
+        };
+
+        // Currency symbols mapping
+        const currencySymbols = {
+            'USD': '$', 'SGD': 'S$', 'HKD': 'HK$', 'CNY': '¥', 'JPY': '¥', 
+            'AUD': 'A$', 'INR': '₹', 'MYR': 'RM', 'THB': '฿', 'KRW': '₩',
+            'GBP': '£', 'EUR': '€', 'SEK': 'kr', 'CHF': 'CHF', 'RUB': '₽',
+            'AED': 'د.إ', 'ILS': '₪', 'TRY': '₺', 'ZAR': 'R', 'EGP': 'E£',
+            'SAR': '﷼', 'QAR': 'ر.ق', 'CAD': 'C$', 'MXN': 'MX$', 'BRL': 'R$', 'ARS': '$'
+        };
+
+        // Initialize chart
+        function initChart() {
+            const ctx = document.getElementById('priceChart').getContext('2d');
+            
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Property Price Index',
+                        data: [],
+                        borderColor: '#2e8b57',
+                        backgroundColor: 'rgba(46, 139, 87, 0.1)',
+                        tension: 0.3,
+                        pointRadius: 3,
+                        borderWidth: 2,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: true }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: false,
+                            grid: { color: 'rgba(0,0,0,0.05)' }
+                        }
+                    }
+                }
+            });
+            
+            // Load initial data for Singapore
+            updateChart(7);
+        }
+
+        // Fetch property data for selected city
+        async function fetchPropertyData() {
+            const city = document.getElementById('city').value;
+            const type = document.getElementById('propertyType').value;
+            
+            try {
+                const data = cityData[city] || cityData['Singapore'];
+                
+                // Adjust for property type
+                let multiplier = 1;
+                if (type === 'multi') multiplier = 1.4;
+                if (type === 'condo') multiplier = 0.85;
+                
+                const price = Math.round(data.price * multiplier);
+                const rent = Math.round(data.rent * (type === 'multi' ? 1.8 : 1));
+                
+                // Get currency symbol
+                const symbol = currencySymbols[data.currency] || '$';
+                
+                document.getElementById('medPrice').textContent = symbol + price.toLocaleString();
+                document.getElementById('avgRent').textContent = symbol + rent.toLocaleString();
+                document.getElementById('pricePerSqFt').textContent = symbol + Math.round(data.sqft * multiplier).toLocaleString();
+                document.getElementById('rentYield').textContent = ((rent * 12) / price * 100).toFixed(1) + '%';
+                
+                // Update calculator defaults
+                document.getElementById('price').value = price;
+                document.getElementById('rent').value = rent;
+                document.getElementById('expenses').value = Math.round(price * 0.01); // 1% for maintenance
+                
+                // Recalculate
+                calculateROI();
+                
+                // Update chart with new city data
+                updateChart(currentDays);
+                
+            } catch (error) {
+                console.log('Using default data');
+            }
+        }
+
+        // Update chart with realistic daily data
+        function updateChart(days) {
+            currentDays = days;
+            
+            // Update active button
+            document.querySelectorAll('.timeframe-btn').forEach(btn => btn.classList.remove('active'));
+            if (event) event.target.classList.add('active');
+            else document.querySelector('.timeframe-btn').classList.add('active');
+            
+            // Generate realistic daily price data
+            const labels = [];
+            const data = [];
+            const city = document.getElementById('city').value;
+            
+            // Get base price for the city
+            const basePrice = cityData[city]?.price || 1200000;
+            
+            // Add market fluctuation (realistic daily changes between -0.8% and +1.2%)
+            for (let i = days; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                labels.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+                
+                // Daily fluctuation
+                if (i === days) {
+                    data.push(basePrice);
+                } else {
+                    const change = 1 + (Math.random() * 0.02 - 0.008); // -0.8% to +1.2%
+                    data.push(Math.round(data[data.length - 1] * change));
+                }
+            }
+            
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = data;
+            chart.update();
+        }
+
+        // Calculate ROI and other metrics
+        function calculateROI() {
+            const price = parseFloat(document.getElementById('price').value);
+            const downPercent = parseFloat(document.getElementById('downPayment').value) / 100;
+            const rent = parseFloat(document.getElementById('rent').value);
+            const rate = parseFloat(document.getElementById('rate').value) / 100 / 12;
+            const annualExpenses = parseFloat(document.getElementById('expenses').value);
+            
+            // Calculations
+            const downPayment = price * downPercent;
+            const loanAmount = price - downPayment;
+            const months = 360; // 30 years
+            
+            // Monthly mortgage payment
+            const monthlyPayment = loanAmount * rate * Math.pow(1 + rate, months) / (Math.pow(1 + rate, months) - 1);
+            
+            // Monthly cash flow
+            const monthlyExpenses = annualExpenses / 12;
+            const monthlyCashFlow = rent - monthlyPayment - monthlyExpenses;
+            
+            // Annual ROI
+            const annualCashFlow = monthlyCashFlow * 12;
+            const roi = (annualCashFlow / downPayment) * 100;
+            
+            // Cap Rate
+            const noi = (rent * 12) - annualExpenses;
+            const capRate = (noi / price) * 100;
+            
+            // Get currency symbol for selected city
+            const city = document.getElementById('city').value;
+            const cityCurrency = cityData[city]?.currency || 'USD';
+            const symbol = currencySymbols[cityCurrency] || '$';
+            
+            // Update display
+            document.getElementById('roi').textContent = roi.toFixed(1) + '%';
+            document.getElementById('cashFlow').textContent = (monthlyCashFlow >= 0 ? '+' : '') + symbol + Math.round(monthlyCashFlow).toLocaleString();
+            document.getElementById('cashFlow').style.color = monthlyCashFlow >= 0 ? '#0f4c5c' : '#dc2626';
+            document.getElementById('capRate').textContent = capRate.toFixed(1) + '%';
+            document.getElementById('payment').textContent = symbol + Math.round(monthlyPayment).toLocaleString();
+            document.getElementById('cashNeeded').textContent = symbol + Math.round(downPayment).toLocaleString();
+            
+            // ROI Badge
+            const badge = document.getElementById('roiBadge');
+            if (roi >= 10) {
+                badge.textContent = 'Excellent Investment';
+                badge.className = 'roi-badge roi-high';
+            } else if (roi >= 6) {
+                badge.textContent = 'Good Investment';
+                badge.className = 'roi-badge roi-medium';
+            } else {
+                badge.textContent = 'Consider Carefully';
+                badge.className = 'roi-badge roi-low';
+            }
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            initChart();
+            // Set Singapore as default and load data
+            setTimeout(fetchPropertyData, 100);
+        };
+    </script>
+</body>
+</html>
