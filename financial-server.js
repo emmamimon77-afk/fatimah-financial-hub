@@ -44,33 +44,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/trading', express.static(path.join(__dirname, 'trading')));
 
 // ========== DATABASE CONNECTION ==========
-//mongoose.connect(MONGO_URI, {
-//  useNewUrlParser: true,
-//  useUnifiedTopology: true,
-//  serverSelectionTimeoutMS: 5000
-//}).then(() => {
-//  console.log('✅ MongoDB Atlas Connected');
-//}).catch(err => {
-//  console.log('📦 Using in-memory storage (MongoDB not required)');
-//  console.log('💡 Tip: Add MONGODB_URI environment variable for persistent storage');
-//});
-
-// ========== DATABASE CONNECTION ==========
-// Only connect to MongoDB if we're in production
-if (process.env.NODE_ENV === 'production') {
-  mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000
-  }).then(() => {
-    console.log('✅ MongoDB Atlas Connected');
-  }).catch(err => {
-    console.error('❌ MongoDB Connection Error:', err.message);
-  });
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI)
+    .then(() => {
+      console.log('✅ MongoDB Connected - Data will be saved to cloud');
+    })
+    .catch(err => {
+      console.log('MongoDB connection error:', err.message);
+      console.log('📦 Falling back to file storage for messages');
+    });
 } else {
-  console.log('📦 Development mode: Using localStorage for data storage');
-  console.log('💡 Set NODE_ENV=production and MONGODB_URI to enable cloud DB');
+  console.log('📦 No MongoDB URI. Using file storage for messages');
+  console.log('💡 Add MONGODB_URI environment variable to enable cloud database');
 }
+
 
 // Add this to your server.js for future use
 async function migrateUserData(username, localData) {
