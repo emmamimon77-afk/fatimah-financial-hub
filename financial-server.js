@@ -711,7 +711,7 @@ app.get('/api/fred/:seriesId', async (req, res) => {
 // ========== ADMIN PROTECTION ==========
 // Protect admin routes with password
 app.use('/admin', basicAuth({
-    users: { 'admin': 'Fatimahkhin2026' }, // Change this password!
+    users: { 'admin': 'Fatimah2026' }, // Change this password!
     challenge: true,
     realm: 'Admin Area'
 }));
