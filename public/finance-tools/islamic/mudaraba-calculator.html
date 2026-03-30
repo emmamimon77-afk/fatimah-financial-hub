@@ -140,7 +140,93 @@
             border: 3px solid white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        
+    
+        .nav-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        @media (min-width: 768px) {
+            .nav-bar {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem 2rem;
+            }
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 15px auto;
+            padding: 0 20px;
+            font-size: 14px;
+        }
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .footer-links {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            padding: 40px 20px;
+            color: white;
+            margin-top: 60px;
+        }
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        .footer-section h4 {
+            color: #cbd5e0;
+            margin-bottom: 15px;
+        }
+        .footer-section a {
+            color: #e2e8f0;
+            display: block;
+            margin-bottom: 8px;
+            text-decoration: none;
+        }
+        .footer-section a:hover {
+            color: #667eea;
+        }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid #4a5568;
+            text-align: center;
+            color: #a0aec0;
+            font-size: 12px;
+        }
+    
         .result-card {
             padding: 20px;
             border-radius: 10px;
@@ -180,35 +266,28 @@
 </head>
 <body>
     <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem;">
-                <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
-            </a>
-            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; opacity: 0.9;">
-               <i class="fas fa-calculator"></i> Tools
-            </a>
-            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; opacity: 0.9;">
-               <i class="fas fa-phone-alt"></i> Telephony
-            </a>
+    <div class="nav-bar">
+        <div class="nav-links">
+            <a href="/"><i class="fas fa-home"></i> Fatimah Hub</a>
+            <a href="/finance-tools"><i class="fas fa-calculator"></i> Tools</a>
+            <a href="/telephony"><i class="fas fa-phone-alt"></i> Telephony</a>
         </div>
-        <div style="color: white;">
-            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px;">
-                 <i class="fas fa-islam"></i> Islamic Finance
-            </span>
+        <div class="badge">
+            <i class="fas fa-handshake"></i> Mudaraba Calculator
         </div>
     </div>
 
+
     <!-- BREADCRUMB NAVIGATION -->
-    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
-        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none;">Home</a>
-        <span style="margin: 0 8px; color: #999;">›</span>
-        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none;">Tools</a>
-        <span style="margin: 0 8px; color: #999;">›</span>
-        <a href="../index.html" style="color: #667eea; text-decoration: none;">Islamic Finance</a>
-        <span style="margin: 0 8px; color: #999;">›</span>
-        <span style="color: #333;">Mudaraba Calculator</span>
-    </div> 
+    <div class="breadcrumb">
+        <a href="/">Home</a>
+        <span> › </span>
+        <a href="/finance-tools">Tools</a>
+        <span> › </span>
+        <a href="/finance-tools/islamic">Islamic Finance</a>
+        <span> › </span>
+        <span>Mudaraba Calculator</span>
+    </div>
 
     <div class="container">
         <!-- Header -->
@@ -1085,53 +1164,33 @@
         }   
     </script>
     <!-- FOOTER NAVIGATION -->
-    <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
-        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
-        
-            <div>
-                <h4 style="color: #cbd5e0; margin-bottom: 15px;">Fatimah Financial Hub</h4>
-                <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
-                    <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
-                </a>
-                <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
-                    <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
-                </a>
+    <div class="footer-links">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>Fatimah Financial Hub</h4>
+                <a href="/"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="/finance-tools"><i class="fas fa-calculator"></i> All Tools</a>
             </div>
-        
-            <div>
-                <h4 style="color: #cbd5e0; margin-bottom: 15px;">Calculators</h4>
-                <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
-                    <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
-                </a>
-                <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
-                    <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
-                </a>
-                <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
-                    <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
-                </a>
+            <div class="footer-section">
+                <h4>Calculators</h4>
+                <a href="/finance-tools/islamic"><i class="fas fa-mosque"></i> Islamic Finance</a>
+                <a href="/finance-tools/global"><i class="fas fa-globe"></i> Global Tools</a>
+                <a href="/finance-tools/personal"><i class="fas fa-user"></i> Personal Finance</a>
             </div>
-        
-            <div>
-                <h4 style="color: #cbd5e0; margin-bottom: 15px;">Other Modules</h4>
-                <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
-                    <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
-                </a>
-                <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none;">
-                    <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
-                </a>
-                <span style="color: #718096; display: block; margin-bottom: 8px;">
-                    <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics (Coming Soon)
-                </span>
+            <div class="footer-section">
+                <h4>Other Modules</h4>
+                <a href="/telephony"><i class="fas fa-phone-alt"></i> Telephony</a>
+                <a href="/trading"><i class="fas fa-chart-line"></i> Trading</a>
+                <a href="/economics"><i class="fas fa-university"></i> Economics</a>
+                <a href="/resources"><i class="fas fa-book"></i> Resources</a>
             </div>
         </div>
-    
-        <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
-            <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
-            <p style="margin-top: 10px; font-size: 0.9rem;">
-                <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
-            </p>
+        <div class="footer-bottom">
+            <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub. All calculators are for educational purposes.</p>
+            <p><i class="fas fa-mosque"></i> Shariah-Compliant • FRED API • Real-Time Data</p>
         </div>
     </div>
+
 
 </body>
 </html>
