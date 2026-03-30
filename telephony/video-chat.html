@@ -356,7 +356,11 @@
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script>
         // ========== CONFIGURATION ==========
-        const socket = io();
+        const socket = io({
+            transports: ['websocket', 'polling'],
+            reconnectionAttempts: 5,
+            reconnectionDelay: 1000
+        });
         let myStream = null;
         let peerConnection = null;
         let currentCallWith = null;
