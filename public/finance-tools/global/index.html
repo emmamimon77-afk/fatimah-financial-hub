@@ -6,35 +6,22 @@
     <title>Global Financial Calculators</title>
     <link rel="stylesheet" href="../shared/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/shared/navigation.css">
 </head>
 <body>
-    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
-               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
-            </a>
-            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
-               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
-            </a>
-            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
-               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
-            </a>
-        </div>
-        <div style="color: white;">
-            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
-                <i class="fas fa-globe" style="margin-right: 5px;"></i> Global Tools
-            </span>
-        </div>
-    </div>
-    <!-- BREADCRUMB NAVIGATION -->
-    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
-        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
-        <span style="margin: 0 8px; color: #999;">›</span>
-        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
-        <span style="margin: 0 8px; color: #999;">›</span>
-        <span style="color: #333; font-weight: 500;">Global Calculators</span>
-    </div>
+    <!-- Navigation -->
+    <div id="main-navigation"></div>
+    <script>
+        fetch('/shared/navigation.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('main-navigation').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Failed to load navigation:', error);
+                document.getElementById('main-navigation').innerHTML = '<div style="background: #2e7d32; padding: 1rem; color: white; text-align: center;">Fatimah Financial Hub</div>';
+            });
+    </script>
 
     <div class="container">
         <!-- Header -->

@@ -1,0 +1,41 @@
+<div class="main-nav" style="background: linear-gradient(135deg, #1a472a 0%, #2e7d32 100%); padding: 1rem; margin-bottom: 20px;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="font-size: 1.2rem; font-weight: bold;">
+                <a href="/" style="color: white; text-decoration: none;">🏦 Fatimah Financial Hub</a>
+            </div>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <a href="/dashboard" style="color: white; text-decoration: none;">Dashboard</a>
+                <a href="/about" style="color: white; text-decoration: none;">About</a>
+                <a href="/trading" style="color: white; text-decoration: none;">Trading</a>
+                <a href="/finance-tools" style="color: white; text-decoration: none; font-weight: bold; border-bottom: 2px solid #ffd700;">Tools</a>
+                <a href="/telephony" style="color: white; text-decoration: none;">Telephony</a>
+                <a href="/economics" style="color: white; text-decoration: none;">Economics</a>
+                <a href="/resources" style="color: white; text-decoration: none;">Resources</a>
+                <a href="/simulator" style="color: white; text-decoration: none;">Simulator</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Breadcrumb navigation -->
+<div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+    <a href="/" style="color: #2e7d32; text-decoration: none;">Home</a>
+    <span style="margin: 0 8px; color: #999;">›</span>
+    <a href="/finance-tools" style="color: #2e7d32; text-decoration: none;">Tools</a>
+    <span style="margin: 0 8px; color: #999;">›</span>
+    <span id="current-page" style="color: #666;">Calculator</span>
+</div>
+
+<script>
+    // Update breadcrumb with current page name
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentPageSpan = document.getElementById('current-page');
+        if (currentPageSpan) {
+            const pageTitle = document.title.split('|')[0].trim();
+            if (pageTitle && pageTitle !== 'Fatimah Financial Hub') {
+                currentPageSpan.textContent = pageTitle;
+            }
+        }
+    });
+</script>
