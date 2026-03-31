@@ -2,374 +2,148 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Financial Calculators</title>
     <link rel="stylesheet" href="../shared/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: #f8fafc;
-            line-height: 1.6;
-        }
-        
-        /* Responsive Navigation */
-        .nav-bar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        @media (min-width: 768px) {
-            .nav-bar {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                padding: 1rem 2rem;
-            }
-        }
-        
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 12px;
-            border-radius: 8px;
-            transition: background 0.3s;
-            font-size: 14px;
-        }
-        
-        .nav-links a:hover {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        .badge {
-            background: rgba(255,255,255,0.2);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 500;
-            font-size: 14px;
-            text-align: center;
-        }
-        
-        /* Breadcrumb */
-        .breadcrumb {
-            max-width: 1200px;
-            margin: 15px auto;
-            padding: 0 15px;
-            font-size: 14px;
-        }
-        
-        .breadcrumb a {
-            color: #667eea;
-            text-decoration: none;
-        }
-        
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* Header */
-        .header {
-            text-align: center;
-            margin: 30px 0;
-        }
-        
-        .header h1 {
-            font-size: 1.8rem;
-            color: #1e293b;
-        }
-        
-        @media (min-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-        }
-        
-        /* Calculator Grid */
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-            margin: 30px 0;
-        }
-        
-        @media (min-width: 768px) {
-            .calculator-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        .calculator-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border: 1px solid #e2e8f0;
-        }
-        
-        .calculator-card h3 {
-            color: #312e81;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        
-        .input-group {
-            margin-bottom: 15px;
-        }
-        
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            color: #475569;
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 16px;
-        }
-        
-        .calculate-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #312e81, #1e1b4b);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            margin: 15px 0;
-        }
-        
-        .results {
-            background: #f8fafc;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-        
-        /* Footer */
-        .footer-links {
-            margin-top: 60px;
-            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
-            padding: 40px 20px;
-            color: white;
-        }
-        
-        .footer-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-        
-        @media (min-width: 768px) {
-            .footer-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        .footer-section h4 {
-            color: #cbd5e0;
-            margin-bottom: 15px;
-        }
-        
-        .footer-section a {
-            color: #e2e8f0;
-            display: block;
-            margin-bottom: 8px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .footer-section a:hover {
-            color: #667eea;
-            padding-left: 5px;
-        }
-        
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 30px auto 0;
-            padding-top: 20px;
-            border-top: 1px solid #4a5568;
-            text-align: center;
-            color: #a0aec0;
-            font-size: 12px;
-        }
-        
-        /* Global Tools Navigation */
-        .global-tools-nav {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-        }
-        
-        .tools-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        @media (min-width: 768px) {
-            .tools-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        .tool-card {
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            text-decoration: none;
-            color: #1e293b;
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s;
-        }
-        
-        .tool-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
-            .calculator-card {
-                padding: 15px;
-            }
-            
-            .form-input {
-                font-size: 14px;
-                padding: 8px;
-            }
-            
-            .calculate-btn {
-                padding: 10px;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- TOP NAVIGATION BAR -->
-    <div class="nav-bar">
-        <div class="nav-links">
-            <a href="/"><i class="fas fa-home"></i> Fatimah Hub</a>
-            <a href="/finance-tools"><i class="fas fa-calculator"></i> Tools</a>
-            <a href="/telephony"><i class="fas fa-phone-alt"></i> Telephony</a>
+    <!-- FATIMAH FINANCIAL HUB - GLOBAL NAVIGATION -->
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-radius: 0 0 10px 10px;">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="http://localhost:3000/" style="color: white; text-decoration: none; font-weight: bold; font-size: 1.2rem; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-home" style="margin-right: 8px;"></i>Fatimah Hub
+            </a>
+            <a href="http://localhost:3000/finance-tools/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-calculator" style="margin-right: 5px;"></i> Tools
+            </a>
+            <a href="http://localhost:3000/telephony/" style="color: white; text-decoration: none; font-weight: 500; padding: 5px 10px; border-radius: 5px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='transparent'">
+               <i class="fas fa-phone-alt" style="margin-right: 5px;"></i> Telephony
+            </a>
         </div>
-        <div class="badge">
-            <i class="fas fa-globe"></i> Global Tools
+        <div style="color: white;">
+            <span style="background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-weight: 500;">
+                <i class="fas fa-globe" style="margin-right: 5px;"></i> Global Tools
+            </span>
         </div>
     </div>
-
-    <!-- BREADCRUMB -->
-    <div class="breadcrumb">
-        <a href="/">Home</a>
-        <span> › </span>
-        <a href="/finance-tools">Tools</a>
-        <span> › </span>
-        <span>Global Calculators</span>
+    <!-- BREADCRUMB NAVIGATION -->
+    <div style="max-width: 1200px; margin: 0 auto 20px auto; padding: 0 20px;">
+        <a href="http://localhost:3000/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Home</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <a href="http://localhost:3000/finance-tools/" style="color: #667eea; text-decoration: none; font-weight: 500;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Tools</a>
+        <span style="margin: 0 8px; color: #999;">›</span>
+        <span style="color: #333; font-weight: 500;">Global Calculators</span>
     </div>
 
-    <!-- MAIN CONTENT -->
     <div class="container">
+        <!-- Header -->
         <div class="header">
             <h1><i class="fas fa-globe-americas"></i> Global Financial Calculators</h1>
             <p>Country-specific financial planning with real-world rates</p>
         </div>
         
         <!-- Country Selector -->
-        <div class="country-selector" id="country-container"></div>
+        <div class="country-selector">
+            <div id="country-container">
+                <p>Select your country to see local rates:</p>
+                <!-- Country selector will be added here by JavaScript -->
+            </div>
+        </div>
         
         <!-- Calculators Grid -->
         <div class="calculator-grid">
             <!-- Mortgage Calculator -->
-            <div id="mortgage-calculator" class="calculator-card">
+            <div id="mortgage-calculator">
                 <!-- Mortgage UI will be loaded here -->
             </div>
             
             <!-- Live Rate Display -->
-            <div id="live-rates-container" style="display: none;">
+            <div id="live-rates-container" style="display: none; margin-bottom: 20px;">
                 <div class="calculator-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
                     <h3><i class="fas fa-bolt"></i> Live Market Rates</h3>
                     <div id="live-rates-content">
                         <p>Loading current rates...</p>
                     </div>
-                    <button id="refresh-rates" style="margin-top: 10px; padding: 8px 15px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; cursor: pointer;">
+                    <button id="refresh-rates" style="margin-top: 10px; padding: 8px 15px; background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; cursor: pointer;">
                         <i class="fas fa-sync-alt"></i> Refresh Rates
                     </button>
+                    <p style="font-size: 0.8em; opacity: 0.8; margin-top: 5px;">
+                        <i class="fas fa-info-circle"></i> US rates update automatically
+                    </p>
                 </div>
             </div>
 
             <!-- Investment Calculator -->
             <div class="calculator-card">
                 <h3><i class="fas fa-chart-line"></i> Investment Calculator</h3>
+                <div class="current-rate">
+                    Current <span class="country-name">US</span> return: 
+                    <span class="investment-rate">7.00%</span>
+                </div>
                 <div id="investment-inputs">
                     <div class="input-group">
-                        <label>Initial Investment</label>
+                        <label for="investment-amount">Initial Investment</label>
                         <input type="number" id="investment-amount" class="form-input" value="10000">
                     </div>
                     <div class="input-group">
-                        <label>Monthly Contribution</label>
+                        <label for="investment-monthly">Monthly Contribution</label>
                         <input type="number" id="investment-monthly" class="form-input" value="500">
                     </div>
                     <div class="input-group">
-                        <label>Years to Invest</label>
+                        <label for="investment-years">Years to Invest</label>
                         <input type="number" id="investment-years" class="form-input" value="20">
                     </div>
+                    <div class="input-group">
+                        <label for="investment-rate">Expected Return (%)</label>
+                        <input type="number" id="investment-rate" class="form-input" placeholder="Leave empty for country default">
+                        <div class="input-hint">Leave empty to use country default rate</div>
+                    </div>
                 </div>
-                <button id="calculate-investment" class="calculate-btn">Calculate Investment</button>
-                <div id="investment-results" class="results">Enter values and click calculate</div>
+                <button id="calculate-investment" class="calculate-btn">
+                    Calculate Investment <i class="fas fa-rocket"></i>
+                </button>
+                <div id="investment-results" class="results">
+                    Enter values and click calculate
+                </div>
             </div>
             
             <!-- Retirement Calculator -->
             <div class="calculator-card">
                 <h3><i class="fas fa-umbrella-beach"></i> Retirement Planner</h3>
+                <div class="current-rate">
+                    <span class="country-name">US</span> average return: 
+                    <span class="retirement-rate">7.00%</span>
+                </div>
                 <div id="retirement-inputs">
                     <div class="input-group">
-                        <label>Current Age</label>
+                        <label for="retirement-age">Current Age</label>
                         <input type="number" id="retirement-age" class="form-input" value="35">
                     </div>
                     <div class="input-group">
-                        <label>Retirement Age</label>
+                        <label for="retirement-target">Retirement Age</label>
                         <input type="number" id="retirement-target" class="form-input" value="65">
                     </div>
                     <div class="input-group">
-                        <label>Current Savings</label>
+                        <label for="retirement-savings">Current Savings</label>
                         <input type="number" id="retirement-savings" class="form-input" value="50000">
                     </div>
                     <div class="input-group">
-                        <label>Monthly Savings</label>
+                        <label for="retirement-monthly">Monthly Savings</label>
                         <input type="number" id="retirement-monthly" class="form-input" value="1000">
                     </div>
+                    <div class="input-group">
+                        <label for="retirement-rate">Expected Return (%)</label>
+                        <input type="number" id="retirement-rate" class="form-input" placeholder="Leave empty for country default">
+                        <div class="input-hint">Leave empty to use country default rate</div>
+                    </div> 
                 </div>
-                <button id="calculate-retirement" class="calculate-btn">Plan Retirement</button>
-                <div id="retirement-results" class="results">Enter your retirement goals</div>
+                <button id="calculate-retirement" class="calculate-btn">
+                    Plan Retirement <i class="fas fa-calendar-alt"></i>
+                </button>
+                <div id="retirement-results" class="results">
+                    Enter your retirement goals
+                </div>
             </div>
             
             <!-- Loan Payoff Calculator -->
@@ -377,73 +151,59 @@
                 <h3><i class="fas fa-hand-holding-usd"></i> Loan Payoff</h3>
                 <div id="loan-inputs">
                     <div class="input-group">
-                        <label>Loan Amount</label>
+                        <label for="loan-amount">Loan Amount</label>
                         <input type="number" id="loan-amount" class="form-input" value="25000">
                     </div>
                     <div class="input-group">
-                        <label>Interest Rate (%)</label>
+                        <label for="loan-rate">Interest Rate (%)</label>
                         <input type="number" id="loan-rate" class="form-input" value="7.5">
                     </div>
                     <div class="input-group">
-                        <label>Minimum Payment</label>
+                        <label for="loan-payment">Minimum Payment</label>
                         <input type="number" id="loan-payment" class="form-input" value="300">
                     </div>
                     <div class="input-group">
-                        <label>Extra Monthly Payment</label>
+                        <label for="loan-extra">Extra Monthly Payment</label>
                         <input type="number" id="loan-extra" class="form-input" value="100">
                     </div>
                 </div>
-                <button id="calculate-loan" class="calculate-btn">Calculate Payoff</button>
-                <div id="loan-results" class="results">See how extra payments save time & money</div>
+                <button id="calculate-loan" class="calculate-btn">
+                    Calculate Payoff <i class="fas fa-calendar-check"></i>
+                </button>
+                <div id="loan-results" class="results">
+                    See how extra payments save time & money
+                </div>
             </div>
         </div>
 
+        
         <!-- Global Tools Navigation -->
-        <div class="global-tools-nav">
-            <h3><i class="fas fa-globe-americas"></i> Additional Global Tools</h3>
-            <div class="tools-grid">
-                <a href="/finance-tools/global/currency-converter.html" class="tool-card">
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+            <h3 style="color: #4a6fa5; margin-bottom: 15px;">
+                <i class="fas fa-globe-americas"></i> Additional Global Tools
+            </h3>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <a href="currency-converter.html" class="calculator-card" 
+                   style="flex: 1; min-width: 200px; text-align: center; padding: 20px;">
                     <h3><i class="fas fa-exchange-alt"></i> Currency Converter</h3>
-                    <p>Convert between currencies</p>
+                    <p>Convert between currencies with custom rates</p>
                 </a>
-                <a href="/finance-tools/islamic" class="tool-card">
+                <a href="../islamic/index.html" class="calculator-card"
+                   style="flex: 1; min-width: 200px; text-align: center; padding: 20px;">
                     <h3><i class="fas fa-mosque"></i> Islamic Finance</h3>
-                    <p>Murabaha, Ijara & more</p>
+                    <p>Murabaha, Ijara & Islamic finance tools</p>
                 </a>
-                <a href="/finance-tools" class="tool-card">
+                <a href="index.html" class="calculator-card"
+                   style="flex: 1; min-width: 200px; text-align: center; padding: 20px;">
                     <h3><i class="fas fa-calculator"></i> Financial Calculators</h3>
-                    <p>All tools in one place</p>
+                    <p>Mortgage, investment, retirement, loan payoff</p>
                 </a>
             </div>
         </div>
-    </div>
-
-    <!-- FOOTER -->
-    <div class="footer-links">
-        <div class="footer-grid">
-            <div class="footer-section">
-                <h4>Fatimah Financial Hub</h4>
-                <a href="/"><i class="fas fa-home"></i> Dashboard</a>
-                <a href="/finance-tools"><i class="fas fa-calculator"></i> All Tools</a>
-            </div>
-            <div class="footer-section">
-                <h4>Calculators</h4>
-                <a href="/finance-tools/islamic"><i class="fas fa-mosque"></i> Islamic Finance</a>
-                <a href="/finance-tools/global"><i class="fas fa-globe"></i> Global Tools</a>
-                <a href="/finance-tools/personal"><i class="fas fa-user"></i> Personal Finance</a>
-            </div>
-            <div class="footer-section">
-                <h4>Other Modules</h4>
-                <a href="/telephony"><i class="fas fa-phone-alt"></i> Telephony</a>
-                <a href="/trading"><i class="fas fa-chart-line"></i> Trading</a>
-                <a href="/economics"><i class="fas fa-university"></i> Economics</a>
-                <a href="/resources"><i class="fas fa-book"></i> Resources</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub</p>
-            <p><i class="fas fa-mosque"></i> Shariah-Compliant • FRED API • Real-Time Data</p>
-            <p style="font-size: 0.7rem; margin-top: 10px;">All calculators are for educational purposes only.</p>
+        
+        <!-- Footer -->
+        <div class="footer" style="text-align: center; padding: 20px; color: #6c757d; border-top: 1px solid #dee2e6;">
+            <p>Rates updated Q1 2024. Calculations are estimates. Consult a financial advisor for personalized advice.</p>
         </div>
     </div>
 
@@ -455,8 +215,12 @@
     <script src="../modules/ui-controls.js"></script>
     <script src="../modules/mortgage-ui.js"></script>    
 
+    
+    <!-- Main Application Script -->
     <script>
         // ========== LIVE RATES FUNCTIONS ==========
+        
+        // Live Rates Feature
         async function initializeLiveRates() {
             const liveRatesContainer = document.getElementById('live-rates-container');
             const liveRatesContent = document.getElementById('live-rates-content');
@@ -467,23 +231,43 @@
                 return;
             }
             
+            // Show the container
             liveRatesContainer.style.display = 'block';
+            
+            // Load initial rates
             await updateLiveRatesDisplay();
             
-            if (refreshBtn) {
-                refreshBtn.addEventListener('click', async function() {
-                    refreshBtn.disabled = true;
-                    refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
-                    if (window.RealTimeRates) {
-                        window.RealTimeRates.clearCache();
-                    }
-                    await updateLiveRatesDisplay();
-                    setTimeout(() => {
-                        refreshBtn.disabled = false;
-                        refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Rates';
-                    }, 1000);
-                });
-            }
+            // Setup refresh button
+            refreshBtn.addEventListener('click', async function() {
+                refreshBtn.disabled = true;
+                refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+                
+                // Force refresh by clearing cache
+                if (window.RealTimeRates) {
+                    window.RealTimeRates.clearCache();
+                }
+                
+                await updateLiveRatesDisplay();
+                
+                setTimeout(() => {
+                    refreshBtn.disabled = false;
+                    refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Rates';
+                }, 1000);
+            });
+            
+            // Update rates when country changes to US
+            const originalUpdateAllCalculators = window.updateAllCalculators;
+            window.updateAllCalculators = function(countryCode) {
+                // Call original function
+                if (originalUpdateAllCalculators) {
+                    originalUpdateAllCalculators(countryCode);
+                }
+                
+                // Update live rates display if US is selected
+                if (countryCode === 'US') {
+                    updateLiveRatesDisplay();
+                }
+            };
         }
         
         async function updateLiveRatesDisplay() {
@@ -493,150 +277,480 @@
             liveRatesContent.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> Fetching current rates...</p>';
             
             try {
+                // Get current country
                 const country = window.FinancialConfig?.userSettings?.country || 'US';
                 
-                if (country === 'US' && window.RealTimeRates) {
+                if (country === 'US') {
+                    // Fetch US live rates
                     const rates = await window.RealTimeRates.fetchUSRates();
+                    
+                    // Calculate approximate inflation from CPI
+                    // CPI of 326.03 (base 1982-84=100) to annual inflation estimate
+                    // Rough calculation: ((326.03/100) - 1) * 100 / number of years since 1984
+                    // Simplified to show ~2.8% for 2026
+                    const cpiIndex = rates.inflationRate;
+                    const estimatedInflation = 2.8; // Simplified estimate for 2026
+                    
                     liveRatesContent.innerHTML = `
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                            <div><strong>Mortgage Rate:</strong><br><span style="font-size: 1.2em;">${rates.mortgage30yr}%</span></div>
-                            <div><strong>Fed Funds Rate:</strong><br><span style="font-size: 1.2em;">${rates.fedFundsRate}%</span></div>
-                            <div><strong>Inflation:</strong><br><span style="font-size: 1.2em;">2.8%</span></div>
-                            <div><strong>Investment Return:</strong><br><span style="font-size: 1.2em;">${rates.investmentReturn}%</span></div>
+                            <div>
+                                <strong>Mortgage Rate:</strong><br>
+                                <span style="font-size: 1.2em;">${rates.mortgage30yr}%</span>
+                            </div>
+                            <div>
+                                <strong>Fed Funds Rate:</strong><br>
+                                <span style="font-size: 1.2em;">${rates.fedFundsRate}%</span>
+                            </div>
+                            <div>
+                                <strong>Inflation:</strong><br>
+                                <span style="font-size: 1.2em;">${estimatedInflation.toFixed(1)}%</span>
+                                <div style="font-size: 0.7em;">(CPI: ${cpiIndex})</div>
+                            </div>
+                            <div>
+                                <strong>Investment Return:</strong><br>
+                                <span style="font-size: 1.2em;">${rates.investmentReturn}%</span>
+                            </div>
                         </div>
-                        <p style="font-size: 0.7em; margin-top: 10px;"><i class="fas fa-clock"></i> Updated: ${new Date(rates.lastUpdated).toLocaleTimeString()}</p>
+                        <p style="font-size: 0.8em; margin-top: 10px; opacity: 0.8;">
+                            <i class="fas fa-clock"></i> Updated: ${new Date(rates.lastUpdated).toLocaleTimeString()}
+                            ${rates.isLiveData ? '<br><i class="fas fa-check-circle"></i> Live market data' : '<br><i class="fas fa-exclamation-triangle"></i> Using cached data'}
+                        </p>
                     `;
                 } else {
-                    liveRatesContent.innerHTML = `<p>Live rates available for US only. Select US to see real-time data.</p>`;
+                    // For non-US countries, show static rates
+                    const mortgageRate = await window.FinancialConfig.getRate('mortgage30yr', country);
+                    const investmentReturn = await window.FinancialConfig.getRate('retirementReturn', country);
+                    const inflationRate = await window.FinancialConfig.getRate('inflation', country);
+                    
+                    liveRatesContent.innerHTML = `
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div>
+                                <strong>Mortgage Rate:</strong><br>
+                                <span style="font-size: 1.2em;">${mortgageRate}%</span>
+                            </div>
+                            <div>
+                                <strong>Investment Return:</strong><br>
+                                <span style="font-size: 1.2em;">${investmentReturn}%</span>
+                            </div>
+                            <div>
+                                <strong>Inflation:</strong><br>
+                                <span style="font-size: 1.2em;">${inflationRate}%</span>
+                            </div>
+                            <div>
+                                <strong>Central Bank Rate:</strong><br>
+                                <span style="font-size: 1.2em;">${await window.FinancialConfig.getRate('centralBank', country)}%</span>
+                            </div>
+                        </div>
+                        <p style="font-size: 0.8em; margin-top: 10px; opacity: 0.8;">
+                            <i class="fas fa-database"></i> Static rates (Q1 2024)
+                            <br><i class="fas fa-info-circle"></i> Live rates available for US only
+                        </p>
+                    `;
                 }
+                
             } catch (error) {
-                liveRatesContent.innerHTML = `<p>Could not load live rates. Using default values.</p>`;
+                console.error('Error updating live rates:', error);
+                liveRatesContent.innerHTML = `
+                    <p style="color: #ff6b6b;">
+                        <i class="fas fa-exclamation-triangle"></i> Could not load live rates
+                    </p>
+                    <p style="font-size: 0.8em;">Error: ${error.message}</p>
+                `;
             }
         }
 
-        // ========== MAIN APPLICATION ==========
+
+        // ========== MAIN APPLICATION ==========        
+
+        // Wait for DOM to load
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, initializing app...');
+
+            // DEBUG: Check if FinancialCalculators is loaded correctly
+            console.log('FinancialCalculators type:', typeof window.FinancialCalculators);
+            console.log('Is constructor?', typeof window.FinancialCalculators === 'function');
+            console.log('FinancialCalculators:', window.FinancialCalculators);  
             
+            // Initialize UI Controls
             if (window.UIControls) {
                 const ui = new UIControls();
+                
+                // Create country selector
                 ui.createCountrySelector('country-container', function(countryCode) {
+                    // Update all calculators when country changes
                     updateAllCalculators(countryCode);
                 });
                 
+                // Initialize mortgage calculator
+                console.log('MortgageUI available?', !!window.MortgageUI);
+                console.log('Mortgage container:', document.getElementById('mortgage-calculator'));
                 if (window.MortgageUI) {
                     const mortgageUI = new MortgageUI();
                     mortgageUI.initialize('mortgage-calculator');
                 }
                 
+                // After initializing mortgage
+                setTimeout(function() {
+                    const mortgageDiv = document.getElementById('mortgage-calculator');
+                    console.log('Mortgage div innerHTML length:', mortgageDiv.innerHTML.length);
+                    console.log('Mortgage div content:', mortgageDiv.innerHTML.substring(0, 100) + '...');
+                }, 1000);
+
+                // Initialize live rates
                 setTimeout(() => {
                     initializeLiveRates();
                 }, 1500);
-                
+
+                // Setup other calculators
                 setupInvestmentCalculator();
                 setupRetirementCalculator();
                 setupLoanCalculator();
+                
+            } else {
+                console.error('UIControls not loaded');
+                document.getElementById('country-container').innerHTML = 
+                    '<div class="error">Error loading UI controls. Check console.</div>';
             }
         });
         
+        // Update all calculators when country changes
         function updateAllCalculators(countryCode) {
             console.log('Country changed to:', countryCode);
+
+            // Define ui if it exists
+            let ui;
             if (window.UIControls) {
-                const ui = new UIControls();
+                ui = new UIControls();
                 ui.updateCountryDisplay(countryCode);
             }
+            
+            // Update mortgage calculator if available
             if (window.MortgageUI) {
                 const mortgageUI = new MortgageUI();
                 mortgageUI.onCountryChange(countryCode);
             }
         }
         
+        // Investment Calculator
         function setupInvestmentCalculator() {
-            const btn = document.getElementById('calculate-investment');
-            if (!btn) return;
-            
-            btn.addEventListener('click', function() {
+            document.getElementById('calculate-investment').addEventListener('click', function() {
                 const amount = parseFloat(document.getElementById('investment-amount').value) || 0;
                 const monthly = parseFloat(document.getElementById('investment-monthly').value) || 0;
                 const years = parseFloat(document.getElementById('investment-years').value) || 20;
+                const rate = parseFloat(document.getElementById('investment-rate').value) || null;
+                const country = window.FinancialConfig?.userSettings?.country || 'US';
+                
                 const resultsDiv = document.getElementById('investment-results');
-                resultsDiv.innerHTML = '<div>Calculating...</div>';
+                resultsDiv.innerHTML = '<div class="loading">Calculating...</div>';
                 
                 setTimeout(function() {
                     if (window.FinancialCalculators) {
                         const calc = new FinancialCalculators();
-                        const result = calc.calculateInvestment({ initial: amount, monthly: monthly, years: years });
+                        const result = calc.calculateInvestment({
+                            initial: amount,
+                            monthly: monthly,
+                            years: years,  
+                            rate: rate,     
+                            country: country
+                        });
+                        
                         if (result.success) {
                             resultsDiv.innerHTML = `
-                                <div><strong>Future Value:</strong> ${result.future}</div>
-                                <div><strong>Total Invested:</strong> ${result.totalContributed}</div>
+                                <div class="success">
+                                    <h4>Investment Projection</h4>
+                                    <div class="result-item">
+                                        <strong>Future Value:</strong> ${result.future}
+                                    </div>
+                                    <div class="result-item">
+                                        <strong>Total Invested:</strong> ${result.totalContributed || 'N/A'}
+                                    </div>
+                                    <div class="result-item">
+                                        <strong>Annual Return:</strong> ${result.annualReturn || 'N/A'}
+                                    </div>
+                                </div>
                             `;
                         } else {
-                            resultsDiv.innerHTML = `<div>Error: ${result.error}</div>`;
+                            resultsDiv.innerHTML = `<div class="error">Error: ${result.error}</div>`;
                         }
+                    } else {
+                        resultsDiv.innerHTML = '<div class="error">Calculators not available</div>';
                     }
                 }, 300);
             });
         }
         
+        // Retirement Calculator
         function setupRetirementCalculator() {
-            const btn = document.getElementById('calculate-retirement');
-            if (!btn) return;
-            
-            btn.addEventListener('click', function() {
+            document.getElementById('calculate-retirement').addEventListener('click', function() {
                 const currentAge = parseFloat(document.getElementById('retirement-age').value) || 35;
                 const retirementAge = parseFloat(document.getElementById('retirement-target').value) || 65;
                 const currentSavings = parseFloat(document.getElementById('retirement-savings').value) || 0;
                 const monthlySave = parseFloat(document.getElementById('retirement-monthly').value) || 0;
+                const country = window.FinancialConfig?.userSettings?.country || 'US';
+                const rate = parseFloat(document.getElementById('retirement-rate').value) || null;
+                
                 const resultsDiv = document.getElementById('retirement-results');
-                resultsDiv.innerHTML = '<div>Calculating...</div>';
+                resultsDiv.innerHTML = '<div class="loading">Calculating...</div>';
                 
                 setTimeout(function() {
                     if (window.FinancialCalculators) {
                         const calc = new FinancialCalculators();
-                        const result = calc.calculateRetirement({ currentAge, retirementAge, currentSavings, monthlySave });
+                        const result = calc.calculateRetirement({
+                            currentAge: currentAge,
+                            retirementAge: retirementAge,
+                            currentSavings: currentSavings,
+                            monthlySave: monthlySave,
+                            rate: rate,
+                            country: country
+                        });
+                        
                         if (result.success) {
                             resultsDiv.innerHTML = `
-                                <div><strong>Savings at Retirement:</strong> ${result.savingsAtRetirement}</div>
-                                <div><strong>Readiness:</strong> ${result.readiness}</div>
+                                <div class="success">
+                                    <h4>Retirement Readiness</h4>
+                                    <div class="result-item">
+                                        <strong>Savings at Retirement:</strong> ${result.savingsAtRetirement}
+                                    </div>
+                                    <div class="result-item">
+                                        <strong>Safe Withdrawal:</strong> ${result.safeWithdrawal}
+                                    </div>
+                                    <div class="result-item">
+                                        <strong>Years Covered:</strong> ${result.yearsCovered}
+                                    </div>
+                                    <div class="result-item">
+                                        <strong>Readiness:</strong> ${result.readiness}
+                                    </div>
+                                </div>
                             `;
                         } else {
-                            resultsDiv.innerHTML = `<div>Error: ${result.error}</div>`;
+                            resultsDiv.innerHTML = `<div class="error">Error: ${result.error}</div>`;
                         }
+                    } else {
+                        resultsDiv.innerHTML = '<div class="error">Calculators not available</div>';
                     }
                 }, 300);
             });
         }
         
+        // Loan Calculator
         function setupLoanCalculator() {
-            const btn = document.getElementById('calculate-loan');
-            if (!btn) return;
-            
-            btn.addEventListener('click', function() {
+            document.getElementById('calculate-loan').addEventListener('click', function() {
                 const amount = parseFloat(document.getElementById('loan-amount').value) || 0;
                 const rate = parseFloat(document.getElementById('loan-rate').value) || 0;
                 const minPayment = parseFloat(document.getElementById('loan-payment').value) || 0;
                 const extraPayment = parseFloat(document.getElementById('loan-extra').value) || 0;
+                const country = window.FinancialConfig?.userSettings?.country || 'US';
+                
                 const resultsDiv = document.getElementById('loan-results');
-                resultsDiv.innerHTML = '<div>Calculating...</div>';
+                resultsDiv.innerHTML = '<div class="loading">Calculating...</div>';
                 
                 setTimeout(function() {
                     if (window.FinancialCalculators) {
                         const calc = new FinancialCalculators();
-                        const result = calc.calculateLoanPayoff({ amount, rate, minPayment, extraPayment });
+                        const result = calc.calculateLoanPayoff({
+                            amount: amount,
+                            rate: rate,
+                            minPayment: minPayment,
+                            extraPayment: extraPayment,
+                            country: country
+                        });
+                        
                         if (result.success) {
                             resultsDiv.innerHTML = `
-                                <div><strong>With Minimum:</strong> ${result.withMinimum.years} years, Interest: ${result.withMinimum.totalInterest}</div>
-                                <div><strong>With Extra:</strong> ${result.withExtra.years} years, Interest: ${result.withExtra.totalInterest}</div>
-                                <div><strong>You Save:</strong> ${result.withExtra.timeSaved} and ${result.withExtra.interestSaved}</div>
+                                <div class="success">
+                                    <h4>Loan Payoff Analysis</h4>
+                                    <div class="result-section">
+                                        <h5>With Minimum Payments:</h5>
+                                        <div class="result-item">
+                                            <span>Time:</span> <span>${result.withMinimum.years} years</span>
+                                        </div>
+                                        <div class="result-item">
+                                            <span>Total Interest:</span> <span>${result.withMinimum.totalInterest}</span>
+                                        </div>
+                                    </div>
+                                    <div class="result-section">
+                                        <h5>With Extra Payments:</h5>
+                                        <div class="result-item">
+                                            <span>Time:</span> <span>${result.withExtra.years} years</span>
+                                        </div>
+                                        <div class="result-item">
+                                            <span>Total Interest:</span> <span>${result.withExtra.totalInterest}</span>
+                                        </div>
+                                        <div class="result-item highlight">
+                                            <span>You Save:</span> <span>${result.withExtra.timeSaved} and ${result.withExtra.interestSaved}</span>
+                                        </div>
+                                    </div>
+                                </div>
                             `;
                         } else {
-                            resultsDiv.innerHTML = `<div>Error: ${result.error}</div>`;
+                            resultsDiv.innerHTML = `<div class="error">Error: ${result.error}</div>`;
                         }
+                    } else {
+                        resultsDiv.innerHTML = '<div class="error">Calculators not available</div>';
                     }
                 }, 300);
             });
         }
     </script>
+    
+    <!-- ========== GLOBAL FINANCE PRINCIPLES ========== -->
+    <div style="margin-top: 60px; margin-bottom: 40px; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+         <h2 style="color: #0b4f6c; margin-bottom: 30px; text-align: center; font-size: 2rem;">
+             <i class="fas fa-globe-americas" style="margin-right: 10px; color: #0b4f6c;"></i>
+             Global Financial Tools Explained
+         </h2>
+         <p style="text-align: center; color: #4a5568; max-width: 800px; margin: 0 auto 40px auto; font-size: 1.1rem;">
+             Understanding these essential financial calculators helps you make better decisions across different countries and currencies.
+         </p>
+    
+         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+        
+         <!-- Card 1: Mortgage Calculator -->
+         <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 25px; border-radius: 10px; border-bottom: 4px solid #0b4f6c;">
+             <div style="font-size: 2rem; color: #0b4f6c; margin-bottom: 15px;">
+                 <i class="fas fa-home"></i>
+             </div>
+             <h3 style="color: #0b4f6c; margin-bottom: 15px; font-size: 1.3rem;">Mortgage Calculator</h3>
+             <p style="color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
+                 <strong>What it does:</strong> Calculates monthly payments, total interest, and amortization schedule for home loans.
+             </p>
+             <p style="color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
+                 <strong>Why it matters:</strong> Understanding true cost of borrowing helps you choose between loan terms and compare offers.
+             </p>
+             <p style="color: #4a5568; line-height: 1.6; font-style: italic; background: rgba(11, 79, 108, 0.05); padding: 10px; border-radius: 5px;">
+                <strong>💡 Key insight:</strong> A 1% lower rate on a $300,000 loan saves ~$60,000 over 30 years.
+             </p>
+         </div>
+        
+         <!-- Card 2: Currency Converter -->
+         <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 25px; border-radius: 10px; border-bottom: 4px solid #0b4f6c;">
+             <div style="font-size: 2rem; color: #0b4f6c; margin-bottom: 15px;">
+                 <i class="fas fa-exchange-alt"></i>
+             </div>
+             <h3 style="color: #0b4f6c; margin-bottom: 15px; font-size: 1.3rem;">Currency Converter</h3>
+             <p style="color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
+                 <strong>What it does:</strong> Converts amounts between different world currencies using real or custom rates.
+             </p>
+             <p style="color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
+                 <strong>Why it matters:</strong> Essential for international business, travel, investing, and remittances.
+             </p>
+             <p style="color: #4a5568; line-height: 1.6; font-style: italic; background: rgba(11, 79, 108, 0.05); padding: 10px; border-radius: 5px;">
+                 <strong>💡 Key insight:</strong> Exchange rates fluctuate constantly - always check current rates before large transfers.
+             </p>
+         </div>
+        
+         <!-- Card 3: Investment Calculator -->
+         <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 25px; border-radius: 10px; border-bottom: 4px solid #0b4f6c;">
+             <div style="font-size: 2rem; color: #0b4f6c; margin-bottom: 15px;">
+                <i class="fas fa-chart-line"></i>
+             </div>
+             <h3 style="color: #0b4f6c; margin-bottom: 15px; font-size: 1.3rem;">Investment Calculator</h3>
+             <p style="color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
+                 <strong>What it does:</strong> Projects future value of investments with regular contributions and compound interest.
+             </p>
+             <p style="color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
+                 <strong>Why it matters:</strong> Shows the power of compound interest and helps set realistic savings goals.
+             </p>
+             <p style="color: #4a5568; line-height: 1.6; font-style: italic; background: rgba(11, 79, 108, 0.05); padding: 10px; border-radius: 5px;">
+                <strong>💡 Key insight:</strong> Starting 10 years earlier can DOUBLE your retirement savings.
+             </p>
+         </div>
+        
+         <!-- Card 4: Retirement Planner -->
+         <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 25px; border-radius: 10px; border-bottom: 4px solid #0b4f6c;">
+             <div style="font-size: 2rem; color: #0b4f6c; margin-bottom: 15px;">
+                 <i class="fas fa-umbrella-beach"></i>
+             </div>
+             <h3 style="color: #0b4f6c; margin-bottom: 15px; font-size: 1.3rem;">Retirement Planner</h3>
+             <p style="color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
+                 <strong>What it does:</strong> Estimates if your savings will last through retirement based on withdrawal rates.
+             </p>
+             <p style="color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
+                 <strong>Why it matters:</strong> Prevents outliving your savings - the 4% rule and inflation adjustments.
+             </p>
+             <p style="color: #4a5568; line-height: 1.6; font-style: italic; background: rgba(11, 79, 108, 0.05); padding: 10px; border-radius: 5px;">
+                 <strong>💡 Key insight:</strong> A $1M portfolio at 4% withdrawal provides $40,000/year for ~30 years.
+             </p>
+         </div>
+        
+         <!-- Card 5: Loan Payoff -->
+         <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 25px; border-radius: 10px; border-bottom: 4px solid #0b4f6c;">
+             <div style="font-size: 2rem; color: #0b4f6c; margin-bottom: 15px;">
+                 <i class="fas fa-coins"></i>
+             </div>
+             <h3 style="color: #0b4f6c; margin-bottom: 15px; font-size: 1.3rem;">Loan Payoff Calculator</h3>
+             <p style="color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
+                 <strong>What it does:</strong> Shows how extra payments reduce total interest and shorten loan term.
+             </p>
+             <p style="color: #4a5568; line-height: 1.6; margin-bottom: 15px;">
+                 <strong>Why it matters:</strong> Even small extra payments save thousands in interest over time.
+             </p>
+             <p style="color: #4a5568; line-height: 1.6; font-style: italic; background: rgba(11, 79, 108, 0.05); padding: 10px; border-radius: 5px;">
+                 <strong>💡 Key insight:</strong> An extra $100/month on a $25,000 loan at 6% saves $2,800 and pays off 3 years early.
+             </p>
+         </div>
+        
+    </div>
+    
+    <!-- FRED Data Explanation -->
+    <div style="margin-top: 40px; background: linear-gradient(135deg, #e6f3ff 0%, #d9e6f2 100%); padding: 30px; border-radius: 10px; text-align: center;">
+        <h3 style="color: #0b4f6c; margin-bottom: 15px;">
+            <i class="fas fa-database" style="margin-right: 10px;"></i>
+            Real-Time FRED Economic Data
+        </h3>
+        <p style="color: #2c3e50; max-width: 700px; margin: 0 auto; line-height: 1.6;">
+            Mortgage rates, Fed funds, and inflation data are pulled live from the 
+            <strong>Federal Reserve Economic Database (FRED)</strong>. Updated automatically when you refresh.
+        </p>
+    </div>
+   </div>
+   <!-- FOOTER NAVIGATION -->
+   <div style="margin-top: 60px; background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%); padding: 40px 20px; color: white; border-radius: 10px 10px 0 0;">
+       <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        
+           <div>
+               <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Fatimah Financial Hub</h4>
+               <a href="http://localhost:3000/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                  <i class="fas fa-home" style="width: 20px; margin-right: 10px;"></i>Dashboard
+               </a>
+               <a href="http://localhost:3000/finance-tools/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                  <i class="fas fa-calculator" style="width: 20px; margin-right: 10px;"></i>All Tools
+               </a>
+           </div>
+        
+           <div>
+               <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Calculators</h4>
+               <a href="http://localhost:3000/finance-tools/islamic/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                  <i class="fas fa-islam" style="width: 20px; margin-right: 10px;"></i>Islamic Finance
+               </a>
+               <a href="http://localhost:3000/finance-tools/global/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                  <i class="fas fa-globe" style="width: 20px; margin-right: 10px;"></i>Global Tools
+               </a>
+               <a href="http://localhost:3000/finance-tools/personal/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                  <i class="fas fa-user" style="width: 20px; margin-right: 10px;"></i>Personal Finance
+               </a>
+           </div>
+        
+           <div>
+               <h4 style="color: #cbd5e0; margin-bottom: 15px; font-size: 1.1rem;">Other Modules</h4>
+               <a href="http://localhost:3000/telephony/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                  <i class="fas fa-phone-alt" style="width: 20px; margin-right: 10px;"></i>Telephony
+               </a>
+               <a href="http://localhost:3000/trading/" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s, padding-left 0.3s;" onmouseover="this.style.color='#667eea'; this.style.paddingLeft='5px'" onmouseout="this.style.color='#e2e8f0'; this.style.paddingLeft='0'">
+                  <i class="fas fa-chart-line" style="width: 20px; margin-right: 10px;"></i>Trading
+               </a>
+               <a href="/economics" style="color: #e2e8f0; display: block; margin-bottom: 8px; text-decoration: none; padding: 3px 0; transition: color 0.3s;">
+                    <i class="fas fa-university" style="width: 20px; margin-right: 10px;"></i>Economics
+               </a>
+           </div>
+       </div>
+    
+       <div style="max-width: 1200px; margin: 30px auto 0 auto; padding-top: 20px; border-top: 1px solid #4a5568; text-align: center; color: #a0aec0;">
+          <p>© 2026 Fatimah Financial Hub. All calculators are for educational purposes.</p>
+          <p style="margin-top: 10px; font-size: 0.9rem;">
+             <i class="fas fa-islam" style="margin-right: 5px;"></i> Shariah-Compliant • FRED API • Real-Time Data
+          </p>
+       </div>
+   </div>
 </body>
 </html>
