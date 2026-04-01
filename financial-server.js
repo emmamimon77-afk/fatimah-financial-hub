@@ -1472,34 +1472,11 @@ app.get('/api/commodity-prices', async (req, res) => {
     }
 });
 
-// ========== CONTACT FORM API (FILE STORAGE ONLY) ==========
-// Ensure data directory exists
-const dataDir = path.join(__dirname, 'data');
-if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir);
-}
-
-const messagesFilePath = path.join(dataDir, 'contact-messages.json');
-
-// Helper functions
-function readMessages() {
-    try {
-        if (fs.existsSync(messagesFilePath)) {
-            return JSON.parse(fs.readFileSync(messagesFilePath, 'utf8'));
-        }
-    } catch (e) { console.error('Error reading messages:', e); }
-    return [];
-}
-
-function writeMessages(messages) {
-    try {
-        fs.writeFileSync(messagesFilePath, JSON.stringify(messages, null, 2));
-        return true;
-    } catch (e) { console.error('Error writing messages:', e); return false; }
-}
+// ========== CONTACT FORM API (MONGODB STORAGE) ==========
+const ContactMessage = require('./models/ContactMessage');
 
 // Submit contact form
-app.post('/api/contact', express.json(), (req, res) => {
+app.post('/api/contact', express.json(), async (req, res) => {
     try {
         const { name, email, subject, message, copyToSelf, subscribeUpdates } = req.body;
         
@@ -1507,43 +1484,37 @@ app.post('/api/contact', express.json(), (req, res) => {
             return res.status(400).json({ error: 'Name, email, and message are required' });
         }
         
-        const newMessage = {
-            id: Date.now(),
+        const newMessage = new ContactMessage({
             name,
             email,
             subject: subject || 'General Inquiry',
             message,
             copyToSelf: copyToSelf || false,
             subscribeUpdates: subscribeUpdates || false,
-            read: false,
-            replied: false,
-            createdAt: new Date().toISOString(),
-            ip: req.ip || req.connection.remoteAddress
-        };
+            ip: req.ip || req.connection.remoteAddress,
+            userAgent: req.headers['user-agent']
+        });
         
-        const messages = readMessages();
-        messages.unshift(newMessage);
-        if (messages.length > 500) messages.pop();
-        writeMessages(messages);
-        
-        console.log(`📬 New message from ${name} (${email})`);
-        res.json({ success: true, id: newMessage.id });
+        const savedMessage = await newMessage.save();
+        console.log(`📬 New message saved to MongoDB from ${name} (${email}) - ID: ${savedMessage._id}`);
+        res.json({ success: true, id: savedMessage._id });
         
     } catch (error) {
-        console.error('Error saving message:', error);
+        console.error('❌ Error saving message to MongoDB:', error);
         res.status(500).json({ error: 'Failed to send message' });
     }
 });
 
 // Get all messages (admin only)
-app.get('/api/contact/messages', (req, res) => {
+app.get('/api/contact/messages', async (req, res) => {
     const authToken = req.headers['authorization'];
     if (authToken !== 'Bearer fatimah-admin-2026') {
         return res.status(401).json({ error: 'Unauthorized' });
     }
     
     try {
-        const messages = readMessages();
+        const messages = await ContactMessage.find().sort({ createdAt: -1 });
+        console.log(`📋 Fetched ${messages.length} messages from MongoDB`);
         res.json({ success: true, messages });
     } catch (error) {
         console.error('Error fetching messages:', error);
@@ -1552,51 +1523,51 @@ app.get('/api/contact/messages', (req, res) => {
 });
 
 // Mark message as read
-app.put('/api/contact/messages/:id/read', (req, res) => {
+app.put('/api/contact/messages/:id/read', async (req, res) => {
     const authToken = req.headers['authorization'];
     if (authToken !== 'Bearer fatimah-admin-2026') {
         return res.status(401).json({ error: 'Unauthorized' });
     }
     
     try {
-        const id = parseInt(req.params.id);
-        const messages = readMessages();
-        const index = messages.findIndex(m => m.id === id);
+        const message = await ContactMessage.findByIdAndUpdate(
+            req.params.id,
+            { read: true },
+            { new: true }
+        );
         
-        if (index !== -1) {
-            messages[index].read = true;
-            writeMessages(messages);
+        if (message) {
             res.json({ success: true });
         } else {
             res.status(404).json({ error: 'Message not found' });
         }
     } catch (error) {
+        console.error('Error updating message:', error);
         res.status(500).json({ error: 'Failed to update message' });
     }
 });
 
 // Delete message
-app.delete('/api/contact/messages/:id', (req, res) => {
+app.delete('/api/contact/messages/:id', async (req, res) => {
     const authToken = req.headers['authorization'];
     if (authToken !== 'Bearer fatimah-admin-2026') {
         return res.status(401).json({ error: 'Unauthorized' });
     }
     
     try {
-        const id = parseInt(req.params.id);
-        const messages = readMessages();
-        const filtered = messages.filter(m => m.id !== id);
+        const result = await ContactMessage.findByIdAndDelete(req.params.id);
         
-        if (filtered.length < messages.length) {
-            writeMessages(filtered);
+        if (result) {
             res.json({ success: true });
         } else {
             res.status(404).json({ error: 'Message not found' });
         }
     } catch (error) {
+        console.error('Error deleting message:', error);
         res.status(500).json({ error: 'Failed to delete message' });
     }
 });
+
 
 // ========== ERROR HANDLING ==========
 app.use((req, res) => {
