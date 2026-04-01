@@ -6,8 +6,22 @@
     <title>Personal Finance Hub</title>
     <link rel="stylesheet" href="../shared/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/shared/navigation.css">
 </head>
+
 <body>
+ 
+    <!-- Navigation -->
+    <div id="main-navigation"></div>
+    <script>
+        fetch('/shared/navigation.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('main-navigation').innerHTML = data;
+            })
+            .catch(error => console.error('Failed to load navigation:', error));
+    </script>
+
     <div class="container">
         <!-- Header -->
         <div class="header">
@@ -336,6 +350,17 @@
             <p style="margin-top: 15px; opacity: 0.9;">— Dave Ramsey</p>
         </div>
     </div>
+
+    <!-- Footer -->
+    <div id="main-footer"></div>
+    <script>
+        fetch('/shared/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('main-footer').innerHTML = data;
+            })
+            .catch(error => console.error('Failed to load footer:', error));
+    </script>
 
 </body>
 </html>
