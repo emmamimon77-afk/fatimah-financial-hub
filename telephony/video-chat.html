@@ -660,8 +660,8 @@
             incomingModal.style.display = 'block';
             window.pendingOffer = data;
             
-            // Play ringtone
-            playRingtone();
+            // Comment out or remove ringtone to avoid autoplay blocking
+            //  playRingtone();
         });
 
         
@@ -732,61 +732,27 @@
             
             peerConnection = new RTCPeerConnection(configuration);
 
-            // ICE connection logging
-            peerConnection.oniceconnectionstatechange = () => {
-                const stateMap = {
-                    'new': '🔄 Creating ICE agents...',
-                    'checking': '🔍 Checking connectivity...',
-                    'connected': '✅ Connected! Media flowing.',
-                    'completed': '🎉 ICE completed!',
-                    'failed': '❌ Connection failed!',
-                    'disconnected': '⚠️ Connection lost.',
-                    'closed': '🔒 Connection closed.'
-                };
-                console.log(`ICE State: ${peerConnection.iceConnectionState} - ${stateMap[peerConnection.iceConnectionState] || ''}`);
-            };
-
-            // 🔴 ADD ICE DEBUGGING HERE 🔴
-            peerConnection.oniceconnectionstatechange = () => {
-                console.log('ICE connection state:', peerConnection.iceConnectionState);
-            };
-            
-            peerConnection.onconnectionstatechange = () => {
-                console.log('Connection state:', peerConnection.connectionState);
-            };
-            
-            peerConnection.onsignalingstatechange = () => {
-                console.log('Signaling state:', peerConnection.signalingState);
-            };
-
+            // Add tracks from local stream
             myStream.getTracks().forEach(track => peerConnection.addTrack(track, myStream));
             
+            // Handle remote stream
             peerConnection.ontrack = (event) => {
-                console.log('📹 ontrack event received:', event.track.kind);
-                
-                if (event.track.kind === 'video') {
-                    // Properly attach remote video stream
-                    if (remoteVideo.srcObject !== event.streams[0]) {
-                        remoteVideo.srcObject = event.streams[0];
-                        console.log('✅ Remote video stream attached');
-                    }
+                console.log('📹 Remote track received:', event.track.kind);
+                if (event.streams && event.streams[0]) {
+                    remoteVideo.srcObject = event.streams[0];
+                    // Force play with user gesture handling
+                    remoteVideo.play().catch(e => console.log('Remote video play error:', e));
                 }
-                
-                if (event.track.kind === 'audio') {
-                    console.log('🔊 Remote audio track received');
-                    // Ensure audio plays (browsers may autoplay-policy block this)
-                    const audioElement = document.createElement('audio');
-                    audioElement.srcObject = event.streams[0];
-                    audioElement.play().catch(e => console.log('Audio autoplay blocked:', e));
-                }
-            };           
- 
+            };
+            
+            // ICE candidate handling
             peerConnection.onicecandidate = (event) => {
                 if (event.candidate) {
                     socket.emit('webrtc-ice', { to: currentCallWith, candidate: event.candidate });
                 }
             };
             
+            // Create and send offer
             const offer = await peerConnection.createOffer();
             await peerConnection.setLocalDescription(offer);
             
@@ -800,12 +766,10 @@
             callBtn.style.display = 'none';
             hangupBtn.style.display = 'inline-block';
             addChatMessage(`📞 Calling...`, 'system');
-        }
-        
-        async function acceptCall() {
-            // Stop ringtone
-            stopRingtone();
+        }        
 
+        async function acceptCall() {
+            stopRingtone();
             overlay.style.display = 'none';
             incomingModal.style.display = 'none';
             
@@ -820,48 +784,26 @@
             
             peerConnection = new RTCPeerConnection(configuration);
             
-            // ICE connection logging
-            peerConnection.oniceconnectionstatechange = () => {
-                const stateMap = {
-                    'new': '🔄 Creating ICE agents...',
-                    'checking': '🔍 Checking connectivity...',
-                    'connected': '✅ Connected! Media flowing.',
-                    'completed': '🎉 ICE completed!',
-                    'failed': '❌ Connection failed!',
-                    'disconnected': '⚠️ Connection lost.',
-                    'closed': '🔒 Connection closed.'
-                };
-                console.log(`ICE State: ${peerConnection.iceConnectionState} - ${stateMap[peerConnection.iceConnectionState] || ''}`);
-            };
-
-            // 🔴 ADD ICE DEBUGGING HERE 🔴
-            peerConnection.oniceconnectionstatechange = () => {
-                console.log('ICE connection state:', peerConnection.iceConnectionState);
-            };
-            
-            peerConnection.onconnectionstatechange = () => {
-                console.log('Connection state:', peerConnection.connectionState);
-            };
-            
-            peerConnection.onsignalingstatechange = () => {
-                console.log('Signaling state:', peerConnection.signalingState);
-            };
-
+            // Add tracks
             myStream.getTracks().forEach(track => peerConnection.addTrack(track, myStream));
             
+            // Handle remote stream
             peerConnection.ontrack = (event) => {
-                remoteVideo.srcObject = event.streams[0];
-                console.log('✅ Remote stream received');
-                // Setup audio debugging for remote stream
-                setupAudioDebugging(event.streams[0], false);
+                console.log('📹 Remote track received:', event.track.kind);
+                if (event.streams && event.streams[0]) {
+                    remoteVideo.srcObject = event.streams[0];
+                    remoteVideo.play().catch(e => console.log('Remote video play error:', e));
+                }
             };
             
+            // ICE candidates
             peerConnection.onicecandidate = (event) => {
                 if (event.candidate) {
                     socket.emit('webrtc-ice', { to: currentCallWith, candidate: event.candidate });
                 }
             };
             
+            // Set remote description and create answer
             await peerConnection.setRemoteDescription(new RTCSessionDescription(offer.offer));
             const answer = await peerConnection.createAnswer();
             await peerConnection.setLocalDescription(answer);
