@@ -600,19 +600,64 @@
                 peerConnection.addTrack(track, localStream);
             });
 
-            // Handle remote stream
+            // Handle remote stream with diagnostic logging
             peerConnection.ontrack = (event) => {
-                console.log('Remote track:', event.track.kind);
+                console.log('📹 Remote track received:', event.track.kind);
+                console.log('📹 Stream ID:', event.streams[0]?.id);
+                console.log('📹 Track settings:', event.track.getSettings());
+                console.log('📹 Track readyState:', event.track.readyState);
+                
                 if (event.streams && event.streams[0]) {
-                    remoteVideo.srcObject = event.streams[0];
+                    const remoteStream = event.streams[0];
+                    
+                    // Check if stream has video tracks
+                    const videoTracks = remoteStream.getVideoTracks();
+                    console.log('📹 Video tracks in stream:', videoTracks.length);
+                    
+                    if (videoTracks.length > 0) {
+                        console.log('📹 Video track enabled:', videoTracks[0].enabled);
+                        console.log('📹 Video track muted:', videoTracks[0].muted);
+                        console.log('📹 Video track readyState:', videoTracks[0].readyState);
+                    }
+                    
+                    // Force assign to remote video element
+                    remoteVideo.srcObject = remoteStream;
+                    remoteVideo.load(); // Force reload
+                    
+                    // Try to play with error handling
+                    const playPromise = remoteVideo.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            console.log('✅ Remote video playing successfully');
+                        }).catch(error => {
+                            console.log('⚠️ Remote video play failed:', error.name, error.message);
+                            // Try muted as fallback for autoplay policies
+                            remoteVideo.muted = true;
+                            remoteVideo.play().catch(e => console.log('Muted play also failed:', e));
+                        });
+                    }
                 }
             };
 
+         
             // Handle ICE candidates
             peerConnection.onicecandidate = (event) => {
                 if (event.candidate) {
                     socket.emit('webrtc-ice', { to: currentCallWith, candidate: event.candidate });
                 }
+            };
+
+            // Monitor ICE connection state for diagnostics
+            peerConnection.oniceconnectionstatechange = () => {
+                console.log('ICE Connection State:', peerConnection.iceConnectionState);
+            };
+            
+            peerConnection.onicegatheringstatechange = () => {
+                console.log('ICE Gathering State:', peerConnection.iceGatheringState);
+            };
+            
+            peerConnection.onsignalingstatechange = () => {
+                console.log('Signaling State:', peerConnection.signalingState);
             };
 
             // Create and send offer
@@ -650,11 +695,42 @@
                 peerConnection.addTrack(track, localStream);
             });
 
-            // Handle remote stream
+            // Handle remote stream with diagnostic logging
             peerConnection.ontrack = (event) => {
-                console.log('Remote track:', event.track.kind);
+                console.log('📹 Remote track received:', event.track.kind);
+                console.log('📹 Stream ID:', event.streams[0]?.id);
+                console.log('📹 Track settings:', event.track.getSettings());
+                console.log('📹 Track readyState:', event.track.readyState);
+                
                 if (event.streams && event.streams[0]) {
-                    remoteVideo.srcObject = event.streams[0];
+                    const remoteStream = event.streams[0];
+                    
+                    // Check if stream has video tracks
+                    const videoTracks = remoteStream.getVideoTracks();
+                    console.log('📹 Video tracks in stream:', videoTracks.length);
+                    
+                    if (videoTracks.length > 0) {
+                        console.log('📹 Video track enabled:', videoTracks[0].enabled);
+                        console.log('📹 Video track muted:', videoTracks[0].muted);
+                        console.log('📹 Video track readyState:', videoTracks[0].readyState);
+                    }
+                    
+                    // Force assign to remote video element
+                    remoteVideo.srcObject = remoteStream;
+                    remoteVideo.load(); // Force reload
+                    
+                    // Try to play with error handling
+                    const playPromise = remoteVideo.play();
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            console.log('✅ Remote video playing successfully');
+                        }).catch(error => {
+                            console.log('⚠️ Remote video play failed:', error.name, error.message);
+                            // Try muted as fallback for autoplay policies
+                            remoteVideo.muted = true;
+                            remoteVideo.play().catch(e => console.log('Muted play also failed:', e));
+                        });
+                    }
                 }
             };
 
@@ -664,6 +740,19 @@
                     socket.emit('webrtc-ice', { to: currentCallWith, candidate: event.candidate });
                 }
             };
+
+            // Monitor ICE connection state for diagnostics
+            peerConnection.oniceconnectionstatechange = () => {
+                console.log('ICE Connection State:', peerConnection.iceConnectionState);
+            };
+            
+            peerConnection.onicegatheringstatechange = () => {
+                console.log('ICE Gathering State:', peerConnection.iceGatheringState);
+            };
+            
+            peerConnection.onsignalingstatechange = () => {
+                console.log('Signaling State:', peerConnection.signalingState);
+            }; 
 
             // Set remote description and create answer
             await peerConnection.setRemoteDescription(new RTCSessionDescription(pendingOffer.offer));
