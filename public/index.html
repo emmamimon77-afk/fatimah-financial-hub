@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fatimah Financial Hub</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1.0, viewport-fit=cover">
+    <title>Fatimah Financial Hub - Islamic Finance Education Platform</title>
+    <meta name="description" content="Transformative financial education platform comparing Western and Islamic financial systems through interactive tools, real-time data, and ethical trading simulations.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -15,409 +16,496 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #f8fafc;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
             color: #1e293b;
-            line-height: 1.6;
         }
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-            color: white;
-            padding: 1rem 2rem;
+        /* Navigation */
+        .main-nav {
+            background: linear-gradient(135deg, #1a472a 0%, #2e7d32 100%);
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .nav {
-            max-width: 1400px;
+
+        .nav-container {
+            max-width: 1200px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .logo i {
-            color: #fbbf24;
-        }
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
             flex-wrap: wrap;
-        }
-        .nav-links a {
-            color: rgba(255,255,255,0.9);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-        }
-        .nav-links a:hover {
-            color: white;
-        }
-        .simulator-link {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white !important;
-            padding: 8px 16px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .live-badge {
-            background: rgba(255,255,255,0.3);
-            padding: 2px 6px;
-            border-radius: 20px;
-            font-size: 10px;
+            gap: 15px;
         }
 
-        /* Main Content */
-        .main-content {
-            max-width: 1400px;
+        .logo {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .logo a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: #ffd700;
+            margin-right: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 i {
+            color: #ffd700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #2e7d32;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #1b5e20;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid #ffd700;
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            background: rgba(255,215,0,0.1);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
-        /* Dashboard Grid */
-        .dashboard-grid {
+        /* Sections */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #1a472a;
+        }
+
+        .section-title i {
+            color: #ffd700;
+            margin-right: 10px;
+        }
+
+        .features-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: #1a472a;
+        }
+
+        .feature-card p {
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .comparison h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
         }
 
-        /* Portfolio Card */
-        .portfolio-card {
-            background: white;
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        .comparison-card {
+            padding: 25px;
+            border-radius: 12px;
         }
-        .portfolio-header {
+
+        .comparison-card.islamic {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 5px solid #2e7d32;
+        }
+
+        .comparison-card.conventional {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdef5 100%);
+            border-left: 5px solid #1976d2;
+        }
+
+        .comparison-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .comparison-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .comparison-card li {
+            padding: 8px 0;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-        }
-        .portfolio-value {
-            font-size: 48px;
-            font-weight: bold;
-            color: #1e293b;
-        }
-        .portfolio-change {
-            font-size: 16px;
-            color: #10b981;
-            background: #d1fae5;
-            padding: 5px 10px;
-            border-radius: 50px;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .stat-item {
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 16px;
-        }
-        .stat-label {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 5px;
-        }
-        .stat-number {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        /* Quick Trade */
-        .quick-trade {
-            background: white;
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid #e2e8f0;
-        }
-        .trade-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            margin: 10px 0;
-        }
-        .action-buttons {
-            display: flex;
             gap: 10px;
-            margin: 15px 0;
-        }
-        .buy-btn, .sell-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .buy-btn {
-            background: #10b981;
-            color: white;
-        }
-        .sell-btn {
-            background: #ef4444;
-            color: white;
         }
 
-        /* Market Indices */
-        .indices-card {
-            background: white;
-            border-radius: 24px;
-            padding: 30px;
-            border: 1px solid #e2e8f0;
-            margin-top: 30px;
+        .comparison-card li i.fa-check {
+            color: #2e7d32;
         }
-        .index-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #e2e8f0;
+
+        .comparison-card li i.fa-times {
+            color: #dc2626;
         }
-        .index-change {
-            color: #10b981;
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            background: linear-gradient(135deg, #1a472a 0%, #2e7d32 100%);
+            padding: 50px 20px;
+            border-radius: 20px;
+            color: white;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            background: #0f172a;
+            color: white;
+            padding: 60px 20px;
+            border-radius: 20px;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 20px;
         }
 
         /* Footer */
         .footer {
-            background: #1e293b;
-            color: white;
-            padding: 60px 20px 30px;
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 40px 20px;
             margin-top: 60px;
         }
-        .footer-content {
-            max-width: 1400px;
+
+        .footer-grid {
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
         }
-        .footer-logo {
-            font-size: 24px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
+
+        .footer-section h4 {
+            color: #ffd700;
+            margin-bottom: 15px;
         }
-        .footer-logo i {
-            color: #fbbf24;
-        }
-        .footer-about {
-            color: #94a3b8;
-            font-size: 14px;
-            line-height: 1.8;
-        }
-        .footer-links h4 {
-            color: white;
-            margin-bottom: 20px;
-        }
-        .footer-links ul {
-            list-style: none;
-        }
-        .footer-links li {
-            margin: 10px 0;
-        }
-        .footer-links a {
+
+        .footer-section a {
             color: #94a3b8;
             text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
         }
-        .footer-links a:hover {
-            color: #fbbf24;
+
+        .footer-section a:hover {
+            color: #ffd700;
         }
+
         .footer-bottom {
             text-align: center;
             padding-top: 30px;
+            margin-top: 30px;
             border-top: 1px solid #334155;
-            color: #94a3b8;
-            margin-top: 40px;
         }
-        .original-hub-link {
-            display: inline-block;
-            margin: 20px 0;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: transform 0.2s;
-        }
-        .original-hub-link:hover {
-            transform: translateY(-2px);
-        }
-        .arabic-footer {
-            font-size: 24px;
-            color: #fbbf24;
-            margin-bottom: 10px;
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <a href="/" class="logo">
-                <i class="fas fa-mosque"></i>
-                Fatimah Financial Hub
-            </a>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/"><i class="fas fa-mosque"></i> Fatimah Financial Hub</a>
+            </div>
             <div class="nav-links">
-                <a href="/">Dashboard</a>
+                <a href="/">Home</a>
                 <a href="/about">About</a>
                 <a href="/trading">Trading</a>
                 <a href="/finance-tools">Tools</a>
                 <a href="/telephony">Telephony</a>
                 <a href="/economics">Economics</a>
                 <a href="/resources">Resources</a>
-                <a href="/simulator/trade" class="simulator-link">
-                    <i class="fas fa-gamepad"></i>
-                    Simulator
-                    <span class="live-badge">LIVE</span>
-                </a>
+                <a href="/simulator">Simulator</a>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <main class="main-content">
-        <div class="dashboard-grid">
-            <!-- Left Column -->
-            <div>
-                <div class="portfolio-card">
-                    <div class="portfolio-header">
-                        <h2>Portfolio Value</h2>
-                        <span class="portfolio-change">+2.34% Today</span>
-                    </div>
-                    <div class="portfolio-value">$100,000.00</div>
-                    
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-label">Virtual Cash</div>
-                            <div class="stat-number">$85,430.50</div>
-                            <div style="font-size: 12px; color: #64748b;">Available for trading</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-label">Today's P&L</div>
-                            <div class="stat-number" style="color: #10b981;">+$2,340.50</div>
-                            <div style="font-size: 12px; color: #64748b;">Performance</div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1><i class="fas fa-hand-holding-heart"></i> Transformative Financial Education</h1>
+        <p>Comparing Western and Islamic financial systems through interactive tools, real-time data, and ethical trading simulations. Learn, practice, and grow with confidence.</p>
+        <div class="cta-buttons">
+            <a href="/finance-tools" class="btn-primary"><i class="fas fa-calculator"></i> Explore Tools</a>
+            <a href="/trading" class="btn-secondary"><i class="fas fa-chart-line"></i> Start Trading</a>
+        </div>
+    </section>
 
-                <div class="quick-trade">
-                    <h3 style="margin-bottom: 20px;">Quick Trade</h3>
-                    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 10px;">
-                        <span class="live-badge" style="background: #10b981;">● Connected</span>
-                    </div>
-                    <input type="text" class="trade-input" placeholder="Symbol" value="AAPL">
-                    <input type="number" class="trade-input" placeholder="Quantity" value="10">
-                    <div class="action-buttons">
-                        <button class="buy-btn">BUY</button>
-                        <button class="sell-btn">SELL</button>
-                    </div>
-                </div>
+    <div class="container">
+        <!-- Features -->
+        <h2 class="section-title"><i class="fas fa-star-of-life"></i> What We Offer</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-calculator"></i></div>
+                <h3>Islamic Finance Calculators</h3>
+                <p>Mudaraba, Murabaha, Ijara, Musharaka, and Sukuk calculators with real-world rates for multiple countries.</p>
             </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Trading Simulator</h3>
+                <p>Practice trading with virtual currency. Learn market dynamics without financial risk.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Economics Lessons</h3>
+                <p>Comprehensive lessons from beginner to advanced, covering monetary policy, fiscal policy, and more.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-globe"></i></div>
+                <h3>Global Financial Data</h3>
+                <p>Real-time FRED API integration for mortgage rates, inflation, and economic indicators across countries.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-video"></i></div>
+                <h3>Video & Text Chat</h3>
+                <p>Connect with other learners through real-time video and text communication.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-university"></i></div>
+                <h3>Islamic vs Conventional</h3>
+                <p>Side-by-side comparisons showing quantitative differences between interest-based and profit-sharing systems.</p>
+            </div>
+        </div>
 
-            <!-- Right Column -->
-            <div>
-                <div class="portfolio-card">
-                    <h3 style="margin-bottom: 20px;">Market Overview</h3>
-                    <select style="padding: 8px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
-                        <option>1M</option>
-                    </select>
-                    
-                    <div style="margin: 20px 0;">
-                        <div style="display: flex; gap: 20px; color: #64748b; font-size: 14px;">
-                            <span><i class="fas fa-circle" style="color: #10b981;"></i> Live Trades: 0</span>
-                            <span><i class="fas fa-users"></i> Online: 0</span>
-                        </div>
-                    </div>
-
-                    <div style="margin: 20px 0;">
-                        <input type="text" class="trade-input" placeholder="Type message..." style="margin-bottom: 10px;">
-                    </div>
+        <!-- Islamic vs Conventional -->
+        <h2 class="section-title"><i class="fas fa-balance-scale"></i> Islamic vs Conventional Finance</h2>
+        <div class="comparison">
+            <div class="comparison-grid">
+                <div class="comparison-card islamic">
+                    <h4><i class="fas fa-mosque"></i> Islamic Finance (Sharia-Compliant)</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Profit-sharing partnerships (Mudaraba, Musharaka)</li>
+                        <li><i class="fas fa-check"></i> Asset-backed financing (Murabaha, Ijara)</li>
+                        <li><i class="fas fa-check"></i> Risk-sharing between parties</li>
+                        <li><i class="fas fa-check"></i> No interest (riba), uncertainty (gharar), or gambling (maysir)</li>
+                        <li><i class="fas fa-check"></i> Ethical investment screening</li>
+                    </ul>
                 </div>
-
-                <div class="indices-card">
-                    <h3 style="margin-bottom: 20px;">Market Indices</h3>
-                    <div class="index-item">
-                        <span>^GSPC S&P 500</span>
-                        <span>4780.45 <span class="index-change">+12.34 (+0.26%)</span></span>
-                    </div>
-                    <div class="index-item">
-                        <span>^DJI Dow Jones</span>
-                        <span>37592.98 <span class="index-change">+45.67 (+0.12%)</span></span>
-                    </div>
-                    <div class="index-item">
-                        <span>^IXIC NASDAQ</span>
-                        <span>14972.76 <span class="index-change">+78.90 (+0.53%)</span></span>
-                    </div>
+                <div class="comparison-card conventional">
+                    <h4><i class="fas fa-file-invoice-dollar"></i> Conventional Finance</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Interest-based lending (loans, mortgages, bonds)</li>
+                        <li><i class="fas fa-check"></i> Debt-focused instruments</li>
+                        <li><i class="fas fa-check"></i> Risk transferred to borrower</li>
+                        <li><i class="fas fa-check"></i> Fixed guaranteed returns</li>
+                        <li><i class="fas fa-check"></i> Broader investment universe</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </main>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div>
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Financial Calculators</div>
+            </div>
+            <div>
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Countries with Real Rates</div>
+            </div>
+            <div>
+                <div class="stat-number">30+</div>
+                <div class="stat-label">Economics Lessons</div>
+            </div>
+            <div>
+                <div class="stat-number">FRED</div>
+                <div class="stat-label">Real-Time Data Integration</div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="cta-section">
+            <h2>Ready to start your financial journey?</h2>
+            <p style="margin-bottom: 25px;">Explore our tools, take lessons, or practice trading today.</p>
+            <a href="/finance-tools" class="btn-primary" style="background: #ffd700; color: #1a472a;"><i class="fas fa-rocket"></i> Get Started Now</a>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div>
-                <div class="footer-logo">
-                    <i class="fas fa-mosque"></i>
-                    Fatimah Financial Hub
-                </div>
-                <p class="footer-about">Building ethical traders with Islamic principles at the core. Learn, practice, and grow with confidence.</p>
-                
-                <!-- Your Original Hub Link -->
-                <a href="https://fatimah-web.onrender.com/" target="_blank" class="original-hub-link">
-                    <i class="fas fa-external-link-alt"></i> Visit Our Original Hub
-                </a>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>Fatimah Financial Hub</h4>
+                <p>Building ethical traders with Islamic principles at the core. Learn, practice, and grow with confidence.</p>
+                <a href="https://fatimah-web.onrender.com/" style="margin-top: 10px; color: #ffd700;">Visit Our Original Hub →</a>
             </div>
-            
-            <div class="footer-links">
+            <div class="footer-section">
                 <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/trading">Trading</a></li>
-                    <li><a href="/simulator/trade">Simulator</a></li>
-                </ul>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/about">About</a>
+                <a href="/trading">Trading</a>
+                <a href="/simulator">Simulator</a>
+                <a href="/economics">Economics</a>
+                <a href="/finance-tools">Tools</a>
             </div>
-            
-            <div class="footer-links">
-                <h4>Learn</h4>
-                <ul>
-                    <li><a href="/economics">Economics</a></li>
-                    <li><a href="/trading/learn">Trading Lessons</a></li>
-                    <li><a href="/resources">Resources</a></li>
-                    <li><a href="/finance-tools">Tools</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-links">
+            <div class="footer-section">
                 <h4>Connect</h4>
-                <ul>
-                    <li><a href="/about">About Us</a></li>
-                    <li><a href="/privacy">Privacy Policy</a></li>   <!-- Fixed -->
-                    <li><a href="/terms">Terms of Use</a></li>  
-                </ul>
+                <a href="/about">About Us</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Use</a>
+                <a href="/resources">Resources</a>
             </div>
         </div>
-        
         <div class="footer-bottom">
-            <div class="arabic-footer">الحمد لله</div>
+            <p>الحمد لله</p>
             <p>May this knowledge help you make informed and ethical investment decisions</p>
             <p style="margin-top: 10px;">© 1447-1448 AH / 2026 CE Fatimah Financial Hub</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Shariah-Compliant • FRED API • Real-Time Data</p>
         </div>
     </footer>
 </body>
