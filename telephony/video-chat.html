@@ -540,51 +540,6 @@
         }
         
         // ========== VIDEO & AUDIO ==========
-        async function startVideoAndAudio() {
-            if (mediaStarted) return;
-            
-            try {
-                // Initialize audio context for ringtone (user gesture!)
-                if (window.audioContext && window.audioContext.state === 'suspended') {
-                    await window.audioContext.resume();
-                } else if (!window.audioContext) {
-                    window.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                
-                myStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                localVideo.srcObject = myStream;
-                mediaStarted = true;
-                
-                // Setup audio debugging
-                setupAudioDebugging(myStream, true);
-                
-                // List audio devices
-                const devices = await navigator.mediaDevices.enumerateDevices();
-                const audioInputs = devices.filter(d => d.kind === 'audioinput');
-                console.log('🎤 Available microphones:', audioInputs.map(d => d.label));
-                
-                // Check audio tracks
-                const audioTracks = myStream.getAudioTracks();
-                console.log('🎤 Audio tracks:', audioTracks.length);
-                audioTracks.forEach((track, i) => {
-                    console.log(`  Track ${i}: enabled=${track.enabled}, muted=${track.muted}`);
-                    console.log(`  Settings:`, track.getSettings());
-                });
-                
-                document.getElementById('startVideoBtn').innerHTML = '<i class="fas fa-check-circle"></i> Camera Active';
-                document.getElementById('startVideoBtn').style.background = '#334155';
-                setTimeout(() => {
-                    const btn = document.getElementById('startVideoBtn');
-                    if (btn) btn.style.display = 'none';
-                }, 2000);
-                
-                return true;
-            } catch (error) {
-                console.error('Camera error:', error);
-                alert('Could not access camera or microphone. Please check permissions.');
-                return false;
-            }
-        }       
 
         // For Mobile specific handling
         async function startVideoAndAudio() {
@@ -777,6 +732,20 @@
             
             peerConnection = new RTCPeerConnection(configuration);
 
+            // ICE connection logging
+            peerConnection.oniceconnectionstatechange = () => {
+                const stateMap = {
+                    'new': '🔄 Creating ICE agents...',
+                    'checking': '🔍 Checking connectivity...',
+                    'connected': '✅ Connected! Media flowing.',
+                    'completed': '🎉 ICE completed!',
+                    'failed': '❌ Connection failed!',
+                    'disconnected': '⚠️ Connection lost.',
+                    'closed': '🔒 Connection closed.'
+                };
+                console.log(`ICE State: ${peerConnection.iceConnectionState} - ${stateMap[peerConnection.iceConnectionState] || ''}`);
+            };
+
             // 🔴 ADD ICE DEBUGGING HERE 🔴
             peerConnection.oniceconnectionstatechange = () => {
                 console.log('ICE connection state:', peerConnection.iceConnectionState);
@@ -851,6 +820,20 @@
             
             peerConnection = new RTCPeerConnection(configuration);
             
+            // ICE connection logging
+            peerConnection.oniceconnectionstatechange = () => {
+                const stateMap = {
+                    'new': '🔄 Creating ICE agents...',
+                    'checking': '🔍 Checking connectivity...',
+                    'connected': '✅ Connected! Media flowing.',
+                    'completed': '🎉 ICE completed!',
+                    'failed': '❌ Connection failed!',
+                    'disconnected': '⚠️ Connection lost.',
+                    'closed': '🔒 Connection closed.'
+                };
+                console.log(`ICE State: ${peerConnection.iceConnectionState} - ${stateMap[peerConnection.iceConnectionState] || ''}`);
+            };
+
             // 🔴 ADD ICE DEBUGGING HERE 🔴
             peerConnection.oniceconnectionstatechange = () => {
                 console.log('ICE connection state:', peerConnection.iceConnectionState);
@@ -950,10 +933,6 @@
             }
         }
         
-        // Add to peerConnection creation
-        peerConnection.oniceconnectionstatechange = () => {
-            logIceConnectionState(peerConnection.iceConnectionState);
-        };
 
         // Make functions global
         window.startCall = startCall;
