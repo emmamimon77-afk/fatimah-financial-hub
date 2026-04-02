@@ -149,11 +149,11 @@
                 <a href="/"><i class="fas fa-mosque"></i> Fatimah Financial Hub</a>
             </div>
             <div class="nav-links">
-                <a href="/">Home</a>
-                <a href="/trading">Trading</a>
-                <a href="/telephony">Telephony</a>
-                <a href="/finance-tools">Tools</a>
-                <a href="/economics">Economics</a>
+                <a href="/" target="_blank">Home</a>
+                <a href="/trading" target="_blank">Trading</a>
+                <a href="/telephony" target="_blank">Telephony</a>
+                <a href="/finance-tools" target="_blank">Tools</a>
+                <a href="/economics" target="_blank">Economics</a>
             </div>
         </div>
     </div>
@@ -163,13 +163,16 @@
             <i class="fas fa-info-circle"></i> 
             <strong>Jitsi Meet Video Chat</strong> — Create a meeting name below or just use "fatimah-financial-hub". 
             Share the room name with others to connect. Works on mobile and desktop!
+            <button onclick="refreshMeeting()" style="margin-left: 15px; padding: 5px 15px; background: #ffd700; color: #1a472a; border: none; border-radius: 20px; cursor: pointer;">
+                <i class="fas fa-sync-alt"></i> New Meeting
+            </button>
         </div>
         
         <div class="jitsi-container">
-            <iframe 
-                src="https://meet.jit.si/fatimah-financial-hub" 
+            <iframe
+                src="https://meet.jit.si/fatimah-financial-hub?config.startWithVideoMuted=false&config.disableDeepLinking=true" 
                 allow="camera; microphone; fullscreen; display-capture"
-                title="Jitsi Meet Video Chat">
+                title="Jitsi Meet Video Chat"> 
             </iframe>
         </div>
     </div>
@@ -181,5 +184,25 @@
             Powered by <a href="https://jitsi.org" target="_blank">Jitsi Meet</a> — Open source video conferencing
         </p>
     </footer>
+    <script>
+        function refreshMeeting() {
+            const iframe = document.querySelector('iframe');
+            const currentSrc = iframe.src;
+            iframe.src = '';
+            setTimeout(() => {
+                iframe.src = currentSrc;
+            }, 100);
+        }
+        
+        // Optional: Show warning when trying to leave during active call
+        window.addEventListener('beforeunload', function(e) {
+            // This will show a confirmation dialog if the user tries to close the tab
+            // while potentially in a call (you can customize the message)
+            e.preventDefault();
+            e.returnValue = 'You are in an active call. Are you sure you want to leave?';
+            return 'You are in an active call. Are you sure you want to leave?';
+        });
+    </script>
+
 </body>
 </html>
