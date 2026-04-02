@@ -567,6 +567,17 @@
                 }
                 
                 localVideo.srcObject = myStream;
+                // Handle local video play properly
+                const localPlayPromise = localVideo.play();
+                if (localPlayPromise !== undefined) {
+                    localPlayPromise.catch(error => {
+                        console.log('Local video play prevented:', error.message);
+                        // Mute and retry for local video
+                        localVideo.muted = true;
+                        localVideo.play().catch(e => console.log('Local retry failed:', e));
+                    });
+                }
+
                 mediaStarted = true;
                 
                 // Force video to play
@@ -735,15 +746,28 @@
             // Add tracks from local stream
             myStream.getTracks().forEach(track => peerConnection.addTrack(track, myStream));
             
-            // Handle remote stream
+            // Handle remote stream with proper play() Promise handling
             peerConnection.ontrack = (event) => {
                 console.log('📹 Remote track received:', event.track.kind);
                 if (event.streams && event.streams[0]) {
                     remoteVideo.srcObject = event.streams[0];
-                    // Force play with user gesture handling
-                    remoteVideo.play().catch(e => console.log('Remote video play error:', e));
+                    // Proper play() Promise handling to avoid interruption error
+                    if (remoteVideo.play) {
+                        const playPromise = remoteVideo.play();
+                        if (playPromise !== undefined) {
+                            playPromise.then(() => {
+                                console.log('✅ Remote video playing successfully');
+                            }).catch(error => {
+                                console.log('⚠️ Remote video play() prevented:', error.name, error.message);
+                                // Try again with user interaction
+                                remoteVideo.muted = true;
+                                remoteVideo.play().catch(e => console.log('Retry failed:', e));
+                            });
+                        }
+                    }
                 }
             };
+
             
             // ICE candidate handling
             peerConnection.onicecandidate = (event) => {
@@ -787,14 +811,28 @@
             // Add tracks
             myStream.getTracks().forEach(track => peerConnection.addTrack(track, myStream));
             
-            // Handle remote stream
+            // Handle remote stream with proper play() Promise handling
             peerConnection.ontrack = (event) => {
                 console.log('📹 Remote track received:', event.track.kind);
                 if (event.streams && event.streams[0]) {
                     remoteVideo.srcObject = event.streams[0];
-                    remoteVideo.play().catch(e => console.log('Remote video play error:', e));
+                    // Proper play() Promise handling to avoid interruption error
+                    if (remoteVideo.play) {
+                        const playPromise = remoteVideo.play();
+                        if (playPromise !== undefined) {
+                            playPromise.then(() => {
+                                console.log('✅ Remote video playing successfully');
+                            }).catch(error => {
+                                console.log('⚠️ Remote video play() prevented:', error.name, error.message);
+                                // Try again with user interaction
+                                remoteVideo.muted = true;
+                                remoteVideo.play().catch(e => console.log('Retry failed:', e));
+                            });
+                        }
+                    }
                 }
             };
+
             
             // ICE candidates
             peerConnection.onicecandidate = (event) => {
