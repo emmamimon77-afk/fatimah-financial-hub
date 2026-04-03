@@ -568,21 +568,31 @@
         });
         
         socket.on('user-registered', (data) => {
-            console.log('Registered:', data.username);
-            myId = data.user?.id;
+            console.log('Registered:', data);
+            // Get username correctly
+            const username = data.username || data.user?.username || 'User';
+            myId = data.user?.id || socket.id;
+            
+            // Set myUsername
+            if (username && username !== 'User') {
+                myUsername = username;
+            }
+            
             updateUsersList(data.users || []);
             
-            // Clear and load message history
+            // Load message history
             if (data.messageHistory && data.messageHistory.length > 0) {
                 chatMessages.innerHTML = '<div class="message system">📜 Previous messages:</div>';
                 data.messageHistory.forEach(msg => {
-                    addChatMessage(msg.username, msg.message, msg.userId === myId);
+                    // Check if message is from current user
+                    const isOwnMessage = (msg.userId === myId) || (msg.username === myUsername);
+                    addChatMessage(msg.username, msg.message, isOwnMessage);
                 });
             } else {
-                addSystemMessage(`Welcome ${data.username}! Messages are now saved permanently.`);
+                addSystemMessage(`Welcome ${username}! Messages are now saved permanently.`);
             }
-        });
-        
+        });       
+ 
         socket.on('online-users', (users) => {
             updateUsersList(users);
         });
@@ -596,8 +606,13 @@
         });
         
         socket.on('new-message', (data) => {
-            addChatMessage(data.username, data.message, data.userId === myId);
+            // Only add message if it's from someone else
+            // Your own messages are already added locally
+            if (data.userId !== myId) {
+                addChatMessage(data.username, data.message, false);
+            }
         });
+
         
         function updateUsersList(users) {
             const otherUsers = users?.filter(u => u.id !== myId) || [];
@@ -657,14 +672,20 @@
             chatMessages.appendChild(msgDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
+
         
         function sendMessage() {
             const message = chatInput.value.trim();
             if (!message || !myUsername) return;
             
+            // Add your own message to chat immediately (optimistic update)
+            addChatMessage(myUsername, message, true);
+            
+            // Send to server for others
             socket.emit('send-message', { message, type: 'chat' });
             chatInput.value = '';
         }
+
         
         function escapeHtml(text) {
             const div = document.createElement('div');
