@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zakat Calculator - Fatimah Financial Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h1 { color: #1a472a; margin-bottom: 10px; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        button { background: #2e7d32; color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; width: 100%; }
+        .result { margin-top: 30px; padding: 20px; background: #e8f5e9; border-radius: 12px; text-align: center; display: none; }
+        .result h3 { color: #1a472a; margin-bottom: 10px; }
+        .zakat-amount { font-size: 2rem; font-weight: bold; color: #2e7d32; }
+        .note { margin-top: 20px; padding: 15px; background: #fef3c7; border-radius: 8px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1><i class="fas fa-calculator"></i> Zakat Calculator</h1>
+            <p style="margin-bottom: 30px;">Calculate your Zakat based on 2.5% of qualifying wealth</p>
+            
+            <div class="input-group">
+                <label><i class="fas fa-money-bill-wave"></i> Cash & Bank Savings ($)</label>
+                <input type="number" id="cash" placeholder="Enter amount">
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-chart-line"></i> Stocks & Investments ($)</label>
+                <input type="number" id="investments" placeholder="Enter amount">
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-home"></i> Business Inventory ($)</label>
+                <input type="number" id="inventory" placeholder="Enter amount">
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-coins"></i> Gold & Silver ($)</label>
+                <input type="number" id="gold" placeholder="Enter amount">
+            </div>
+            <div class="input-group">
+                <label><i class="fas fa-hand-holding-usd"></i> Money Owed to You ($)</label>
+                <input type="number" id="owed" placeholder="Enter amount">
+            </div>
+            
+            <button onclick="calculateZakat()"><i class="fas fa-calculator"></i> Calculate Zakat</button>
+            
+            <div class="result" id="result">
+                <h3>Your Zakat Due</h3>
+                <div class="zakat-amount" id="zakatAmount">$0</div>
+                <p>2.5% of your total qualifying wealth</p>
+            </div>
+            
+            <div class="note">
+                <i class="fas fa-info-circle"></i> <strong>Note:</strong> This calculator is for educational purposes. Consult with a qualified scholar for precise calculation. Deduct immediate debts and personal expenses first.
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function calculateZakat() {
+            const cash = parseFloat(document.getElementById('cash').value) || 0;
+            const investments = parseFloat(document.getElementById('investments').value) || 0;
+            const inventory = parseFloat(document.getElementById('inventory').value) || 0;
+            const gold = parseFloat(document.getElementById('gold').value) || 0;
+            const owed = parseFloat(document.getElementById('owed').value) || 0;
+            
+            const total = cash + investments + inventory + gold + owed;
+            const zakat = total * 0.025;
+            
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('zakatAmount').innerHTML = `$${zakat.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
