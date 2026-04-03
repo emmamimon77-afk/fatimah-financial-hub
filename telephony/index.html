@@ -73,11 +73,6 @@
             background: rgba(255,255,255,0.15);
         }
 
-        .nav-links a.active {
-            background: rgba(255,215,0,0.2);
-            border-bottom: 2px solid #ffd700;
-        }
-
         /* Tab Navigation */
         .tab-nav {
             max-width: 1200px;
@@ -100,10 +95,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .tab-btn i {
-            font-size: 1.1rem;
         }
 
         .tab-btn.active {
@@ -176,10 +167,6 @@
             background: #1e293b;
             border-radius: 12px;
             transition: background 0.2s;
-        }
-
-        .user-item.online {
-            border-left: 3px solid #10b981;
         }
 
         .user-avatar {
@@ -471,8 +458,7 @@
     <div class="container">
         <div class="info-banner">
             <i class="fas fa-info-circle"></i> 
-            <strong>Text Chat for Traders</strong> — Connect with other traders in real-time. 
-            Set your name below and start chatting!
+            <strong>Persistent Text Chat</strong> — Messages are saved and will appear even after you refresh the page!
             <button onclick="openSettings()" style="margin-left: 15px; padding: 5px 15px; background: #ffd700; color: #1a472a; border: none; border-radius: 20px; cursor: pointer;">
                 <i class="fas fa-user-edit"></i> Change Name
             </button>
@@ -496,7 +482,7 @@
                     <h3><i class="fas fa-comment-dots"></i> Public Chat</h3>
                 </div>
                 <div class="chat-messages" id="chatMessages">
-                    <div class="message system">Welcome to the chat! Be respectful and helpful.</div>
+                    <div class="message system">Welcome to the chat! Messages are saved permanently.</div>
                 </div>
                 <div class="chat-input-area">
                     <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage()">
@@ -519,13 +505,12 @@
         <div class="arabic-footer">الحمد لله</div>
         <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub</p>
         <p style="margin-top: 10px; font-size: 0.8rem;">
-            <i class="fas fa-lock"></i> End-to-end encrypted • <i class="fas fa-globe"></i> Real-time messaging
+            <i class="fas fa-database"></i> Messages saved in MongoDB • <i class="fas fa-history"></i> Chat history preserved
         </p>
     </footer>
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
     <script>
-        // Socket connection
         const socket = io({
             transports: ['websocket', 'polling']
         });
@@ -533,20 +518,26 @@
         let myUsername = '';
         let myId = '';
         
-        // DOM elements
         const usersListDiv = document.getElementById('usersList');
         const chatMessages = document.getElementById('chatMessages');
         const chatInput = document.getElementById('chatInput');
         const userCountSpan = document.getElementById('userCount');
         
-        // Load saved name or prompt
+        // Load saved name
         function loadName() {
             const saved = localStorage.getItem('chat_username');
             if (saved) {
                 myUsername = saved;
                 document.getElementById('nameInput').value = saved;
+                registerUser();
             } else {
                 openSettings();
+            }
+        }
+        
+        function registerUser() {
+            if (myUsername) {
+                socket.emit('register-user', { username: myUsername });
             }
         }
         
@@ -566,44 +557,33 @@
                 myUsername = newName;
                 localStorage.setItem('chat_username', myUsername);
                 closeSettings();
-                
-                // Re-register with new name
-                if (myId) {
-                    socket.emit('register-user', { username: myUsername });
-                }
+                registerUser();
             }
         }
         
         // Socket events
         socket.on('connect', () => {
             console.log('Connected to server');
-            myId = socket.id;
             loadName();
         });
-
         
         socket.on('user-registered', (data) => {
             console.log('Registered:', data.username);
-            myUsername = data.username;
-            updateUsersList(data.users);
+            myId = data.user?.id;
+            updateUsersList(data.users || []);
             
-            // Load message history if provided
+            // Clear and load message history
             if (data.messageHistory && data.messageHistory.length > 0) {
-                // Clear existing messages (except system messages)
-                const systemMessages = document.querySelectorAll('.message.system');
-                chatMessages.innerHTML = '';
-                systemMessages.forEach(msg => chatMessages.appendChild(msg));
-                
+                chatMessages.innerHTML = '<div class="message system">📜 Previous messages:</div>';
                 data.messageHistory.forEach(msg => {
                     addChatMessage(msg.username, msg.message, msg.userId === myId);
                 });
+            } else {
+                addSystemMessage(`Welcome ${data.username}! Messages are now saved permanently.`);
             }
-            
-            addSystemMessage(`Welcome ${data.username}! You joined the chat.`);
         });
-
-
-        socket.on('users', (users) => {
+        
+        socket.on('online-users', (users) => {
             updateUsersList(users);
         });
         
@@ -615,13 +595,12 @@
             addSystemMessage(`${user.username} left the chat`);
         });
         
-        socket.on('chat-message', (data) => {
+        socket.on('new-message', (data) => {
             addChatMessage(data.username, data.message, data.userId === myId);
         });
         
-        // UI Functions
         function updateUsersList(users) {
-            const otherUsers = users?.filter(u => u.userId !== myId) || [];
+            const otherUsers = users?.filter(u => u.id !== myId) || [];
             userCountSpan.textContent = otherUsers.length;
             
             if (otherUsers.length === 0) {
@@ -633,7 +612,7 @@
             otherUsers.forEach(user => {
                 const initial = user.username.charAt(0).toUpperCase();
                 html += `
-                    <div class="user-item online">
+                    <div class="user-item">
                         <div class="user-avatar">${initial}</div>
                         <div class="user-info">
                             <div class="user-name">${escapeHtml(user.username)}</div>
@@ -683,8 +662,7 @@
             const message = chatInput.value.trim();
             if (!message || !myUsername) return;
             
-            socket.emit('chat-message', { message, username: myUsername });
-            addChatMessage(myUsername, message, true);
+            socket.emit('send-message', { message, type: 'chat' });
             chatInput.value = '';
         }
         
@@ -700,7 +678,7 @@
         window.closeSettings = closeSettings;
         window.saveName = saveName;
         
-        console.log('Text chat ready');
+        console.log('Text chat ready with persistence');
     </script>
 </body>
 </html>
