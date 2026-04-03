@@ -269,9 +269,10 @@ io.on('connection', (socket) => {
           username: username,
           portfolioValue: 100000,
           virtualCash: 100000
-        }
-        messageHistory: recentMessages  // Add this line
-      });
+        },
+        messageHistory: recentMessages
+      });      
+
       
       // Broadcast to others that user joined
       socket.broadcast.emit('user-joined', {
