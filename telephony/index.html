@@ -394,15 +394,21 @@
         }
         
         socket.on('user-registered', (data) => {
-            console.log('✅ Registration confirmed:', data);
-            if (data && data.success) {
-                registered = true;
-                myUserId = data.user?.id;
-                myUserName = data.user?.username || username;
-                addMessage('system', `✅ Successfully registered as ${myUserName}`);
-                document.getElementById('username').disabled = true;
+            console.log('Registered:', data.username);
+            myUsername = data.username;
+            updateUsersList(data.users);
+            
+            // Display saved messages
+            if (data.messageHistory && data.messageHistory.length > 0) {
+                chatMessages.innerHTML = '<div class="message system">Previous messages:</div>';
+                data.messageHistory.forEach(msg => {
+                    addChatMessage(msg.username, msg.message, msg.userId === myId);
+                });
             }
+            
+            addSystemMessage(`Welcome ${data.username}! You joined the chat.`);
         });
+
         
         socket.on('online-users', (users) => {
             console.log('👥 Online users:', users);
