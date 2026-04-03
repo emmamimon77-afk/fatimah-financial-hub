@@ -23,6 +23,22 @@
     </style>
 </head>
 <body>
+     
+    <!-- Navigation -->
+    <div style="background: linear-gradient(135deg, #1a472a 0%, #2e7d32 100%); padding: 1rem;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+            <div style="font-size: 1.2rem; font-weight: bold;">
+                <a href="/" style="color: white; text-decoration: none;"><i class="fas fa-mosque"></i> Fatimah Financial Hub</a>
+            </div>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+               <a href="/" style="color: white; text-decoration: none;">Home</a>
+               <a href="/trading" style="color: white; text-decoration: none;">Trading</a>
+               <a href="/finance-tools" style="color: white; text-decoration: none;">Tools</a>
+               <a href="/telephony" style="color: white; text-decoration: none;">Telephony</a>
+            </div>
+        </div>
+    </div> 
+
     <div class="container">
         <div class="card">
             <h1><i class="fas fa-calculator"></i> Zakat Calculator</h1>
@@ -62,7 +78,14 @@
             </div>
         </div>
     </div>
-    
+   
+    <div style="background: #e8f5e9; padding: 20px; border-radius: 12px; margin-bottom: 30px;">
+        <h3><i class="fas fa-book-open"></i> About Zakat</h3>
+        <p>Zakat is one of the Five Pillars of Islam. It requires Muslims to give 2.5% of their qualifying wealth to those in need, after one lunar year (hawl).</p>
+        <p style="margin-top: 10px;"><strong>Qualifying wealth includes:</strong> Cash, gold, silver, business inventory, stocks, and money owed to you.</p>
+        <p style="margin-top: 10px;"><strong>Deduct:</strong> Personal debts, living expenses, and immediate needs before calculating.</p>
+    </div>
+  
     <script>
         function calculateZakat() {
             const cash = parseFloat(document.getElementById('cash').value) || 0;
