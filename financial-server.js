@@ -174,6 +174,7 @@ const onlineTraders = new Map();
 const messageHistory = new Map();
 const simpleUsers = new Map();
 const videoUsers = new Map(); // socketId -> video user data
+const ChatMessage = require('./models/ChatMessage');
 
 io.on('connection', (socket) => {
   console.log('🔌 New client connected:', socket.id);
@@ -224,11 +225,25 @@ io.on('connection', (socket) => {
 
 
   // User registration - SIMPLIFIED VERSION
-  socket.on('register-user', (userData) => {
+  socket.on('register-user', async (userData) => {
     try {
       const username = userData?.username || 'Anonymous';
       console.log('📝 Registration attempt:', username);
       console.log('📝 Socket ID:', socket.id);
+      
+      // Load last 50 messages from database
+      let recentMessages = [];
+      try {
+        recentMessages = await ChatMessage.find()
+          .sort({ timestamp: -1 })
+          .limit(50)
+          .lean();
+        recentMessages.reverse(); // Show oldest first
+        console.log(`📜 Loaded ${recentMessages.length} recent messages for ${username}`);
+      } catch (err) {
+        console.error('Failed to load recent messages:', err);
+      }
+
       
       // Generate a simple user ID
       const userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
@@ -255,6 +270,7 @@ io.on('connection', (socket) => {
           portfolioValue: 100000,
           virtualCash: 100000
         }
+        messageHistory: recentMessages  // Add this line
       });
       
       // Broadcast to others that user joined
@@ -369,8 +385,9 @@ io.on('connection', (socket) => {
       io.emit('users', userList);
   }); 
 
-  // Chat messages - SIMPLIFIED VERSION
-  socket.on('send-message', (messageData) => {
+
+  // Chat messages - WITH MONGODB STORAGE
+  socket.on('send-message', async (messageData) => {
     console.log('💬 Message received from socket:', socket.id);
     console.log('💬 Message data:', messageData);
     
@@ -392,6 +409,20 @@ io.on('connection', (socket) => {
       type: messageData.type || 'chat'
     };
     
+    // Save to MongoDB
+    try {
+      const savedMessage = new ChatMessage({
+        username: userData.username,
+        message: messageData.message,
+        userId: userData.id,
+        timestamp: new Date()
+      });
+      await savedMessage.save();
+      console.log(`✅ Chat message saved to MongoDB from ${userData.username}`);
+    } catch (err) {
+      console.error('❌ Failed to save chat message:', err);
+    }
+    
     console.log('📤 Broadcasting message to OTHERS:', chatMessage);
     
     // Send to ALL OTHER clients, NOT the sender
@@ -400,7 +431,8 @@ io.on('connection', (socket) => {
     // Confirm to sender
     socket.emit('message-sent', { success: true });
   });
-  
+ 
+ 
   // Trading actions
   socket.on('place-trade', async (tradeData) => {   // <-- This must be inside
     try {
