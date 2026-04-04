@@ -1099,15 +1099,41 @@ app.get('/simulator/:page', (req, res) => {
 app.get('/api/stock/:symbol', async (req, res) => {
     try {
         const { symbol } = req.params;
-        // You'll need to add your Alpha Vantage API key
-        const API_KEY = 'YOUR_ALPHA_VANTAGE_KEY';
-        const response = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_KEY}`);
+        
+        // Use Yahoo Finance for stock prices (no API key needed)
+        const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`);
+        
+        if (!response.ok) {
+            throw new Error(`Yahoo Finance returned ${response.status}`);
+        }
+        
         const data = await response.json();
-        res.json(data);
+        const result = data.chart?.result?.[0];
+        
+        if (!result) {
+            throw new Error('No data returned from Yahoo Finance');
+        }
+        
+        const price = result.meta?.regularMarketPrice;
+        const previousClose = result.meta?.previousClose;
+        const change = price - previousClose;
+        const changePercent = (change / previousClose) * 100;
+        
+        res.json({
+            symbol: symbol,
+            price: price,
+            change: change,
+            changePercent: changePercent,
+            name: result.meta?.longName || symbol,
+            currency: 'USD'
+        });
+        
     } catch (error) {
+        console.error(`Error fetching stock ${req.params.symbol}:`, error.message);
         res.status(500).json({ error: error.message });
     }
 });
+
 
 app.get('/api/company/:symbol', async (req, res) => {
     try {
