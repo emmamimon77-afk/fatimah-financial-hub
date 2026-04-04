@@ -7,6 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+
+        @media (max-width: 768px) {
+            .container { padding: 20px 15px; }
+            input, button { font-size: 16px; } /* Prevents zoom on mobile */
+            .nav-bar > div > div { flex-direction: column; text-align: center; }
+        }
+ 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #f8fafc; }
         .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
@@ -25,21 +32,33 @@
 <body>
      
     <!-- Navigation -->
-    <div style="background: linear-gradient(135deg, #1a472a 0%, #2e7d32 100%); padding: 1rem;">
-        <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-            <div style="font-size: 1.2rem; font-weight: bold;">
-                <a href="/" style="color: white; text-decoration: none;"><i class="fas fa-mosque"></i> Fatimah Financial Hub</a>
-            </div>
-            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-               <a href="/" style="color: white; text-decoration: none;">Home</a>
-               <a href="/trading" style="color: white; text-decoration: none;">Trading</a>
-               <a href="/finance-tools" style="color: white; text-decoration: none;">Tools</a>
-               <a href="/telephony" style="color: white; text-decoration: none;">Telephony</a>
+    <div class="nav-bar" style="background: linear-gradient(135deg, #1a472a 0%, #2e7d32 100%); padding: 1rem; margin-bottom: 20px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <div style="font-size: 1.2rem; font-weight: bold;">
+                    <a href="/" style="color: white; text-decoration: none;">🏦 Fatimah Financial Hub</a>
+                </div>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <a href="/" style="color: white; text-decoration: none;">Home</a>
+                    <a href="/trading" style="color: white; text-decoration: none;">Trading</a>
+                    <a href="/finance-tools" style="color: white; text-decoration: none; font-weight: bold;">Tools</a>
+                    <a href="/telephony" style="color: white; text-decoration: none;">Telephony</a>
+                    <a href="/economics" style="color: white; text-decoration: none;">Economics</a>
+                </div>
             </div>
         </div>
-    </div> 
+    </div>
+
 
     <div class="container">
+
+        <div style="background: #e8f5e9; padding: 20px; border-radius: 12px; margin-bottom: 30px;">
+            <h3><i class="fas fa-book-open"></i> About Zakat</h3>
+            <p>Zakat is one of the Five Pillars of Islam. It requires Muslims to give 2.5% of their qualifying wealth to those in need, after one lunar year (hawl).</p>
+            <p style="margin-top: 10px;"><strong>Qualifying wealth includes:</strong> Cash, gold, silver, business inventory, stocks, and money owed to you.</p>
+            <p style="margin-top: 10px;"><strong>Deduct:</strong> Personal debts, living expenses, and immediate needs before calculating.</p>
+        </div>
+
         <div class="card">
             <h1><i class="fas fa-calculator"></i> Zakat Calculator</h1>
             <p style="margin-bottom: 30px;">Calculate your Zakat based on 2.5% of qualifying wealth</p>
@@ -79,12 +98,6 @@
         </div>
     </div>
    
-    <div style="background: #e8f5e9; padding: 20px; border-radius: 12px; margin-bottom: 30px;">
-        <h3><i class="fas fa-book-open"></i> About Zakat</h3>
-        <p>Zakat is one of the Five Pillars of Islam. It requires Muslims to give 2.5% of their qualifying wealth to those in need, after one lunar year (hawl).</p>
-        <p style="margin-top: 10px;"><strong>Qualifying wealth includes:</strong> Cash, gold, silver, business inventory, stocks, and money owed to you.</p>
-        <p style="margin-top: 10px;"><strong>Deduct:</strong> Personal debts, living expenses, and immediate needs before calculating.</p>
-    </div>
   
     <script>
         function calculateZakat() {
@@ -101,5 +114,11 @@
             document.getElementById('zakatAmount').innerHTML = `$${zakat.toFixed(2)}`;
         }
     </script>
+
+    <!-- Footer -->
+    <footer style="background: #0f172a; color: #94a3b8; padding: 30px; text-align: center; margin-top: 40px;">
+        <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub</p>
+        <p style="margin-top: 10px; font-size: 0.8rem;">Calculations are estimates. Consult a qualified scholar.</p>
+    </footer>
 </body>
 </html>
