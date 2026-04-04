@@ -231,19 +231,24 @@ io.on('connection', (socket) => {
       console.log('📝 Registration attempt:', username);
       console.log('📝 Socket ID:', socket.id);
       
-      // Load last 50 messages from database
+      // Load ONLY private messages between users (not all messages)
       let recentMessages = [];
       try {
-        recentMessages = await ChatMessage.find()
+        recentMessages = await ChatMessage.find({
+          $or: [
+            { senderId: userId, receiverId: userId },
+            { senderId: userId, receiverId: { $ne: null } },
+            { receiverId: userId }
+          ]
+        })
           .sort({ timestamp: -1 })
           .limit(50)
           .lean();
-        recentMessages.reverse(); // Show oldest first
-        console.log(`📜 Loaded ${recentMessages.length} recent messages for ${username}`);
+        recentMessages.reverse();
+        console.log(`📜 Loaded ${recentMessages.length} private messages for ${username}`);
       } catch (err) {
-        console.error('Failed to load recent messages:', err);
+        console.error('Failed to load private messages:', err);
       }
-
       
       // Generate a simple user ID
       const userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
@@ -351,7 +356,29 @@ io.on('connection', (socket) => {
       io.emit('video-chat-message', { message, username, timestamp: new Date() });
   });
     
-  
+  // Load conversation history between two users
+  socket.on('load-conversation', async (data) => {
+    const userData = onlineTraders.get(socket.id);
+    if (!userData) return;
+    
+    try {
+      const conversation = await ChatMessage.find({
+        $or: [
+          { senderId: userData.id, receiverId: data.withUserId },
+          { senderId: data.withUserId, receiverId: userData.id }
+        ]
+      })
+        .sort({ timestamp: 1 })
+        .limit(100)
+        .lean();
+      
+      socket.emit('conversation-history', conversation);
+      console.log(`📜 Loaded ${conversation.length} messages between ${userData.username} and ${data.withUserId}`);
+    } catch (err) {
+      console.error('Failed to load conversation:', err);
+    }
+  });  
+
   // Handle disconnect
   socket.on('disconnect', () => {
       const userData = onlineTraders.get(socket.id);
@@ -388,51 +415,61 @@ io.on('connection', (socket) => {
 
 
   // Chat messages - WITH MONGODB STORAGE
+  // Private 1-on-1 messaging
   socket.on('send-message', async (messageData) => {
-    console.log('💬 Message received from socket:', socket.id);
-    console.log('💬 Message data:', messageData);
+    console.log('💬 Private message from socket:', socket.id, 'to:', messageData.toUserId);
     
     const userData = onlineTraders.get(socket.id);
-    
     if (!userData) {
-      console.log('❌ No user data found for socket:', socket.id);
       socket.emit('message-error', { error: 'You must register first' });
       return;
     }
     
-    console.log('👤 Sender:', userData.username);
-    
-    const chatMessage = {
-      userId: userData.id,
-      username: userData.username,
-      message: messageData.message,
-      timestamp: new Date(),
-      type: messageData.type || 'chat'
-    };
-    
-    // Save to MongoDB
-    try {
-      const savedMessage = new ChatMessage({
-        username: userData.username,
-        message: messageData.message,
-        userId: userData.id,
-        timestamp: new Date()
-      });
-      await savedMessage.save();
-      console.log(`✅ Chat message saved to MongoDB from ${userData.username}`);
-    } catch (err) {
-      console.error('❌ Failed to save chat message:', err);
+    // Get receiver's socket ID for private emit
+    let receiverSocketId = null;
+    for (const [sid, user] of onlineTraders.entries()) {
+      if (user.id === messageData.toUserId) {
+        receiverSocketId = sid;
+        break;
+      }
     }
     
-    console.log('📤 Broadcasting message to OTHERS:', chatMessage);
+    // Save to MongoDB with sender and receiver info
+    try {
+      const chatMessage = new ChatMessage({
+        senderId: userData.id,
+        senderName: userData.username,
+        receiverId: messageData.toUserId,
+        receiverName: messageData.toUserName,
+        message: messageData.message,
+        timestamp: new Date()
+      });
+      await chatMessage.save();
+      console.log(`✅ Private message saved: ${userData.username} -> ${messageData.toUserName}`);
+    } catch (err) {
+      console.error('❌ Failed to save message:', err);
+    }
     
-    // Send to ALL OTHER clients, NOT the sender
-    socket.broadcast.emit('new-message', chatMessage);
+    // Send to receiver only (private)
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit('private-message', {
+        fromUserId: userData.id,
+        fromUserName: userData.username,
+        message: messageData.message,
+        timestamp: new Date(),
+        isPrivate: true
+      });
+    }
     
-    // Confirm to sender
-    socket.emit('message-sent', { success: true });
-  });
- 
+    // Also send back to sender for display
+    socket.emit('private-message-sent', {
+      toUserId: messageData.toUserId,
+      toUserName: messageData.toUserName,
+      message: messageData.message,
+      timestamp: new Date()
+    });
+  }); 
+
  
   // Trading actions
   socket.on('place-trade', async (tradeData) => {   // <-- This must be inside

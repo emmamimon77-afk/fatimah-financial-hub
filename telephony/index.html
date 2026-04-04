@@ -479,7 +479,7 @@
             <!-- Chat Area -->
             <div class="chat-area">
                 <div class="chat-header">
-                    <h3><i class="fas fa-comment-dots"></i> Public Chat</h3>
+                    <h3 id="chatHeaderTitle"><i class="fas fa-lock"></i> Select a user to start private chat</h3>  
                 </div>
                 <div class="chat-messages" id="chatMessages">
                     <div class="message system">Welcome to the chat! Messages are saved permanently.</div>
@@ -516,6 +516,9 @@
         });
         
         let myUsername = '';
+        let currentChatPartner = null;
+        let currentChatPartnerName = null;
+        let onlineUsers = [];
         let myId = '';
         
         const usersListDiv = document.getElementById('usersList');
@@ -560,7 +563,50 @@
                 registerUser();
             }
         }
-        
+       
+        function updateUsersList(users) {
+            const otherUsers = users?.filter(u => u.id !== myId) || [];
+            userCountSpan.textContent = otherUsers.length;
+            
+            if (otherUsers.length === 0) {
+                usersListDiv.innerHTML = '<div style="color: #64748b; text-align: center; padding: 20px;">No other users online</div>';
+                return;
+            }
+            
+            let html = '';
+            otherUsers.forEach(user => {
+                const initial = user.username.charAt(0).toUpperCase();
+                const isSelected = currentChatPartner === user.id;
+                html += `
+                    <div class="user-item ${isSelected ? 'selected' : ''}" onclick="startPrivateChat('${user.id}', '${user.username}')">
+                        <div class="user-avatar">${initial}</div>
+                        <div class="user-info">
+                            <div class="user-name">${escapeHtml(user.username)}</div>
+                            <div class="user-status">● Online</div>
+                        </div>
+                        <i class="fas fa-comment" style="color: #ffd700; font-size: 14px;"></i>
+                    </div>
+                `;
+            });
+            usersListDiv.innerHTML = html;
+        }
+ 
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message || !myUsername) return;
+            if (!currentChatPartner) {
+                addSystemMessage('⚠️ Please select a user from the list to start a private chat');
+                return;
+            }
+            
+            socket.emit('send-message', { 
+                message: message, 
+                toUserId: currentChatPartner,
+                toUserName: currentChatPartnerName
+            });
+            chatInput.value = '';
+        }
+
         // Socket events
         socket.on('connect', () => {
             console.log('Connected to server');
@@ -594,6 +640,7 @@
         });       
  
         socket.on('online-users', (users) => {
+            onlineUsers = users;
             updateUsersList(users);
         });
         
@@ -604,40 +651,38 @@
         socket.on('user-left', (user) => {
             addSystemMessage(`${user.username} left the chat`);
         });
-        
-        socket.on('new-message', (data) => {
-            // Only add message if it's from someone else
-            // Your own messages are already added locally
-            if (data.userId !== myId) {
-                addChatMessage(data.username, data.message, false);
+
+        // Listen for private messages
+        socket.on('private-message', (data) => {
+            console.log('📩 Private message received from:', data.fromUserName);
+            
+            if (currentChatPartner === data.fromUserId) {
+                addChatMessage(data.fromUserName, data.message, false);
+            } else {
+                addSystemMessage(`📬 New message from ${data.fromUserName} - Click their name to reply`);
+                // Highlight the user in the list
+                updateUsersList(onlineUsers);
             }
         });
 
-        
-        function updateUsersList(users) {
-            const otherUsers = users?.filter(u => u.id !== myId) || [];
-            userCountSpan.textContent = otherUsers.length;
-            
-            if (otherUsers.length === 0) {
-                usersListDiv.innerHTML = '<div style="color: #64748b; text-align: center; padding: 20px;">No other users online</div>';
-                return;
+        socket.on('private-message-sent', (data) => {
+            console.log('✅ Message sent to:', data.toUserName);
+            addChatMessage('You', data.message, true);
+        });
+
+        // Load conversation history
+        socket.on('conversation-history', (messages) => {
+            if (messages && messages.length > 0) {
+                chatMessages.innerHTML = '<div class="message system">🔒 Private conversation with ' + currentChatPartnerName + ':</div>';
+                messages.forEach(msg => {
+                    const isSelf = msg.senderId === myId;
+                    addChatMessage(isSelf ? 'You' : msg.senderName, msg.message, isSelf);
+                });
+            } else {
+                chatMessages.innerHTML = '<div class="message system">🔒 Start your private conversation with ' + currentChatPartnerName + '</div>';
             }
-            
-            let html = '';
-            otherUsers.forEach(user => {
-                const initial = user.username.charAt(0).toUpperCase();
-                html += `
-                    <div class="user-item">
-                        <div class="user-avatar">${initial}</div>
-                        <div class="user-info">
-                            <div class="user-name">${escapeHtml(user.username)}</div>
-                            <div class="user-status">● Online</div>
-                        </div>
-                    </div>
-                `;
-            });
-            usersListDiv.innerHTML = html;
-        }
+        });
+        
         
         function addChatMessage(username, message, isSelf) {
             const msgDiv = document.createElement('div');
@@ -671,20 +716,7 @@
             msgDiv.textContent = message;
             chatMessages.appendChild(msgDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        
-        function sendMessage() {
-            const message = chatInput.value.trim();
-            if (!message || !myUsername) return;
-            
-            // Add your own message to chat immediately (optimistic update)
-            addChatMessage(myUsername, message, true);
-            
-            // Send to server for others
-            socket.emit('send-message', { message, type: 'chat' });
-            chatInput.value = '';
-        }
+        }       
 
         
         function escapeHtml(text) {
@@ -693,6 +725,18 @@
             return div.innerHTML;
         }
         
+        // Start private chat with selected user
+        function startPrivateChat(userId, userName) {
+            currentChatPartner = userId;
+            currentChatPartnerName = userName;
+            
+            updateUsersList(onlineUsers);
+            document.querySelector('.chat-header h3').innerHTML = `<i class="fas fa-lock"></i> Private chat with ${userName}`;
+            
+            chatMessages.innerHTML = '<div class="message system">🔒 Loading private conversation...</div>';
+            socket.emit('load-conversation', { withUserId: userId });
+        }
+
         // Make functions global
         window.sendMessage = sendMessage;
         window.openSettings = openSettings;
