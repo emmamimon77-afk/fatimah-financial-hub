@@ -808,13 +808,10 @@
             .activity-grid {
                 grid-template-columns: 1fr;
             }
-            .learning-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
         }
-        
-        /* Mobile Responsive Additions */
+
         @media (max-width: 768px) {
+            /* Navigation */
             .nav {
                 flex-direction: column;
                 gap: 15px;
@@ -825,29 +822,96 @@
                 justify-content: center;
                 gap: 15px;
             }
-            .sub-nav-content {
-                flex-wrap: wrap;
-                height: auto;
-                padding: 10px;
-                justify-content: center;
+            
+            /* Stats Grid - 2 columns on tablet */
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
             }
-            .stats-grid, .portfolio-grid, .journal-grid {
-                grid-template-columns: 1fr !important;
+            
+            /* Market Overview - wrap tickers */
+            .market-ticker {
+                flex-direction: column;
+                gap: 15px;
             }
-            .market-overview {
+            .ticker-item {
+                width: 100%;
+                justify-content: space-between;
+                padding: 10px 0;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            
+            /* Quick Trade section */
+            .quick-trade-card {
+                padding: 20px;
+            }
+            .quick-trade-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .trade-input-group {
                 flex-direction: column;
             }
+            .quantity-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .trade-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .trade-actions button {
+                width: 100%;
+            }
+            
+            /* Watchlist section */
+            .watchlist-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            /* Learning journey section */
+            .learning-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            /* Action buttons (Quick Trade / New Reflection) */
+            .quick-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .quick-action-btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
-        
+
         @media (max-width: 480px) {
-            body {
-                font-size: 14px;
+            /* Stats Grid - 1 column on mobile */
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
-            .header {
-                padding: 1rem;
+            
+            .stat-card {
+                text-align: center;
             }
-            .logo {
-                font-size: 18px;
+            
+            .stat-header {
+                justify-content: center;
+            }
+            
+            .market-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .quick-trade-header h3 {
+                justify-content: center;
+            }
+            
+            .trade-input {
+                text-align: center;
             }
         }
 
