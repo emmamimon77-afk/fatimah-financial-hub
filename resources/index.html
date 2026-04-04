@@ -214,6 +214,61 @@
             color: #312e81;
             margin-bottom: 10px;
         }
+    
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-header h1 {
+                font-size: 32px;
+            }
+            .arabic {
+                font-size: 24px;
+            }
+            .section-title {
+                font-size: 24px;
+                flex-wrap: wrap;
+            }
+            .learning-stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .contact-form {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
+            }
+            .learning-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 20px 15px;
+            }
+            .resource-card {
+                padding: 15px;
+            }
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }   
+
     </style>
 </head>
 <body>
@@ -445,7 +500,7 @@
                 </div>
                 <ul class="resource-list">
                     <li>
-                        <a href="/resources/islamic-vs-conventional.html"><i class="fas fa-link"></i> Islamic vs Conventional Finance</a>
+                        <a href="/finance-tools/islamic/"><i class="fas fa-link"></i> Islamic vs Conventional Finance</a>
                         <div class="description">Our detailed comparison guide.</div>
                     </li>
                     <li>
@@ -535,7 +590,7 @@
                 </div>
                 
                 <a href="/trading" style="color: #312e81; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;">
-                    Explore Trading Hub <i class="fas fa-arrow-right"></i>
+                    <a href="/trading/learn" style="color: #2e7d32; text-decoration: none; font-weight: 600;">Explore Trading Hub <i class="fas fa-arrow-right"></i></a>
                 </a>
             </div>
 
@@ -589,7 +644,7 @@
                 </div>
                 
                 <a href="/economics" style="color: #312e81; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; margin-top: 10px;">
-                    Explore Economics Hub <i class="fas fa-arrow-right"></i>
+                    <a href="/economics/learn" style="color: #2e7d32; text-decoration: none; font-weight: 600;">Explore Economics Hub <i class="fas fa-arrow-right"></i></a>
                 </a>
             </div>
 
@@ -600,7 +655,7 @@
                 
                 <div style="margin-bottom: 20px;">
                     <a href="/simulator/trade" style="display: block; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: white; text-decoration: none; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.2);">
-                        <i class="fas fa-exchange-alt"></i> Launch Simulator
+                        <a href="/trading/simulator/" style="color: #2e7d32; text-decoration: none; font-weight: 600;"><i class="fas fa-exchange-alt"></i> Launch Simulator</a>
                     </a>
                     <a href="/trading/learn" style="display: block; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: white; text-decoration: none; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.2);">
                         <i class="fas fa-chart-line"></i> Trading Lessons
@@ -643,7 +698,7 @@
         <!-- Call to Action -->
         <div style="text-align: center; margin: 50px 0;">
             <p style="font-size: 18px; color: #64748b; margin-bottom: 20px;">Ready to apply what you're learning?</p>
-            <a href="/simulator/trade" style="background: linear-gradient(135deg, #312e81, #1e1b4b); color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block;">🚀 Launch Simulator</a>
+            <a href="/trading/simulator/" style="background: linear-gradient(135deg, #2e7d32, #1a472a); color: white; padding: 15px 40px; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block;">🚀 Launch Simulator</a>
         </div>
     </main>
 
