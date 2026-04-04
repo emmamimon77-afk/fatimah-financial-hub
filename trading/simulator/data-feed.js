@@ -258,11 +258,12 @@ const DataFeed = (function() {
         getStockPrice: async function(symbol) {
             symbol = symbol.toUpperCase();
             
+            // Check cache first
             if (cache.prices[symbol] && Date.now() - cache.lastFetch[symbol] < config.updateInterval) {
                 return cache.prices[symbol];
             }
             
-            // Handle commodities with live API
+            // Handle commodities
             if (symbol === 'GOLD') {
                 const livePrice = await fetchGoldPrice();
                 const stockData = {
@@ -275,7 +276,6 @@ const DataFeed = (function() {
                     sector: 'Commodity',
                     industry: 'Precious Metals',
                     halalStatus: 'halal',
-                    reason: 'Physical gold is halal as a commodity.',
                     lastUpdated: new Date().toISOString()
                 };
                 cache.prices[symbol] = stockData;
@@ -295,53 +295,26 @@ const DataFeed = (function() {
                     sector: 'Commodity',
                     industry: 'Precious Metals',
                     halalStatus: 'halal',
-                    reason: 'Silver is halal as a commodity.',
                     lastUpdated: new Date().toISOString()
                 };
                 cache.prices[symbol] = stockData;
                 cache.lastFetch[symbol] = Date.now();
                 return stockData;
-             
-                 // For regular stocks - call our server API
-                 try {
-                     const response = await fetch(`/api/stock/${symbol}`);
-                     if (response.ok) {
-                         const data = await response.json();
-                         const stockData = {
-                             symbol: symbol,
-                             name: data.name || symbol,
-                             price: data.price,
-                             change: data.change,
-                             changePercent: data.changePercent,
-                             currency: data.currency || 'USD',
-                             lastUpdated: new Date().toISOString()
-                         };
-                         cache.prices[symbol] = stockData;
-                         cache.lastFetch[symbol] = Date.now();
-                         return stockData;
-                     } else {
-                         throw new Error('API returned ' + response.status);
-                     }
-                 } catch (error) {
-                     console.error(`Error fetching ${symbol}:`, error);
-                     // Fallback to mock data if API fails
-                     return getMockStockPrice(symbol);
-                 }
             }
             
+            // Handle Oil (WTI)
             if (symbol === 'OIL') {
-                const livePrice = await fetchOilPrice();
+                const oilData = await fetchOilPrice();
                 const stockData = {
                     symbol: 'OIL',
-                    name: 'WTI Crude Oil',
-                    price: livePrice.price,
-                    change: livePrice.change,
-                    changePercent: livePrice.changePercent,
+                    name: 'Crude Oil (WTI)',
+                    price: oilData.price,
+                    change: oilData.change,
+                    changePercent: oilData.changePercent,
                     currency: 'USD',
                     sector: 'Commodity',
                     industry: 'Energy',
                     halalStatus: 'halal',
-                    reason: 'Physical oil is halal as a commodity.',
                     lastUpdated: new Date().toISOString()
                 };
                 cache.prices[symbol] = stockData;
@@ -350,18 +323,17 @@ const DataFeed = (function() {
             }
             
             if (symbol === 'BRENT') {
-                const livePrice = await fetchBrentPrice();
+                const brentData = await fetchBrentPrice();
                 const stockData = {
                     symbol: 'BRENT',
                     name: 'Brent Crude Oil',
-                    price: livePrice.price,
-                    change: livePrice.change,
-                    changePercent: livePrice.changePercent,
+                    price: brentData.price,
+                    change: brentData.change,
+                    changePercent: brentData.changePercent,
                     currency: 'USD',
                     sector: 'Commodity',
                     industry: 'Energy',
                     halalStatus: 'halal',
-                    reason: 'Physical oil is halal as a commodity.',
                     lastUpdated: new Date().toISOString()
                 };
                 cache.prices[symbol] = stockData;
@@ -370,36 +342,70 @@ const DataFeed = (function() {
             }
             
             if (symbol === 'NATGAS') {
-                const livePrice = await fetchNatGasPrice();
+                const natgasData = await fetchNatGasPrice();
                 const stockData = {
                     symbol: 'NATGAS',
                     name: 'Natural Gas',
-                    price: livePrice.price,
-                    change: livePrice.change,
-                    changePercent: livePrice.changePercent,
+                    price: natgasData.price,
+                    change: natgasData.change,
+                    changePercent: natgasData.changePercent,
                     currency: 'USD',
                     sector: 'Commodity',
                     industry: 'Energy',
                     halalStatus: 'halal',
-                    reason: 'Natural gas is halal as a commodity.',
                     lastUpdated: new Date().toISOString()
                 };
                 cache.prices[symbol] = stockData;
                 cache.lastFetch[symbol] = Date.now();
                 return stockData;
             }
-           
-                
-            // For regular stocks
-            if (!stocks[symbol]) initializeStock(symbol);
-            return stocks[symbol];
+            
+            // For regular stocks - call our server API
+            try {
+                const response = await fetch('/api/stock/' + symbol);
+                if (response.ok) {
+                    const data = await response.json();
+                    const stockData = {
+                        symbol: symbol,
+                        name: data.name || symbol,
+                        price: data.price,
+                        change: data.change,
+                        changePercent: data.changePercent,
+                        currency: data.currency || 'USD',
+                        lastUpdated: new Date().toISOString()
+                    };
+                    cache.prices[symbol] = stockData;
+                    cache.lastFetch[symbol] = Date.now();
+                    return stockData;
+                } else {
+                    throw new Error('API returned ' + response.status);
+                }
+            } catch (error) {
+                console.error('Error fetching stock ' + symbol + ':', error);
+                // Fallback to realistic mock data
+                const fallbackStock = {
+                    'AAPL': { price: 255.92, change: 0.29, changePercent: 0.11, name: 'Apple Inc.' },
+                    'MSFT': { price: 420.00, change: 0.50, changePercent: 0.12, name: 'Microsoft Corporation' },
+                    'GOOGL': { price: 175.00, change: 0.30, changePercent: 0.17, name: 'Alphabet Inc.' },
+                    'TSLA': { price: 400.00, change: -2.00, changePercent: -0.50, name: 'Tesla Inc.' },
+                    'JNJ': { price: 156.00, change: 0.20, changePercent: 0.13, name: 'Johnson & Johnson' },
+                    'ADBE': { price: 500.00, change: 1.00, changePercent: 0.20, name: 'Adobe Inc.' },
+                    'CRM': { price: 250.00, change: 0.50, changePercent: 0.20, name: 'Salesforce Inc.' },
+                    'NVDA': { price: 850.00, change: 5.00, changePercent: 0.59, name: 'NVIDIA Corporation' },
+                    'AMD': { price: 169.11, change: 1.22, changePercent: 0.73, name: 'Advanced Micro Devices' }
+                };
+                return fallbackStock[symbol] || { price: 100, change: 0, changePercent: 0, name: symbol };
+            }
         },
+
 
         getMultiplePrices: async function(symbols) {
             const results = {};
             for (const symbol of symbols) results[symbol] = await this.getStockPrice(symbol);
             return results;
         },
+
+
 
         getHistoricalData: async function(symbol, days = 30) {
             symbol = symbol.toUpperCase();
