@@ -156,7 +156,7 @@ const DataFeed = (function() {
             'ADBE': { price: 500.00, change: 1.00, changePercent: 0.20, name: 'Adobe Inc.' },
             'CRM': { price: 250.00, change: 0.50, changePercent: 0.20, name: 'Salesforce Inc.' },
             'NVDA': { price: 850.00, change: 5.00, changePercent: 0.59, name: 'NVIDIA Corporation' },
-            'AMD': { price: 169.11, change: 1.22, changePercent: 0.73, name: 'Advanced Micro Devices' } 
+            'AMD': { price: 169.11, change: 1.22, changePercent: 0.73, name: 'Advanced Micro Devices' }, 
             'GOLD': { price: 4565.50, change: 12.50, changePercent: 0.27 },
             'SILVER': { price: 71.13, change: 0.32, changePercent: 0.45 },
             'OIL': { price: 82.34, change: -1.25, changePercent: -1.49 },
