@@ -269,6 +269,32 @@
             }
         }   
 
+        /* Mobile responsive fixes for existing inline styles */
+        @media (max-width: 768px) {
+            /* Fix for Your Learning Journey section */
+            div[style*="display: flex; justify-content: space-between;"] {
+                flex-direction: column !important;
+                text-align: center;
+            }
+            
+            /* Fix for the 3-column grid in How to Use */
+            div[style*="display: grid; grid-template-columns: repeat(3, 1fr);"] {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+            
+            /* Fix for stats display */
+            div[style*="display: flex; gap: 30px;"] {
+                flex-direction: column !important;
+                gap: 15px !important;
+            }
+            
+            /* Fix Quick Access buttons */
+            div[style*="background: linear-gradient(135deg, #1e293b"] > div > div {
+                flex-direction: column !important;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -654,8 +680,8 @@
                 <p style="color: #cbd5e1; margin-bottom: 25px;">Jump directly to any lesson or tool</p>
                 
                 <div style="margin-bottom: 20px;">
-                    <a href="/simulator/trade" style="display: block; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: white; text-decoration: none; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.2);">
-                        <a href="/trading/simulator/" style="color: #2e7d32; text-decoration: none; font-weight: 600;"><i class="fas fa-exchange-alt"></i> Launch Simulator</a>
+                    <a href="/trading/simulator/" style="display: block; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: white; text-decoration: none; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.2);">
+                       <i class="fas fa-exchange-alt"></i> Launch Simulator
                     </a>
                     <a href="/trading/learn" style="display: block; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: white; text-decoration: none; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.2);">
                         <i class="fas fa-chart-line"></i> Trading Lessons
