@@ -1068,6 +1068,56 @@
                 padding: 10px;
                 justify-content: center;
             }
+            
+            /* Fix for top stats cards (Cash Balance, Ethical Score, Alerts) */
+            .summary-grid {
+                flex-direction: column !important;
+                gap: 15px !important;
+            }
+            .summary-item {
+                width: 100% !important;
+                text-align: center;
+            }
+            
+            /* Fix for Place Order section */
+            .order-panel, .place-order-card {
+                padding: 20px !important;
+            }
+            .action-buttons {
+                flex-direction: row !important;
+                gap: 10px !important;
+            }
+            .action-btn {
+                flex: 1 !important;
+                text-align: center;
+            }
+            .form-group {
+                margin-bottom: 15px !important;
+            }
+            .order-info {
+                padding: 15px !important;
+            }
+            .info-row {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 5px !important;
+            }
+            .place-trade-btn {
+                width: 100% !important;
+                padding: 14px !important;
+            }
+            
+            /* Fix for two-column layouts */
+            .trade-layout, .main-content-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            
+            /* Fix for watchlist and stock details */
+            .watchlist-panel, .stock-details-panel {
+                width: 100% !important;
+            }
+            
             .stats-grid, .portfolio-grid, .journal-grid {
                 grid-template-columns: 1fr !important;
             }
@@ -1085,6 +1135,12 @@
             }
             .logo {
                 font-size: 18px;
+            }
+            .summary-value {
+                font-size: 24px !important;
+            }
+            .form-input, .form-select {
+                font-size: 16px !important;
             }
         }
 
