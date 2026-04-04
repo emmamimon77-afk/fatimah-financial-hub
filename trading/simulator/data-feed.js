@@ -148,6 +148,15 @@ const DataFeed = (function() {
     // Mock prices for fallback (realistic current values)
     function getMockPrice(symbol) {
         const mockPrices = {
+            'AAPL': { price: 255.92, change: 0.29, changePercent: 0.11, name: 'Apple Inc.' },
+            'MSFT': { price: 420.00, change: 0.50, changePercent: 0.12, name: 'Microsoft Corporation' },
+            'GOOGL': { price: 175.00, change: 0.30, changePercent: 0.17, name: 'Alphabet Inc.' },
+            'TSLA': { price: 400.00, change: -2.00, changePercent: -0.50, name: 'Tesla Inc.' },
+            'JNJ': { price: 156.00, change: 0.20, changePercent: 0.13, name: 'Johnson & Johnson' },
+            'ADBE': { price: 500.00, change: 1.00, changePercent: 0.20, name: 'Adobe Inc.' },
+            'CRM': { price: 250.00, change: 0.50, changePercent: 0.20, name: 'Salesforce Inc.' },
+            'NVDA': { price: 850.00, change: 5.00, changePercent: 0.59, name: 'NVIDIA Corporation' },
+            'AMD': { price: 169.11, change: 1.22, changePercent: 0.73, name: 'Advanced Micro Devices' } 
             'GOLD': { price: 4565.50, change: 12.50, changePercent: 0.27 },
             'SILVER': { price: 71.13, change: 0.32, changePercent: 0.45 },
             'OIL': { price: 82.34, change: -1.25, changePercent: -1.49 },
@@ -292,6 +301,32 @@ const DataFeed = (function() {
                 cache.prices[symbol] = stockData;
                 cache.lastFetch[symbol] = Date.now();
                 return stockData;
+             
+                 // For regular stocks - call our server API
+                 try {
+                     const response = await fetch(`/api/stock/${symbol}`);
+                     if (response.ok) {
+                         const data = await response.json();
+                         const stockData = {
+                             symbol: symbol,
+                             name: data.name || symbol,
+                             price: data.price,
+                             change: data.change,
+                             changePercent: data.changePercent,
+                             currency: data.currency || 'USD',
+                             lastUpdated: new Date().toISOString()
+                         };
+                         cache.prices[symbol] = stockData;
+                         cache.lastFetch[symbol] = Date.now();
+                         return stockData;
+                     } else {
+                         throw new Error('API returned ' + response.status);
+                     }
+                 } catch (error) {
+                     console.error(`Error fetching ${symbol}:`, error);
+                     // Fallback to mock data if API fails
+                     return getMockStockPrice(symbol);
+                 }
             }
             
             if (symbol === 'OIL') {
@@ -353,7 +388,8 @@ const DataFeed = (function() {
                 cache.lastFetch[symbol] = Date.now();
                 return stockData;
             }
-            
+           
+                
             // For regular stocks
             if (!stocks[symbol]) initializeStock(symbol);
             return stocks[symbol];
