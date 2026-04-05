@@ -1244,6 +1244,27 @@ app.post('/api/track-pageview', express.json(), (req, res) => {
 });
 
 // ========== ECONOMICS ROUTES ==========
+
+// Redirect economics level paths to main economics page (ADD THESE)
+app.get('/economics/learn/beginner', (req, res) => {
+    res.redirect(301, '/economics');
+});
+app.get('/economics/learn/beginner/', (req, res) => {
+    res.redirect(301, '/economics');
+});
+app.get('/economics/learn/intermediate', (req, res) => {
+    res.redirect(301, '/economics');
+});
+app.get('/economics/learn/intermediate/', (req, res) => {
+    res.redirect(301, '/economics');
+});
+app.get('/economics/learn/advanced', (req, res) => {
+    res.redirect(301, '/economics');
+});
+app.get('/economics/learn/advanced/', (req, res) => {
+    res.redirect(301, '/economics');
+});
+
 // Economics Hub
 app.get('/economics', (req, res) => {
     res.sendFile(path.join(__dirname, 'economics', 'index.html'));
@@ -1450,10 +1471,6 @@ app.get('/simulator/:page', (req, res) => {
     }
 });
 
-// Economics Education
-app.get('/economics', (req, res) => {
-  res.sendFile(path.join(__dirname, 'economics', 'index.html'));
-});
 
 // Educational Resources
 app.get('/resources', (req, res) => {
