@@ -1115,11 +1115,23 @@
                 padding: 10px !important;
             }
             
-            /* Ensure the right column (order form) takes full width */
-            .main-content > div:last-child,
-            .main-content > div > div:last-child {
+            /* Ensure order card is visible and full width */
+            .order-card {
                 width: 100% !important;
-            }       
+                display: block !important;
+                visibility: visible !important;
+            }
+            
+            /* Fix the main layout container */
+            .main-content {
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            
+            .main-content > div {
+                width: 100% !important;
+            }
+
      
             /* Fix for top stats cards (Cash Balance, Ethical Score, Alerts) */
             .summary-grid {
