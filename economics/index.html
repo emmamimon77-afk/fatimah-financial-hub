@@ -596,7 +596,45 @@
                 text-align: center;
             }
         }
-  
+        /* Force mobile responsive for inline grid styles */
+        @media (max-width: 768px) {
+            /* Override the inline grid for learning paths (3 columns → 1 column) */
+            div[style*="grid-template-columns: repeat(3, 1fr)"] {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            
+            /* Override the complete lesson list grid (5 columns → 2 columns on tablet, 1 on mobile) */
+            div[style*="grid-template-columns: repeat(5, 1fr)"] {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px !important;
+            }
+            
+            /* Economic insights section - already uses class, but ensure it stacks */
+            .insights-box {
+                padding: 15px !important;
+            }
+            
+            .insights-box ul li {
+                font-size: 13px !important;
+                margin-bottom: 12px !important;
+                word-break: break-word;
+            }
+            
+            /* Resources section (Learn Economics: Free Resources) */
+            div[style*="grid-template-columns: repeat(3, 1fr)"][style*="gap: 2rem"] {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            /* Complete lesson list: 2 columns → 1 column on very small screens */
+            div[style*="grid-template-columns: repeat(5, 1fr)"] {
+                grid-template-columns: 1fr !important;
+            }
+        }        
+
     </style>
 </head>
 <body>
