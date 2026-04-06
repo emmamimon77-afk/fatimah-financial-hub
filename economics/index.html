@@ -496,8 +496,29 @@
                 grid-template-columns: 1fr;
             }
 
+            /* Fix navigation to wrap on mobile instead of hiding */
+            .navbar {
+                flex-direction: column !important;
+                gap: 15px !important;
+                padding: 15px !important;
+            }
             .nav-links {
-                display: none;
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                gap: 12px !important;
+            }
+            .nav-links a {
+                font-size: 13px !important;
+                padding: 5px 10px !important;
+            }
+            .dropdown-content {
+                position: static !important;
+                display: none !important;
+            }
+            /* Keep dropdowns accessible but simpler on mobile */
+            .dropdown:hover .dropdown-content {
+                display: none !important;
             }
 
             .page-header h1 {
