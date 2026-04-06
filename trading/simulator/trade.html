@@ -1124,6 +1124,48 @@
             .market-overview {
                 flex-direction: column;
             }
+     
+            /* Fix main layout - make watchlist and stock details stack */
+            .watchlist-section, .stock-details-section {
+                width: 100% !important;
+            }
+            
+            /* Make the chart container responsive */
+            .chart-container {
+                height: 300px !important;
+                min-height: 300px !important;
+            }
+            
+            /* Fix indicators grid - make it wrap on mobile */
+            .indicators-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+            
+            /* Fix support/resistance grid */
+            .sr-grid {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
+            
+            /* Make news items stack better */
+            #commodityNews > div {
+                flex-direction: column !important;
+                text-align: center;
+            }
+            
+            /* Ensure the main container has proper padding */
+            .container, .main-container {
+                padding: 10px !important;
+            }
+            
+            /* Fix any overflow issues */
+            body {
+                overflow-x: hidden !important;
+            }
+            .main-content, .trade-container {
+                overflow-x: hidden !important;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1141,6 +1183,19 @@
             }
             .form-input, .form-select {
                 font-size: 16px !important;
+            }
+
+            /* Further adjustments for very small screens */
+            .indicators-grid {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .chart-container {
+                height: 250px !important;
+            }
+            
+            .sr-card {
+                padding: 10px !important;
             }
         }
 
