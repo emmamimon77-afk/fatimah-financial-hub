@@ -1068,7 +1068,59 @@
                 padding: 10px;
                 justify-content: center;
             }
+           
+            /* Fix top stats cards - make them stack vertically */
+            .summary-right {
+                flex-direction: column !important;
+                gap: 15px !important;
+                width: 100% !important;
+            }
             
+            .summary-item {
+                width: 100% !important;
+                text-align: center !important;
+                padding: 15px !important;
+            }
+            
+            /* Fix search box - make it full width */
+            .search-input-wrapper {
+                flex-direction: column !important;
+                width: 100% !important;
+            }
+            
+            .search-input {
+                width: 100% !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .search-btn {
+                width: 100% !important;
+            }
+            
+            .popular-tags {
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                gap: 8px !important;
+            }
+            
+            /* Fix Place Order section - make it full width */
+            .order-card {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 15px !important;
+            }
+            
+            /* Fix the main layout (watchlist and order side by side) */
+            .main-content {
+                padding: 10px !important;
+            }
+            
+            /* Ensure the right column (order form) takes full width */
+            .main-content > div:last-child,
+            .main-content > div > div:last-child {
+                width: 100% !important;
+            }       
+     
             /* Fix for top stats cards (Cash Balance, Ethical Score, Alerts) */
             .summary-grid {
                 flex-direction: column !important;
@@ -1196,6 +1248,25 @@
             
             .sr-card {
                 padding: 10px !important;
+            }
+
+            /* Extra small screen adjustments */
+            .summary-value {
+                font-size: 20px !important;
+            }
+            
+            .popular-tag {
+                font-size: 12px !important;
+                padding: 5px 10px !important;
+            }
+            
+            .order-card {
+                padding: 10px !important;
+            }
+            
+            .action-btn {
+                padding: 10px !important;
+                font-size: 14px !important;
             }
         }
 
