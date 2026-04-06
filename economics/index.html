@@ -504,6 +504,99 @@
                 font-size: 2rem;
             }
         }
+        /* Additional Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            /* Fix learning paths grid (Beginner/Intermediate/Advanced) */
+            .learning-paths-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            
+            /* Fix insights grid */
+            .insights-grid {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+            
+            /* Fix resources grid (free courses, data sources, islamic economics) */
+            .resources-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            
+            /* Make buttons full width on mobile */
+            .start-path-btn, .resource-btn {
+                width: 100%;
+                text-align: center;
+                display: block;
+            }
+            
+            /* Adjust font sizes for mobile */
+            .page-header h1 {
+                font-size: 1.8rem !important;
+            }
+            
+            .section-title {
+                font-size: 1.4rem !important;
+                text-align: center;
+            }
+            
+            /* Ensure cards stack properly */
+            .concept-card, .indicator-card {
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bismillah {
+                font-size: 1.5rem !important;
+            }
+            
+            .page-header h1 {
+                font-size: 1.5rem !important;
+            }
+        }
+
+        /* Footer Styles */
+        .economics-footer {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 40px 20px;
+            margin-top: 60px;
+        }
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .footer-section h4 {
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .footer-section a:hover {
+            color: #ffd700;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #334155;
+        }
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+  
     </style>
 </head>
 <body>
@@ -1114,5 +1207,38 @@
             createSampleChart('okunChart', 'GDP Impact %', [0, -0.5, -1.0, -1.5, -2.0, -2.5]);
         });
     </script>
+    <!-- Footer -->
+    <footer class="economics-footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>Fatimah Financial Hub</h4>
+                <p>Building ethical traders with Islamic principles at the core. Learn, practice, and grow with confidence.</p>
+                <a href="https://fatimah-web.onrender.com/" style="margin-top: 10px; color: #ffd700;">Visit Our Original Hub →</a>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/about">About</a>
+                <a href="/trading">Trading</a>
+                <a href="/simulator">Simulator</a>
+                <a href="/economics">Economics</a>
+                <a href="/finance-tools">Tools</a>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <a href="/about">About Us</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Use</a>
+                <a href="/resources">Resources</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>الحمد لله</p>
+            <p>May this knowledge help you make informed and ethical investment decisions</p>
+            <p>© 1447-1448 AH / 2026 CE Fatimah Financial Hub</p>
+            <p style="font-size: 0.8rem; margin-top: 10px;">Shariah-Compliant • FRED API • Real-Time Data</p>
+        </div>
+    </footer>
+
 </body>
 </html>
