@@ -881,6 +881,7 @@
         }
         /* Mobile Responsive Additions */
         @media (max-width: 768px) {
+            /* Navigation */
             .nav {
                 flex-direction: column;
                 gap: 15px;
@@ -889,7 +890,7 @@
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 15px;
+                gap: 12px;
             }
             .sub-nav-content {
                 flex-wrap: wrap;
@@ -897,23 +898,127 @@
                 padding: 10px;
                 justify-content: center;
             }
-            .stats-grid, .portfolio-grid, .journal-grid {
+            
+            /* Quran verse section */
+            .quran-verse {
+                padding: 20px !important;
+            }
+            .arabic {
+                font-size: 20px !important;
+            }
+            
+            /* Journal header stats - 3 cards stack vertically */
+            .header-stats {
+                flex-direction: column !important;
+                gap: 15px !important;
+            }
+            .header-stat {
+                width: 100% !important;
+                justify-content: center !important;
+                text-align: center !important;
+            }
+            .header-stat .stat-icon {
+                margin-right: 10px !important;
+            }
+            .stat-info h4 {
+                font-size: 14px !important;
+            }
+            .stat-info p {
+                font-size: 24px !important;
+            }
+            
+            /* Journal grid - 2 columns become 1 column */
+            .journal-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            
+            /* Emotional grid - 4 columns become 2 columns */
+            .emotional-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+            .emotional-btn {
+                padding: 10px !important;
+                font-size: 12px !important;
+            }
+            
+            /* Sentiment slider */
+            .sentiment-label {
+                flex-direction: column !important;
+                gap: 5px !important;
+                text-align: center !important;
+            }
+            .sentiment-slider {
+                width: 100% !important;
+            }
+            
+            /* Lessons grid */
+            .lessons-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 10px !important;
+            }
+            
+            /* Form elements */
+            .form-select, .form-textarea {
+                font-size: 14px !important;
+            }
+            .save-btn {
+                width: 100% !important;
+                padding: 12px !important;
+            }
+            
+            /* Entries card header */
+            .entries-header {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 10px !important;
+            }
+            .entries-actions {
+                justify-content: center !important;
+            }
+            
+            /* Sentiment chart card */
+            .sentiment-chart-card .chart-header {
+                flex-direction: column !important;
+                gap: 10px !important;
+                text-align: center !important;
+            }
+            .chart-container {
+                height: 250px !important;
+            }
+            
+            /* Insights grid - 4 cards become 2 columns */
+            .insights-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 15px !important;
+            }
+            .insight-card {
+                padding: 15px !important;
+            }
+            .insight-title {
+                font-size: 14px !important;
+            }
+            .insight-text {
+                font-size: 12px !important;
+            }
+        }        
+
+        @media (max-width: 480px) {
+            .emotional-grid {
                 grid-template-columns: 1fr !important;
             }
-            .market-overview {
-                flex-direction: column;
+            .lessons-grid {
+                grid-template-columns: 1fr !important;
             }
-        }
-        
-        @media (max-width: 480px) {
-            body {
-                font-size: 14px;
+            .insights-grid {
+                grid-template-columns: 1fr !important;
             }
-            .header {
-                padding: 1rem;
+            .arabic {
+                font-size: 16px !important;
             }
-            .logo {
-                font-size: 18px;
+            .journal-header h1 {
+                font-size: 24px !important;
             }
         }
 
