@@ -758,6 +758,67 @@
             .market-overview {
                 flex-direction: column;
             }
+           
+            /* Fix stat cards - make them stack and center */
+            .stats-grid {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+            .stat-card {
+                text-align: center !important;
+                padding: 15px !important;
+            }
+            .stat-header {
+                justify-content: center !important;
+            }
+            .stat-value {
+                font-size: 28px !important;
+            }
+            
+            /* Fix the two-column layout (Portfolio Performance and Sector Allocation) */
+            .portfolio-metrics {
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+            .performance-chart, .sector-allocation {
+                width: 100% !important;
+            }
+            
+            /* Fix risk metrics grid (Beta, Volatility, Sharpe, Max Drawdown) */
+            .risk-metrics-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 15px !important;
+            }
+            
+            /* Fix current positions table - allow horizontal scroll */
+            .positions-table-container {
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .positions-table {
+                min-width: 800px !important;
+            }
+            
+            /* Fix recent transactions table */
+            .transactions-table-container {
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .transactions-table {
+                min-width: 600px !important;
+            }
+            
+            /* Fix ethical score card */
+            .ethical-score-card {
+                padding: 20px !important;
+                text-align: center !important;
+            }
+            
+            /* Fix tax-loss harvesting section */
+            .tax-loss-card {
+                padding: 15px !important;
+                text-align: center !important;
+            }
         }
         
         @media (max-width: 480px) {
@@ -769,6 +830,17 @@
             }
             .logo {
                 font-size: 18px;
+            }
+
+            /* Extra small screen adjustments */
+            .stat-value {
+                font-size: 24px !important;
+            }
+            .risk-metrics-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .ethical-score-value {
+                font-size: 36px !important;
             }
         }
 
