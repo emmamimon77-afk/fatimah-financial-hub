@@ -736,6 +736,7 @@
         }
         /* Mobile Responsive Additions */
         @media (max-width: 768px) {
+            /* Navigation */
             .nav {
                 flex-direction: column;
                 gap: 15px;
@@ -744,7 +745,7 @@
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 15px;
+                gap: 12px;
             }
             .sub-nav-content {
                 flex-wrap: wrap;
@@ -752,14 +753,19 @@
                 padding: 10px;
                 justify-content: center;
             }
-            .stats-grid, .portfolio-grid, .journal-grid {
-                grid-template-columns: 1fr !important;
-            }
-            .market-overview {
+            
+            /* Page header */
+            .page-header {
                 flex-direction: column;
+                text-align: center;
+                gap: 15px;
             }
-           
-            /* Fix stat cards - make them stack and center */
+            .header-actions {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            /* Stats Grid - 4 cards stack vertically */
             .stats-grid {
                 grid-template-columns: 1fr !important;
                 gap: 15px !important;
@@ -775,74 +781,112 @@
                 font-size: 28px !important;
             }
             
-            /* Fix the two-column layout (Portfolio Performance and Sector Allocation) */
-            .portfolio-metrics {
+            /* Ethical Score Card */
+            .ethical-score-card {
                 flex-direction: column !important;
-                gap: 20px !important;
+                text-align: center !important;
+                padding: 20px !important;
             }
-            .performance-chart, .sector-allocation {
+            .score-left {
+                text-align: center !important;
+            }
+            .score-right {
                 width: 100% !important;
+                margin-top: 15px !important;
+            }
+            .score-number {
+                font-size: 48px !important;
             }
             
-            /* Fix risk metrics grid (Beta, Volatility, Sharpe, Max Drawdown) */
-            .risk-metrics-grid {
+            /* Charts Grid - 2 columns become 1 column */
+            .charts-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+            .chart-card {
+                width: 100% !important;
+            }
+            .chart-header {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 10px !important;
+            }
+            .chart-period {
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+            }
+            .period-btn {
+                padding: 6px 12px !important;
+                font-size: 12px !important;
+            }
+            
+            /* Risk Metrics Grid - 4 cards become 2x2 */
+            .risk-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 15px !important;
             }
+            .risk-card {
+                text-align: center !important;
+                padding: 15px !important;
+            }
+            .risk-header {
+                justify-content: center !important;
+            }
+            .risk-value {
+                font-size: 22px !important;
+            }
             
-            /* Fix current positions table - allow horizontal scroll */
-            .positions-table-container {
+            /* Tax Card */
+            .tax-card {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 15px !important;
+                padding: 20px !important;
+            }
+            .tax-btn {
+                align-self: center !important;
+            }
+            
+            /* Section Headers */
+            .section-header {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 15px !important;
+            }
+            .table-controls {
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+            }
+            
+            /* Tables - horizontal scroll */
+            .table-container {
                 overflow-x: auto !important;
                 -webkit-overflow-scrolling: touch;
             }
-            .positions-table {
+            .table-container table {
                 min-width: 800px !important;
             }
-            
-            /* Fix recent transactions table */
-            .transactions-table-container {
-                overflow-x: auto !important;
-                -webkit-overflow-scrolling: touch;
+            th, td {
+                padding: 8px !important;
+                font-size: 12px !important;
             }
-            .transactions-table {
-                min-width: 600px !important;
-            }
-            
-            /* Fix ethical score card */
-            .ethical-score-card {
-                padding: 20px !important;
-                text-align: center !important;
-            }
-            
-            /* Fix tax-loss harvesting section */
-            .tax-loss-card {
-                padding: 15px !important;
-                text-align: center !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            body {
-                font-size: 14px;
-            }
-            .header {
-                padding: 1rem;
-            }
-            .logo {
-                font-size: 18px;
-            }
+        }        
 
-            /* Extra small screen adjustments */
+        @media (max-width: 480px) {
+            .risk-grid {
+                grid-template-columns: 1fr !important;
+            }
             .stat-value {
                 font-size: 24px !important;
             }
-            .risk-metrics-grid {
-                grid-template-columns: 1fr !important;
-            }
-            .ethical-score-value {
+            .score-number {
                 font-size: 36px !important;
             }
-        }
+            .chart-period .period-btn {
+                padding: 4px 8px !important;
+                font-size: 10px !important;
+            }
+        }       
 
         /* Footer Styles */
         .simulator-footer {
